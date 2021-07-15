@@ -4,6 +4,7 @@ import {View, StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
 import UserDetails from './components/UserDetails/UserDetails';
 import store from './redux/store';
+import FlashMessage from 'react-native-flash-message';
 
 // components
 import Login from './screens';
@@ -17,6 +18,7 @@ const App = () => (
       <UserDetails />
 
       <Redirect from="/" to="/login" />
+      <FlashMessage position="top" />
     </NativeRouter>
   </Provider>
 

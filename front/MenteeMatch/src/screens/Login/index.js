@@ -1,14 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   TextInput,
   TouchableOpacity,
   Image,
-  Alert,
+  Button,
   Text,
 } from 'react-native';
 
 import {Link} from 'react-router-native';
+import {loginMessage} from '../../utils';
 
 //redux
 import {useDispatch} from 'react-redux';
@@ -24,7 +25,10 @@ const Login = () => {
   const user = {email, password};
 
   const handleSubmit = userData => {
-    dispatch(userLogin(userData));
+    dispatch(userLogin(userData)).then(({payload}) => {
+      if (payload) loginMessage(true);
+      else loginMessage(false);
+    });
   };
 
   return (
