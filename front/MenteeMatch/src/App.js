@@ -16,23 +16,14 @@ import FlashMessage from 'react-native-flash-message';
 import Login from './screens';
 
 const App = () => {
-  const history = useHistory();
-  React.useEffect(() => {
-    //storeData({name:"test"},"user_key")
-    //getData("user_key").then(value => console.log(value))
-    setTimeout(() => {
-      history.push('/login');
-    }, 3000);
-  }, []);
-
   return (
     <Provider store={store}>
       <NativeRouter>
         <View style={styles.container}>
           <Switch>
-            <Route path="/" component={firstScreen} />
-            <Route path="/login" component={Login} />
-            <Route path="/userDetail" component={UserDetails} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/userDetail" component={UserDetails} />
+            <Route exact path="/" component={firstScreen} />
           </Switch>
         </View>
         <FlashMessage position="top" />
