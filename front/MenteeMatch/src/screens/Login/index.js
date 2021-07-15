@@ -4,22 +4,32 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  Alert,
+  Button,
   Text,
 } from 'react-native';
+
 import {Link} from 'react-router-native';
+import {loginMessage} from '../../utils';
+
+//redux
+import {useDispatch} from 'react-redux';
+import {userLogin} from '../../redux/Reducers/UserReducer';
 
 import styles from './styles';
-
 import logo from '../../utils/logo.png';
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
+  const user = {email, password};
 
-  //////
-  //handle submit login
-  //////
+  const handleSubmit = userData => {
+    dispatch(userLogin(userData)).then(({payload}) => {
+      if (payload) loginMessage(true);
+      else loginMessage(false);
+    });
+  };
 
   return (
     <View style={styles.login}>
@@ -48,17 +58,13 @@ const Login = () => {
           activeOpacity={0.7}
           style={styles.button}
           title="Log in"
-          onPress={() => Alert.alert('logueado')}>
+          onPress={() => handleSubmit(user)}>
           <Text style={styles.buttonText}>Log in</Text>
         </TouchableOpacity>
 
         <Link component={TouchableOpacity} to="/register">
           <Text style={styles.footer}>Your are not login? Register here!</Text>
         </Link>
-        {/* 
-        <Link component={TouchableOpacity} to="/register">
-          <Text style={styles.footer}>Your are not login? Register here!</Text>
-        </Link> */}
       </View>
     </View>
   );
