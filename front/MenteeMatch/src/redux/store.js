@@ -1,14 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { selectedUserReducer } from './selectedUser'
-import { userReducer } from './user'
-import { usersReducer } from './users'
+import {configureStore} from '@reduxjs/toolkit';
+
+import {selectedUserReducer} from './Reducers/selectedUser';
+import {userReducer} from './Reducers/UserReducer';
+import {usersReducer} from './Reducers/usersReducer';
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     users: usersReducer,
     selectedUser: selectedUserReducer,
-  }
-})
+  },
+});
 
-export default store
+export default store;
