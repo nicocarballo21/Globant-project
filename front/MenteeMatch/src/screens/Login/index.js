@@ -24,36 +24,42 @@ const Login = () => {
   return (
     <View style={styles.login}>
       <View>
-        <Image style={styles.tinyLogo} source={logo} />
+        <Image style={styles.logo} source={logo} />
       </View>
 
-      <TextInput
-        onChangeText={setemail}
-        style={styles.input}
-        value={email}
-        placeholder="Email"
-        keyboardType="email-address"
-      />
-      <TextInput
-        onChangeText={setpassword}
-        style={styles.input}
-        value={password}
-        secureTextEntry={true}
-        placeholder="Password"
-        textContentType="password"
-      />
+      <View style={styles.inputs}>
+        <TextInput
+          onChangeText={setemail}
+          style={styles.input}
+          value={email}
+          placeholder="Email"
+          keyboardType="email-address"
+        />
+        <TextInput
+          onChangeText={setpassword}
+          style={styles.input}
+          value={password}
+          secureTextEntry={true}
+          placeholder="Password"
+          textContentType="password"
+        />
 
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={styles.button}
-        title="Log in"
-        onPress={() => Alert.alert('logueado')}>
-        <Text style={styles.buttonText}>Log in</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.button}
+          title="Log in"
+          onPress={() => Alert.alert('logueado')}>
+          <Text style={styles.buttonText}>Log in</Text>
+        </TouchableOpacity>
 
-      <Link to="/register">
-        <Text style={styles.footer}>Your are not login? Register here!</Text>
-      </Link>
+        <Link component={TouchableOpacity} to="/register">
+          <Text style={styles.footer}>Your are not login? Register here!</Text>
+        </Link>
+        {/* 
+        <Link component={TouchableOpacity} to="/register">
+          <Text style={styles.footer}>Your are not login? Register here!</Text>
+        </Link> */}
+      </View>
     </View>
   );
 };

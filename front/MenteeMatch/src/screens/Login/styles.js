@@ -1,40 +1,35 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: 'cadetblue',
-  },
-
   login: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     backgroundColor: 'cadetblue',
   },
 
-  tinyLogo: {
-    width: 100,
-    height: 100,
-    backgroundColor: 'black',
-    borderRadius: 50,
+  logo: {
+    width: 150,
+    height: 150,
+  },
+
+  inputs: {
+    width: '100%',
+    alignItems: 'center',
   },
 
   input: {
-    width: '70%',
+    width: '80%',
     height: 50,
-    borderRadius: 10,
     padding: 15,
-    borderWidth: 1,
     borderColor: 'white',
+    borderBottomWidth: 1,
     marginBottom: 20,
   },
 
   button: {
     width: '50%',
-    elevation: 8,
+    elevation: 10,
     backgroundColor: '#009688',
     borderRadius: 30,
     paddingVertical: 10,
