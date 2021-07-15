@@ -4,15 +4,14 @@ import styles from './styles'
 
 
 
-export default function Home() {
+export default function Matcher() {
 
     const shiftBestTwo = (arr) => {
 
     }
 
-    const user = useSelector(store => store.user)
-    const users = useSelector(store => store.users)
-    let posibles = shiftBestTwo(users, user)
+    let { isLoggedIn, user, users } = useSelector(store => store);
+    // let posibles = shiftBestTwo(users, user)
 
     const handlePressBlock = () => {
         console.log("Presionaste en UserBlock")
