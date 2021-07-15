@@ -1,8 +1,13 @@
 import React from 'react';
-import {NativeRouter, Route, Redirect} from 'react-router-native';
+
+import {useHistory} from 'react-router-dom';
+
+import {NativeRouter, Route, Switch} from 'react-router-native';
 import {View, StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
+
 import UserDetails from './components/UserDetails/UserDetails';
+import firstScreen from './components/firstScreen';
 import store from './redux/store';
 import FlashMessage from 'react-native-flash-message';
 //import { storeData, getData } from './utils/storage.js'
@@ -11,23 +16,28 @@ import FlashMessage from 'react-native-flash-message';
 import Login from './screens';
 
 const App = () => {
+  const history = useHistory();
   React.useEffect(() => {
     //storeData({name:"test"},"user_key")
     //getData("user_key").then(value => console.log(value))
+    setTimeout(() => {
+      history.push('/login');
+    }, 3000);
   }, []);
+
   return (
     <Provider store={store}>
       <NativeRouter>
         <View style={styles.container}>
-          <Route exact path="/login" component={Login} />
+          <Switch>
+            <Route path="/" component={firstScreen} />
+            <Route path="/login" component={Login} />
+            <Route path="/userDetail" component={UserDetails} />
+          </Switch>
         </View>
-        <UserDetails />
-        <Redirect from="/" to="/login" />
         <FlashMessage position="top" />
       </NativeRouter>
     </Provider>
-
-    // definit las rutas y los link como en react router web
   );
 };
 const styles = StyleSheet.create({
