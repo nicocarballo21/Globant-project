@@ -1,4 +1,4 @@
-import { createReducer, createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createReducer, createAction } from "@reduxjs/toolkit";
 
 const initialState = {
   name: null,
@@ -15,7 +15,6 @@ const initialState = {
   reunions: [],
   objectives: [],
   skills: [],
-  abilities: [],
   peopleILike: [],
   peopleIDislike: [],
   matchs: [],
