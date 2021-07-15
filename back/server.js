@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 
 const { connection } = require("./db");
+const routes = require("./routes")
 const app = express();
 
 // LOGGUER
@@ -9,6 +10,9 @@ app.use(morgan("dev"));
 
 //PARSER
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/api", routes);
 
 const PORT = 3000;
 
