@@ -21,16 +21,17 @@ const initialState = {
   matchs: [],
 };
 
-const setUser = createAction('SET_USER');
-const userLogin = createAsyncThunk('USER_LOG_IN', async userData => {
-  const {user, token} = await reduxServices.userLogin(userData);
+export const setUser = createAction('SET_USER');
+export const userLogin = createAsyncThunk('USER_LOG_IN', async userData => {
+  const {user} = await reduxServices.userLogin(userData);
+  return user;
 });
 
 const userReducer = createReducer(initialState, {
+  [userLogin.fulfilled]: (state, action) => action.payload,
   [setUser]: (state, action) => {
     state.user = action.payload;
   },
-  [userLogin.fullfilled]: (state, action) => action.payload,
 });
 
-export {setUser, userReducer};
+export default userReducer;
