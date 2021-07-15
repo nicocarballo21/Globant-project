@@ -4,20 +4,19 @@ const User = require("./db/models/User");
 const setupSeed = async () => {
   console.log("SEED STARTING");
 
-  const rafita = new User({
-    name: "Rafa",
+  const rafita = User.create({
+    name: "Pepe",
     surname: "Villa",
     email: "elpepe@email.com",
     password: "12345",
   });
 
   return rafita;
-};
+};      
 
 try {
   connection.once("open", () =>
     setupSeed().then((doc) => {
-      console.log(doc);
       process.exit(0);
     })
   );
