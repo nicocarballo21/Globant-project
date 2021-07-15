@@ -5,25 +5,31 @@ import {Provider} from 'react-redux';
 import UserDetails from './components/UserDetails/UserDetails';
 import store from './redux/store';
 import FlashMessage from 'react-native-flash-message';
+//import { storeData, getData } from './utils/storage.js'
 
 // components
 import Login from './screens';
 
-const App = () => (
-  <Provider store={store}>
-    <NativeRouter>
-      <View style={styles.container}>
-        <Route exact path="/login" component={Login} />
-      </View>
-      <UserDetails />
+const App = () => {
+  React.useEffect(() => {
+    //storeData({name:"test"},"user_key")
+    //getData("user_key").then(value => console.log(value))
+  }, []);
+  return (
+    <Provider store={store}>
+      <NativeRouter>
+        <View style={styles.container}>
+          <Route exact path="/login" component={Login} />
+        </View>
+        <UserDetails />
+        <Redirect from="/" to="/login" />
+        <FlashMessage position="top" />
+      </NativeRouter>
+    </Provider>
 
-      <Redirect from="/" to="/login" />
-      <FlashMessage position="top" />
-    </NativeRouter>
-  </Provider>
-
-  // definit las rutas y los link como en react router web
-);
+    // definit las rutas y los link como en react router web
+  );
+};
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
