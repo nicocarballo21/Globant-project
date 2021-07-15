@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity, Text, TextInput} from 'react-native';
+import {View} from 'react-native';
 import {useHistory} from 'react-router-native';
+import {useDispatch, useSelector} from 'react-redux'
 import axios from 'axios';
 import Register from '../../components/register/Register';
+import { setUser } from '../../redux/user';
 
 export default () => {
     const[name, setName] = useState('')
@@ -12,10 +14,13 @@ export default () => {
     const[passwordConf, setPasswordConf] = useState('')
 
     const history = useHistory()
+    const dispatch = useDispatch()
+    const estado = useSelector((state) => state.user)
+    
 
     handleChangeName = (name) => {
         const value = name
-        setName(value)
+        dispatch(setUser({name: value}))
     }
     handleChangeLastName = (lastName) => {
         const value = lastName
@@ -34,12 +39,11 @@ export default () => {
         const value = passwordConf
         setPasswordConf(value)
     }
-
-    handleSubmit = (name, lastName, email, phone, password, passwordConf) => {
+    handleSubmit = (name, lastName, email, phone, password, passwordConf, estado) => {
         /*axios.post('ruta', {name,lastName,email,phone,residence,workPosition,country})
         .then((response)=> console.log(response))
         .catch((error)=> console.log(error))*/
-        console.log("siguiente---->")
+        console.log("siguiente---->", estado )
         history.push("/registerAcedemic")
     };
     

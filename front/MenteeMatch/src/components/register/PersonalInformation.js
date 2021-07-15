@@ -18,7 +18,7 @@ export default ({handleChangeCountry, handleChangeWorkPosition,handleChangePhone
 
             <Text>Descripción Personal*</Text>
             <TextInput style={styles.input}placeholder="Breve Descripción sobre la trayectoria que quieres realizar en Globant"
-            onChangeText={handleChangeAbout}/>
+            handleChangeAbout={handleChangeAbout}/>
 
             <TouchableOpacity
             style=

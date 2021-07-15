@@ -52,7 +52,7 @@ const Login = () => {
           <Text style={styles.buttonText}>Log in</Text>
         </TouchableOpacity>
 
-        <Link component={TouchableOpacity} to="/register">
+        <Link component={TouchableOpacity} to="/registerPerson">
           <Text style={styles.footer}>Your are not login? Register here!</Text>
         </Link>
         {/* 
