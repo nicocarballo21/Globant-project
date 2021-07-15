@@ -7,12 +7,7 @@ module.exports = {
     return Users.create({ name, surname, email, password });
   },
   findUserByEmail: (email) => {
-    return Users.findOne({ email })
-      .populate({
-        path: "skills",
-        populate: { path: "name" },
-      })
-      .exec();
+    return Users.findOne({ email }).populate("skills", "name").exec();
   },
   updateById: (_id, body) => {
     return Users.findOneAndUpdate({ _id }, body, { new: true })

@@ -30,7 +30,7 @@ module.exports = {
     });
   },
   userUpdate: (req, res) => {
-    updateById(req.params._id, req.body)
+    updateById(req.user.id, req.body)
       .then((user) => {
         res.status(200).json(user);
       })
@@ -47,14 +47,13 @@ module.exports = {
 
     if (!type) return res.status(400).json("incorrect path");
 
-    toggleMentorOrMentee(req.params._id, type)
+    toggleMentorOrMentee(req.user.id, type)
       .then((user) => {
-        console.log(user);
         res.status(200).json(user);
       })
       .catch((err) => {
         console.log(err);
-        res.status(500).json({ msg: "Somenthing failed, try again" });
+        res.status(500).json("Somenthing failed, try again");
       });
   },
 };
