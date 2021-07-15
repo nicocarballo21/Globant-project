@@ -7,9 +7,21 @@ module.exports = {
     return Users.create({ name, surname, email, password });
   },
   findUserByEmail: (email) => {
-    return Users.findOne({ email }).populate({
-      path: "skills",
-      populate: { path: "name" },
-    });
+    return Users.findOne({ email })
+      .populate({
+        path: "skills",
+        populate: { path: "name" },
+      })
+      .exec();
+  },
+  updateById: (_id, body) => {
+    return Users.findOneAndUpdate({ _id }, body, { new: true })
+      .populate("skills", "name")
+      .exec();
+  },
+  toggleMentorOrMentee: async (_id, type) => {
+    const user = await Users.findOne({ _id }).exec();
+    user[type] = !user[type];
+    return user.save();
   },
 };
