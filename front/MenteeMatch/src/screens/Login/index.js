@@ -1,12 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  Button,
-  Text,
-} from 'react-native';
+import {View, TextInput, TouchableOpacity, Image, Text} from 'react-native';
 
 import {Link} from 'react-router-native';
 import {loginMessage} from '../../utils';
