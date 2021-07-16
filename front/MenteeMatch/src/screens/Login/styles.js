@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   login: {
@@ -16,31 +16,6 @@ const styles = StyleSheet.create({
   inputs: {
     width: '100%',
     alignItems: 'center',
-  },
-
-  input: {
-    width: '80%',
-    height: 50,
-    padding: 15,
-    borderColor: 'white',
-    borderBottomWidth: 1,
-    marginBottom: 20,
-  },
-
-  button: {
-    width: '50%',
-    elevation: 10,
-    backgroundColor: '#009688',
-    borderRadius: 30,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-  },
-  buttonText: {
-    fontSize: 18,
-    color: '#ffff',
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    textTransform: 'uppercase',
   },
 
   footer: {
