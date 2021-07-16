@@ -5,7 +5,7 @@ import PersonalInformation from '../../components/register/PersonalInformation';
 
 
 export default () => {
-    const[phone, setPhone] = useState('')
+/*     const[phone, setPhone] = useState('')
     const[workPosition, setWorkPosition] = useState('')
     const[country, setCountry] = useState('')
     const[about, setAbout] = useState('')
@@ -25,12 +25,11 @@ export default () => {
     handleChangeAbout = (about) => {
         const value = about
         setAbout(value)
-    }
+    } */
 
     return(
         <View>
-            <PersonalInformation handleChangePhone={handleChangePhone} handleChangeWorkPosition={handleChangeWorkPosition} 
-            handleChangeCountry={handleChangeCountry} handleChangeAbout={handleChangeAbout}/>
+            <PersonalInformation/>
         </View>
 
     )
