@@ -19,6 +19,7 @@ const Login = () => {
   const history = useHistory()
 
   const handleSubmit = userData => {
+    console.log(userData)
     dispatch(userLogin(userData)).then(({payload}) => {
       if (payload) {
         loginMessage(true)

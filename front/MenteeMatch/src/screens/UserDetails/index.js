@@ -13,42 +13,13 @@ import styles from './styles';
 import userImg from '../../assets/static/user_img.png';
 import goBack from '../../assets/static/goBack.png'
 import { useHistory } from 'react-router-native';
+import { getSkills } from '../../services/reduxServices'
 
-const UserDetails = () => {
-  const selectedUser = useSelector(state => state.selectedUser);
-
-  const user = {
-    name: 'Lucy',
-    surname: 'Loles',
-    email: 'lucyloles@nosoyxena',
-    position: 'UX/UI Lead Designer',
-    skills: [
-      'Diseño (UX/VD)',
-      'Back-End',
-      'Front-End',
-      'Testing',
-      'QA',
-      'PHP',
-      'Python',
-      'Leadership',
-      'Full-Stack',
-      'AWS',
-      '.NET',
-      'Tech Support',
-      'Data Analyst',
-      'SalesForce',
-      'Costumer Service',
-      'Executive',
-      'HR',
-      'Dev Op',
-      'Coordinator',
-      'Facilities',
-      'Finances',
-    ],
-  };
-
+const UserDetails = async () => {
   const history = useHistory()
-  const {name, surname, email, position, skills} = user;
+  const user = useSelector(state => state.user)
+  const { name, surname, email, position } = user;
+  const skills = await getSkills()
   const numColumns = Math.ceil(skills.length / 4);
   const keys = skills.map(skill => ({ key: skill }))
 

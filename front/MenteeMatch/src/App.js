@@ -6,7 +6,7 @@ import {NativeRouter, Route, Switch} from 'react-router-native';
 import {View, StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
 
-import UserDetails from './components/UserDetails/UserDetails';
+import UserDetails from './screens/UserDetails';
 import firstScreen from './components/firstScreen';
 import store from './redux/store';
 import FlashMessage from 'react-native-flash-message';
