@@ -5,35 +5,6 @@ const setupSeed = async () => {
 
   console.log("SEED STARTING");
 
-<<<<<<< HEAD
-  const skillsName = [
-    "JavaScript",
-    "Diseño (UX/VD)",
-    "Back-End",
-    "Front-End",
-    "Testing",
-    "QA",
-    "PHP",
-    "Python",
-    "Full-Stack",
-    "AWS",
-    ".NET",
-    "Tech Support",
-    "Data Analyst",
-    "SalesForce",
-    "Costumer Service",
-    "Executive",
-    "HR",
-    "Dev Op",
-    "Coordinator",
-    "Facilities",
-    "Finances",
-    "Analista Funcional",
-    "Testing Automatizado",
-    "Front-End",
-    "Liderazgo",
-  ];
-=======
   const skills = [
     { name: 'Diseño (UX/VD)' },
     { name: 'Back-End' },
@@ -63,11 +34,8 @@ const setupSeed = async () => {
     { name: 'Athentication' },
     { name: 'Services' }
   ]
->>>>>>> 881f462b8bbf50792fc312eb6214239ddec3b929
 
-  const skillsPromise = Skills.create(
-    skillsName.map((skillName) => ({ name: skillName }))
-  );
+  const skillsPromise = Skills.create(skills);
 
   const userPromise = Users.create({
     name: "Pepe",
@@ -78,10 +46,6 @@ const setupSeed = async () => {
     isAdmin: true,
   });
 
-<<<<<<< HEAD
-  return Promise.all([userPromise, skillsPromise]);
-  
-=======
   const userLucy = Users.create({
     name: "Lucy",
     surname: "Loles",
@@ -92,7 +56,6 @@ const setupSeed = async () => {
   });
 
   return Promise.all([userPromise, skillsPromise, userLucy]);
->>>>>>> 881f462b8bbf50792fc312eb6214239ddec3b929
 };
 
 try {
