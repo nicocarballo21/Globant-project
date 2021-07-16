@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   login: {
@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
   button: {
     width: '50%',
     elevation: 10,
+    marginBottom: 10,
     backgroundColor: '#009688',
     borderRadius: 30,
     paddingVertical: 10,
@@ -48,13 +49,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontSize: 15,
   },
-
 });
 
 export default styles;
-
-
-
-
-
-  
