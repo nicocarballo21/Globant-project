@@ -1,9 +1,11 @@
 import React from 'react';
-import {NativeRouter, Route, Redirect} from 'react-router-native';
+import {NativeRouter, Route, Redirect, Switch} from 'react-router-native';
 import {View, StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
 import UserDetails from './components/UserDetails/UserDetails';
 import store from './redux/store';
+import {Matcher} from './components';
+// console.log("Matcher en App: ", Matcher)
 //import { storeData, getData } from './utils/storage.js'
 
 // components
@@ -18,10 +20,13 @@ const App = () => {
   <Provider store={store}>
     <NativeRouter>
       <View style={styles.container}>
+        <Switch>
         <Route exact path="/login" component={Login} />
+        <Route exact path="/matcher" component={Matcher} />
+        </Switch>
       </View>
       <UserDetails />
-      <Redirect from="/" to="/login" />
+      <Redirect from="/" to="/matcher" />
     </NativeRouter>
   </Provider>
 
