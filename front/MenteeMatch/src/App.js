@@ -7,7 +7,7 @@ import { NativeRouter, Route, Switch } from 'react-router-native';
 import { View, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 
-import UserDetails from './components/UserDetails/UserDetails';
+import UserDetails from './screens/UserDetails';
 import firstScreen from './components/firstScreen';
 import store from './redux/store';
 
@@ -40,7 +40,6 @@ const App = () => {
             <Route exact path="/registerPerson" component={Register} />
             <Route exact path="/registerAcedemic" component={UserData} />
             <Route exact path="/matcher" component={Matcher} />
-
             <Route exact path="/" component={firstScreen} />
           </Switch>
         </View>

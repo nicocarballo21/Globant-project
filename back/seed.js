@@ -5,6 +5,7 @@ const setupSeed = async () => {
 
   console.log("SEED STARTING");
 
+<<<<<<< HEAD
   const skillsName = [
     "JavaScript",
     "Diseño (UX/VD)",
@@ -32,6 +33,37 @@ const setupSeed = async () => {
     "Front-End",
     "Liderazgo",
   ];
+=======
+  const skills = [
+    { name: 'Diseño (UX/VD)' },
+    { name: 'Back-End' },
+    { name: 'Front-End' },
+    { name: 'Testing' },
+    { name: 'QA' },
+    { name: 'PHP' },
+    { name: 'Python' },
+    { name: 'Leadership' },
+    { name: 'Full-Stack' },
+    { name: 'AWS' },
+    { name: '.NET' },
+    { name: 'Tech Support' },
+    { name: 'Data Analyst' },
+    { name: 'SalesForce' },
+    { name: 'Costumer Service' },
+    { name: 'Executive' },
+    { name: 'HR' },
+    { name: 'Dev Op' },
+    { name: 'Coordinator' },
+    { name: 'Facilities' },
+    { name: 'Finances' },
+    { name: 'Scrum' },
+    { name: 'Helper' },
+    { name: 'Business' },
+    { name: 'Security' },
+    { name: 'Athentication' },
+    { name: 'Services' }
+  ]
+>>>>>>> 881f462b8bbf50792fc312eb6214239ddec3b929
 
   const skillsPromise = Skills.create(
     skillsName.map((skillName) => ({ name: skillName }))
@@ -46,8 +78,21 @@ const setupSeed = async () => {
     isAdmin: true,
   });
 
+<<<<<<< HEAD
   return Promise.all([userPromise, skillsPromise]);
   
+=======
+  const userLucy = Users.create({
+    name: "Lucy",
+    surname: "Loles",
+    email: "lucyloles@nosoyxena.com",
+    password: "1234",
+    position: "UI/UX Lead Designer"
+    /* skills: skills -> fijarse como puedo seedear desde acá con relaciones */
+  });
+
+  return Promise.all([userPromise, skillsPromise, userLucy]);
+>>>>>>> 881f462b8bbf50792fc312eb6214239ddec3b929
 };
 
 try {
