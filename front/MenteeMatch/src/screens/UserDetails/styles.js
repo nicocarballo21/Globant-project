@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   },
   btnsContainer: {
     flexDirection: "row",
+    position: "relative"
     /* flexWrap: "wrap", */
     /* justifyContent: "center", */
     /* alignItems: "center", */
@@ -68,7 +69,8 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: colors.charade,
-    margin: 5
+    margin: 5,
+    elevation: 5,
   },
   pressableTxt: {
     color: colors.white,
@@ -86,14 +88,18 @@ const styles = StyleSheet.create({
     height: 100,
   },
   btn: {
-    width: "90%",
-    padding: 10,
+    width: "75%",
+    padding: 14,
     borderStyle: "solid",
     borderWidth: 1,
-    backgroundColor: colors.blackPearl,
-    borderRadius: 8,
+    backgroundColor: "#4E181D",
+    borderRadius: 16,
     margin: 32,
     textAlign: "center",
+    position: "absolute",
+    borderColor: colors.charade,
+    elevation: 10,
+    bottom: -10,
   },
   btnText: {
     textAlign: "center",
