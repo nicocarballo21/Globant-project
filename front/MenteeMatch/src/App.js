@@ -9,6 +9,8 @@ import {Provider} from 'react-redux';
 import UserDetails from './components/UserDetails/UserDetails';
 import firstScreen from './components/firstScreen';
 import store from './redux/store';
+import {Matcher} from './components';
+// console.log("Matcher en App: ", Matcher)
 import FlashMessage from 'react-native-flash-message';
 //import { storeData, getData } from './utils/storage.js'
 
@@ -23,6 +25,7 @@ const App = () => {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/userDetail" component={UserDetails} />
+            <Route exact path="/matcher" component={Matcher} />
             <Route exact path="/" component={firstScreen} />
           </Switch>
         </View>

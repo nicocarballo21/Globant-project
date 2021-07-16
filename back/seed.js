@@ -20,6 +20,31 @@ const setupSeed = async () => {
     surname: "Scalan",
     email: "elpepe@email.com",
     password: "12345",
+    isMentee: true,
+    isAdmin: true,
+    skills: [
+      "Diseño (UX/VD)",
+      "Back-End",
+      "Front-End",
+      "Testing",
+      "QA",
+      "PHP",
+      "Python",
+      "Leadership",
+      "Full-Stack",
+      "AWS",
+      ".NET",
+      "Tech Support",
+      "Data Analyst",
+      "SalesForce",
+      "Costumer Service",
+      "Executive",
+      "HR",
+      "Dev Op",
+      "Coordinator",
+      "Facilities",
+      "Finances"
+    ]
   });
 
   return Promise.all([userPromise, skillsPromise]);
