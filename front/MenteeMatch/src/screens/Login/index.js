@@ -6,7 +6,7 @@ import {loginMessage} from '../../utils';
 
 //redux
 import {useDispatch} from 'react-redux';
-import {userLogin} from '../../redux/Reducers/UserReducer';
+import {setUser, getUser} from '../../redux/Reducers/UserReducer';
 
 import styles from './styles';
 import logo from '../../utils/logo.png';
@@ -18,15 +18,13 @@ const Login = () => {
   const user = {email, password};
   const history = useHistory()
 
-  const handleSubmit = userData => {
-    console.log(userData)
-    dispatch(userLogin(userData)).then(({payload}) => {
-      if (payload) {
-        loginMessage(true)
-        history.push('/userDetails')
-      } else loginMessage(false);
-    });
-  };
+  const handleSubmit = async userData => {
+    const { payload } = await dispatch(getUser(userData))
+    if (payload) {
+      loginMessage(true)
+      history.push('/userDetails')
+    } else loginMessage(false);
+  }
 
   return (
     <View style={styles.login}>
