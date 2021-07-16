@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
 import { Link, useHistory } from 'react-router-native';
 import { loginMessage } from '../../utils';
@@ -14,6 +14,7 @@ import InputText from '../../components/InputText';
 
 import Button from '../../components/Button';
 import { getData, storeData } from '../../utils/storage';
+import { API_URL } from '@env'
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const Login = () => {
 
   useEffect(async () => {
     try {
-      const res = await axios.get('http://10.0.2.2:3000/api/skills');
+      const res = await axios.get(API_URL + '/api/skills');
       const skillsArray = await res.data;
       const skills = skillsArray.map(skill => skill.name);
       const storedUser = await getData('user');
