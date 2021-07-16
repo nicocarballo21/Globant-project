@@ -39,7 +39,7 @@ export default () => {
             {errors.phone && <Text>Requiere Teléfono.</Text>}
 
         <Controller control={control} rules={{required: true}} render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput style={styles.input} onBlur={onBlur} onChangeText={onChange} value={value} placeholder="Contraseña"/>)}
+            <TextInput style={styles.input} onBlur={onBlur} onChangeText={onChange} value={value} placeholder="Acerca de..."/>)}
             name="about"
             defaultValue=""/>
             {errors.about && <Text>Requiere Acerce de ...</Text>}
