@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, TextInput, TouchableOpacity, Image, Text} from 'react-native';
 
-import {Link} from 'react-router-native';
+import {Link, useHistory} from 'react-router-native';
 import {loginMessage} from '../../utils';
 
 //redux
@@ -16,11 +16,14 @@ const Login = () => {
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
   const user = {email, password};
+  const history = useHistory()
 
   const handleSubmit = userData => {
     dispatch(userLogin(userData)).then(({payload}) => {
-      if (payload) loginMessage(true);
-      else loginMessage(false);
+      if (payload) {
+        loginMessage(true)
+        history.push('/userDetails')
+      } else loginMessage(false);
     });
   };
 

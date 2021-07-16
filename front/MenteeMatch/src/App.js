@@ -22,7 +22,7 @@ const App = () => {
         <View style={styles.container}>
           <Switch>
             <Route exact path="/login" component={Login} />
-            <Route exact path="/userDetail" component={UserDetails} />
+            <Route exact path="/userDetails" component={UserDetails} />
             <Route exact path="/" component={firstScreen} />
           </Switch>
         </View>
