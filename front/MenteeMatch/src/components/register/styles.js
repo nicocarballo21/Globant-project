@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   login: {
-    flex: 1,
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'space-evenly',
     backgroundColor: 'cadetblue',
@@ -48,9 +48,13 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontSize: 15,
   },
+
 });
 
 export default styles;
+
+
+
 
 
   

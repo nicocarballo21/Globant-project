@@ -5,36 +5,22 @@ import styles from './styles';
 
 
 export default ({handleChangeName, handleChangeLastName,handleChangeEmail, handleChangePassword,
-    handleChangePasswordConf, handleSubmit}) => {
+    handleChangePasswordConf, handleSubmit, buttonNext, dataRegister}) => {
     
     return(
-        <View>
-            <Text>Registro</Text>
-
-            <Text>Nombre*</Text>
-            <TextInput style={styles.input} placeholder="Nombre" onChangeText={handleChangeName}/>
-
-            <Text>Apellido</Text>
-            <TextInput style={styles.input} placeholder="Apellido" onChangeText={handleChangeLastName}/>
-
-            <Text>Correo electrónico*</Text>
-            <TextInput style={styles.input} placeholder="mentor@ejemplo.com" onChangeText={handleChangeEmail}/>
-
-            <Text>Contraseña*</Text>
-            <TextInput style={styles.input} placeholder="*******" onChangeText={handleChangePassword}/>
-
-            <Text>Confirmar Contraseña*</Text>
-            <TextInput style={styles.input} placeholder="*******" onChangeText={handleChangePasswordConf}/>
-      
-            {/* <Link style={{alignItems: "center",backgroundColor: "#DDDDDD",padding: 10}} 
-                to="/registerAcedemic"><Text>Siguiente</Text>
-            </Link> */}
-
-            <TouchableOpacity style={{alignItems: "center",backgroundColor: "#DDDDDD",padding: 10}} 
-            onPress={handleSubmit}>
-                <Text>Siguiente</Text>
-            </TouchableOpacity>
-
+        <View style={styles.login}>
+            <Text style={styles.buttonText}>Registro</Text>
+            <View style={styles.inputs}>
+                <TextInput style={styles.input} placeholder="Nombre" onChangeText={handleChangeName}/>
+                <TextInput style={styles.input} placeholder="Apellido" onChangeText={handleChangeLastName}/>
+                <TextInput style={styles.input} placeholder="mentor@ejemplo.com" onChangeText={handleChangeEmail}/>
+                <TextInput style={styles.input} placeholder="Contraseña" onChangeText={handleChangePassword}/>
+                <TextInput style={styles.input} placeholder="Confirmar Contraseña" onChangeText={handleChangePasswordConf}/>
+                <TouchableOpacity style={styles.button}
+                onPress={()=>handleSubmit(dataRegister)}>
+                    <Text style={styles.buttonText}>Siguiente</Text>
+                </TouchableOpacity>
+            </View>
         </View>
 
     )

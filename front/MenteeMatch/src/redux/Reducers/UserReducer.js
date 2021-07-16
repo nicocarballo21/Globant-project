@@ -27,11 +27,19 @@ export const userLogin = createAsyncThunk('USER_LOG_IN', async userData => {
   return user;
 });
 
+export const userRegister = createAsyncThunk('USER_REGISTER', async dataRegister => {
+  const {register} = await reduxServices.userLogin(dataRegister);
+  return register;
+});
+
 const userReducer = createReducer(initialState, {
   [userLogin.fulfilled]: (state, action) => action.payload,
   [setUser]: (state, action) => {
     state.user = action.payload;
   },
 });
+
+
+
 
 export default userReducer;
