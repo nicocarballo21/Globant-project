@@ -1,30 +1,52 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
-
-import { Link } from 'react-router-native';
+import { Link, useHistory } from 'react-router-native';
 import { loginMessage } from '../../utils';
+import axios from 'axios';
 
 //redux
-import { useDispatch } from 'react-redux';
-import { userLogin } from '../../redux/Reducers/UserReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser, setUser } from '../../redux/Reducers/UserReducer';
 
 import styles from './styles';
 import logo from '../../utils/logo.png';
 import InputText from '../../components/InputText';
+
 import Button from '../../components/Button';
+import { getData, storeData } from '../../utils/storage';
 
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
   const user = { email, password };
+  const history = useHistory();
 
-  const handleSubmit = userData => {
-    console.log(userData);
-    dispatch(userLogin(userData)).then(({ payload }) => {
-      if (payload) loginMessage(true);
-      else loginMessage(false);
-    });
+  const storeUser = useSelector(state => state.user);
+
+  useEffect(async () => {
+    try {
+      const res = await axios.get('http://10.0.2.2:3000/api/skills');
+      const skillsArray = await res.data;
+      const skills = skillsArray.map(skill => skill.name);
+      const storedUser = await getData('user');
+      if (storedUser) {
+        dispatch(setUser({ ...storedUser, skills }));
+        return history.push('/userDetails');
+      }
+      dispatch(setUser({ ...storeUser, skills }));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const handleSubmit = async userData => {
+    const { payload } = await dispatch(getUser(userData));
+    if (payload) {
+      loginMessage(true);
+      await storeData('user', payload);
+      history.push('/userDetails');
+    } else loginMessage(false);
   };
 
   return (
