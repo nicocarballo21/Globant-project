@@ -1,19 +1,41 @@
 const { connection } = require("./db");
-const {Users, Skills} = require("./db/models")
+const { Users, Skills } = require("./db/models");
 
 const setupSeed = async () => {
+
   console.log("SEED STARTING");
 
-  const skills = [
-    { name: "Liderazgo" },
-    { name: "JavaScript" },
-    { name: "Front-End" },
-    { name: "Diseño (UX/VD)" },
-    { name: "Testing Automatizado" },
-    { name: "Analista Funcional" },
+  const skillsName = [
+    "JavaScript",
+    "Diseño (UX/VD)",
+    "Back-End",
+    "Front-End",
+    "Testing",
+    "QA",
+    "PHP",
+    "Python",
+    "Full-Stack",
+    "AWS",
+    ".NET",
+    "Tech Support",
+    "Data Analyst",
+    "SalesForce",
+    "Costumer Service",
+    "Executive",
+    "HR",
+    "Dev Op",
+    "Coordinator",
+    "Facilities",
+    "Finances",
+    "Analista Funcional",
+    "Testing Automatizado",
+    "Front-End",
+    "Liderazgo",
   ];
 
-  const skillsPromise = Skills.create(skills)
+  const skillsPromise = Skills.create(
+    skillsName.map((skillName) => ({ name: skillName }))
+  );
 
   const userPromise = Users.create({
     name: "Pepe",
@@ -22,38 +44,17 @@ const setupSeed = async () => {
     password: "12345",
     isMentee: true,
     isAdmin: true,
-    skills: [
-      "Diseño (UX/VD)",
-      "Back-End",
-      "Front-End",
-      "Testing",
-      "QA",
-      "PHP",
-      "Python",
-      "Leadership",
-      "Full-Stack",
-      "AWS",
-      ".NET",
-      "Tech Support",
-      "Data Analyst",
-      "SalesForce",
-      "Costumer Service",
-      "Executive",
-      "HR",
-      "Dev Op",
-      "Coordinator",
-      "Facilities",
-      "Finances"
-    ]
   });
 
   return Promise.all([userPromise, skillsPromise]);
+  
 };
 
 try {
   connection.once("open", () =>
     setupSeed().then((doc) => {
-      console.log("SOY EL SEED", doc)
+      console.log(doc);
+      console.log("SEED TERMINADO");
       process.exit(0);
     })
   );
