@@ -1,24 +1,27 @@
-import React, {useState} from 'react';
-import {View, TextInput, TouchableOpacity, Image, Text} from 'react-native';
+import React, { useState } from 'react';
+import { View, TouchableOpacity, Image, Text } from 'react-native';
 
-import {Link} from 'react-router-native';
-import {loginMessage} from '../../utils';
+import { Link } from 'react-router-native';
+import { loginMessage } from '../../utils';
 
 //redux
-import {useDispatch} from 'react-redux';
-import {userLogin} from '../../redux/Reducers/UserReducer';
+import { useDispatch } from 'react-redux';
+import { userLogin } from '../../redux/Reducers/UserReducer';
 
 import styles from './styles';
 import logo from '../../utils/logo.png';
+import InputText from '../../components/InputText';
+import Button from '../../components/Button';
 
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
-  const user = {email, password};
+  const user = { email, password };
 
   const handleSubmit = userData => {
-    dispatch(userLogin(userData)).then(({payload}) => {
+    console.log(userData);
+    dispatch(userLogin(userData)).then(({ payload }) => {
       if (payload) loginMessage(true);
       else loginMessage(false);
     });
@@ -31,29 +34,20 @@ const Login = () => {
       </View>
 
       <View style={styles.inputs}>
-        <TextInput
+        <InputText
           onChangeText={setemail}
-          style={styles.input}
           value={email}
           placeholder="Email"
           keyboardType="email-address"
         />
-        <TextInput
+        <InputText
           onChangeText={setpassword}
-          style={styles.input}
           value={password}
-          secureTextEntry={true}
-          placeholder="Password"
+          placeholder={'Password'}
           textContentType="password"
+          secureTextEntry={true}
         />
-
-        <TouchableOpacity
-          activeOpacity={0.7}
-          style={styles.button}
-          title="Log in"
-          onPress={() => handleSubmit(user)}>
-          <Text style={styles.buttonText}>Log in</Text>
-        </TouchableOpacity>
+        <Button title={'Log in'} pressFunction={() => handleSubmit(user)} />
 
         <Link component={TouchableOpacity} to="/registerPerson">
           <Text style={styles.footer}>Your are not login? Register here!</Text>
