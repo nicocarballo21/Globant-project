@@ -1,11 +1,11 @@
-import {assertExpressionStatement} from '@babel/types';
+import { assertExpressionStatement } from '@babel/types';
 import React from 'react';
 
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-import {NativeRouter, Route, Switch} from 'react-router-native';
-import {View, StyleSheet} from 'react-native';
-import {Provider} from 'react-redux';
+import { NativeRouter, Route, Switch } from 'react-router-native';
+import { View, StyleSheet } from 'react-native';
+import { Provider } from 'react-redux';
 
 import UserDetails from './components/UserDetails/UserDetails';
 import firstScreen from './components/firstScreen';
@@ -14,7 +14,7 @@ import store from './redux/store';
 import Register from './screens/register/Register';
 import UserData from './screens/userData/UserData';
 
-import {Matcher} from './components/Matcher/index';
+import { Matcher } from './components/Matcher/index';
 // console.log("Matcher en App: ", Matcher)
 
 import FlashMessage from 'react-native-flash-message';
@@ -25,7 +25,6 @@ import FlashMessage from 'react-native-flash-message';
 import Login from './screens';
 
 const App = () => {
-
   React.useEffect(() => {
     //storeData({name:"test"},"user_key")
     //getData("user_key").then(value => console.log(value))
@@ -49,7 +48,6 @@ const App = () => {
       </NativeRouter>
     </Provider>
   );
-
 };
 
 const styles = StyleSheet.create({
