@@ -5,6 +5,7 @@ import {useHistory} from 'react-router-native';
 import styles from './styles';
 import axios from 'axios';
 
+
 export default () => {
     const history = useHistory()
     const { control, handleSubmit, formState: { errors } } = useForm();
@@ -59,9 +60,4 @@ export default () => {
     </View>
   );
 }
-
- 
-
-
-
 

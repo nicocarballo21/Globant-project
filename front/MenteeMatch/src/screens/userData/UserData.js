@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity, Text, TextInput} from 'react-native';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { useHistory } from 'react-router-dom';
 import PersonalInformation from '../../components/register/PersonalInformation';
 
-
-
 export default () => {
-/*     const[phone, setPhone] = useState('')
+
+  /*const[phone, setPhone] = useState('')
     const[workPosition, setWorkPosition] = useState('')
     const[country, setCountry] = useState('')
     const[about, setAbout] = useState('')
@@ -27,10 +27,10 @@ export default () => {
         setAbout(value)
     } */
 
-    return(
-        <View>
-            <PersonalInformation/>
-        </View>
-
-    )
+  return (
+    <View>
+        <PersonalInformation/>
+    </View>
+  )
 }
+

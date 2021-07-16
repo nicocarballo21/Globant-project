@@ -2,25 +2,18 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  userRegister,
-  userLogin,
   userUpdate,
   mentorAndMenteeToggling,
 } = require("../controllers/userController");
-const { auth } = require("../middlewares/jwt");
 
 // RUTAS /api/users
 
-router.post("/register", userRegister);
+router.put("/profile", userUpdate);
 
-router.post("/login", userLogin);
+router.put("/mentor", mentorAndMenteeToggling);
 
-router.put("/profile", auth, userUpdate);
+router.put("/mentee", mentorAndMenteeToggling);
 
-router.put("/mentor", auth, mentorAndMenteeToggling);
-
-router.put("/mentee", auth, mentorAndMenteeToggling);
-
-router.put("/skills", auth, userUpdate);
+router.put("/skills", userUpdate);
 
 module.exports = router;
