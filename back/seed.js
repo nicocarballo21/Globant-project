@@ -25,7 +25,13 @@ const setupSeed = async () => {
     { name: 'Dev Op' },
     { name: 'Coordinator' },
     { name: 'Facilities' },
-    { name: 'Finances' }
+    { name: 'Finances' },
+    { name: 'Scrum' },
+    { name: 'Helper' },
+    { name: 'Business' },
+    { name: 'Security' },
+    { name: 'Athentication' },
+    { name: 'Services' }
   ]
 
   const skillsPromise = Skills.create(skills)

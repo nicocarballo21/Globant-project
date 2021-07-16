@@ -52,16 +52,17 @@ const styles = StyleSheet.create({
   },
   btnsContainer: {
     flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: 16,
+    /* flexWrap: "wrap", */
+    /* justifyContent: "center", */
+    /* alignItems: "center", */
+    /* marginHorizontal: 16, */
   },
   pressable: {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "blue",
-    width: 100,
+    /* width: 100, */
+    paddingHorizontal: 16,
     height: 50,
     borderRadius: 15,
     borderStyle: "solid",
