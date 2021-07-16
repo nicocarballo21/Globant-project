@@ -8,6 +8,7 @@ import {useHistory} from 'react-router-native';
 import {getSkills} from '../../services/reduxServices';
 import axios from 'axios';
 import {setUser} from '../../redux/Reducers/UserReducer';
+import { removeData } from '../../utils/storage';
 
 const UserDetails = () => {
   const user = useSelector(state => state.user);
@@ -16,6 +17,7 @@ const UserDetails = () => {
   const {name, surname, email, position, skills} = user;
   const numColumns = Math.ceil(skills.length / 4);
   const keys = skills.map(skill => ({key: skill}));
+
   /* let skills = []
   useEffect(async () => {
     try {
@@ -27,9 +29,15 @@ const UserDetails = () => {
       console.log(error);
     }
   }, [skills.length]) */
-  console.log(skills);
-  const handleGoBack = () => {
-    history.goBack();
+  /* console.log(skills); */
+
+  const handleGoBack = async () => {
+    try {
+      await removeData('user')
+      history.goBack();
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
@@ -74,8 +82,8 @@ const UserDetails = () => {
         </ScrollView>
       </View>
 
-      <Pressable style={styles.btn}>
-        <Text style={styles.btnText}>Editar</Text>
+      <Pressable style={styles.btn} onPress={handleGoBack}>
+        <Text style={styles.btnText}>Cerrar sesión</Text>
       </Pressable>
     </View>
   );
