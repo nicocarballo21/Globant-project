@@ -18,6 +18,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  position: {
+    type: String,
+  },
+  phone: {
+    type: Number,
+  },
+  personalDescription: {
+    type: String,
+  },
+  country: {
+    type: String,
+  },
   isMentor: { type: Boolean, default: false },
   isMentee: { type: Boolean, default: false },
   isAdmin: { type: Boolean, default: false },
@@ -38,12 +50,6 @@ const userSchema = new mongoose.Schema({
     ref: "Users",
   },
   meets: [{ type: String }],
-  salt: {
-    type: String,
-  },
-  position: {
-    type: String,
-  },
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -54,6 +60,12 @@ const userSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Users",
+    },
+  ],
+  preferences: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Skills",
     },
   ],
 });

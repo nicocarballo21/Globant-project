@@ -1,12 +1,23 @@
 const { connection } = require("./db");
-const User = require("./db/models/User");
+const {Users, Skills} = require("./db/models")
 
 const setupSeed = async () => {
   console.log("SEED STARTING");
 
-  const rafita = User.create({
+  const skills = [
+    { name: "Liderazgo" },
+    { name: "JavaScript" },
+    { name: "Front-End" },
+    { name: "Diseño (UX/VD)" },
+    { name: "Testing Automatizado" },
+    { name: "Analista Funcional" },
+  ];
+
+  const skillsPromise = Skills.create(skills)
+
+  const userPromise = Users.create({
     name: "Pepe",
-    surname: "Villa",
+    surname: "Scalan",
     email: "elpepe@email.com",
     password: "12345",
     isMentee: true,
@@ -36,12 +47,13 @@ const setupSeed = async () => {
     ]
   });
 
-  return rafita;
-};      
+  return Promise.all([userPromise, skillsPromise]);
+};
 
 try {
   connection.once("open", () =>
     setupSeed().then((doc) => {
+      console.log("SOY EL SEED", doc)
       process.exit(0);
     })
   );
