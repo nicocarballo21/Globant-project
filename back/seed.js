@@ -42,6 +42,7 @@ const setupSeed = async () => {
     surname: "Loles",
     email: "lucyloles@nosoyxena.com",
     password: "1234",
+    position: "UI/UX Lead Designer"
     /* skills: skills -> fijarse como puedo seedear desde acá con relaciones */
   });
 

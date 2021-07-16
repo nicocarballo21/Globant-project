@@ -1,30 +1,43 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, TextInput, TouchableOpacity, Image, Text} from 'react-native';
 
 import {Link, useHistory} from 'react-router-native';
 import {loginMessage} from '../../utils';
 
 //redux
-import {useDispatch} from 'react-redux';
-import {setUser, getUser} from '../../redux/Reducers/UserReducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {getUser, setUser} from '../../redux/Reducers/UserReducer';
 
 import styles from './styles';
 import logo from '../../utils/logo.png';
+import axios from 'axios';
 
 const Login = () => {
   const dispatch = useDispatch();
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
   const user = {email, password};
-  const history = useHistory()
+  const history = useHistory();
+
+  const storeUser = useSelector(state => state.user)
+  useEffect(async () => {
+    try {
+      const res = await axios.get('http://10.0.2.2:3000/api/skills');
+      const skillsArray = await res.data;
+      const skills = skillsArray.map(skill => skill.name);
+      dispatch(setUser({...storeUser, skills}));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [])
 
   const handleSubmit = async userData => {
-    const { payload } = await dispatch(getUser(userData))
+    const {payload} = await dispatch(getUser(userData));
     if (payload) {
-      loginMessage(true)
-      history.push('/userDetails')
+      loginMessage(true);
+      history.push('/userDetails');
     } else loginMessage(false);
-  }
+  };
 
   return (
     <View style={styles.login}>

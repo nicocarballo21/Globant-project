@@ -1,7 +1,7 @@
 import {createReducer, createAction, createAsyncThunk} from '@reduxjs/toolkit';
 import reduxServices from '../../services/reduxServices';
-import { loginMessage } from '../../utils';
-import { userLogin } from '../../services/reduxServices'
+import {loginMessage} from '../../utils';
+import {userLogin} from '../../services/reduxServices';
 
 const initialState = {
   name: null,
@@ -29,15 +29,18 @@ export const getUser = createAsyncThunk('USER_LOG_IN', async userData => {
     const { user } = await userLogin(userData);
     return user;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 });
 
 const userReducer = createReducer(initialState, {
-  [getUser.fulfilled]: (state, action) => action.payload,
-  [setUser]: (state, action) => {
-    state.user = action.payload;
+  [getUser.fulfilled]: (state, action) => {
+    const skills = state.skills
+    const user = {...action.payload}
+    user.skills = skills
+    return user
   },
+  [setUser]: (state, action) => action.payload
 });
 
 export default userReducer;

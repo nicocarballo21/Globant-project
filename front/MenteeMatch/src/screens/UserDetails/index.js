@@ -1,29 +1,32 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, Pressable, Image, FlatList, ScrollView} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import styles from './styles';
 import userImg from '../../assets/static/user_img.png';
 import goBack from '../../assets/static/goBack.png';
 import {useHistory} from 'react-router-native';
 import {getSkills} from '../../services/reduxServices';
 import axios from 'axios';
+import {setUser} from '../../redux/Reducers/UserReducer';
 
 const UserDetails = () => {
-  const history = useHistory();
   const user = useSelector(state => state.user);
-  const { name, surname, email, position } = user;
-  let skills = []
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const {name, surname, email, position, skills} = user;
+  const numColumns = Math.ceil(skills.length / 4);
+  const keys = skills.map(skill => ({key: skill}));
+  /* let skills = []
   useEffect(async () => {
     try {
       const res = await axios.get('http://10.0.2.2:3000/api/skills');
-      const skillsArray = res.data;
+      const skillsArray = await res.data;
       skills = skillsArray.map(skill => skill.name);
+      dispatch(setUser({...user, skills}));
     } catch (error) {
       console.log(error);
     }
-  }, [skills.length])
-  const numColumns = Math.ceil(skills.length / 4);
-  const keys = skills.map(skill => ({key: skill}));
+  }, [skills.length]) */
   console.log(skills);
   const handleGoBack = () => {
     history.goBack();
@@ -70,6 +73,7 @@ const UserDetails = () => {
           />
         </ScrollView>
       </View>
+
       <Pressable style={styles.btn}>
         <Text style={styles.btnText}>Editar</Text>
       </Pressable>

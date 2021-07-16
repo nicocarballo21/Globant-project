@@ -1,7 +1,4 @@
 import React from 'react';
-
-import {useHistory} from 'react-router-dom';
-
 import {NativeRouter, Route, Switch} from 'react-router-native';
 import {View, StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
@@ -22,7 +19,7 @@ const App = () => {
         <View style={styles.container}>
           <Switch>
             <Route exact path="/login" component={Login} />
-            <Route exact path="/userDetails" component={UserDetails} />
+            <Route exact path="/userDetails" render={() => <UserDetails/>} />
             <Route exact path="/" component={firstScreen} />
           </Switch>
         </View>
