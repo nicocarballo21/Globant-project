@@ -1,23 +1,30 @@
-import React, {useEffect} from 'react';
-import {View, Text, Pressable, Image, FlatList, ScrollView} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect } from 'react';
+import {
+  View,
+  Text,
+  Pressable,
+  Image,
+  FlatList,
+  ScrollView,
+} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import userImg from '../../assets/static/user_img.png';
 import goBack from '../../assets/static/goBack.png';
-import {useHistory} from 'react-router-native';
-import {getSkills} from '../../services/reduxServices';
+import { useHistory } from 'react-router-native';
+import { getSkills } from '../../services/reduxServices';
 import axios from 'axios';
-import {setUser} from '../../redux/Reducers/UserReducer';
+import { setUser } from '../../redux/Reducers/UserReducer';
 import { removeData } from '../../utils/storage';
 
 const UserDetails = () => {
-  console.log("holaaaaaaaaaaaaaaaa")
+  console.log('holaaaaaaaaaaaaaaaa');
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
-  const {name, surname, email, position, skills} = user;
+  const { name, surname, email, position, skills } = user;
   const numColumns = Math.ceil(skills.length / 4);
-  const keys = skills.map(skill => ({key: skill}));
+  const keys = skills.map(skill => ({ key: skill }));
 
   /* let skills = []
   useEffect(async () => {
@@ -34,10 +41,10 @@ const UserDetails = () => {
 
   const handleGoBack = async () => {
     try {
-      await removeData('user')
+      await removeData('user');
       history.goBack();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -63,7 +70,7 @@ const UserDetails = () => {
           pagingEnabled
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{paddingVertical: 20}}>
+          contentContainerStyle={{ paddingVertical: 20 }}>
           <FlatList
             scrollEnabled={false}
             contentContainerStyle={{
@@ -74,7 +81,7 @@ const UserDetails = () => {
             showsHorizontalScrollIndicator={false}
             data={skills}
             keyExtractor={keys => keys}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <Pressable style={styles.pressable}>
                 <Text style={styles.pressableTxt}>{item}</Text>
               </Pressable>
