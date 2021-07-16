@@ -41,7 +41,6 @@ const Login = () => {
   const handleSubmit = async userData => {
     const {payload} = await dispatch(getUser(userData));
     if (payload) {
-      console.log(payload)
       loginMessage(true);
       await storeData('user', payload)
       history.push('/userDetails');
