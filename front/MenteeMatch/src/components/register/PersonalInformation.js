@@ -3,13 +3,8 @@ import { Text, View, TextInput, Button } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import styles from './styles';
 
-export default () => {
-    const { control, handleSubmit, formState: { errors } } = useForm();
-
-    function onSubmit(data) { 
-        console.log(data);
-        history.push()
-    }
+export default ({onSubmit}) => {
+  const { control, handleSubmit, formState: { errors } } = useForm();
 
   return (
     <View style={styles.login}>

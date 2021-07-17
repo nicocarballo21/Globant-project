@@ -3,17 +3,11 @@ import { Text, View, TextInput, Button } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import {useHistory} from 'react-router-native';
 import styles from './styles';
-import axios from 'axios';
+import { sendUserRegister } from '../../services/reduxServices'
 
 
-export default () => {
-    const history = useHistory()
+export default ({onSubmit}) => {
     const { control, handleSubmit, formState: { errors } } = useForm();
-    
-    function onSubmit(data) { 
-        console.log(data);
-        history.push("/registerAcedemic")
-    }
 
     return (
     <View style={styles.login}>
@@ -24,16 +18,16 @@ export default () => {
             render={({ field: { onChange, onBlur, value } }) => (
             <TextInput style={styles.input} onBlur={onBlur} onChangeText={onChange} value={value}
             placeholder="Nombre"/>)}
-            name="firstName"
+            name="name"
             defaultValue=""/>
-            {errors.firstName && <Text>Requiere Nombre.</Text>}
+            {errors.name && <Text>Requiere Nombre.</Text>}
 
         <Controller control={control} rules={{required: true}} render={({ field: { onChange, onBlur, value } }) => (
             <TextInput style={styles.input} onBlur={onBlur} onChangeText={onChange} value={value}
             placeholder="Apellido"/>)}
-            name="lastName"
+            name="surname"
             defaultValue=""/>
-            {errors.lastName && <Text>Requiere Apellido.</Text>}
+            {errors.surname && <Text>Requiere Apellido.</Text>}
 
         <Controller control={control} rules={{required: true}} render={({ field: { onChange, onBlur, value } }) => (
             <TextInput style={styles.input} onBlur={onBlur} onChangeText={onChange} value={value} 
@@ -43,19 +37,20 @@ export default () => {
             {errors.email && <Text>Requiere Email.</Text>}
 
         <Controller control={control} rules={{required: true}} render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput style={styles.input} onBlur={onBlur} onChangeText={onChange} value={value} placeholder="Contraseña"/>)}
+            <TextInput style={styles.input} onBlur={onBlur} secureTextEntry={true} onChangeText={onChange} value={value} 
+            placeholder="Contraseña"/>)}
             name="password"
             defaultValue=""/>
             {errors.password && <Text>Requiere Contraseña.</Text>}
 
         <Controller control={control} rules={{required: true}} render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput style={styles.input} onBlur={onBlur} onChangeText={onChange} value={value} 
-            placeholder="Confirmar Contraseña"/>)}
+            <TextInput style={styles.input} onBlur={onBlur} onChangeText={onChange} value={value} secureTextEntry={true}
+            placeholder="Confirmar Contraseña" />)}
             name="passwordConf"
-            defaultValue=""/>
+            defaultValue=""/> 
             {errors.passwordConf && <Text>Requiere Confirmación de Contraseña.</Text>}
-
-        <Button title="Siguiete" onPress={handleSubmit(onSubmit)} />
+ 
+        <Button title="Siguiete" onPress={handleSubmit(onSubmit)} /* disabled={button} *//>
       </View>
     </View>
   );
