@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import {useHistory} from 'react-router-native';
 import { sendUserRegister } from '../../services/reduxServices'
 import Register from '../../components/register/Register';
