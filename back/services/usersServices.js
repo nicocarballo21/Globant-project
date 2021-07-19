@@ -42,10 +42,12 @@ const getMatchesForUser = async (
 
   if (roleToFind === "isMentor" && user.mentor?._id) return [];
 
+  const skillstTomatch = user[userSkills].map((x) => x._id);
+
   let matches =
     (await Users.find({
       [roleToFind]: true,
-      [skillsToFind]: { $in: user[userSkills] },
+      [skillsToFind]: { $in: skillstTomatch },
     })) || [];
 
   if (roleToFind === "isMentor")
@@ -53,7 +55,7 @@ const getMatchesForUser = async (
       return user.disponible;
     });
 
-  return orderByCoincidences(user, matches, { skillsToFind, userSkills });
+  return orderByCoincidences(skillstTomatch, matches, skillsToFind);
 };
 
 module.exports = {

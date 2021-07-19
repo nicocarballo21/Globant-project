@@ -1,16 +1,14 @@
 const countCoincidences = (arr1, arr2) =>
   arr1.reduce((a, c) => a + arr2.includes(c), 0);
 
-const orderByCoincidences = (user, matches, { skillsToFind, userSkills }) =>
+const orderByCoincidences = (userSkills, matches, skillsToFind) =>
   matches
     .map((match) => ({
       ...match._doc,
-      coincidences: countCoincidences(
-        user[userSkills].map((x) => x._id),
-        match[skillsToFind]
-      ),
+      coincidences: countCoincidences(userSkills, match[skillsToFind]),
     }))
-    .sort((a, b) => a.coincidences - b.coincidences).reverse()
+    .sort((a, b) => a.coincidences - b.coincidences)
+    .reverse();
 
 module.exports = {
   orderByCoincidences,
