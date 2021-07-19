@@ -57,7 +57,6 @@ export default function Matcher() {
     //         .then(matches => setDisplayUsers(matches))
     // }, [dispatch])
 
-
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Hola, User Name.</Text> 
