@@ -23,6 +23,11 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontSize: 15,
   },
+  error: {
+    color: 'red',
+    textAlign: 'left',
+    fontSize: 15,
+  },
 });
 
 export default styles;
