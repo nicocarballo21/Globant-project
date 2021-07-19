@@ -16,6 +16,8 @@
     "react": "17.0.1",
     "react-devtools-core": "^4.13.5",
     "react-native": "0.64.2",
+    "react-native-camera": "^4.0.0",
+    "react-native-camera-hooks": "^0.5.1",
     "react-native-flash-message": "^0.1.23",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
