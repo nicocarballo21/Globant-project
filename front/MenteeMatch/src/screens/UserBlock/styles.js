@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import globantBright from '../../assets/styles/colors'
 
 export const styles = StyleSheet.create({
     container: {
@@ -15,26 +16,26 @@ export const styles = StyleSheet.create({
         height: 200,
        borderWidth: 1,
        borderRadius: 20,
-       borderBottomColor: "#4f4f4f",
+       borderBottomColor: "white",
        borderTopColor: "white",
        borderStartColor: "white",
-       borderEndColor: "#4f4f4f",
+       borderEndColor: "white",
        margin: 5,
-       backgroundColor: "#69827d"
+       backgroundColor: "#F5F6F7",
+       elevation: 10
        //b7bfe5
    },
    title: {
-       color: "#111333",
+       color: "#434343",
        fontSize: 20,
        fontWeight: "bold",
        paddingTop: 25,
        marginLeft: "15%"
     },
     text: {
-        color: "#111333",
+        color: "#434343",
         fontSize: 10,
-       marginLeft: "15%"
-
+        marginLeft: "15%"
      },
      img: {
         width: 90,
@@ -43,7 +44,7 @@ export const styles = StyleSheet.create({
         paddingTop: 0,
         borderWidth: 2,
         borderRadius: 100,
-        borderColor: "#111333"
+        borderColor: "#434343"
     },
     skillsContainer:{
         marginTop: 20,
