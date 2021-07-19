@@ -9,6 +9,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginBottom: 20,
   },
+  error: {
+    width: '80%',
+    height: 50,
+    padding: 15,
+    borderColor: 'red',
+    borderBottomWidth: 2,
+    marginBottom: 20,
+  },
 });
 
 export default styles;

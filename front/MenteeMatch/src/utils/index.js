@@ -1,4 +1,4 @@
-import {showMessage} from 'react-native-flash-message';
+import { showMessage } from 'react-native-flash-message';
 
 export const loginMessage = type => {
   showMessage({
