@@ -9,3 +9,14 @@ export const loginMessage = type => {
     floating: true,
   });
 };
+
+export const simpleMessage = (message, description, type) => {
+  showMessage({
+    message: message,
+    description: description,
+    //types: success, danger
+    type: type,
+    icon: type,
+    floating: true,
+  });
+};

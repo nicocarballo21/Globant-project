@@ -49,6 +49,13 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontSize: 15,
   },
+
+  error: {
+    color: '#ff0039',
+    fontSize: 14,
+    marginLeft: -190,
+    padding: -2,
+  },
 });
 
 export default styles;
