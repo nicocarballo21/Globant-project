@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from "react-redux"
+import React from 'react'
 import { View, Text } from 'react-native'
-// import { useHistory } from 'react-router-dom'
-import { useHistory } from 'react-router-native'
+
 import styles from './styles'
 import { UserBlock } from '../'
 

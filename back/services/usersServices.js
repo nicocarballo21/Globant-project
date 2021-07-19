@@ -4,11 +4,11 @@ const { orderByCoincidences } = require("../utils");
 const createUser = (body) => {
   const { name, surname, email, password } = body;
 
-  return Users.create({ name, surname, email, password });
+  return Users.create({ name, surname, email, password }, "-__v");
 };
 
 const findUserByEmail = (email) => {
-  return Users.findOne({ email })
+  return Users.findOne({ email }, "-__v")
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
     .exec();

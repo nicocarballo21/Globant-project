@@ -23,4 +23,5 @@ const globantDark = {
   grass: "#39B54A"
 }
 
+export { colors }
 export default { colors, globantBright, globantDark };

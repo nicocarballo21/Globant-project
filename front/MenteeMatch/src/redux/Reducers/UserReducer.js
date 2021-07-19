@@ -10,20 +10,23 @@ const initialState = {
   name: null,
   surname: null,
   email: null,
+  position: null,
   phone: null,
-  address: null,
+  personalDescription: null,
+  country: null,
   isMentor: null,
   isMentee: null,
   isAdmin: null,
   isLoggedIn: null,
-  mentor: null,
+  mentor: {},
   mentees: [],
-  reunions: [],
-  objectives: [],
-  skills: [],
-  peopleILike: [],
-  peopleIDislike: [],
-  matchs: [],
+  meets: [],
+  skillsToLearn: [],
+  skillsToTeach: [],
+  likes: [],
+  disLikes: [],
+  maxMentees: null,
+  img: null
 };
 
 export const setUser = createAction('SET_USER');
@@ -52,7 +55,7 @@ const userReducer = createReducer(initialState, {
     user.skills = skills;
     return user;
   },
-  [setUser]: (state, action) => action.payload,
+  [setUser]: (_, action) => action.payload,
 });
 
 export default userReducer;

@@ -8,7 +8,7 @@ const selectedUserReducer = createReducer(
   {},
   {
     [setSelectedUser]: (state, action) => {
-      state.selectedUser = action.payload;
+     state.selectedUser = action.payload;
     },
   },
 );

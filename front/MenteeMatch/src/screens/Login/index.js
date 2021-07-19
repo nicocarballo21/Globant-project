@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
-import { loginMessage } from '../../utils';
-import axios from 'axios';
+import { useForm, Controller } from 'react-hook-form';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setUser } from '../../redux/Reducers/UserReducer';
+
+import { loginMessage } from '../../utils';
 
 import styles from './styles';
 import logo from '../../utils/logo.png';
@@ -14,8 +15,7 @@ import InputText from '../../components/InputText';
 import Button from '../../components/Button';
 
 import { getData, storeData } from '../../utils/storage';
-import { API_URL } from '@env';
-import { useForm, Controller } from 'react-hook-form';
+import { getSkills } from '../../redux/Reducers/Skills';
 
 const Login = ( {navigation} ) => {
   const {
@@ -26,8 +26,7 @@ const Login = ( {navigation} ) => {
   const dispatch = useDispatch();
 
   const onSubmit = async userData => {
-    /* setisSubmit(true); */
-    const { payload } = await dispatch(getUser(userData));
+    const { payload } = dispatch(getUser(userData));
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
@@ -39,15 +38,13 @@ const Login = ( {navigation} ) => {
 
   useEffect(async () => {
     try {
-      const res = await axios.get(API_URL + '/api/skills');
-      const skillsArray = await res.data;
-      const skills = skillsArray.map(skill => skill.name);
+      dispatch(getSkills())
       const storedUser = await getData('user');
       if (storedUser) {
-        dispatch(setUser({ ...storedUser, skills }));
+        dispatch(setUser({ ...storedUser }));
         return navigation.navigate("UserDetails");
       }
-      dispatch(setUser({ ...storeUser, skills }));
+      dispatch(setUser({ ...storeUser }));
     } catch (error) {
       console.log(error);
     }
@@ -75,7 +72,6 @@ const Login = ( {navigation} ) => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder="Email"
               placeholder="Email"
               keyboardType="email-address"
             />

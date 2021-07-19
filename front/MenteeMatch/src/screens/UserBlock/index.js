@@ -1,15 +1,10 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import { Text, View, Image, Pressable } from 'react-native'
-import {styles} from './styles'
+import { styles } from './styles'
 import user_img from '../../assets/static/user_img.png'
-import { setSelectedUser } from '../../redux'
-import { useHistory } from 'react-router-native'
 
 export default function UserBlock({ user }) {
 
-    const dispatch = useDispatch()
-    let history = useHistory()
     // !user.img ? user.img = user_img : user.img
 
     const handlePress = () => {
