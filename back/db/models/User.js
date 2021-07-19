@@ -73,6 +73,10 @@ const userSchema = new mongoose.Schema({
       ref: "Users",
     },
   ],
+  maxMentees: {
+    type: Number, 
+    default: 3
+  }
 });
 
 userSchema.pre("save", function (next) {
@@ -97,6 +101,10 @@ userSchema.methods.comparePassword = function (password) {
     return res;
   });
 };
+
+userSchema.virtual("disponible").get(function () {
+  return this.mentees.length < this.maxMentees
+});
 
 const Users = mongoose.model("Users", userSchema);
 
