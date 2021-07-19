@@ -6,23 +6,22 @@ const userLogin = async user => {
   return req.data;
 };
 
-const sendUserRegister = (data) => {
+const sendUserRegister = data => {
   return axios.post(`${API_URL}/api/auth/register`, {
     name: data.name,
     surname: data.surname,
     email: data.email,
     password: data.password,
-  })
-}
+  });
+};
 
-const sendUserData = (data) => {
+const sendUserData = data => {
   return axios.post(`${API_URL}/api/auth/register`, {
     position: data.position,
     phone: data.phone,
     personalDescription: about,
-    country: data.country
-  })
-}
+    country: data.country,
+  });
+};
 
 export { userLogin, sendUserRegister, sendUserData };
-
