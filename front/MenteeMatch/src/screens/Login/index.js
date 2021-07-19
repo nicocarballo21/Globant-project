@@ -10,14 +10,13 @@ import { getUser, setUser } from '../../redux/Reducers/UserReducer';
 import styles from './styles';
 import logo from '../../utils/logo.png';
 
-import InputText from '../../components/InputText';
-import Button from '../../components/Button';
+import { InputText, Button } from '../../components';
 
 import { getData, storeData } from '../../utils/storage';
 import { API_URL } from '@env';
 import { useForm, Controller } from 'react-hook-form';
 
-const Login = ( {navigation} ) => {
+const Login = ({ navigation }) => {
   const {
     control,
     handleSubmit,
@@ -33,7 +32,7 @@ const Login = ( {navigation} ) => {
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
-      navigation.navigate("UserDetails");
+      navigation.navigate('UserDetails');
     } else loginMessage(false);
   };
 
@@ -47,7 +46,7 @@ const Login = ( {navigation} ) => {
       const storedUser = await getData('user');
       if (storedUser) {
         dispatch(setUser({ ...storedUser, skills }));
-        return navigation.navigate("UserDetails");
+        return navigation.navigate('UserDetails');
       }
       e;
       dispatch(setUser({ ...storeUser, skills }));
@@ -108,7 +107,7 @@ const Login = ( {navigation} ) => {
         />
 
         <Button title={'Log in'} pressFunction={handleSubmit(onSubmit)} />
-        <TouchableOpacity onPress={() => navigation.navigate("Register")} >
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
           <Text style={styles.footer}>Your are not login? Register here!</Text>
         </TouchableOpacity>
       </View>

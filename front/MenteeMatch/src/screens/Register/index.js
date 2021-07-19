@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { useHistory } from 'react-router-native';
 import { sendUserRegister } from '../../services/reduxServices';
-import Register from '../../components/register/Register';
+import Register from '../../components/Register/Register';
 
 export default () => {
   const history = useHistory();

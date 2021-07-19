@@ -2,10 +2,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import FlashMessage from 'react-native-flash-message';
-import firstScreen from './components/firstScreen';
+import firstScreen from './components/FirstScreen';
 
 //screens
-import { Login, Matcher, UserDetails, Register, UserData } from './screens';
+import { Login, Matcher, Register, UserData, UserDetails } from './screens';
 
 //navigation
 import { NavigationContainer } from '@react-navigation/native';
