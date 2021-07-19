@@ -7,7 +7,7 @@ module.exports = {
     createUser(req.body)
       .then((user) => {
         const token = jwt.sign({ id: user.id }, "mentee");
-        res.status(200).json({ user, token });
+        res.status(200).json({ user: {...user._doc, password: null}, token });
       })
       .catch((err) => {
         console.log(err);
@@ -22,7 +22,7 @@ module.exports = {
       user.comparePassword(req.body.password).then((password) => {
         if (!password) return res.status(401).send("Invalid Credentials");
         const token = jwt.sign({ id: user.id }, "mentee");
-        return res.status(200).json({ token, user });
+        return res.status(200).json({ user: {...user._doc, password: null}, token });
       });
     });
   },
