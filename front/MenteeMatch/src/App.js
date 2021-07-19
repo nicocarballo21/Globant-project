@@ -1,28 +1,13 @@
-import { assertExpressionStatement } from '@babel/types';
 import React from 'react';
-
-import { useHistory } from 'react-router-dom';
-
 import { NativeRouter, Route, Switch } from 'react-router-native';
 import { View, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
-
-import UserDetails from './screens/UserDetails';
-import firstScreen from './components/firstScreen';
 import store from './redux/store';
-
-import Register from './screens/register/Register';
-import UserData from './screens/userData/UserData';
-
-import { Matcher } from '../src/screens';
-// console.log("Matcher en App: ", Matcher)
-
 import FlashMessage from 'react-native-flash-message';
+import firstScreen from './components/firstScreen';
 
-//import { storeData, getData } from './utils/storage.js'
-
-// components
-import Login from './screens';
+//screens
+import { Login, Matcher, UserDetails, Register, UserData } from './screens';
 
 const App = () => {
   React.useEffect(() => {
@@ -35,7 +20,7 @@ const App = () => {
       <NativeRouter>
         <View style={styles.container}>
           <Switch>
-            {/* <Route exact path="/login" component={Login} /> */}
+            <Route exact path="/login" component={Login} />
             <Route exact path="/login" component={Matcher} />
             <Route exact path="/userDetails" component={UserDetails} />
             <Route exact path="/registerPerson" component={Register} />
