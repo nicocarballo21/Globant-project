@@ -1,6 +1,4 @@
 import React from 'react';
-import { NativeRouter, Route, Switch } from 'react-router-native';
-import { View, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import FlashMessage from 'react-native-flash-message';
@@ -8,6 +6,12 @@ import firstScreen from './components/firstScreen';
 
 //screens
 import { Login, Matcher, UserDetails, Register, UserData } from './screens';
+
+//navigation
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 const App = () => {
   React.useEffect(() => {
@@ -17,29 +21,19 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <NativeRouter>
-        <View style={styles.container}>
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/login" component={Matcher} />
-            <Route exact path="/userDetails" component={UserDetails} />
-            <Route exact path="/registerPerson" component={Register} />
-            <Route exact path="/registerAcedemic" component={UserData} />
-            <Route exact path="/matcher" component={Matcher} />
-            <Route exact path="/" component={firstScreen} />
-          </Switch>
-        </View>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="firstScreen">
+          <Stack.Screen name="firstScreen" component={firstScreen} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="UserDetails" component={UserDetails} />
+          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="UserData" component={UserData} />
+          <Stack.Screen name="Matcher" component={Matcher} />
+        </Stack.Navigator>
         <FlashMessage position="top" />
-      </NativeRouter>
+      </NavigationContainer>
     </Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    height: '100%',
-  },
-});
 
 export default App;
