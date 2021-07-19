@@ -3,7 +3,7 @@ import {
   createAction,
   createAsyncThunk,
 } from '@reduxjs/toolkit';
-import reduxServices from '../../services/reduxServices';
+import reduxServices, { registerUser } from '../../services/reduxServices';
 import { userLogin } from '../../services/reduxServices';
 
 const initialState = {
@@ -26,36 +26,18 @@ const initialState = {
   likes: [],
   disLikes: [],
   maxMentees: null,
-  img: null
+  img: null,
 };
 
+//------------------- Actions -------------------//
 export const setUser = createAction('SET_USER');
+export const getUser = createAsyncThunk('USER_LOG_IN', userLogin);
+export const userRegister = createAsyncThunk('USER_REGISTER', registerUser);
 
-export const getUser = createAsyncThunk('USER_LOG_IN', async userData => {
-  try {
-    const { user } = await userLogin(userData);
-    return user;
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-export const userRegister = createAsyncThunk(
-  'USER_REGISTER',
-  async dataRegister => {
-    const { register } = await reduxServices.userLogin(dataRegister);
-    return register;
-  },
-);
-
+//------------------- Reducer -------------------//
 const userReducer = createReducer(initialState, {
-  [getUser.fulfilled]: (state, action) => {
-    const skills = state.skills;
-    const user = { ...action.payload };
-    user.skills = skills;
-    return user;
-  },
-  [setUser]: (_, action) => action.payload,
+  [getUser.fulfilled]: (state, action) => action.payload,
+  [setUser]: (state, action) => action.payload,
 });
 
 export default userReducer;

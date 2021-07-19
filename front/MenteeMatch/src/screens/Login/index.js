@@ -15,7 +15,6 @@ import InputText from '../../components/InputText';
 import Button from '../../components/Button';
 
 import { getData, storeData } from '../../utils/storage';
-import { getSkills } from '../../redux/Reducers/Skills';
 
 const Login = ( {navigation} ) => {
   const {
@@ -26,7 +25,7 @@ const Login = ( {navigation} ) => {
   const dispatch = useDispatch();
 
   const onSubmit = async userData => {
-    const { payload } = dispatch(getUser(userData));
+    const { payload } = await dispatch(getUser(userData));
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
@@ -34,17 +33,16 @@ const Login = ( {navigation} ) => {
     } else loginMessage(false);
   };
 
-  const storeUser = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
 
   useEffect(async () => {
     try {
-      dispatch(getSkills())
       const storedUser = await getData('user');
       if (storedUser) {
         dispatch(setUser({ ...storedUser }));
         return navigation.navigate("UserDetails");
       }
-      dispatch(setUser({ ...storeUser }));
+      dispatch(setUser({ ...user }));
     } catch (error) {
       console.log(error);
     }

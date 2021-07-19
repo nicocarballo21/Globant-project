@@ -39,7 +39,7 @@ export default ({onSubmit}) => {
             defaultValue=""/>
             {errors.about && <Text>Requiere Acerce de ...</Text>}
 
-        <Button title="Siguiete" onPress={handleSubmit(onSubmit)} />
+        <Button title="Siguiente" onPress={handleSubmit(onSubmit)} />
       </View>
     </View>
   );

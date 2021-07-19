@@ -1,17 +1,13 @@
 import { createReducer, createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios'
-import {API_URL} from '@env'
+import { obtainSkills } from '../../services/reduxServices';
 
 //------------------- Actions -------------------//
 const setSkills = createAction('SET_SKILLS');
-const getSkills = createAsyncThunk('GET_SKILLS', async () => {
-  const res = await axios.get(API_URL + '/api/skills');
-  const skills = await res.data;
-  return skills
-})
+
+const getSkills = createAsyncThunk('GET_SKILLS', obtainSkills)
 
 //------------------- Reducer -------------------//
-const skillsReducer = createReducer(null, {
+const skillsReducer = createReducer([], {
   [setSkills]: (state, action) => action.payload,
   [getSkills.fulfilled]: (state, action) => action.payload
 });

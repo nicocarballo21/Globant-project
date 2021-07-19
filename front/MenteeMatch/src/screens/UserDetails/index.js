@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,16 +7,23 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import userImg from '../../assets/static/user_img.png';
 import goBack from '../../assets/static/goBack.png';
 import { removeData } from '../../utils/storage';
+import { getSkills } from '../../redux/Reducers/Skills';
 
 const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
-  const { name, surname, email, position, skills } = user;
-  const numColumns = Math.ceil(skills.length / 4);
+  const skills = useSelector (state => state.skills)
+  const dispatch = useDispatch()
+  const { name, surname, email, position } = user;
+  /* const numColumns = Math.ceil(skills.length / 4); */
+
+  useEffect(() => {
+    dispatch(getSkills())
+  }, [])
 
   const handleGoBack = async () => {
     try {
@@ -55,14 +62,14 @@ const UserDetails = ({ navigation }) => {
             contentContainerStyle={{
               alignSelf: 'flex-start',
             }}
-            numColumns={numColumns}
+            numColumns={7}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             data={skills}
-            keyExtractor={keys => keys}
+            keyExtractor={skills => skills._id}
             renderItem={({ item }) => (
               <Pressable style={styles.pressable}>
-                <Text style={styles.pressableTxt}>{item}</Text>
+                <Text style={styles.pressableTxt}>{item.name}</Text>
               </Pressable>
             )}
           />

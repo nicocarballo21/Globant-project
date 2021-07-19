@@ -50,7 +50,7 @@ export default ({onSubmit}) => {
             defaultValue=""/> 
             {errors.passwordConf && <Text>Requiere Confirmación de Contraseña.</Text>}
  
-        <Button title="Siguiete" onPress={handleSubmit(onSubmit)} /* disabled={button} *//>
+        <Button title="Siguiente" onPress={handleSubmit(onSubmit)} /* disabled={button} *//>
       </View>
     </View>
   );
