@@ -15,7 +15,7 @@ import store from './redux/store';
 import Register from './screens/register/Register';
 import UserData from './screens/userData/UserData';
 
-import { Matcher } from './screens/';
+// import { Matcher } from './screens/';
 // console.log("Matcher en App: ", Matcher)
 
 import FlashMessage from 'react-native-flash-message';
@@ -45,10 +45,11 @@ const App = () => {
                 >
                     <Stack.Screen name="firstScreen" component={firstScreen} />
                     <Stack.Screen name="Login" component={Login} />
+                    {/* <Stack.Screen name="Login" component={Martcher} /> */}
                     <Stack.Screen name="UserDetails" component={UserDetails} />
                     <Stack.Screen name="Register" component={Register} />
                     <Stack.Screen name="UserData" component={UserData} />
-                    <Stack.Screen name="Matcher" component={Matcher} />
+                    {/* <Stack.Screen name="Matcher" component={Matcher} /> */}
                 </Stack.Navigator>
                 <FlashMessage position="top" />
             </NavigationContainer>

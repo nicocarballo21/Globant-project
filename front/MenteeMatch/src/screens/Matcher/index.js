@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { View, Text } from 'react-native'
 // import { useHistory } from 'react-router-dom'
 import { useHistory } from 'react-router-native'
-import styles from './styles'
+import {styles} from './styles'
 import { UserBlock } from '../'
 
 
