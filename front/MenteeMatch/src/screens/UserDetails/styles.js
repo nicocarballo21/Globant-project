@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native';
-import colors from '../../assets/styles/colors';
+import { colors } from '../../assets/styles/colors';
+
+console.log()
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.charade,
+    backgroundColor: colors.blackPearl,
     alignItems: 'center',
   },
   header: {

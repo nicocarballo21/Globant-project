@@ -23,4 +23,4 @@ const globantDark = {
   grass: '#39B54A',
 };
 
-module.exports = { colors, globantBright, globantDark };
+export { colors, globantBright, globantDark }

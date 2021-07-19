@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
-import { loginMessage } from '../../utils';
-import axios from 'axios';
-import { API_URL } from '@env';
+import { useForm, Controller } from 'react-hook-form';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setUser } from '../../redux/Reducers/UserReducer';
+
+import { loginMessage } from '../../utils';
 
 import styles from './styles';
 import logo from '../../utils/logo.png';
@@ -14,7 +14,6 @@ import logo from '../../utils/logo.png';
 import { InputText, Button } from '../../components';
 
 import { getData, storeData } from '../../utils/storage';
-import { useForm, Controller } from 'react-hook-form';
 
 const Login = ({ navigation }) => {
   const {
@@ -33,20 +32,16 @@ const Login = ({ navigation }) => {
     } else loginMessage(false);
   };
 
-  const storeUser = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
 
   useEffect(async () => {
     try {
-      const res = await axios.get(API_URL + '/api/skills');
-      const skillsArray = await res.data;
-      const skills = skillsArray.map(skill => skill.name);
       const storedUser = await getData('user');
       if (storedUser) {
-        dispatch(setUser({ ...storedUser, skills }));
-        return navigation.navigate('UserDetails');
+        dispatch(setUser({ ...storedUser }));
+        return navigation.navigate("UserDetails");
       }
-      e;
-      dispatch(setUser({ ...storeUser, skills }));
+      dispatch(setUser({ ...user }));
     } catch (error) {
       console.log(error);
     }
