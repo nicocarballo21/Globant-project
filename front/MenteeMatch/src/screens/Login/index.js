@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
-import { Link, useHistory } from 'react-router-native';
 import { loginMessage } from '../../utils';
 import axios from 'axios';
 
@@ -18,8 +17,7 @@ import { getData, storeData } from '../../utils/storage';
 import { API_URL } from '@env';
 import { useForm, Controller } from 'react-hook-form';
 
-const Login = () => {
-  const [isSubmit, setisSubmit] = useState(false);
+const Login = ( {navigation} ) => {
   const {
     control,
     handleSubmit,
@@ -50,7 +48,7 @@ const Login = () => {
       const storedUser = await getData('user');
       if (storedUser) {
         dispatch(setUser({ ...storedUser, skills }));
-        return history.push('/userDetails');
+        return navigation.navigate("UserDetails");
       }
       e;
       dispatch(setUser({ ...storeUser, skills }));
@@ -111,9 +109,9 @@ const Login = () => {
         />
 
         <Button title={'Log in'} pressFunction={handleSubmit(onSubmit)} />
-        <Link component={TouchableOpacity} to="/registerPerson">
+        <TouchableOpacity onPress={() => navigation.navigate("Register")} >
           <Text style={styles.footer}>Your are not login? Register here!</Text>
-        </Link>
+        </TouchableOpacity>
       </View>
     </View>
   );

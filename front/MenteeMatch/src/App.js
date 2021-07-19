@@ -1,4 +1,5 @@
 import { assertExpressionStatement } from '@babel/types';
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler'; 
 import React from 'react';
 
 import { useHistory } from 'react-router-dom';
@@ -22,39 +23,45 @@ import FlashMessage from 'react-native-flash-message';
 //import { storeData, getData } from './utils/storage.js'
 
 // components
-import Login from './screens';
+import { Login }from './screens';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+
 
 const App = () => {
   React.useEffect(() => {
     //storeData({name:"test"},"user_key")
     //getData("user_key").then(value => console.log(value))
   }, []);
+    
+    return (
+        <Provider store={store}>
+            <NavigationContainer>
+                <Stack.Navigator
+                    initialRouteName="firstScreen"
+                >
+                    <Stack.Screen name="firstScreen" component={firstScreen} />
+                    <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen name="UserDetails" component={UserDetails} />
+                    <Stack.Screen name="Register" component={Register} />
+                    <Stack.Screen name="UserData" component={UserData} />
+                    <Stack.Screen name="Matcher" component={Matcher} />
+                </Stack.Navigator>
+                <FlashMessage position="top" />
+            </NavigationContainer>
+        </Provider>
+    )
 
-  return (
-    <Provider store={store}>
-      <NativeRouter>
-        <View style={styles.container}>
-          <Switch>
-            {/* <Route exact path="/login" component={Login} /> */}
-            <Route exact path="/login" component={Matcher} />
-            <Route exact path="/userDetails" component={UserDetails} />
-            <Route exact path="/registerPerson" component={Register} />
-            <Route exact path="/registerAcedemic" component={UserData} />
-            <Route exact path="/matcher" component={Matcher} />
-            <Route exact path="/" component={firstScreen} />
-          </Switch>
-        </View>
-        <FlashMessage position="top" />
-      </NativeRouter>
-    </Provider>
-  );
 };
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
     backgroundColor: 'white',
     height: '100%',
   },
-});
+};
 
 export default App;
