@@ -1,19 +1,23 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useHistory } from 'react-router-native';
 import { sendUserRegister } from '../../services/reduxServices';
-import Register from '../../components/Register/Register';
+import { useNavigation } from '@react-navigation/native';
+
+import Register from '../../components/Register';
+
+import { simpleMessage } from '../../utils';
 
 export default () => {
-  const history = useHistory();
+  const navigation = useNavigation();
 
   const onSubmit = data => {
     if (data.password === data.passwordConf && data) {
-      sendUserRegister(data);
-      history.push('/registerAcedemic');
-    }
-  };
+      sendUserRegister(data).then(() => navigation.navigate('UserData'));
 
+      return;
+    }
+    simpleMessage('Error', 'Las passwords deben ser iguales', 'danger');
+  };
   return (
     <View>
       <Register onSubmit={onSubmit} />

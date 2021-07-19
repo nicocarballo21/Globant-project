@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
 import { loginMessage } from '../../utils';
 import axios from 'axios';
+import { API_URL } from '@env';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +14,6 @@ import logo from '../../utils/logo.png';
 import { InputText, Button } from '../../components';
 
 import { getData, storeData } from '../../utils/storage';
-import { API_URL } from '@env';
 import { useForm, Controller } from 'react-hook-form';
 
 const Login = ({ navigation }) => {
@@ -24,10 +24,7 @@ const Login = ({ navigation }) => {
   } = useForm();
   const dispatch = useDispatch();
 
-  console.log(errors);
-
   const onSubmit = async userData => {
-    setisSubmit(true);
     const { payload } = await dispatch(getUser(userData));
     if (payload) {
       loginMessage(true);
@@ -78,7 +75,6 @@ const Login = ({ navigation }) => {
               onChangeText={onChange}
               value={value}
               placeholder="Email"
-              placeholder="Email"
               keyboardType="email-address"
             />
           )}
@@ -108,7 +104,7 @@ const Login = ({ navigation }) => {
 
         <Button title={'Log in'} pressFunction={handleSubmit(onSubmit)} />
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.footer}>Your are not login? Register here!</Text>
+          <Text style={styles.footer}>Registrate aca!</Text>
         </TouchableOpacity>
       </View>
     </View>

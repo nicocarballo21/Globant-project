@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import FlashMessage from 'react-native-flash-message';
@@ -22,7 +23,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="firstScreen">
+        <Stack.Navigator initialRouteName="firstScreen" headerMode="none">
           <Stack.Screen name="firstScreen" component={firstScreen} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="UserDetails" component={UserDetails} />

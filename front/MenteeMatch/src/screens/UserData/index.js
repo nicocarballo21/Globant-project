@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { sendUserData } from '../../services/reduxServices';
 import PersonalInformation from '../../components/Register/PersonalInformation';
 
 export default () => {
-  function onSubmit(data) {
+  const onSubmit = data => {
     sendUserData(data);
-    console.log(data);
-    history.push();
-  }
+  };
 
   return (
     <View>
