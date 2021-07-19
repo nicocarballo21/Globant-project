@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
    //Paleta ejemplo: color1: #233E8B, color2: #1EAE98, color3: #A9F1DF, color4: #FFFFC7
    container: {
-      backgroundColor: 'cadetblue',
+      backgroundColor: 'white',
        height: "100%",
     //    flex: 1
    },
