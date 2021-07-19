@@ -5,12 +5,13 @@ import {useHistory} from 'react-router-dom';
 import logo from '../../utils/logo.png';
 import styles from './styles';
 
-const firstScreen = () => {
+const firstScreen = ( {navigation} ) => {
   const history = useHistory();
 
   useEffect(() => {
     setTimeout(() => {
-      history.push('/login');
+      //history.push('/login');
+      navigation.navigate("Login")
     }, 2000);
   }, []);
 

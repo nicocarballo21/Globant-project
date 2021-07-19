@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
-import { Link, useHistory } from 'react-router-native';
 import { loginMessage } from '../../utils';
 import axios from 'axios';
 
@@ -16,12 +15,11 @@ import Button from '../../components/Button';
 import { getData, storeData } from '../../utils/storage';
 import { API_URL } from '@env'
 
-const Login = () => {
+const Login = ( {navigation} ) => {
   const dispatch = useDispatch();
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
   const user = { email, password };
-  const history = useHistory();
 
   const storeUser = useSelector(state => state.user);
 
@@ -33,7 +31,7 @@ const Login = () => {
       const storedUser = await getData('user');
       if (storedUser) {
         dispatch(setUser({ ...storedUser, skills }));
-        return history.push('/userDetails');
+        return navigation.navigate("UserDetails");
       }
       dispatch(setUser({ ...storeUser, skills }));
     } catch (error) {
@@ -46,7 +44,8 @@ const Login = () => {
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
-      history.push('/userDetails');
+      //history.push('/userDetails');
+        navigation.navigate("UserDetails")
     } else loginMessage(false);
   };
 
@@ -72,9 +71,9 @@ const Login = () => {
         />
         <Button title={'Log in'} pressFunction={() => handleSubmit(user)} />
 
-        <Link component={TouchableOpacity} to="/registerPerson">
+        <TouchableOpacity onPress={() => navigation.navigate("Register")} >
           <Text style={styles.footer}>Your are not login? Register here!</Text>
-        </Link>
+        </TouchableOpacity>
       </View>
     </View>
   );
