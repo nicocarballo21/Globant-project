@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Text, View, Image, Pressable } from 'react-native'
-import {styles} from './styles'
+import styles from './styles'
 import user_img from '../../assets/static/user_img.png'
 import { setSelectedUser } from '../../redux'
 import { useHistory } from 'react-router-native'

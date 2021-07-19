@@ -35,8 +35,8 @@ const App = () => {
       <NativeRouter>
         <View style={styles.container}>
           <Switch>
-            <Route exact path="/login" component={Login} />
-            {/* <Route exact path="/login" component={Matcher} /> */}
+            {/* <Route exact path="/login" component={Login} /> */}
+            <Route exact path="/login" component={Matcher} />
             <Route exact path="/userDetails" component={UserDetails} />
             <Route exact path="/registerPerson" component={Register} />
             <Route exact path="/registerAcedemic" component={UserData} />
