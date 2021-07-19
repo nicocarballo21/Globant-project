@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -16,7 +16,7 @@ import { getSkills } from '../../redux/Reducers/Skills';
 
 const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
-  const skills = useSelector (state => state.skills)
+  const skills = user.skillsToTeach
   const dispatch = useDispatch()
   const { name, surname, email, position } = user;
   /* const numColumns = Math.ceil(skills.length / 4); */
@@ -60,9 +60,9 @@ const UserDetails = ({ navigation }) => {
           <FlatList
             scrollEnabled={false}
             contentContainerStyle={{
-              alignSelf: 'flex-start',
+              alignItems: 'center',
             }}
-            numColumns={7}
+            numColumns={4}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             data={skills}

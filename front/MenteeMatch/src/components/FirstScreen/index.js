@@ -4,7 +4,7 @@ import { View, Image } from 'react-native';
 import logo from '../../utils/logo.png';
 import styles from './styles';
 
-const firstScreen = ({ navigation }) => {
+const FirstScreen = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate('Login');
@@ -18,4 +18,4 @@ const firstScreen = ({ navigation }) => {
   );
 };
 
-export default firstScreen;
+export default FirstScreen;

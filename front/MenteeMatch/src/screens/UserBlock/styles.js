@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import globantBright from '../../assets/styles/colors';
 
 export const styles = StyleSheet.create({
   container: {

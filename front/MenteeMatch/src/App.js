@@ -4,7 +4,7 @@ import store from './redux/store';
 import { Provider } from 'react-redux';
 
 // Components
-import firstScreen from './components/firstScreen';
+import FirstScreen from './components/FirstScreen';
 
 // Screens
 import { Login, Matcher, Register, UserData, UserDetails } from './screens';
@@ -20,7 +20,7 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="firstScreen" headerMode={"none"}>
-          <Stack.Screen name="firstScreen" component={firstScreen} />
+          <Stack.Screen name="firstScreen" component={FirstScreen} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="UserDetails" component={UserDetails} />
           <Stack.Screen name="Register" component={Register} />
