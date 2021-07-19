@@ -1,19 +1,10 @@
 import React from 'react';
-import { TextInput } from 'react-native';
+import { TextInput, Text, View } from 'react-native';
 import styles from './styles';
 
 const input = props => {
-  const { onChangeText, value, placeholder, textContentType } = props;
-  return (
-    <TextInput
-      style={styles.input}
-      onChangeText={onChangeText}
-      value={value}
-      placeholder={placeholder}
-      textContentType={textContentType}
-      {...props}
-    />
-  );
+  const { errors } = props;
+  return <TextInput style={errors ? styles.error : styles.input} {...props} />;
 };
 
 export default input;
