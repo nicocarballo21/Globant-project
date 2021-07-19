@@ -66,28 +66,37 @@ const Login = () => {
       </View>
 
       <View style={styles.inputs}>
-        {errors.email && <Text style={styles.error}>Campo reqeurido</Text>}
+        {errors.email && (
+          <Text style={styles.error}>{errors.email.message}</Text>
+        )}
         <Controller
           name="email"
           control={control}
           defaultValue=""
-          rules={{ required: true }}
+          rules={{ required: 'Ingrese su email' }}
           render={({ field: { onChange, onBlur, value } }) => (
             <InputText
+              autoCompleteType="email"
               errors={errors.email}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
               placeholder="Email"
+              placeholder="Email"
+              keyboardType="email-address"
             />
           )}
         />
-        {errors.password && <Text style={styles.error}>Campo reqeurido</Text>}
+        {errors.password && (
+          <Text style={styles.error}>{errors.password.message}</Text>
+        )}
         <Controller
           name="password"
           control={control}
           defaultValue=""
-          rules={{ required: true }}
+          rules={{
+            required: 'Ingrese su password',
+          }}
           render={({ field: { onChange, onBlur, value } }) => (
             <InputText
               errors={errors.password}
@@ -95,6 +104,8 @@ const Login = () => {
               onChangeText={onChange}
               value={value}
               placeholder="Password"
+              textContentType="password"
+              secureTextEntry={true}
             />
           )}
         />
