@@ -1,4 +1,5 @@
 const { Users } = require("../db/models");
+const { orderByCoincidences } = require("../utils");
 
 const createUser = (body) => {
   const { name, surname, email, password } = body;
@@ -41,18 +42,18 @@ const getMatchesForUser = async (
 
   if (roleToFind === "isMentor" && user.mentor?._id) return [];
 
-  const matches =
+  let matches =
     (await Users.find({
       [roleToFind]: true,
       [skillsToFind]: { $in: user[userSkills] },
     })) || [];
 
   if (roleToFind === "isMentor")
-    return matches.filter((user) => {
+    matches = matches.filter((user) => {
       return user.disponible;
     });
 
-  return matches;
+  return orderByCoincidences(user, matches, { skillsToFind, userSkills });
 };
 
 module.exports = {
