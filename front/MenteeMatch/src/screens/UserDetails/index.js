@@ -18,7 +18,6 @@ import { setUser } from '../../redux/Reducers/UserReducer';
 import { removeData } from '../../utils/storage';
 
 const UserDetails = () => {
-  console.log('holaaaaaaaaaaaaaaaa');
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const history = useHistory();

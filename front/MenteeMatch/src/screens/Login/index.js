@@ -25,10 +25,8 @@ const Login = ( {navigation} ) => {
   } = useForm();
   const dispatch = useDispatch();
 
-  console.log(errors);
-
   const onSubmit = async userData => {
-    setisSubmit(true);
+    /* setisSubmit(true); */
     const { payload } = await dispatch(getUser(userData));
     if (payload) {
       loginMessage(true);
@@ -49,7 +47,6 @@ const Login = ( {navigation} ) => {
         dispatch(setUser({ ...storedUser, skills }));
         return navigation.navigate("UserDetails");
       }
-      e;
       dispatch(setUser({ ...storeUser, skills }));
     } catch (error) {
       console.log(error);
