@@ -14,7 +14,7 @@ import store from './redux/store';
 import Register from './screens/register/Register';
 import UserData from './screens/userData/UserData';
 
-import { Matcher } from '../src/screens';
+import { Matcher } from './screens/';
 // console.log("Matcher en App: ", Matcher)
 
 import FlashMessage from 'react-native-flash-message';
@@ -35,8 +35,8 @@ const App = () => {
       <NativeRouter>
         <View style={styles.container}>
           <Switch>
-            {/* <Route exact path="/login" component={Login} /> */}
-            <Route exact path="/login" component={Matcher} />
+            <Route exact path="/login" component={Login} />
+            {/* <Route exact path="/login" component={Matcher} /> */}
             <Route exact path="/userDetails" component={UserDetails} />
             <Route exact path="/registerPerson" component={Register} />
             <Route exact path="/registerAcedemic" component={UserData} />
