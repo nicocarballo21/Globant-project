@@ -33,7 +33,13 @@ const userSchema = new mongoose.Schema({
   isMentor: { type: Boolean, default: false },
   isMentee: { type: Boolean, default: false },
   isAdmin: { type: Boolean, default: false },
-  skills: [
+  skillsToLearn: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Skills",
+    },
+  ],
+  skillsToTeach: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Skills",
@@ -49,7 +55,12 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Users",
   },
-  meets: [{ type: String }],
+  meets: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Meets",
+    },
+  ],
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -60,12 +71,6 @@ const userSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Users",
-    },
-  ],
-  preferences: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Skills",
     },
   ],
 });
