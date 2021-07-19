@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
 import { loginMessage } from '../../utils';
 import axios from 'axios';
@@ -24,7 +24,6 @@ const Login = ( {navigation} ) => {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   console.log(errors);
 
@@ -34,7 +33,7 @@ const Login = ( {navigation} ) => {
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
-      history.push('/userDetails');
+      navigation.navigate("UserDetails");
     } else loginMessage(false);
   };
 
