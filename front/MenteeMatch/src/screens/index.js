@@ -4,12 +4,14 @@ import UserBlock from './UserBlock';
 import Register from './Register';
 import UserData from './UserData';
 import UserDetails from './UserDetails';
+import SelectSkills from './SelectSkills'
 
-module.exports = {
+export {
   Matcher,
   Login,
   UserBlock,
   UserDetails,
   Register,
   UserData,
+  SelectSkills,
 };

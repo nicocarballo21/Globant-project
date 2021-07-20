@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { FirstScreen } from './components';
 
 // Screens
-import { Login, Matcher, Register, UserData, UserDetails } from './screens';
+import { Login, Matcher, Register, UserData, UserDetails, SelectSkills } from './screens';
 
 // Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -22,7 +22,7 @@ const App = () => {
         <Stack.Navigator initialRouteName="FirstScreen" headerMode={"none"}>
           <Stack.Screen name="FirstScreen" component={FirstScreen} />
           <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="UserDetails" component={UserDetails} />
+          <Stack.Screen name="UserDetails" component={SelectSkills} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="UserData" component={UserData} />
           <Stack.Screen name="Matcher" component={Matcher} />

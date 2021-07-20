@@ -1,5 +1,5 @@
 import { StyleSheet} from 'react-native'
-import colors from '../../assets/styles/colors'
+import {colors} from '../../assets/styles/colors'
 
 const styles = StyleSheet.create({
   container: {
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   pressable: {
     justifyContent: "center",
     alignItems: "center",
-    /* backgroundColor: "blue", */
+    backgroundColor: colors.blackPearl,
     /* width: 100, */
     paddingHorizontal: 16,
     height: 50,
@@ -45,6 +45,9 @@ const styles = StyleSheet.create({
     borderColor: colors.charade,
     margin: 5,
     elevation: 5,
+  },
+  pressed: {
+    backgroundColor: "blue",
   },
   pressableTxt: {
     color: colors.white,
