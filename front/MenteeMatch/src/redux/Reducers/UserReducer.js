@@ -3,7 +3,7 @@ import {
   createAction,
   createAsyncThunk,
 } from '@reduxjs/toolkit';
-import reduxServices, { registerUser } from '../../services/reduxServices';
+import { registerUser } from '../../services/reduxServices';
 import { userLogin } from '../../services/reduxServices';
 
 const initialState = {
@@ -36,8 +36,8 @@ export const userRegister = createAsyncThunk('USER_REGISTER', registerUser);
 
 //------------------- Reducer -------------------//
 const userReducer = createReducer(initialState, {
-  [getUser.fulfilled]: (state, action) => action.payload,
-  [setUser]: (state, action) => action.payload,
+  [getUser.fulfilled]: (_, action) => action.payload,
+  [setUser]: (_, action) => action.payload,
 });
 
 export default userReducer;

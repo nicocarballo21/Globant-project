@@ -4,7 +4,9 @@ import { createReducer, createAction } from '@reduxjs/toolkit';
 const setSelectedUser = createAction('SET_SELECTED_USER');
 
 //------------------- Reducer -------------------//
-const selectedUserReducer = createReducer({}, {
+const selectedUserReducer = createReducer(
+  {},
+  {
     [setSelectedUser]: (state, action) => action.payload,
   },
 );

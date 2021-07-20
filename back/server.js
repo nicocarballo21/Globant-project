@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 
 const { connection } = require("./db");
-const routes = require("./routes")
+const routes = require("./routes");
 const app = express();
 
 // LOGGUER
@@ -13,6 +13,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", routes);
+
+app.use((err, _, res, _) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
 
 const PORT = 3000;
 

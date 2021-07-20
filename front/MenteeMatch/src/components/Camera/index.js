@@ -16,7 +16,7 @@ export default function Camera({ onPicture }) {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.view}>
       <RNCamera
         ref={cameraRef}
         captureAudio={false}
@@ -45,4 +45,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
+  view: { flex: 1 },
 });

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -16,19 +16,19 @@ import { getSkills } from '../../redux/Reducers/Skills';
 
 const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
-  const skills = user.skillsToTeach
-  const dispatch = useDispatch()
+  const skills = user.skillsToTeach;
+  const dispatch = useDispatch();
   const { name, surname, email, position } = user;
   /* const numColumns = Math.ceil(skills.length / 4); */
 
   useEffect(() => {
-    dispatch(getSkills())
-  }, [])
+    dispatch(getSkills());
+  }, [dispatch]);
 
   const handleGoBack = async () => {
     try {
       await removeData('user');
-      navigation.goBack()
+      navigation.goBack();
     } catch (error) {
       console.log(error);
     }

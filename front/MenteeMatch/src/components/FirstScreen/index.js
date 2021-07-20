@@ -9,7 +9,7 @@ const FirstScreen = ({ navigation }) => {
     setTimeout(() => {
       navigation.navigate('Login');
     }, 2000);
-  }, []);
+  }, [navigation]);
 
   return (
     <View style={styles.background}>

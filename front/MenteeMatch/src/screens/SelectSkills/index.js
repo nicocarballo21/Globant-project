@@ -13,8 +13,8 @@ const SelectSkills = ({ navigation }) => {
   const [selection, setSelection] = useState([])
 
   useEffect(() => {
-    dispatch(getSkills())
-  }, [])
+    dispatch(getSkills());
+  }, [dispatch]);
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -79,7 +79,5 @@ const SelectSkills = ({ navigation }) => {
   );
 };
 
+
 export default SelectSkills;
-
-
-

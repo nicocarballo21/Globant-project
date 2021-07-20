@@ -10,6 +10,6 @@ module.exports = {
   Camera,
   FirstScreen,
   InputText,
-  Matcher, 
+  Matcher,
   UserBlock,
 };
