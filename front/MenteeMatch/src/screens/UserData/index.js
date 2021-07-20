@@ -1,13 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
-import { sendUserData } from '../../services/reduxServices';
+import { updateUserData } from '../../services/reduxServices';
 import PersonalInformation from '../../components/Register/PersonalInformation';
 
 import { simpleMessage } from '../../utils';
 
 export default () => {
   const onSubmit = data => {
-    sendUserData(data)
+    updateUserData(data)
       .then(() =>
         simpleMessage(
           'Registro exitoso',

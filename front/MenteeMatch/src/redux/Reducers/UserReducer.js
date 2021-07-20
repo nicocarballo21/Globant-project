@@ -29,15 +29,14 @@ const initialState = {
   img: null,
 };
 
-//------------------- Actions -------------------//
 export const setUser = createAction('SET_USER');
 export const getUser = createAsyncThunk('USER_LOG_IN', userLogin);
 export const userRegister = createAsyncThunk('USER_REGISTER', registerUser);
 
-//------------------- Reducer -------------------//
 const userReducer = createReducer(initialState, {
   [getUser.fulfilled]: (_, action) => action.payload,
   [setUser]: (_, action) => action.payload,
+  [userRegister.fullfilled]: (_, action) => action.payload,
 });
 
 export default userReducer;

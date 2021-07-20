@@ -10,13 +10,14 @@ import { simpleMessage } from '../../utils';
 export default () => {
   const navigation = useNavigation();
 
-  const onSubmit = data => {
+  const onSubmit = async data => {
     if (data.password === data.passwordConf && data) {
-      registerUser(data)
-        .then(() => navigation.navigate('UserData'))
-        .catch(() => {
-          simpleMessage('Error', 'Algo salio mal!', 'danger');
-        });
+      const success = await registerUser(data);
+      if (success) {
+        simpleMessage('Exito', 'Paso 1 de 2 completado!', 'success');
+        navigation.navigate('UserData');
+        // ver de como hacer para cachear el error y saber si el user ya existe
+      } else simpleMessage('Error', 'Algo salio mal!', 'danger');
       return;
     }
     simpleMessage('Error', 'Las passwords deben ser iguales', 'danger');
