@@ -30,14 +30,11 @@ const styles = StyleSheet.create({
     borderColor: colors.blackPearl,
     borderWidth: 1,
     elevation: 1,
-    /* borderColor: 'red',
-    borderWidth: 4, */
   },
   pressable: {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.blackPearl,
-    /* width: 100, */
     paddingHorizontal: 16,
     height: 50,
     borderRadius: 15,
@@ -65,7 +62,6 @@ const styles = StyleSheet.create({
     height: 32,
   },
   box: {
-    /* flex: 1, */
     justifyContent: "center",
     alignItems: "center",
     height: "50%"
@@ -77,8 +73,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    /* borderColor: 'red',
-    borderWidth: 4, */
   },
   menteeQtyTitleTxt: {
     padding: 16,

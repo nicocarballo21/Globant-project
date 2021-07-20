@@ -126,7 +126,7 @@ const UserDetails = ({ route, navigation }) => {
                 { img ? (
                     <Image source={{uri: img}} style={styles.userImg} />
                     ) : (
-                    <Image source={userImg} style={styles.userImg} />
+                    <Image source={user.img ? {uri: user.img} : userImg} style={styles.userImg} />
                 )}
               </TouchableOpacity>
       <Text style={styles.keyText}>Nombre</Text>
