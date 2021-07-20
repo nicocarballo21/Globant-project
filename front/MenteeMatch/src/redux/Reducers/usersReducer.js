@@ -1,4 +1,4 @@
-import {createReducer, createAction} from '@reduxjs/toolkit';
+import { createReducer, createAction } from '@reduxjs/toolkit';
 
 //------------------- Actions -------------------//
 const setUsers = createAction('SET_USERS');
@@ -11,4 +11,4 @@ const usersReducer = createReducer([], {
   },
 });
 
-export {setUsers, usersReducer};
+export { setUsers, usersReducer };

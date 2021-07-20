@@ -11,38 +11,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import userImg from '../../assets/static/user_img.png';
 import goBack from '../../assets/static/goBack.png';
-import { useHistory } from 'react-router-native';
-import { getSkills } from '../../services/reduxServices';
-import axios from 'axios';
-import { setUser } from '../../redux/Reducers/UserReducer';
 import { removeData } from '../../utils/storage';
+import { getSkills } from '../../redux/Reducers/Skills';
 
-const UserDetails = () => {
-  console.log('holaaaaaaaaaaaaaaaa');
+const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
+  const skills = user.skillsToTeach;
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { name, surname, email, position, skills } = user;
-  const numColumns = Math.ceil(skills.length / 4);
-  const keys = skills.map(skill => ({ key: skill }));
+  const { name, surname, email, position } = user;
+  /* const numColumns = Math.ceil(skills.length / 4); */
 
-  /* let skills = []
-  useEffect(async () => {
-    try {
-      const res = await axios.get('http://10.0.2.2:3000/api/skills');
-      const skillsArray = await res.data;
-      skills = skillsArray.map(skill => skill.name);
-      dispatch(setUser({...user, skills}));
-    } catch (error) {
-      console.log(error);
-    }
-  }, [skills.length]) */
-  /* console.log(skills); */
+  useEffect(() => {
+    dispatch(getSkills());
+  }, [dispatch]);
 
   const handleGoBack = async () => {
     try {
       await removeData('user');
-      history.goBack();
+      navigation.goBack();
     } catch (error) {
       console.log(error);
     }
@@ -74,16 +60,16 @@ const UserDetails = () => {
           <FlatList
             scrollEnabled={false}
             contentContainerStyle={{
-              alignSelf: 'flex-start',
+              alignItems: 'center',
             }}
-            numColumns={numColumns}
+            numColumns={4}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             data={skills}
-            keyExtractor={keys => keys}
+            keyExtractor={skills => skills._id}
             renderItem={({ item }) => (
               <Pressable style={styles.pressable}>
-                <Text style={styles.pressableTxt}>{item}</Text>
+                <Text style={styles.pressableTxt}>{item.name}</Text>
               </Pressable>
             )}
           />

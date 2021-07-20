@@ -1,4 +1,4 @@
-import {createReducer, createAction} from '@reduxjs/toolkit';
+import { createReducer, createAction } from '@reduxjs/toolkit';
 
 //------------------- Actions -------------------//
 const setSelectedUser = createAction('SET_SELECTED_USER');
@@ -7,10 +7,8 @@ const setSelectedUser = createAction('SET_SELECTED_USER');
 const selectedUserReducer = createReducer(
   {},
   {
-    [setSelectedUser]: (state, action) => {
-      state.selectedUser = action.payload;
-    },
+    [setSelectedUser]: (state, action) => action.payload,
   },
 );
 
-export {setSelectedUser, selectedUserReducer};
+export { setSelectedUser, selectedUserReducer };

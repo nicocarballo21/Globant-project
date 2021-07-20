@@ -1,9 +1,11 @@
 import React from 'react';
-import { Text, View, TextInput, Button } from 'react-native';
+import { Text, View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
+import { InputText, Button } from '../../components';
+
 import styles from './styles';
 
-export default ({ onSubmit }) => {
+const Register = ({ onSubmit }) => {
   const {
     control,
     handleSubmit,
@@ -15,12 +17,13 @@ export default ({ onSubmit }) => {
       <Text style={styles.buttonText}>Registro</Text>
 
       <View style={styles.inputs}>
+        {errors.name && <Text style={styles.error}>{errors.name.message}</Text>}
         <Controller
           control={control}
-          rules={{ required: true }}
+          rules={{ required: 'Campo requerido' }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.input}
+            <InputText
+              errors={errors.name}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
@@ -30,14 +33,15 @@ export default ({ onSubmit }) => {
           name="name"
           defaultValue=""
         />
-        {errors.name && <Text>Requiere Nombre.</Text>}
-
+        {errors.surname && (
+          <Text style={styles.error}>{errors.surname.message}</Text>
+        )}
         <Controller
           control={control}
-          rules={{ required: true }}
+          rules={{ required: 'Campo requerido' }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.input}
+            <InputText
+              errors={errors.surname}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
@@ -47,14 +51,15 @@ export default ({ onSubmit }) => {
           name="surname"
           defaultValue=""
         />
-        {errors.surname && <Text>Requiere Apellido.</Text>}
-
+        {errors.email && (
+          <Text style={styles.error}>{errors.email.message}</Text>
+        )}
         <Controller
           control={control}
-          rules={{ required: true }}
+          rules={{ required: 'Campo requerido' }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.input}
+            <InputText
+              errors={errors.email}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
@@ -64,14 +69,15 @@ export default ({ onSubmit }) => {
           name="email"
           defaultValue=""
         />
-        {errors.email && <Text>Requiere Email.</Text>}
-
+        {errors.password && (
+          <Text style={styles.error}>{errors.password.message}</Text>
+        )}
         <Controller
           control={control}
-          rules={{ required: true }}
+          rules={{ required: 'Campo requerido' }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.input}
+            <InputText
+              errors={errors.password}
               onBlur={onBlur}
               secureTextEntry={true}
               onChangeText={onChange}
@@ -82,33 +88,29 @@ export default ({ onSubmit }) => {
           name="password"
           defaultValue=""
         />
-        {errors.password && <Text>Requiere Contraseña.</Text>}
-
+        {errors.passwordConf && (
+          <Text style={styles.error}>{errors.passwordConf.message}</Text>
+        )}
         <Controller
           control={control}
-          rules={{ required: true }}
+          rules={{ required: 'Campo requerido' }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.input}
+            <InputText
+              errors={errors.passwordConf}
               onBlur={onBlur}
+              secureTextEntry={true}
               onChangeText={onChange}
               value={value}
-              secureTextEntry={true}
               placeholder="Confirmar Contraseña"
             />
           )}
           name="passwordConf"
           defaultValue=""
         />
-        {errors.passwordConf && (
-          <Text>Requiere Confirmación de Contraseña.</Text>
-        )}
-
-        <Button
-          title="Siguiente"
-          onPress={handleSubmit(onSubmit)} /* disabled={button} */
-        />
+        <Button title="Siguiente" pressFunction={handleSubmit(onSubmit)} />
       </View>
     </View>
   );
 };
+
+export default Register;

@@ -1,23 +1,20 @@
 import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
-import { loginMessage } from '../../utils';
-import axios from 'axios';
+import { useForm, Controller } from 'react-hook-form';
 
-//redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setUser } from '../../redux/Reducers/UserReducer';
+
+import { loginMessage } from '../../utils';
 
 import styles from './styles';
 import logo from '../../utils/logo.png';
 
-import InputText from '../../components/InputText';
-import Button from '../../components/Button';
+import { InputText, Button } from '../../components';
 
 import { getData, storeData } from '../../utils/storage';
-import { API_URL } from '@env';
-import { useForm, Controller } from 'react-hook-form';
 
-const Login = ( {navigation} ) => {
+const Login = ({ navigation }) => {
   const {
     control,
     handleSubmit,
@@ -25,36 +22,36 @@ const Login = ( {navigation} ) => {
   } = useForm();
   const dispatch = useDispatch();
 
-  console.log(errors);
-
   const onSubmit = async userData => {
-    setisSubmit(true);
+    // ! AWAIRT HAS NO EFFECT TRY SOMETHING ELSE
     const { payload } = await dispatch(getUser(userData));
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
-      navigation.navigate("Matcher");
-    } else loginMessage(false);
+      navigation.navigate('UserDetails');
+    } else {
+      loginMessage(false);
+    }
   };
 
-  const storeUser = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
 
-  useEffect(async () => {
-    try {
-      const res = await axios.get(API_URL + '/api/skills');
-      const skillsArray = await res.data;
-      const skills = skillsArray.map(skill => skill.name);
-      const storedUser = await getData('user');
-      if (storedUser) {
-        dispatch(setUser({ ...storedUser, skills }));
-        return navigation.navigate("Matcher");
+  useEffect(
+    // ! USE EFFECT SHOULD NOT BE PASSED AN ASYNC FUNC, USE THE ASYNC FUNTION INSIDE
+    () => async () => {
+      try {
+        const storedUser = await getData('user');
+        if (storedUser) {
+          dispatch(setUser({ ...storedUser }));
+          return navigation.navigate('UserDetails');
+        }
+        dispatch(setUser({ ...user }));
+      } catch (error) {
+        console.log(error);
       }
-      e;
-      dispatch(setUser({ ...storeUser, skills }));
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    },
+    [dispatch, navigation, user],
+  );
 
   return (
     <View style={styles.login}>
@@ -78,7 +75,6 @@ const Login = ( {navigation} ) => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder="Email"
               placeholder="Email"
               keyboardType="email-address"
             />
@@ -108,8 +104,8 @@ const Login = ( {navigation} ) => {
         />
 
         <Button title={'Log in'} pressFunction={handleSubmit(onSubmit)} />
-        <TouchableOpacity onPress={() => navigation.navigate("Register")} >
-          <Text style={styles.footer}>Your are not login? Register here!</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <Text style={styles.footer}>Registrate aca!</Text>
         </TouchableOpacity>
       </View>
     </View>

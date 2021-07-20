@@ -1,8 +1,8 @@
-const { connection } = require("./db");
-const { Users, Skills } = require("./db/models");
+const { connection } = require("./db")
+const { Users, Skills } = require("./db/models")
 
 const setupSeed = async () => {
-  console.log("SEED STARTING");
+  console.log("SEED STARTING")
 
   const skills = [
     { name: "Diseño (UX/VD)" },
@@ -31,27 +31,27 @@ const setupSeed = async () => {
     { name: "Business" },
     { name: "Security" },
     { name: "Athentication" },
-    { name: "Services" },
-  ];
+    { name: "Services" }
+  ]
 
-  const skillsPromise = await Skills.create(skills);
+  const skillsPromise = await Skills.create(skills)
 
   //Randomnizo el array de skills para generar fakeUsers
-  const shuffleSkill = (arr) => {
-    let skillsArr = [];
-    if (!arr) return [""];
+  const shuffleSkill = arr => {
+    let skillsArr = []
+    if (!arr) return [""]
     let i = arr.length,
-      rand;
+      rand
     while (0 !== i) {
-      rand = Math.floor(Math.random() * i);
-      i--;
-      [arr[i], arr[rand]] = [arr[rand], arr[i]];
+      rand = Math.floor(Math.random() * i)
+      i--
+      ;[arr[i], arr[rand]] = [arr[rand], arr[i]]
     }
     for (let j = 0; j < 15; j++) {
-      skillsArr.push(arr[j]._id);
+      skillsArr.push(arr[j]._id)
     }
-    return skillsArr;
-  };
+    return skillsArr
+  }
 
   const userSeed = [
     {
@@ -62,7 +62,7 @@ const setupSeed = async () => {
       isMentee: true,
       isAdmin: true,
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
+      skillsToTeach: shuffleSkill(skillsPromise)
     },
 
     {
@@ -73,7 +73,7 @@ const setupSeed = async () => {
       password: "1234",
       position: "UI/UX Lead Designer",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
+      skillsToTeach: shuffleSkill(skillsPromise)
     },
 
     {
@@ -90,7 +90,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/39.jpg",
+      img: "https://randomuser.me/api/portraits/men/39.jpg"
     },
 
     {
@@ -107,7 +107,7 @@ const setupSeed = async () => {
       country: "Uruguay",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/75.jpg",
+      img: "https://randomuser.me/api/portraits/men/75.jpg"
     },
 
     {
@@ -124,7 +124,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/70.jpg",
+      img: "https://randomuser.me/api/portraits/men/70.jpg"
     },
 
     {
@@ -141,7 +141,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/11.jpg",
+      img: "https://randomuser.me/api/portraits/men/11.jpg"
     },
 
     {
@@ -158,7 +158,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/12.jpg",
+      img: "https://randomuser.me/api/portraits/men/12.jpg"
     },
 
     {
@@ -175,7 +175,7 @@ const setupSeed = async () => {
       country: "Puerto Rico",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/13.jpg",
+      img: "https://randomuser.me/api/portraits/men/13.jpg"
     },
 
     {
@@ -192,7 +192,7 @@ const setupSeed = async () => {
       country: "USA",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/14.jpg",
+      img: "https://randomuser.me/api/portraits/men/14.jpg"
     },
 
     {
@@ -209,7 +209,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/15.jpg",
+      img: "https://randomuser.me/api/portraits/men/15.jpg"
     },
 
     {
@@ -226,7 +226,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/16.jpg",
+      img: "https://randomuser.me/api/portraits/men/16.jpg"
     },
 
     {
@@ -243,7 +243,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/17.jpg",
+      img: "https://randomuser.me/api/portraits/men/17.jpg"
     },
 
     {
@@ -260,7 +260,7 @@ const setupSeed = async () => {
       country: "USA",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/18.jpg",
+      img: "https://randomuser.me/api/portraits/men/18.jpg"
     },
 
     {
@@ -278,7 +278,7 @@ const setupSeed = async () => {
       country: "Mexico",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/19.jpg",
+      img: "https://randomuser.me/api/portraits/men/19.jpg"
     },
 
     {
@@ -296,7 +296,7 @@ const setupSeed = async () => {
       country: "Perú",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/20.jpg",
+      img: "https://randomuser.me/api/portraits/men/20.jpg"
     },
 
     {
@@ -313,7 +313,7 @@ const setupSeed = async () => {
       country: "Ecuador",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/21.jpg",
+      img: "https://randomuser.me/api/portraits/men/21.jpg"
     },
 
     {
@@ -330,7 +330,7 @@ const setupSeed = async () => {
       country: "Uruguay",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/men/22.jpg",
+      img: "https://randomuser.me/api/portraits/men/22.jpg"
     },
 
     {
@@ -348,7 +348,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/11.jpg",
+      img: "https://randomuser.me/api/portraits/women/11.jpg"
     },
 
     {
@@ -365,7 +365,7 @@ const setupSeed = async () => {
       country: "Chile",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/12.jpg",
+      img: "https://randomuser.me/api/portraits/women/12.jpg"
     },
 
     {
@@ -382,7 +382,7 @@ const setupSeed = async () => {
       country: "USA",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/13.jpg",
+      img: "https://randomuser.me/api/portraits/women/13.jpg"
     },
 
     {
@@ -399,7 +399,7 @@ const setupSeed = async () => {
       country: "USA",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/14.jpg",
+      img: "https://randomuser.me/api/portraits/women/14.jpg"
     },
 
     {
@@ -416,7 +416,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/15.jpg",
+      img: "https://randomuser.me/api/portraits/women/15.jpg"
     },
 
     {
@@ -433,7 +433,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/16.jpg",
+      img: "https://randomuser.me/api/portraits/women/16.jpg"
     },
     {
       name: "Paola",
@@ -449,7 +449,7 @@ const setupSeed = async () => {
       country: "Brasil",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/17.jpg",
+      img: "https://randomuser.me/api/portraits/women/17.jpg"
     },
 
     {
@@ -466,7 +466,7 @@ const setupSeed = async () => {
       country: "Uruguay",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/18.jpg",
+      img: "https://randomuser.me/api/portraits/women/18.jpg"
     },
 
     {
@@ -483,13 +483,13 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/19.jpg",
+      img: "https://randomuser.me/api/portraits/women/19.jpg"
     },
 
     {
       name: "Francisca",
       surname: "García",
-      email: "user26@user.com",
+      email: "user266@user.com",
       password: "1234",
       isMentee: true,
       isAdmin: true,
@@ -500,7 +500,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/20.jpg",
+      img: "https://randomuser.me/api/portraits/women/20.jpg"
     },
 
     {
@@ -517,7 +517,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/21.jpg",
+      img: "https://randomuser.me/api/portraits/women/21.jpg"
     },
 
     {
@@ -534,7 +534,7 @@ const setupSeed = async () => {
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/22.jpg",
+      img: "https://randomuser.me/api/portraits/women/22.jpg"
     },
 
     {
@@ -552,7 +552,7 @@ const setupSeed = async () => {
       country: "Chile",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/23.jpg",
+      img: "https://randomuser.me/api/portraits/women/23.jpg"
     },
     {
       name: "Laura",
@@ -568,7 +568,7 @@ const setupSeed = async () => {
       country: "Italia",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/24.jpg",
+      img: "https://randomuser.me/api/portraits/women/24.jpg"
     },
 
     {
@@ -585,21 +585,21 @@ const setupSeed = async () => {
       country: "Mexico",
       skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
-      img: "https://randomuser.me/api/portraits/women/25.jpg",
-    },
-  ];
+      img: "https://randomuser.me/api/portraits/women/25.jpg"
+    }
+  ]
 
-  return Promise.all(userSeed.map((user) => Users.create(user)));
-};
+  return Promise.all(userSeed.map(user => Users.create(user)))
+}
 
 try {
   connection.once("open", () =>
     setupSeed().then(() => {
-      console.log("SEED TERMINADO");
-      process.exit(0);
+      console.log("SEED TERMINADO")
+      process.exit(0)
     })
-  );
+  )
 } catch (err) {
-  console.log("Somethin went wrong on the seed process", err.message);
-  process.exit(1);
+  console.log("Somethin went wrong on the seed process", err.message)
+  process.exit(1)
 }

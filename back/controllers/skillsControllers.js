@@ -1,14 +1,12 @@
-const { getSkills } = require("../services/skillsServices")
+const { getSkills } = require("../services/skillsServices");
 
 module.exports = {
-  getAllSkills: (req, res) => {
-    getSkills()
-      .then(skills => {
-        res.status(200).json(skills)
-      })
-      .catch(err => {
-        console.log(err)
-        res.status(500).json("Somenthing failed, try again")
-      })
-  }
-}
+  getAllSkills: async (_, res, next) => {
+    try {
+      const skills = await getSkills();
+      res.status(200).json(skills);
+    } catch (err) {
+      next(err);
+    }
+  },
+};

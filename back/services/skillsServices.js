@@ -2,6 +2,6 @@ const { Skills } = require("../db/models");
 
 module.exports = {
   getSkills: () => {
-    return Skills.find({});
+    return Skills.find({}, "name");
   },
 };

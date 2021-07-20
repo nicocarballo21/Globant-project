@@ -22,6 +22,4 @@ const styles = StyleSheet.create({
         fontSize: 10
      },
 
-  });
-
-  export default styles
+export default styles;
