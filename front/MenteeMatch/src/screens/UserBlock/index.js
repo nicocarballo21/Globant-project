@@ -1,14 +1,15 @@
-import React from 'react'
-import { Text, View, Image, Pressable } from 'react-native'
-import { styles } from './styles'
-import user_img from '../../assets/static/user_img.png'
+import React from 'react';
+import { Text, View, Image, Pressable } from 'react-native';
+import { styles } from './styles';
+import user_img from '../../assets/static/user_img.png';
 
 export default function UserBlock({ user }) {
-  const dispatch = useDispatch();
-  let history = useHistory();
+  // const dispatch = useDispatch();
+  //let history = useHistory();
   // !user.img ? user.img = user_img : user.img
 
-    // !user.img ? user.img = user_img : user.img
+  // !user.img ? user.img = user_img : user.img
+  const handlePress = () => {};
 
   return (
     <Pressable style={styles.container} onPress={handlePress}>

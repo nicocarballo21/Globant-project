@@ -1,46 +1,46 @@
-import { StyleSheet} from 'react-native'
-import colors from '../../assets/styles/colors'
+import { StyleSheet } from 'react-native';
+import colors from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.charade,
-    alignItems: "center",
+    alignItems: 'center',
     /* borderColor: "red", */
     borderWidth: 4,
   },
   header: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "center",
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
     color: colors.white,
     backgroundColor: colors.blackPearl,
     padding: 32,
     fontSize: 24,
-    position: "relative"
+    position: 'relative',
   },
   headerText: {
     color: colors.white,
     fontSize: 24,
-    textAlign: "center",
+    textAlign: 'center',
   },
   btnsContainer: {
-    flexDirection: "row",
-    position: "relative"
+    flexDirection: 'row',
+    position: 'relative',
     /* flexWrap: "wrap", */
     /* justifyContent: "center", */
     /* alignItems: "center", */
     /* marginHorizontal: 16, */
   },
   pressable: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     /* backgroundColor: "blue", */
     /* width: 100, */
     paddingHorizontal: 16,
     height: 50,
     borderRadius: 15,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderWidth: 1,
     borderColor: colors.charade,
     margin: 5,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   pressableImg: {
-    position: "absolute",
+    position: 'absolute',
     top: 32,
     left: 32,
   },
@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
     height: 32,
   },
   box: {
-    borderColor: "red",
+    borderColor: 'red',
     borderWidth: 4,
-  }
-})
+  },
+});
 
-export default styles
+export default styles;

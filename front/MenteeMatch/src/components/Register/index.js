@@ -101,7 +101,6 @@ const Register = ({ onSubmit }) => {
               secureTextEntry={true}
               onChangeText={onChange}
               value={value}
-              secureTextEntry={true}
               placeholder="Confirmar Contraseña"
             />
           )}

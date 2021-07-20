@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { View, TouchableOpacity, Image, Text } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 
-//redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, setUser } from '../../redux/Reducers/UserReducer';
 
@@ -24,28 +23,35 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const onSubmit = async userData => {
+    // ! AWAIRT HAS NO EFFECT TRY SOMETHING ELSE
     const { payload } = await dispatch(getUser(userData));
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
       navigation.navigate('UserDetails');
-    } else loginMessage(false);
+    } else {
+      loginMessage(false);
+    }
   };
 
   const user = useSelector(state => state.user);
 
-  useEffect(async () => {
-    try {
-      const storedUser = await getData('user');
-      if (storedUser) {
-        dispatch(setUser({ ...storedUser }));
-        return navigation.navigate("UserDetails");
+  useEffect(
+    // ! USE EFFECT SHOULD NOT BE PASSED AN ASYNC FUNC, USE THE ASYNC FUNTION INSIDE
+    () => async () => {
+      try {
+        const storedUser = await getData('user');
+        if (storedUser) {
+          dispatch(setUser({ ...storedUser }));
+          return navigation.navigate('UserDetails');
+        }
+        dispatch(setUser({ ...user }));
+      } catch (error) {
+        console.log(error);
       }
-      dispatch(setUser({ ...user }));
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    },
+    [dispatch, navigation, user],
+  );
 
   return (
     <View style={styles.login}>

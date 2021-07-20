@@ -1,9 +1,8 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from 'react';
+import { View, Text } from 'react-native';
 
-import styles from './styles'
-import { UserBlock } from '../'
-
+import styles from './styles';
+import { UserBlock } from '../';
 
 const users = [
   {
@@ -60,9 +59,7 @@ export default function Matcher() {
       {users.length ? (
         users.map(user => <UserBlock key={user.id} user={user} />)
       ) : (
-        <Text style={{ textAlign: 'center', paddingTop: '50%' }}>
-          No se encontraron matches.
-        </Text>
+        <Text style={styles.lastText}>No se encontraron matches.</Text>
       )}
     </View>
   );
