@@ -13,16 +13,18 @@ const userLogin = async user => {
 };
 
 const registerUser = async data => {
+  console.log(data);
   try {
     const res = await axios.post(`${API_URL}/api/auth/register`, {
       name: data.name,
       surname: data.surname,
       email: data.email,
       password: data.password,
-      position: data.position,
-      phone: data.phone,
-      personalDescription: data.about,
-      country: data.country,
+      // ver despues
+      // position: data.position,
+      // phone: data.phone,
+      // personalDescription: data.about,
+      // country: data.country,
     });
     const registeredUser = res.data;
     return registeredUser;

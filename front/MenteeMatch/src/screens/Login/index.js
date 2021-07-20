@@ -26,6 +26,7 @@ const Login = ({ navigation }) => {
     // ! AWAIRT HAS NO EFFECT TRY SOMETHING ELSE
     const { payload } = await dispatch(getUser(userData));
     if (payload) {
+      true;
       loginMessage(true);
       await storeData('user', payload);
       navigation.navigate('UserDetails');
@@ -70,7 +71,6 @@ const Login = ({ navigation }) => {
           rules={{ required: 'Ingrese su email' }}
           render={({ field: { onChange, onBlur, value } }) => (
             <InputText
-              autoCompleteType="email"
               errors={errors.email}
               onBlur={onBlur}
               onChangeText={onChange}
