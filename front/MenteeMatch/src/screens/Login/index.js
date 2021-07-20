@@ -50,7 +50,7 @@ const Login = ({ navigation }) => {
       }
     };
     accion();
-  }, [dispatch, navigation, user]);
+  }, []);
 
   return (
     <View style={styles.login}>
