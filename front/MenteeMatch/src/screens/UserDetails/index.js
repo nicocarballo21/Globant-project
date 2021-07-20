@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import userImg from '../../assets/static/user_img.png';
 import goBack from '../../assets/static/goBack.png';
-import { removeData } from '../../utils/storage';
 import { getSkills } from '../../redux/Reducers/Skills';
 import { setUserImg, getData, removeData } from '../../utils/storage';
 
