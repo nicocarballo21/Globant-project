@@ -3,7 +3,7 @@ import { API_URL } from '@env';
 
 const userLogin = async user => {
   try {
-    const res = await axios.post(API_URL + '/api/auth/login', user);
+    const res = await axios.post(`${API_URL}/api/auth/login`, user);
     const { token } = res.data;
     const finalUser = { ...res.data.user, token };
     return finalUser;
@@ -33,7 +33,7 @@ const registerUser = async data => {
 
 const obtainSkills = async () => {
   try {
-    const res = await axios.get(API_URL + '/api/skills');
+    const res = await axios.get(`${API_URL}/api/skills`);
     const skills = await res.data;
     return skills;
   } catch (error) {

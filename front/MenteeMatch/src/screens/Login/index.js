@@ -36,9 +36,8 @@ const Login = ({ navigation }) => {
 
   const user = useSelector(state => state.user);
 
-  useEffect(
-    // ! USE EFFECT SHOULD NOT BE PASSED AN ASYNC FUNC, USE THE ASYNC FUNTION INSIDE
-    () => async () => {
+  useEffect(() => {
+    const accion = async () => {
       try {
         const storedUser = await getData('user');
         if (storedUser) {
@@ -49,9 +48,9 @@ const Login = ({ navigation }) => {
       } catch (error) {
         console.log(error);
       }
-    },
-    [dispatch, navigation, user],
-  );
+    };
+    accion();
+  }, [dispatch, navigation, user]);
 
   return (
     <View style={styles.login}>
