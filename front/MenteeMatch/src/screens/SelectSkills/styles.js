@@ -6,8 +6,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.charade,
     alignItems: 'center',
-    /* borderColor: "red", */
-    borderWidth: 4,
   },
   header: {
     width: '100%',
@@ -18,6 +16,7 @@ const styles = StyleSheet.create({
     padding: 32,
     fontSize: 24,
     position: 'relative',
+    zIndex: 10
   },
   headerText: {
     color: colors.white,
@@ -25,18 +24,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   btnsContainer: {
+    flex: 1,
     flexDirection: 'row',
     position: 'relative',
-    /* flexWrap: "wrap", */
-    /* justifyContent: "center", */
-    /* alignItems: "center", */
-    /* marginHorizontal: 16, */
+    borderColor: colors.blackPearl,
+    borderWidth: 1,
+    elevation: 1,
   },
   pressable: {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.blackPearl,
-    /* width: 100, */
     paddingHorizontal: 16,
     height: 50,
     borderRadius: 15,
@@ -45,6 +43,8 @@ const styles = StyleSheet.create({
     borderColor: colors.charade,
     margin: 5,
     elevation: 5,
+    width: 120,
+    height: 75,
   },
   pressed: {
     backgroundColor: "blue",
@@ -62,9 +62,37 @@ const styles = StyleSheet.create({
     height: 32,
   },
   box: {
-    borderColor: 'red',
-    borderWidth: 4,
+    justifyContent: "center",
+    alignItems: "center",
+    height: "50%"
   },
+  menteeQtyBox: {
+    alignSelf: "center",
+    width: 125,
+    padding: 16,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  menteeQtyTitleTxt: {
+    padding: 16,
+    color: colors.zircon,
+    fontSize: 18,
+  },
+  menteeQtyTxt: {
+    color: colors.zircon,
+    fontSize: 18,
+  },
+  menteeQtyBtn: {
+    width: 25,
+    height: 25,
+    paddingVertical: 0,
+    paddingHorizontal: 0,
+  },
+  nextBtn: {
+    marginTop: 16,
+    marginBottom: 32,
+  }
 });
 
 export default styles;

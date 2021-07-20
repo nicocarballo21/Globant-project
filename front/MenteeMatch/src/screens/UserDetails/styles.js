@@ -86,8 +86,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   userImg: {
-    width: 100,
-    height: 100,
+    width: 125,
+    height: 125,
+    borderRadius: 62.5,
+    /* position: "relative",
+    top: -16 */
+    marginBottom: 16
   },
   btn: {
     width: '75%',

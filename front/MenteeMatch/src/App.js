@@ -8,7 +8,7 @@ import { FirstScreen } from './components';
 import Camera from "./components/Camera";
 
 // Screens
-import { Login, Matcher, Register, UserData, UserDetails } from './screens';
+import { Login, Matcher, Register, UserData, UserDetails, SelectSkills } from './screens';
 
 // Navigation
 import { NavigationContainer } from '@react-navigation/native';
