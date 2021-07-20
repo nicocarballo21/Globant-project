@@ -63,6 +63,7 @@ const Register = ({ onSubmit }) => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              autoCompleteType="off"
               placeholder="menteematch@ejemplo.com"
             />
           )}
@@ -107,7 +108,7 @@ const Register = ({ onSubmit }) => {
           name="passwordConf"
           defaultValue=""
         />
-        <Button title="Siguiente" pressFunction={handleSubmit(onSubmit)} />
+        <Button title="Registrarse" pressFunction={handleSubmit(onSubmit)} />
       </View>
     </View>
   );

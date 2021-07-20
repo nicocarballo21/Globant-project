@@ -12,6 +12,17 @@ const userLogin = async user => {
   }
 };
 
+const updateUserData = async (data, token, url) => {
+  try {
+    const res = await axios.put(`${API_URL}${url}`, data, {
+      headers: { authorization: `Bearer ${token}` },
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const registerUser = async data => {
   try {
     const res = await axios.post(`${API_URL}/api/auth/register`, {
@@ -19,15 +30,12 @@ const registerUser = async data => {
       surname: data.surname,
       email: data.email,
       password: data.password,
-      position: data.position,
-      phone: data.phone,
-      personalDescription: data.about,
-      country: data.country,
     });
-    const registeredUser = res.data;
-    return registeredUser;
-  } catch (error) {
-    console.log(error);
+    const { token } = res.data;
+    const finalUser = { ...res.data.user, token };
+    return finalUser;
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -41,4 +49,4 @@ const obtainSkills = async () => {
   }
 };
 
-export { userLogin, registerUser, obtainSkills };
+export { userLogin, registerUser, obtainSkills, updateUserData };

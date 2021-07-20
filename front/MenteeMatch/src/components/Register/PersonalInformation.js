@@ -90,7 +90,6 @@ export default ({ onSubmit }) => {
           name="about"
           defaultValue=""
         />
-        \
         <Button title="Siguiete" pressFunction={handleSubmit(onSubmit)} />
       </View>
     </View>
