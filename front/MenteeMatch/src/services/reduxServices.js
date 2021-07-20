@@ -13,15 +13,12 @@ const userLogin = async user => {
 };
 
 const updateUserData = async (data, token, url) => {
+  // url = /api/users/profile
   try {
-    // url = /api/users/profile
-    console.log(data);
     const res = await axios.put(`${API_URL}${url}`, data, {
-      headers: { authorization: token },
+      headers: { authorization: `Bearer ${token}` },
     });
-    // const { token } = res.data;
-    // const finalUser = { ...res.data.user, token };
-    return finalUser;
+    return res.data;
   } catch (err) {
     console.log(err);
   }

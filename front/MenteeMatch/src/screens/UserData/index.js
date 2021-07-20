@@ -1,20 +1,25 @@
 import React from 'react';
 import { View } from 'react-native';
-import { updateUserData } from '../../services/reduxServices';
+import { useDispatch } from 'react-redux';
 import PersonalInformation from '../../components/Register/PersonalInformation';
+
+import { updateUser } from '../../redux/Reducers/UserReducer';
 
 import { simpleMessage } from '../../utils';
 
 export default () => {
-  const onSubmit = data => {
-    updateUserData(data)
-      .then(() =>
-        simpleMessage(
-          'Registro exitoso',
-          'Su usuario fue registrado correctamente',
-          'success',
-        ),
-      )
+  const dispatch = useDispatch();
+  const onSubmit = personalData => {
+    dispatch(updateUser(personalData))
+      .then(payload => {
+        if (payload) {
+          simpleMessage(
+            'Registro exitoso',
+            'Su usuario fue registrado correctamente',
+            'success',
+          );
+        } else simpleMessage('Error', 'Algo ha ocurrido', 'danger');
+      })
       .catch(() => simpleMessage('Error', 'Algo ha ocurrido', 'danger'));
   };
 
