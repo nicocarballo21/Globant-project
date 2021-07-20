@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use("/api", routes)
 
-app.use((req, res, err) => {
+app.use((err, _, res, __) => {
   console.error(err.stack)
   res.status(500).send("Something broke!")
 })

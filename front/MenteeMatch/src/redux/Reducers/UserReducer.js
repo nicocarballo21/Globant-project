@@ -27,6 +27,7 @@ const initialState = {
   disLikes: [],
   maxMentees: null,
   img: null,
+  token: '',
 };
 
 export const setUser = createAction('SET_USER');
@@ -36,7 +37,7 @@ export const userRegister = createAsyncThunk('USER_REGISTER', registerUser);
 const userReducer = createReducer(initialState, {
   [getUser.fulfilled]: (_, action) => action.payload,
   [setUser]: (_, action) => action.payload,
-  [userRegister.fullfilled]: (_, action) => action.payload,
+  [userRegister.fulfilled]: (_, action) => action.payload,
 });
 
 export default userReducer;
