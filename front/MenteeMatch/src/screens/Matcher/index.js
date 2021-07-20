@@ -5,9 +5,6 @@ import styles from './styles'
 import { UserBlock } from '../'
 import { getMatches } from '../../redux/Reducers/matchesReducer'
 
-import styles from './styles';
-import { UserBlock } from '../';
-
 export default function Matcher() {
 
     const dispatch = useDispatch();
