@@ -28,7 +28,7 @@ const Login = ( {navigation} ) => {
   console.log(errors);
 
   const onSubmit = async userData => {
-    setisSubmit(true);
+    //setisSubmit(true);
     const { payload } = await dispatch(getUser(userData));
     if (payload) {
       loginMessage(true);

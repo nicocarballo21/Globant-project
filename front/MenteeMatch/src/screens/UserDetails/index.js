@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
@@ -15,17 +16,27 @@ import { useHistory } from 'react-router-native';
 import { getSkills } from '../../services/reduxServices';
 import axios from 'axios';
 import { setUser } from '../../redux/Reducers/UserReducer';
-import { removeData } from '../../utils/storage';
+import { setUserImg, getData, removeData } from '../../utils/storage';
 
-const UserDetails = () => {
-  console.log('holaaaaaaaaaaaaaaaa');
+//import { launchImageLibrary } from 'react-native-image-picker';
+import Animated from 'react-native-reanimated';
+import BottomSheet from "reanimated-bottom-sheet"
+import ImagePicker from 'react-native-image-crop-picker';
+
+const UserDetails = ({ route, navigation }) => {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const { name, surname, email, position, skills } = user;
   const numColumns = Math.ceil(skills.length / 4);
   const keys = skills.map(skill => ({ key: skill }));
+  const [ img, setImg ] = React.useState(null);
 
+    //const [ photo, setPhoto ] = React.useState("");
+
+    //const { imagenProfile } = route.params
+    //const pic = imagenProfile
+    //console.log("PICTURE", imagenProfile)
   /* let skills = []
   useEffect(async () => {
     try {
@@ -39,6 +50,12 @@ const UserDetails = () => {
   }, [skills.length]) */
   /* console.log(skills); */
 
+    useEffect(() => {
+        getData("userImg").then((data) => {
+            if (data) setImg(data)
+        })
+    }, [img])
+
   const handleGoBack = async () => {
     try {
       await removeData('user');
@@ -47,16 +64,91 @@ const UserDetails = () => {
       console.log(error);
     }
   };
+    const onPicture = (uri) => {
+        setImg(uri)
+        setUserImg(uri)
+    }
+
+    const choosePhoto = () => {
+        sheetRef.current.snapTo(2)
+        //const options = {
+        //    mediaType: "photo",
+        //    noData: true,
+        //};
+        //launchImageLibrary(options, response => {
+        //    if (response.didCancel) return;
+        //    else {
+        //        setImg(response.assets[0].uri)
+        //        setUserImg(response.assets[0].uri)
+        //    }
+        //}) 
+        ImagePicker.openPicker({
+            width: 300,
+            height: 300,
+            cropping: true,
+            compressImageQuality: 0.7
+        }).then(image => {
+                console.log(image);
+                setImg(image.path);
+                setUserImg(image.path)
+            });
+    }
+    
+    const renderContent = () => (
+        <View style={styles.panel}>
+            <View style={{alignItems: 'center'}}>
+                <Text style={styles.panelTitle}>Subir foto</Text>
+                <Text style={styles.panelSubtitle}>Elija su foto de perfil</Text>
+            </View>
+            <TouchableOpacity
+                style={styles.panelButton}
+                onPress={() => navigation.navigate("Camera", { onPicture: onPicture })} 
+            >
+                <Text style={styles.panelButtonTitle}>Tomar foto</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.panelButton}
+                onPress={() => choosePhoto()} 
+            >
+            <Text style={styles.panelButtonTitle}>Elige de la biblioteca</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.panelButton}
+                onPress={() => sheetRef.current.snapTo(2)}
+            >
+                <Text style={styles.panelButtonTitle}>Cancelar</Text>
+            </TouchableOpacity>
+        </View>
+    );
+ 
+    const sheetRef = React.useRef(null);
 
   return (
+      <>
+    <BottomSheet
+        ref={sheetRef}
+        snapPoints={[300, 200, 0]}
+        borderRadius={10}
+        renderContent={renderContent}
+        initialSnap={2}
+      />
     <View style={styles.container}>
+
       <View style={styles.header}>
-        <Pressable style={styles.pressableImg} onPress={handleGoBack}>
+        <Pressable style={styles.pressableImg} renderComponent={handleGoBack}>
           <Image source={goBack} style={styles.arrowImg} />
         </Pressable>
-        <Text style={styles.headerText}>Perfil del usuario</Text>
+            <Text style={styles.headerText}>Perfil del usuario</Text>
       </View>
-      <Image source={userImg} style={styles.userImg} />
+            <TouchableOpacity
+                onPress={() => sheetRef.current.snapTo(0)}
+              >
+                { img ? (
+                    <Image source={{uri: img}} style={styles.userImg} />
+                    ) : (
+                    <Image source={userImg} style={styles.userImg} />
+                )}
+              </TouchableOpacity>
       <Text style={styles.keyText}>Nombre</Text>
       <Text style={styles.valueText}>{`${name} ${surname}`}</Text>
       <Text style={styles.keyText}>Contacto</Text>
@@ -94,6 +186,7 @@ const UserDetails = () => {
         <Text style={styles.btnText}>Cerrar sesión</Text>
       </Pressable>
     </View>
+      </>
   );
 };
 

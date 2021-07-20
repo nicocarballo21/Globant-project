@@ -24,6 +24,7 @@ import FlashMessage from 'react-native-flash-message';
 
 // components
 import { Login }from './screens';
+import Camera from "./components/Camera";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -43,12 +44,13 @@ const App = () => {
                 <Stack.Navigator
                     initialRouteName="firstScreen"
                 >
-                    <Stack.Screen name="firstScreen" component={firstScreen} />
-                    <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen name="firstScreen" component={firstScreen} options={{headerShown: false}}/>
+                    <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
                     <Stack.Screen name="UserDetails" component={UserDetails} />
                     <Stack.Screen name="Register" component={Register} />
                     <Stack.Screen name="UserData" component={UserData} />
                     <Stack.Screen name="Matcher" component={Matcher} />
+                    <Stack.Screen name="Camera" component={Camera} />
                 </Stack.Navigator>
                 <FlashMessage position="top" />
             </NavigationContainer>
