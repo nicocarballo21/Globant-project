@@ -1,10 +1,10 @@
 import Login from './Login';
 import Matcher from './Matcher';
 import UserBlock from './UserBlock';
-import Register from './register';
-import UserData from './userData';
+import Register from './Register';
+import UserData from './UserData';
 import UserDetails from './UserDetails';
-import SelectSkills from './SelectSkills'
+import SelectSkills from './SelectSkills';
 
 export {
   Matcher,

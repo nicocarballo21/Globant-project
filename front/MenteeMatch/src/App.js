@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { FirstScreen } from './components';
 
 // Screens
-import { Login, Matcher, Register, UserData, UserDetails, SelectSkills } from './screens';
+import { Login, Matcher, Register, UserData, UserDetails } from './screens';
 
 // Navigation
 import { NavigationContainer } from '@react-navigation/native';
