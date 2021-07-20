@@ -489,7 +489,7 @@ const setupSeed = async () => {
     {
       name: "Francisca",
       surname: "García",
-      email: "user26@user.com",
+      email: "user266@user.com",
       password: "1234",
       isMentee: true,
       isAdmin: true,
