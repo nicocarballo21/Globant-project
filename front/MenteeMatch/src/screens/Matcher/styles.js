@@ -1,11 +1,10 @@
 import { StyleSheet } from "react-native";
-import globantBright from '../../assets/styles/colors'
+import {globantBright} from '../../assets/styles/colors'
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
    container: {
       backgroundColor: globantBright.bg,
-       height: "100%",
-    //    flex: 1
+      height: "100%",
    },
    title: {
        color: globantBright.text,
@@ -25,3 +24,4 @@ export const styles = StyleSheet.create({
 
   });
 
+  export default styles

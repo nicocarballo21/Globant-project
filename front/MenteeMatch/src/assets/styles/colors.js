@@ -3,7 +3,7 @@ const colors = {
   charade: '#272c35',
   zircon: '#e0e0e0',
   white: '#fff',
-}
+};
 
 const globantBright = {
   bg: "#FFFFFF",
@@ -23,5 +23,4 @@ const globantDark = {
   grass: "#39B54A"
 }
 
-export default { colors, globantBright, globantDark }
-
+export  { colors, globantBright, globantDark };
