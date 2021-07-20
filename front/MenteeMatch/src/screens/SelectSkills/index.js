@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from './styles';
-import { View, Pressable, Image, Text, ScrollView, FlatList } from 'react-native';
+import { View, Pressable, Image, Text, ScrollView, FlatList, Button } from 'react-native';
 import goBack from '../../assets/static/goBack.png';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from '../../components/Button';
+import {default as ModifiedButton} from '../../components/Button';
 import { getSkills } from '../../redux/Reducers/Skills';
 
 const SelectSkills = ({ navigation }) => {
@@ -37,7 +37,7 @@ const SelectSkills = ({ navigation }) => {
   }, [Object.keys(buttonsStyle).length])
 
   /* console.log(buttonsStyle) */
-  /* console.log(selection) */
+  console.log("Selection ->", selection)
 
   return (
     <View style={styles.container}>
@@ -50,17 +50,18 @@ const SelectSkills = ({ navigation }) => {
       <View style={styles.box}>
         <View style={styles.btnsContainer}>
           <ScrollView
-            horizontal
+            /* horizontal */
             pagingEnabled
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ paddingVertical: 20 }}>
             <FlatList
-              scrollEnabled={false}
+              scrollEnabled={true}
               contentContainerStyle={{
-                alignSelf: 'flex-start',
+                alignSelf: 'center',
+                alignItems: 'center'
               }}
-              numColumns={7}
+              numColumns={3}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               data={skills}
@@ -73,8 +74,11 @@ const SelectSkills = ({ navigation }) => {
             />
           </ScrollView>
         </View>
-        <Button title={'Siguiente'} pressFunction={handleGoBack} />
       </View>
+      <View>
+        <Text style={styles.menteeSelectionTxt}>Cantidad de mentees a mentorear</Text>
+      </View>
+      <ModifiedButton title={'Siguiente'} pressFunction={handleGoBack} />
     </View>
   );
 };

@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     padding: 32,
     fontSize: 24,
     position: 'relative',
+    zIndex: 10
   },
   headerText: {
     color: colors.white,
@@ -45,6 +46,8 @@ const styles = StyleSheet.create({
     borderColor: colors.charade,
     margin: 5,
     elevation: 5,
+    width: 120,
+    height: 75,
   },
   pressed: {
     backgroundColor: "blue",
@@ -62,8 +65,19 @@ const styles = StyleSheet.create({
     height: 32,
   },
   box: {
-    borderColor: 'red',
-    borderWidth: 4,
+    /* flex: 1, */
+    justifyContent: "center",
+    alignItems: "center",
+    /* borderColor: 'red',
+    borderWidth: 4, */
+    height: "50%"
+  },
+  menteeSelectionBox: {
+
+  },
+  menteeSelectionTxt: {
+    color: colors.zircon,
+    fontSize: 18,
   },
 });
 
