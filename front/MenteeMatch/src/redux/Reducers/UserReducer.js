@@ -40,12 +40,12 @@ export const updateUser = createAsyncThunk(
   'UPDATE_USER',
   async (dataUser, thunAPI) => {
     const { user } = thunAPI.getState();
-    console.log(user.token);
     const userUpdated = await updateUserData(
       dataUser,
       user.token,
       '/api/users/profile',
     );
+    userUpdated['token'] = user.token;
     return userUpdated;
   },
 );

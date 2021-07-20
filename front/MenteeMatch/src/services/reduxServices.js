@@ -13,7 +13,6 @@ const userLogin = async user => {
 };
 
 const updateUserData = async (data, token, url) => {
-  // url = /api/users/profile
   try {
     const res = await axios.put(`${API_URL}${url}`, data, {
       headers: { authorization: `Bearer ${token}` },
