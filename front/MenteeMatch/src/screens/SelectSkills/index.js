@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from './styles';
-import { View, Pressable, Image, Text, ScrollView, FlatList, Button } from 'react-native';
+import { View, Pressable, Image, Text, FlatList, SafeAreaView} from 'react-native';
 import goBack from '../../assets/static/goBack.png';
 import { useDispatch, useSelector } from 'react-redux';
-import {default as ModifiedButton} from '../../components/Button';
+import Button from '../../components/Button';
 import { getSkills } from '../../redux/Reducers/Skills';
 
 const SelectSkills = ({ navigation }) => {
@@ -11,13 +11,14 @@ const SelectSkills = ({ navigation }) => {
   const skills = useSelector(state => state.skills);
   const [buttonsStyle, setButtonsStyle] = useState({})
   const [selection, setSelection] = useState([])
+  const [menteesQty, setMenteesQty] = useState(1)
 
   useEffect(() => {
     dispatch(getSkills());
   }, [dispatch]);
 
   const handleGoBack = () => {
-    navigation.goBack();
+    /* navigation.goBack(); */
   };
 
   const handlePress = item => {
@@ -27,7 +28,6 @@ const SelectSkills = ({ navigation }) => {
     const updatedButtonsStyle = {...buttonsStyle}
     delete updatedButtonsStyle[item.name]
     setButtonsStyle(updatedButtonsStyle)
-    /* setButtonsStyle({...buttonsStyle, [item.name]: buttonsStyle[item.name].styles === styles.unpressed ? {...item, styles: styles.pressed} : null }) */
   }
 
   useEffect(() => {
@@ -36,25 +36,20 @@ const SelectSkills = ({ navigation }) => {
     setSelection(finalSkillsIds)
   }, [Object.keys(buttonsStyle).length])
 
-  /* console.log(buttonsStyle) */
-  console.log("Selection ->", selection)
+  const handleChangeQty = (number) => {
+    if(menteesQty + number >= 1 && menteesQty + number <= 5)
+      setMenteesQty(menteesQty + number)
+  }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Pressable style={styles.pressableImg} onPress={handleGoBack}>
           <Image source={goBack} style={styles.arrowImg} />
         </Pressable>
         <Text style={styles.headerText}>Selecciona las skills</Text>
       </View>
-      <View style={styles.box}>
         <View style={styles.btnsContainer}>
-          <ScrollView
-            /* horizontal */
-            pagingEnabled
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingVertical: 20 }}>
             <FlatList
               scrollEnabled={true}
               contentContainerStyle={{
@@ -68,18 +63,21 @@ const SelectSkills = ({ navigation }) => {
               keyExtractor={skills => skills._id}
               renderItem={({ item }) => (
                 <Pressable style={[styles.pressable, buttonsStyle[item.name]?.styles]} onPress={() => handlePress(item)} >
-                  <Text style={styles.pressableTxt} /* onPress={handlePress} */>{item.name}</Text>
+                  <Text style={styles.pressableTxt}>{item.name}</Text>
                 </Pressable>
               )}
             />
-          </ScrollView>
+        </View>
+      <View>
+        <Text style={styles.menteeQtyTitleTxt}>Cantidad de mentees a mentorear</Text>
+        <View style={styles.menteeQtyBox}>
+          <Button title="+" style={styles.menteeQtyBtn} pressFunction={() => handleChangeQty(+1)}/>
+            <Text style={styles.menteeQtyTxt}>{menteesQty}</Text>
+          <Button title="-" style={styles.menteeQtyBtn} pressFunction={() => handleChangeQty(-1)}/>
         </View>
       </View>
-      <View>
-        <Text style={styles.menteeSelectionTxt}>Cantidad de mentees a mentorear</Text>
-      </View>
-      <ModifiedButton title={'Siguiente'} pressFunction={handleGoBack} />
-    </View>
+      <Button title={'Siguiente'} style={styles.nextBtn} pressFunction={handleGoBack} />
+    </SafeAreaView>
   );
 };
 
