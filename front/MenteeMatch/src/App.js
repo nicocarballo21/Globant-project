@@ -23,7 +23,7 @@ const App = () => {
         <Stack.Navigator initialRouteName="FirstScreen" headerMode={'none'}>
           <Stack.Screen name="FirstScreen" component={FirstScreen} />
           <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
-          <Stack.Screen name="UserDetails" component={SelectSkills} />
+          <Stack.Screen name="UserDetails" component={UserDetails} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="UserData" component={UserData} />
           <Stack.Screen name="Matcher" component={Matcher} />
