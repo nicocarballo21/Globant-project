@@ -21,5 +21,7 @@ const styles = StyleSheet.create({
         color: globantBright.text,
         fontSize: 10
      },
+     lastText: { textAlign: 'center', paddingTop: '50%' },
+});
 
 export default styles;

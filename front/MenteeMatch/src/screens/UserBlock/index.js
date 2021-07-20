@@ -9,7 +9,6 @@ export default function UserBlock({ user }) {
   // !user.img ? user.img = user_img : user.img
 
   // !user.img ? user.img = user_img : user.img
-  const handlePress = () => {};
 
     const handlePress = () => {
         console.log("Press")
