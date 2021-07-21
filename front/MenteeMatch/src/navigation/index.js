@@ -5,4 +5,5 @@ import LoginApp from './LoginApp';
 export {
   HomeApp,
   SettingsDraw,
+  LoginApp,
 };

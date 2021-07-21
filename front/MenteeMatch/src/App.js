@@ -9,12 +9,11 @@ import { FirstScreen } from './components';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-        //<Stack.Navigator initialRouteName="FirstScreen" headerMode={'none'}>
-
 import { useDispatch, useSelector } from 'react-redux';
 import { restoreToken } from './redux/Slices/authSlice';
 import { getData } from './utils/storage'
 import { HomeApp, LoginApp} from './navigation';
+import { setUser } from "./redux/Reducers/UserReducer"
 
 const AppWrapper = () => <Provider store={store}><App/></Provider>
 
@@ -27,30 +26,33 @@ const App = () => {
         const storageUser = async () => {
             try {
                 user = await getData('user')
+                dispatch(setUser(user))
             } catch (e) {
                 console.log(e)
             }
             if (user) dispatch(restoreToken({ token: user.token }))
+            //else dispatch(restoreToken({ token: null }))
         }
         storageUser();
-        console.log(auth)
-    }, [dispatch, auth.isLoading])
+    }, [dispatch, auth.userToken])
 
-    if (auth.isLoading) {
-        return <FirstScreen />
-    }
+    //if (auth.isLoading) {
+    //    return <FirstScreen />
+    //}
 
     return (
+        <Provider store={store}>
         <SafeAreaProvider>
             <NavigationContainer>
-                { auth.isSignout ? (
-                    <LoginApp />
-                    ) : (
+                { auth.userToken ? (
                     <HomeApp />
+                    ) : (
+                    <LoginApp />
                 ) }
             <FlashMessage position="top" />
             </NavigationContainer>
         </SafeAreaProvider>
+        </ Provider >
     )
 
   //return (

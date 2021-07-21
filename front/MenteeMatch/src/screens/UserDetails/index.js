@@ -22,8 +22,9 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { logout } from '../../redux/Slices/authSlice'
 
-const UserDetails = ({ route, navigation }) => {
+const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
   const skills = user.skillsToTeach;
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const UserDetails = ({ route, navigation }) => {
   const handleGoBack = async () => {
     try {
       await removeData('user');
-      navigation.goBack();
+      dispatch(logout())
     } catch (error) {
       console.log(error);
     }
