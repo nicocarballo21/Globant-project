@@ -31,7 +31,7 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="FirstScreen" headerMode={'none'}>
           <Stack.Screen name="FirstScreen" component={FirstScreen} />
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Login"
             component={Login}
             options={{ headerShown: false }}
@@ -40,12 +40,13 @@ const App = () => {
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="UserData" component={UserData} />
           <Stack.Screen name="Matcher" component={Matcher} />
-          <Stack.Screen name="Camera" component={Camera} /> */}
+          <Stack.Screen name="Camera" component={Camera} />
         </Stack.Navigator>
         <FlashMessage position="top" />
       </NavigationContainer>
     </Provider>
   );
+  s;
 };
 
 export default App;
