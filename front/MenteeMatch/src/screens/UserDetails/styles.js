@@ -1,8 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../assets/styles/colors';
 
-console.log()
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -55,16 +53,11 @@ const styles = StyleSheet.create({
   btnsContainer: {
     flexDirection: 'row',
     position: 'relative',
-    /* flexWrap: "wrap", */
-    /* justifyContent: "center", */
-    /* alignItems: "center", */
-    /* marginHorizontal: 16, */
   },
   pressable: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'blue',
-    /* width: 100, */
     paddingHorizontal: 16,
     height: 50,
     borderRadius: 15,
@@ -89,8 +82,6 @@ const styles = StyleSheet.create({
     width: 125,
     height: 125,
     borderRadius: 62.5,
-    /* position: "relative",
-    top: -16 */
     marginBottom: 16
   },
   btn: {
