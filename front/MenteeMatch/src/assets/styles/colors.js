@@ -9,6 +9,7 @@ const globantBright = {
   bg: '#FFFFFF',
   text: '#434343',
   lightgray: '#F5F6F7',
+  grey: '#444444',
   green: '#BFD832',
   violet: '#662E91',
   grass: '#39B54A',
@@ -23,4 +24,4 @@ const globantDark = {
   grass: '#39B54A',
 };
 
-export { colors, globantBright, globantDark }
+module.exports = { colors, globantBright, globantDark };

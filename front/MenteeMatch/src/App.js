@@ -2,13 +2,17 @@ import React from 'react';
 import FlashMessage from 'react-native-flash-message';
 import store from './redux/store';
 import { Provider } from 'react-redux';
-
-// Components
 import { FirstScreen } from './components';
-import Camera from "./components/Camera";
+import Camera from './components/Camera';
 
-// Screens
-import { Login, Matcher, Register, UserData, UserDetails, SelectSkills } from './screens';
+import {
+  Login,
+  Matcher,
+  Register,
+  UserData,
+  UserDetails,
+  SelectSkills,
+} from './screens';
 
 // Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,6 +27,7 @@ const App = () => {
         <Stack.Navigator initialRouteName="FirstScreen" headerMode={'none'}>
           <Stack.Screen name="FirstScreen" component={FirstScreen} />
           <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
+          <Stack.Screen name="SelectSkills" component={SelectSkills} options={{headerShown: false}} />
           <Stack.Screen name="UserDetails" component={UserDetails} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="UserData" component={UserData} />
@@ -33,6 +38,7 @@ const App = () => {
       </NavigationContainer>
     </Provider>
   );
+  s;
 };
 
 export default App;

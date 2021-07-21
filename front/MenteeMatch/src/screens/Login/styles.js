@@ -1,16 +1,19 @@
 import { StyleSheet } from 'react-native';
+import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   login: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    backgroundColor: 'cadetblue',
+    backgroundColor: globantBright.green,
   },
 
   logo: {
     width: 150,
     height: 150,
+    backgroundColor: globantBright.bg,
+    borderRadius: 100,
   },
 
   inputs: {

@@ -23,10 +23,9 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const onSubmit = async userData => {
+    console.log(userData);
     const { payload } = await dispatch(getUser(userData));
-
     if (payload) {
-      true;
       loginMessage(true);
       await storeData('user', payload);
       navigation.navigate('UserDetails');
@@ -101,7 +100,6 @@ const Login = ({ navigation }) => {
             />
           )}
         />
-
         <Button title={'Log in'} pressFunction={handleSubmit(onSubmit)} />
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>
           <Text style={styles.footer}>Registrate aca!</Text>
