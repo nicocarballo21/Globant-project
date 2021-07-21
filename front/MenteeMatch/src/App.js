@@ -2,13 +2,8 @@ import React from 'react';
 import FlashMessage from 'react-native-flash-message';
 import store from './redux/store';
 import { Provider } from 'react-redux';
-
 import { FirstScreen } from './components';
 import Camera from './components/Camera';
-
-import { View } from 'react-native';
-
-import { StyleSheet } from 'react-native';
 
 import {
   Login,
@@ -31,11 +26,8 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="FirstScreen" headerMode={'none'}>
           <Stack.Screen name="FirstScreen" component={FirstScreen} />
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{ headerShown: false }}
-          />
+          <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
+          <Stack.Screen name="SelectSkills" component={SelectSkills} options={{headerShown: false}} />
           <Stack.Screen name="UserDetails" component={UserDetails} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="UserData" component={UserData} />

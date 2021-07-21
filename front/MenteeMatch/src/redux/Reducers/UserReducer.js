@@ -38,15 +38,15 @@ export const getUser = createAsyncThunk('USER_LOG_IN', userLogin);
 export const userRegister = createAsyncThunk('USER_REGISTER', registerUser);
 export const updateUser = createAsyncThunk(
   'UPDATE_USER',
-  async (dataUser, thunAPI) => {
-    const { user } = thunAPI.getState();
-    const userUpdated = await updateUserData(
-      dataUser,
-      user.token,
-      '/api/users/profile',
-    );
-    userUpdated['token'] = user.token;
-    return userUpdated;
+  async ({ url, data }, thunkAPI) => {
+    try {
+      const { user } = thunkAPI.getState();
+      const userUpdated = await updateUserData(data, user.token, url);
+      userUpdated['token'] = user.token;
+      return userUpdated;
+    } catch (error) {
+      console.log({error});
+    }
   },
 );
 

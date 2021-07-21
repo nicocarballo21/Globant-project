@@ -10,7 +10,7 @@ import { simpleMessage } from '../../utils';
 export default () => {
   const dispatch = useDispatch();
   const onSubmit = personalData => {
-    dispatch(updateUser(personalData))
+    dispatch(updateUser({url: '/api/users/profile', data: personalData}))
       .then(payload => {
         if (payload) {
           simpleMessage(
