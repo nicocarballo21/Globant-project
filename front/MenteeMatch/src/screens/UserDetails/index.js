@@ -164,10 +164,6 @@ const UserDetails = ({ navigation }) => {
           />
         </ScrollView>
       </View>
-
-      <Pressable style={styles.btn} onPress={handleGoBack}>
-        <Text style={styles.btnText}>Cerrar sesión</Text>
-      </Pressable>
     </SafeAreaView>
       </SafeAreaView>
   );

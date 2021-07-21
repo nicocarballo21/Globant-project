@@ -13,7 +13,7 @@ export default () => {
   const onSubmit = data => {
     if (data.password === data.passwordConf && data) {
       sendUserRegister(data).then(() => navigation.navigate('UserData'));
-      navigation.navigate('UserData');
+      /* navigation.navigate('UserData'); */
       return;
     }
     simpleMessage('Error', 'Las passwords deben ser iguales', 'danger');

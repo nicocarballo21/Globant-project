@@ -36,22 +36,6 @@ const Login = ({ navigation }) => {
     }
   };
 
-  useEffect(() => {
-    const accion = async () => {
-      try {
-        const storedUser = await getData('user');
-        if (storedUser) {
-          dispatch(setUser({ ...storedUser }));
-          return navigation.navigate('UserDetails');
-        }
-        dispatch(setUser({ ...user }));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    accion();
-  }, []);
-
   return (
     <View style={styles.login}>
       <View>

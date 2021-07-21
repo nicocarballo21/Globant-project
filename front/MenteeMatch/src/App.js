@@ -11,49 +11,49 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { restoreToken } from './redux/Slices/authSlice';
-import { getData } from './utils/storage'
-import { HomeApp, LoginApp} from './navigation';
-import { setUser } from "./redux/Reducers/UserReducer"
+import { getData } from './utils/storage';
+import { HomeApp, LoginApp } from './navigation';
+import { setUser } from './redux/Reducers/UserReducer';
 
-const AppWrapper = () => <Provider store={store}><App/></Provider>
+const AppWrapper = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
 const App = () => {
-    const auth = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
-    
-    React.useEffect(() => {
-        let user;
-        const storageUser = async () => {
-            try {
-                user = await getData('user')
-                dispatch(setUser(user))
-            } catch (e) {
-                console.log(e)
-            }
-            if (user) dispatch(restoreToken({ token: user.token }))
-            //else dispatch(restoreToken({ token: null }))
-        }
-        storageUser();
-    }, [dispatch, auth.userToken])
+  const auth = useSelector(state => state.auth);
+  const dispatch = useDispatch();
 
-    //if (auth.isLoading) {
-    //    return <FirstScreen />
-    //}
+  React.useEffect(() => {
+    let user;
+    const storageUser = async () => {
+      try {
+        user = await getData('user');
+        if (user) dispatch(setUser(user));
+      } catch (e) {
+        console.log(e);
+      }
+      if (user) dispatch(restoreToken({ token: user.token }));
+      //else dispatch(restoreToken({ token: null }))
+    };
+    storageUser();
+  }, [dispatch, auth.userToken]);
 
-    return (
-        <Provider store={store}>
-        <SafeAreaProvider>
-            <NavigationContainer>
-                { auth.userToken ? (
-                    <HomeApp />
-                    ) : (
-                    <LoginApp />
-                ) }
-            <FlashMessage position="top" />
-            </NavigationContainer>
-        </SafeAreaProvider>
-        </ Provider >
-    )
+  //if (auth.isLoading) {
+  //    return <FirstScreen />
+  //}
+
+  return (
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          {auth.userToken ? <HomeApp /> : <LoginApp />}
+          <FlashMessage position="top" />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>
+  );
 
   //return (
   //  //<Provider store={store}>
