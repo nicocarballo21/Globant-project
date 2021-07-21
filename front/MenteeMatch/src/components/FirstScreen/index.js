@@ -5,12 +5,12 @@ import logo from '../../utils/logo.png';
 import logoG from '../../utils/logoG.png';
 import styles from './styles';
 
-const FirstScreen = ({ navigation }) => {
+const FirstScreen = () => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Login');
+      //navigation.navigate('Login');
     }, 2000);
-  }, [navigation]);
+  }, []);
 
   return (
     <View style={styles.background}>
