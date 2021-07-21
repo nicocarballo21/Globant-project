@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button';
 import { getSkills } from '../../redux/Reducers/Skills';
 import { simpleMessage } from '../../utils';
-import { postUserSkillsToLearn, postUserSkillsToTeach } from '../../services/axiosServices';
 import goBack from '../../assets/static/goBack.png';
 import styles from './styles';
+import { updateUser } from '../../redux/Reducers/UserReducer';
 
 const SelectSkills = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -25,9 +25,9 @@ const SelectSkills = ({ navigation }) => {
     if(selection.length < 5)
       return simpleMessage('Atención', 'Debés seleccionar al menos 5 skills', 'warning')
     if(user.isMentee)
-      postUserSkillsToLearn(selection, user.token)
+      dispatch(updateUser({url: '/api/users/skills/learn', data: {skillsToLearn: selection}}))
     if(user.isMentor)
-      postUserSkillsToTeach(selection, user.token)
+      dispatch(updateUser({url: '/api/users/skills/teach', data: {skillsToTeach: selection}}))
   };
   
   const handleGoBack = () => {

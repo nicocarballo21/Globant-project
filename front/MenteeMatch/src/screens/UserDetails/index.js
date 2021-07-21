@@ -115,7 +115,7 @@ const UserDetails = ({ route, navigation }) => {
     <View style={styles.container}>
 
       <View style={styles.header}>
-        <Pressable style={styles.pressableImg} renderComponent={handleGoBack}>
+        <Pressable style={styles.pressableImg} onPress={handleGoBack}>
           <Image source={goBack} style={styles.arrowImg} />
         </Pressable>
             <Text style={styles.headerText}>Perfil del usuario</Text>
@@ -162,9 +162,9 @@ const UserDetails = ({ route, navigation }) => {
         </ScrollView>
       </View>
 
-      <Pressable style={styles.btn} onPress={handleGoBack}>
+      {/* <Pressable style={styles.btn} onPress={handleGoBack}>
         <Text style={styles.btnText}>Cerrar sesión</Text>
-      </Pressable>
+      </Pressable> */}
     </View>
       </>
   );
