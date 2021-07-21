@@ -1,25 +1,31 @@
 import React from 'react';
-import { Text, View, Image, Pressable } from 'react-native';
+import { Text, View, Image, Pressable, Button, Alert } from 'react-native';
 import { styles } from './styles';
 import user_img from '../../assets/static/user_img.png';
 
-export default function UserBlock({ user }) {
+export default function UserBlock({ user, handleDislike}) {
   // const dispatch = useDispatch();
   //let history = useHistory();
   // !user.img ? user.img = user_img : user.img
+    let userType = ""
+    if(user.length > 1){
+        user.skillsToLearn.length ? userType = "mentee" : userType = "mentor"
+    }
 
   // !user.img ? user.img = user_img : user.img
 
-    const handlePress = () => {
+    const handleLike = () => {
         console.log("Press")
         // dispatch(setSelectedUser(user))
         // .then(() => history.push('/matcher'))
     }
+
+    // console.log("User en userBlock: ", user)
     
     return (
-        <Pressable style={styles.container} onPress={handlePress}>
+        <View style={styles.container}>
             {
-                user ?
+                user._id ?
                 <View style={styles.block}>
                    <View style={{flexDirection: "row" }}>
                         <Image 
@@ -33,14 +39,20 @@ export default function UserBlock({ user }) {
                     </View>
                     <View style={styles.skillsContainer}>
                         <Text style={styles.skills}>
-                        •{ user.skills.length ? user.skills.map(skill =>  '  ' + skill + "  •") : "Sin Skills" }
-                        {/* { user.abilities.length ? user.abilities.map(ability => { <Text>{ability}</Text> }) : "Sin Habilidades" } */}
+                        •{ userType === 'mentee' ? user.skillsToTeach.map(skill =>  '  ' + skill + "  •")
+                        :
+                        user.skillsToLearn.map(skill =>  '  ' + skill.name + "  •")}
                         </Text>
                     </View>
+
+                    <Button title="Like" onPress={() => Alert.alert("Like")}/>
+                    <Button title="Dislike" onPress={handleDislike}><Text>Dislike</Text></Button>
+                
+
                 </View> 
                     : 
                 <Text style={{ textAlign: "center"}}>...</Text>
             }
-        </Pressable>
+        </View>
     )
 }

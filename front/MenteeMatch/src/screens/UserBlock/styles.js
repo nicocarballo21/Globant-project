@@ -3,18 +3,23 @@ import {globantBright} from '../../assets/styles/colors'
 
 export const styles = StyleSheet.create({
     container: {
-        marginTop: 15,
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        marginTop: 40
+        paddingTop: 10,
+        marginTop: 20,
+        paddingHorizontal: 2,
+        // borderWidth: 4,
+        // borderColor: "blue"
     },
     block: {
         // position: "relative",
         paddingTop: 20,
+        paddingBottom: 25,
+        marginTop: 0,
+        marginBottom: 10,
         flexDirection: "column",
         width: "90%",
-        height: 200,
+        height: "auto",
        borderWidth: 1,
        borderRadius: 20,
        margin: 5,

@@ -62,12 +62,12 @@ module.exports = {
       const userSkills =
         roleToFind !== "isMentor" ? "skillsToTeach" : "skillsToLearn";
 
-      const matches = getMatchesForUser(req.user.id, {
+      const matches = await getMatchesForUser(req.user.id, {
         roleToFind,
         skillsToFind,
         userSkills,
       });
-
+      console.log("Mathes: ", matches)
       res.status(200).json(matches);
     } catch (err) {
       next(err);

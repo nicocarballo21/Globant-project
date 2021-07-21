@@ -22,6 +22,12 @@ const styles = StyleSheet.create({
         fontSize: 10
      },
      lastText: { textAlign: 'center', paddingTop: '50%' },
+     pressable: {
+      justifyContent: "center"
+     },
+     pressablePressed: {
+        backgroundColor: "gray"
+     }
 });
 
 export default styles;

@@ -20,3 +20,23 @@ export const simpleMessage = (message, description, type) => {
     floating: true,
   });
 };
+
+export const likeMessage = () => {
+  showMessage({
+    message: "¡Liked!",
+    type: "default",
+    backgroundColor: '#BFD832',
+    floating: true,
+    color: 'black'
+  })
+}
+
+export const doubleMatch = () => {
+  showMessage({
+    message: "¡Match doble!",
+    type: "default",
+    backgroundColor: '#662E91',
+    floating: true,
+    textAlign: "center"
+  })
+}

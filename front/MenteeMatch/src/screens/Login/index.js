@@ -28,7 +28,7 @@ const Login = ({ navigation }) => {
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
-      navigation.navigate('UserDetails');
+      navigation.navigate('Matcher');
     } else {
       loginMessage(false);
     }
@@ -42,7 +42,7 @@ const Login = ({ navigation }) => {
         const storedUser = await getData('user');
         if (storedUser) {
           dispatch(setUser({ ...storedUser }));
-          return navigation.navigate('UserDetails');
+          return navigation.navigate('Matcher');
         }
         dispatch(setUser({ ...user }));
       } catch (error) {
