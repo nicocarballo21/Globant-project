@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import styles from './styles';
 import { View, Pressable, Image, Text, FlatList, SafeAreaView} from 'react-native';
-import goBack from '../../assets/static/goBack.png';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button';
 import { getSkills } from '../../redux/Reducers/Skills';
 import { simpleMessage } from '../../utils';
 import { postUserSkillsToLearn, postUserSkillsToTeach } from '../../services/axiosServices';
+import goBack from '../../assets/static/goBack.png';
+import styles from './styles';
 
 const SelectSkills = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -60,34 +60,34 @@ const SelectSkills = ({ navigation }) => {
     }
   }
   
-  //TODO Hacer que la vista renderice cantidad de mentees solo sí el usuario es un mentor
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Pressable style={styles.pressableImg} onPress={handleGoBack}>
           <Image source={goBack} style={styles.arrowImg} />
         </Pressable>
-        <Text style={styles.headerText}>Selecciona las skills</Text>
+        <Text style={styles.headerText}>{user.isMentor ? 'Skills a enseñar' : 'Skills a aprender'}</Text>
       </View>
-        <View style={styles.btnsContainer}>
-            <FlatList
-              scrollEnabled={true}
-              contentContainerStyle={{
-                alignSelf: 'center',
-                alignItems: 'center'
-              }}
-              numColumns={3}
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              data={skills}
-              keyExtractor={skills => skills._id}
-              renderItem={({ item }) => (
-                <Pressable style={[styles.pressable, buttonsStyle[item.name]?.styles]} onPress={() => handlePress(item)} >
-                  <Text style={styles.pressableTxt}>{item.name}</Text>
-                </Pressable>
-              )}
-            />
-        </View>
+      <View style={styles.btnsContainer}>
+        <FlatList
+          scrollEnabled={true}
+          contentContainerStyle={{
+            alignSelf: 'center',
+            alignItems: 'center'
+          }}
+          numColumns={3}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          data={skills}
+          keyExtractor={skills => skills._id}
+          renderItem={({ item }) => (
+            <Pressable style={[styles.pressable, buttonsStyle[item.name]?.styles]} onPress={() => handlePress(item)} >
+              <Text style={styles.pressableTxt}>{item.name}</Text>
+            </Pressable>
+          )}
+        />
+      </View>
+      {user.isMentor && 
       <View>
         <Text style={styles.menteeQtyTitleTxt}>Cantidad de mentees a mentorear</Text>
         <View style={styles.menteeQtyBox}>
@@ -95,11 +95,10 @@ const SelectSkills = ({ navigation }) => {
             <Text style={styles.menteeQtyTxt}>{menteesQty}</Text>
           <Button title="+" style={styles.menteeQtyBtn} pressFunction={() => handleChangeQty(+1)}/>
         </View>
-      </View>
+      </View>}
       <Button title={'Siguiente'} style={styles.nextBtn} pressFunction={handleNext} />
     </SafeAreaView>
   );
 };
-
 
 export default SelectSkills;
