@@ -28,7 +28,7 @@ const App = () => {
           <Stack.Screen name="FirstScreen" component={FirstScreen} />
           <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
           <Stack.Screen name="SelectSkills" component={SelectSkills} options={{headerShown: false}} />
-          <Stack.Screen name="UserDetails" component={SelectSkills} />
+          <Stack.Screen name="UserDetails" component={SelectSkills} options={{headerShown: true}} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="UserData" component={UserData} />
           <Stack.Screen name="Matcher" component={Matcher} />

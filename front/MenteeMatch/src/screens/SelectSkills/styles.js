@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     position: 'relative',
     borderColor: colors.blackPearl,
+    backgroundColor: colors.lightgray,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     elevation: 1,
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     height: 75,
   },
   pressed: {
-    backgroundColor: colors.violet
+    backgroundColor: colors.green
   },
   pressableTxt: {
     color: colors.text,
