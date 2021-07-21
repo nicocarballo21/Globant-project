@@ -4,6 +4,7 @@ import { skillsReducer } from './Reducers/Skills';
 import userReducer from './Reducers/UserReducer';
 import {usersReducer} from './Reducers/usersReducer';
 import {matchesReducer} from './Reducers/matchesReducer';
+import authReducer from './Slices/authSlice'
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     selectedUser: selectedUserReducer,
     matches: matchesReducer,
     skills: skillsReducer,
+    auth: authReducer,
   },
 });
 

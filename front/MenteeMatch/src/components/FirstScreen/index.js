@@ -4,12 +4,12 @@ import { View, Image } from 'react-native';
 import logo from '../../utils/logo.png';
 import styles from './styles';
 
-const FirstScreen = ({ navigation }) => {
+const FirstScreen = () => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Login');
+      //navigation.navigate('Login');
     }, 2000);
-  }, [navigation]);
+  }, []);
 
   return (
     <View style={styles.background}>

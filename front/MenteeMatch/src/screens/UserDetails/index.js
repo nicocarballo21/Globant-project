@@ -19,6 +19,9 @@ import { setUserImg, getData, removeData } from '../../utils/storage';
 import Animated from 'react-native-reanimated';
 import BottomSheet from "reanimated-bottom-sheet"
 import ImagePicker from 'react-native-image-crop-picker';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const UserDetails = ({ route, navigation }) => {
   const user = useSelector(state => state.user);
@@ -102,9 +105,9 @@ const UserDetails = ({ route, navigation }) => {
     );
  
     const sheetRef = React.useRef(null);
-
+//renderComponent={handleGoBack}
   return (
-      <>
+      <SafeAreaView style={{flex:1}}>
     <BottomSheet
         ref={sheetRef}
         snapPoints={[300, 200, 0]}
@@ -112,13 +115,12 @@ const UserDetails = ({ route, navigation }) => {
         renderContent={renderContent}
         initialSnap={2}
       />
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
 
       <View style={styles.header}>
-        <Pressable style={styles.pressableImg} renderComponent={handleGoBack}>
-          <Image source={goBack} style={styles.arrowImg} />
+        <Pressable style={styles.pressableImg} onPress={() => navigation.toggleDrawer() }>
+          <Ionicons name="reorder-three" size={50} color="#BFD732" />
         </Pressable>
-            <Text style={styles.headerText}>Perfil del usuario</Text>
       </View>
             <TouchableOpacity
                 onPress={() => sheetRef.current.snapTo(0)}
@@ -165,8 +167,8 @@ const UserDetails = ({ route, navigation }) => {
       <Pressable style={styles.btn} onPress={handleGoBack}>
         <Text style={styles.btnText}>Cerrar sesión</Text>
       </Pressable>
-    </View>
-      </>
+    </SafeAreaView>
+      </SafeAreaView>
   );
 };
 
