@@ -5,7 +5,13 @@ import styles from './styles';
 const input = props => {
   const { errors } = props;
 
-  return <TextInput style={errors ? styles.error : styles.input} {...props} />;
+  return (
+    <TextInput
+      style={errors ? styles.error : styles.input}
+      {...props}
+      placeholderTextColor={'white'}
+    />
+  );
 };
 
 export default input;
