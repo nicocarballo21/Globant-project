@@ -65,6 +65,7 @@ const Register = ({ onSubmit }) => {
               value={value}
               autoCompleteType="off"
               placeholder="menteematch@ejemplo.com"
+              keyboardType="email-address"
             />
           )}
           name="email"
