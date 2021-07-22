@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import Register from '../../components/Register';
 import { simpleMessage } from '../../utils';
 
-export default () => {
+const RegisterContainer = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -16,7 +16,9 @@ export default () => {
         if (payload) {
           simpleMessage('Exito', 'Paso 1 de 2 completado!', 'success');
           navigation.navigate('UserData');
-        } else simpleMessage('Error', 'Algo salio mal!', 'danger');
+        } else {
+          simpleMessage('Error', 'Algo salio mal!', 'danger');
+        }
       });
 
       return;
@@ -29,3 +31,5 @@ export default () => {
     </View>
   );
 };
+
+export default RegisterContainer;

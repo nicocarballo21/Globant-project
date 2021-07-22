@@ -13,7 +13,7 @@ import logo from '../../utils/logo.png';
 import { InputText, Button } from '../../components';
 
 import { getData, storeData } from '../../utils/storage';
-import { login } from "../../redux/Slices/authSlice"
+import { login } from '../../redux/Slices/authSlice';
 
 const Login = ({ navigation }) => {
   const {
@@ -25,12 +25,11 @@ const Login = ({ navigation }) => {
   const user = useSelector(state => state.user);
 
   const onSubmit = async userData => {
-    console.log(userData);
     const { payload } = await dispatch(getUser(userData));
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
-        dispatch(login({ token: user.token }))
+      dispatch(login({ token: user.token }));
     } else {
       loginMessage(false);
     }

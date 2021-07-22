@@ -26,11 +26,11 @@ const App = () => {
     const storageUser = async () => {
       try {
         user = await getData('user');
-        if (user) dispatch(setUser(user));
+        user ?? dispatch(setUser(user));
       } catch (e) {
         console.log(e);
       }
-      if (user) dispatch(restoreToken({ token: user.token }));
+      user ?? dispatch(restoreToken({ token: user.token }));
     };
     storageUser();
   }, [dispatch, auth.userToken]);

@@ -1,27 +1,28 @@
 const {
   updateById,
   toggleMentorOrMentee,
-  getMatchesForUser
-} = require("../services/usersServices")
+  getMatchesForUser,
+} = require("../services/usersServices");
 
 module.exports = {
   userUpdate: async (req, res, next) => {
     try {
-      const user = await updateById(req.user.id, req.body)
-      res.status(200).json({ ...user._doc, password: null })
+      const user = await updateById(req.user.id, req.body);
+      res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
-      next(err)
+      next(err);
     }
   },
   mentorAndMenteeToggling: async (req, res, next) => {
     try {
       const type =
-        (req.path.includes("mentor") && "isMentor") || (req.path.includes("mentee") && "isMentee")
+        (req.path.includes("mentor") && "isMentor") ||
+        (req.path.includes("mentee") && "isMentee");
 
-      const user = toggleMentorOrMentee(req.user.id, type)
-      res.status(200).json({ ...user._doc, password: null })
+      const user = await toggleMentorOrMentee(req.user.id, type);
+      res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
-      next(err)
+      next(err);
     }
   },
 
@@ -29,20 +30,23 @@ module.exports = {
     try {
       const type =
         (req.path.includes("learn") && "skillsToLearn") ||
-        (req.path.includes("teach") && "skillsToTeach")
+        (req.path.includes("teach") && "skillsToTeach");
 
       if (!req.body[type])
-        return res.status(400).json("The body of your request is not correct!, try again")
+        return res
+          .status(400)
+          .json("The body of your request is not correct!, try again");
 
-      const skills = req.body[type]
+      const skills = req.body[type];
 
-      if (!skills.length) return res.status(400).json("You need to add at least one skill")
+      if (!skills.length)
+        return res.status(400).json("You need to add at least one skill");
 
-      updateById(req.user.id, { [type]: skills }).then(user => {
-        res.status(200).json({ ...user._doc, password: null })
-      })
+      const user = await updateById(req.user.id, { [type]: skills });
+
+      res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
-      next(err)
+      next(err);
     }
   },
 
@@ -50,21 +54,23 @@ module.exports = {
     try {
       const roleToFind =
         (req.path.includes("mentors") && "isMentor") ||
-        (req.path.includes("mentees") && "isMentee")
+        (req.path.includes("mentees") && "isMentee");
 
-      const skillsToFind = roleToFind === "isMentor" ? "skillsToTeach" : "skillsToLearn"
+      const skillsToFind =
+        roleToFind === "isMentor" ? "skillsToTeach" : "skillsToLearn";
 
-      const userSkills = roleToFind !== "isMentor" ? "skillsToTeach" : "skillsToLearn"
+      const userSkills =
+        roleToFind !== "isMentor" ? "skillsToTeach" : "skillsToLearn";
 
-      const matches = getMatchesForUser(req.user.id, {
+      const matches = await getMatchesForUser(req.user.id, {
         roleToFind,
         skillsToFind,
-        userSkills
-      })
+        userSkills,
+      });
 
-      res.status(200).json(matches)
+      res.status(200).json(matches);
     } catch (err) {
-      next(err)
+      next(err);
     }
-  }
-}
+  },
+};
