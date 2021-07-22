@@ -35,14 +35,15 @@ export default function UserBlock({
           </View>
           {!disableButtons && (
             <View style={styles.buttonsContainer}>
-              <Button color="red" buttonStyles={styles.dislikeButton} title="Dislike" onPress={() => handleDislike(user)} />
-              <Button color="green" buttonStyles={styles.likeButton} title="Like" onPress={() => handleLike(user)} />
+              <Button buttonStyle={styles.dislikeButton} title="Rechazar" onPress={() => handleDislike(user)} />
+              <Button buttonStyle={styles.likeButton} title="Aceptar" onPress={() => handleLike(user)} />
             </View>
           )}
         </View>
       ) : (
-        <Text style={{ textAlign: 'center' }}>...</Text>
+        <Text style={{ textAlign: 'center', fontSize: 30 }}>...</Text>
       )}
     </View>
   );
 }
+

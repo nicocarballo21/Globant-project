@@ -67,12 +67,19 @@ export const styles = StyleSheet.create({
     },
     likeButton: {
         borderWidth: 1,
-        borderRadius: 10,
-        backgroundColor: globantBright.grass
+        borderRadius: 50,
+        backgroundColor: "#006606",
+        height: 50,
+        width: 90,
+        marginRight: 20
     },
     dislikeButton: {
         borderWidth: 1,
-        borderRadius: 10,
-        backgroundColor: globantBright.violet
+        borderRadius: 50,
+        backgroundColor: "#aa0000",
+        height: 50,
+        width: 90,
+        marginLeft: 20
+
     },
   });
