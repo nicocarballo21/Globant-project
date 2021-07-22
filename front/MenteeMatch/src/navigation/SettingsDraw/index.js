@@ -6,6 +6,7 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import { useDispatch } from 'react-redux';
+import Switch from '../../components/Switch';
 
 import { UserDetails, Register, UserData } from '../../screens/';
 import { removeData } from '../../utils/storage';
@@ -26,6 +27,7 @@ function CustomDrawerContent(props) {
       console.log(error);
     }
   };
+
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
@@ -34,6 +36,7 @@ function CustomDrawerContent(props) {
         onPress={() => props.navigation.closeDrawer()}
       />
       <DrawerItem label="Cerrar sesion" onPress={handleLogOut} />
+      <Switch />
     </DrawerContentScrollView>
   );
 }
