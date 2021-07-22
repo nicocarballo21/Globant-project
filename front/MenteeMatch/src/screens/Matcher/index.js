@@ -19,6 +19,9 @@ export default function Matcher() {
     dispatch(getMatches({ roleToFind, token }));
   }, []);
 
+  // Si se queda sin candidatos, hago de nuevo el pedido
+  
+
   const handleLike = likedUser => {
     const finalMatch = user.likes.find(userPrevLiked => userPrevLiked._id === likedUser._id,);
     if (finalMatch) {
@@ -104,7 +107,7 @@ export default function Matcher() {
           </View>
         </SafeAreaView>
       ) : (
-        <Text>Cargando...</Text>
+        <Text style={{textAlign: "center", height:"100%", textAlignVertical:"center", fontSize: 45}}>Cargando...</Text>
       )}
     </>
   );

@@ -66,7 +66,9 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     likeButton: {
-        width: 20
+        borderWidth: 1,
+        borderRadius: 10,
+        backgroundColor: globantBright.grass
     },
     dislikeButton: {
         borderWidth: 1,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Image, Pressable, Button, Alert } from 'react-native';
+import { Button } from 'react-native-elements';
 import { styles } from './styles';
 import user_img from '../../assets/static/user_img.png';
 
@@ -34,8 +35,8 @@ export default function UserBlock({
           </View>
           {!disableButtons && (
             <View style={styles.buttonsContainer}>
-              <Button color="red" styles={styles.dislikeButton} title="Dislike" onPress={() => handleDislike(user)} />
-              <Button color="green" styles={styles.likeButton} title="Like" onPress={() => handleLike(user)} />
+              <Button color="red" buttonStyles={styles.dislikeButton} title="Dislike" onPress={() => handleDislike(user)} />
+              <Button color="green" buttonStyles={styles.likeButton} title="Like" onPress={() => handleLike(user)} />
             </View>
           )}
         </View>
