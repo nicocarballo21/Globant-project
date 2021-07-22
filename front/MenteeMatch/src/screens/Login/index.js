@@ -13,6 +13,7 @@ import logo from '../../utils/logo.png';
 import { InputText, Button } from '../../components';
 
 import { getData, storeData } from '../../utils/storage';
+import { login } from "../../redux/Slices/authSlice"
 
 const Login = ({ navigation }) => {
   const {
@@ -21,6 +22,7 @@ const Login = ({ navigation }) => {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
 
   const onSubmit = async userData => {
     console.log(userData);
@@ -28,29 +30,11 @@ const Login = ({ navigation }) => {
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
-      navigation.navigate('UserDetails');
+        dispatch(login({ token: user.token }))
     } else {
       loginMessage(false);
     }
   };
-
-  const user = useSelector(state => state.user);
-
-  useEffect(() => {
-    const accion = async () => {
-      try {
-        const storedUser = await getData('user');
-        if (storedUser) {
-          dispatch(setUser({ ...storedUser }));
-          return navigation.navigate('UserDetails');
-        }
-        dispatch(setUser({ ...user }));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    accion();
-  }, []);
 
   return (
     <View style={styles.login}>

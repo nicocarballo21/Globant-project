@@ -6,6 +6,7 @@ import UserData from './UserData';
 import UserDetails from './UserDetails';
 import SelectSkills from './SelectSkills';
 import RoleSelection from './RoleSelction';
+import Home from './Home';
 
 export {
   Matcher,
@@ -16,4 +17,5 @@ export {
   UserData,
   SelectSkills,
   RoleSelection,
+  Home,
 };

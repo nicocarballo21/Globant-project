@@ -1,8 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../assets/styles/colors';
 
-console.log()
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -138,7 +136,7 @@ const styles = StyleSheet.create({
   panelButton: {
     padding: 13,
     borderRadius: 10,
-    backgroundColor: '#FF6347',
+    backgroundColor: '#BFD732',
     alignItems: 'center',
     marginVertical: 7,
   },
