@@ -108,7 +108,7 @@ const SelectSkills = ({ navigation }) => {
           )}
         />
       </View>
-      {user.isMentor && (
+      {user.isMentee && (
         <View>
           <Text style={styles.menteeQtyTitleTxt}>
             Cantidad de mentees a mentorear
