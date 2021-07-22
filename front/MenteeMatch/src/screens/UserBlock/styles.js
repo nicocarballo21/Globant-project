@@ -8,8 +8,8 @@ export const styles = StyleSheet.create({
         paddingTop: 10,
         marginTop: 20,
         paddingHorizontal: 2,
-        // borderWidth: 4,
-        // borderColor: "blue"
+        width: 400,
+        alignSelf: "center"
     },
     block: {
         // position: "relative",

@@ -1,162 +1,81 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, SafeAreaView, FlatList } from 'react-native';
 import styles from './styles';
-import { block } from '../UserBlock/styles';
 import { UserBlock } from '../';
-import { getMatches } from '../../redux/Reducers/matchesReducer';
-import { likeMessage, doubleMatch } from '../../utils';
+import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
+import { setUser } from '../../redux/Reducers/UserReducer';
+import { simpleMessage } from '../../utils';
 
 export default function Matcher() {
   const dispatch = useDispatch();
-
   const user = useSelector(state => state.user);
-
+  const matches = useSelector(state => state.matches);
   const roleToFind = user.isMentee ? 'mentors' : 'mentees';
 
-  let [liked, setLiked] = useState([]); // user liked
-  let [possibles, setPossibles] = useState([]); // array de los posibles users ordenado de mayor coincidencia a menor
-  let [originalArr, setOriginalArr] = useState([]);
-  let [myMatches, setMymatches] = useState([]);
-  let [index, setIndex] = useState(0);
-
-  // let [num, setNum] = useState(3)
-
-  // primer render sin likes
-  // matcharr = 0
-  // possible = [posibles users]
-  // doublearr = [ posiible[0], possible[1] ]
-
-//   const twoPossibleMatches = (possiblesServer, matchArr) => {
-//     let doubleArr = [],
-//       j = 0;
-
-//     if (!matchArr.length && possiblesServer.length) {
-//       doubleArr[0] = possiblesServer[0];
-//       doubleArr[1] = possiblesServer[1];
-
-//       return setPossibles(doubleArr);
-//     }
-
-//     for (let i = 0; i < possiblesServer.length && j < 2; i++) {
-//       if (possiblesServer[i] && matchArr.indexOf(possiblesServer[i]) === -1) {
-//         doubleArr[j] = possiblesServer[i];
-//         j++;
-//         console.log('FOR');
-//       }
-//     }
-//     console.log('setPossibles', doubleArr);
-//     return setPossibles(doubleArr);
-//   };
-
-//   const handlePress = userPressed => {
-//     console.log('UserPressed: ', userPressed);
-//     // likes = [users={}]
-//     if (likes.length) {
-//       if (likes[0]._id === userPressed._id) {
-//         setMyMatches([...myMatches, userPressed]);
-//         setLikes([]);
-//         console.log('MatchesDoubles :', myMatches);
-//         return doubleMatch();
-//         //CORTAR VISTA ACA
-//         // return setNum(3)
-//       }
-//     }
-//     // setNum(n)
-//     likeMessage();
-//     // console.log("Likes: ", likes)
-//     setLikes([...liked, userPressed]);
-//   };
-
-  // seed inicial
+  // Seed inicial
   useEffect(() => {
     const token = user.token;
-    dispatch(getMatches({ roleToFind, token })).then(({ payload }) =>
-      setOriginalArr(payload),
-    );
-  }, [dispatch]);
+    dispatch(getMatches({ roleToFind, token }));
+  }, []);
 
-//   useEffect(() => {
-//     twoPossibleMatches(originalArr, myMatches);
-//   }, [liked]);
-
-  const handleLike = () => {
-    console.log('like');
+  const handleLike = likedUser => {
+    const finalMatch = user.likes.find(userPrevLiked => userPrevLiked._id === likedUser._id,);
+    if (finalMatch) {
+      simpleMessage('Información', `El mentor ${finalMatch.name} ${finalMatch.surname} te ha sido asignado`, 'info');
+      return dispatch(setUser({ ...user, mentor: finalMatch }));
+    }
+    const orderedMatches = matches.filter(match => match._id !== likedUser._id)
+    orderedMatches.push(likedUser)
+    dispatch(setUser({ ...user, likes: [...user.likes, likedUser] }));
+    dispatch(setMatches(orderedMatches))
   };
 
-  const handleDislike = () => {
-    console.log('dislike');
+  const handleDislike = dislikedUser => {
+    dispatch(setUser({ ...user, disLikes: [...user.disLikes, dislikedUser] }));
+    const filteredMatches = matches.filter(
+      match => match._id !== dislikedUser._id,
+    );
+    dispatch(setMatches(filteredMatches));
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Hola, {user.name}.</Text>
-      <Text style={styles.subtitle}>Elije entre tus posibles matches:</Text>
-      {originalArr.length ? ( 
-        // hay likeado uno
-        //VISTA DE UNA USERCARD
-        <View>
-          <Pressable>
+      {matches.length ? (
+        <SafeAreaView>
+          <Text style={styles.title}>Hola, {user.name}.</Text>
+          <Text style={styles.subtitle}>Elije entre tus posibles matches:</Text>
+          {user.likes.length ? (
             <UserBlock
-            //   key={originalArr[0]._id}
-              user={originalArr[index]}
+              user={user.likes[user.likes.length - 1]}
               handleLike={handleLike}
               handleDislike={handleDislike}
+              disableButtons={true}
             />
-          </Pressable>
-        </View>
+          ) : null}
+          <FlatList
+            horizontal
+            contentContainerStyle={{
+              paddingHorizontal: 6,
+            }}
+            numColumns={1}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            data={matches}
+            keyExtractor={matches => matches._id}
+            renderItem={({ item }) => (
+              <UserBlock
+                user={item}
+                handleLike={handleLike}
+                handleDislike={handleDislike}
+                disableButtons={false}
+              />
+            )}
+          />
+        </SafeAreaView>
       ) : (
-        <View>
-          {/* <Pressable
-            onPress={() => handlePress(liked.length ? liked[0] : possibles[0])}>
-            <UserBlock
-              key={liked.length ? liked[0]._id : possibles[0]._id}
-              user={liked.length ? liked[0] : possibles[0]}
-            />
-          </Pressable>
-
-          <Pressable onPress={() => handlePress(possibles[1])}>
-            <UserBlock key={possibles[1]._id} user={possibles[1]} />
-          </Pressable> */}
-        </View>
+        <Text>Cargando...</Text>
       )}
     </View>
   );
 }
-
-// const users = [
-//     {
-//         id: 1,
-//         name: "Elon",
-//         surname: "Musk",
-//         email: "elonmusk@tesla.com",
-//         img: "https://i.dailymail.co.uk/i/newpix/2018/09/07/08/4FD1F62300000578-6142193-image-m-9_1536304932759.jpg",
-//         skills: [
-//             "Diseño (UX/VD)",
-//             "Back-End",
-//             "Front-End",
-//             "Testing",
-//             "QA",
-//             "PHP",
-//             "Python",
-//             "Leadership"
-//         ]
-//     },
-//     {
-//         id: 2,
-//         name: "Britney",
-//         surname: "Spears",
-//         email: "freebritney@scalabritney.com",
-//         img: "https://i.pinimg.com/originals/44/72/3e/44723ec062349202981fc2b389e84ada.jpg",
-//         skills: [
-//             "Full-Stack",
-//             "AWS",
-//             ".NET",
-//             "Tech Support",
-//             "Data Analyst",
-//             "SalesForce",
-//             "Costumer Service",
-//             "Executive"
-//         ]
-//     }
-// ]
