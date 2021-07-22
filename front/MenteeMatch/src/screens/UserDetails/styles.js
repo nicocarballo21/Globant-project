@@ -1,24 +1,24 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../assets/styles/colors';
+import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.blackPearl,
+    backgroundColor: globantBright.bg,
     alignItems: 'center',
   },
   header: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
-    color: colors.white,
-    backgroundColor: colors.blackPearl,
+    color: globantBright.text,
+    backgroundColor: globantBright.bg,
     padding: 32,
     fontSize: 24,
     position: 'relative',
   },
   headerText: {
-    color: colors.white,
+    color: globantBright.text,
     fontSize: 24,
     textAlign: 'center',
   },
@@ -36,14 +36,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   keyText: {
-    color: colors.white,
-    backgroundColor: colors.blackPearl,
+    color: globantBright.text,
+    backgroundColor: globantBright.blackPearl,
     width: '100%',
     textAlign: 'center',
     borderWidth: 1,
   },
   valueText: {
-    color: colors.white,
+    color: globantBright.text,
     backgroundColor: 'black',
     width: '100%',
     textAlign: 'center',
@@ -63,16 +63,16 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: colors.charade,
+    borderColor: globantBright.green,
     margin: 5,
     elevation: 5,
   },
   pressableTxt: {
-    color: colors.white,
+    color: globantBright.text,
   },
   skillsText: {
     width: '100%',
-    color: colors.white,
+    color: globantBright.text,
     textAlign: 'center',
     padding: 16,
     fontSize: 14,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     width: 125,
     height: 125,
     borderRadius: 62.5,
-    marginBottom: 16
+    marginBottom: 16,
   },
   btn: {
     width: '75%',
@@ -94,13 +94,13 @@ const styles = StyleSheet.create({
     margin: 32,
     textAlign: 'center',
     position: 'absolute',
-    borderColor: colors.charade,
+    borderColor: globantBright.green,
     elevation: 10,
     bottom: -10,
   },
   btnText: {
     textAlign: 'center',
-    color: 'white',
+    color: globantBright.text,
   },
   commandButton: {
     padding: 15,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-   panelTitle: {
+  panelTitle: {
     fontSize: 27,
     height: 35,
   },
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   panelButtonTitle: {
     fontSize: 17,
     fontWeight: 'bold',
-    color: 'white',
+    color: globantBright.text,
   },
 });
 

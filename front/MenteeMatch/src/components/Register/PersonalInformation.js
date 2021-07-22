@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import styles from './styles';
 
 import { InputText, Button } from '../../components';
+import logo from '../../utils/logo.png';
 
 export default ({ onSubmit }) => {
   const {
@@ -14,7 +15,7 @@ export default ({ onSubmit }) => {
 
   return (
     <View style={styles.login}>
-      <Text style={styles.buttonText}>Datos Personales</Text>
+      <Image style={styles.logo} source={logo} />
 
       <View style={styles.inputs}>
         {errors.country && (
@@ -90,7 +91,8 @@ export default ({ onSubmit }) => {
           name="about"
           defaultValue=""
         />
-        <Button title="Siguiete" pressFunction={handleSubmit(onSubmit)} />
+        <Button title="Siguiente" pressFunction={handleSubmit(onSubmit)} />
+        <Button title="Omitir" pressFunction={() => {}} />
       </View>
     </View>
   );

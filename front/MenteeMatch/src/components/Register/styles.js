@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    backgroundColor: globantBright.green,
+    backgroundColor: globantBright.bg,
   },
 
   inputs: {
@@ -20,6 +20,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignSelf: 'center',
     textTransform: 'uppercase',
+  },
+
+  logo: {
+    width: 100,
+    height: 100,
+    backgroundColor: '#F5F6F7',
+    borderColor: globantBright.green,
+    borderWidth: 2,
+    borderRadius: 100,
   },
 
   error: {

@@ -14,6 +14,7 @@ const globantBright = {
   green: '#BFD832',
   violet: '#662E91',
   grass: '#39B54A',
+  inputBg: '#eeeeee',
 };
 
 const globantDark = {

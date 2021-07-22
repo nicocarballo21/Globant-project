@@ -10,7 +10,7 @@ const input = props => {
     <TextInput
       style={errors ? styles.error : styles.input}
       {...props}
-      placeholderTextColor={globantBright.grey}
+      placeholderTextColor={globantBright.text}
     />
   );
 };

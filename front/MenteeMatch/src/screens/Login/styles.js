@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
     height: 150,
-    backgroundColor: globantBright.bg,
+    backgroundColor: '#F5F6F7',
     borderColor: globantBright.green,
     borderWidth: 2,
     borderRadius: 100,
