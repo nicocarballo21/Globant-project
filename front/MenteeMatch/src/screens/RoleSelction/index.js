@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 
-import { globantBright } from '../../assets/styles/colors';
+import { updateUser } from '../../redux/Reducers/UserReducer';
 import { Button, CheckBoxText } from '../../components';
 import styles from './styles';
 
@@ -9,11 +10,13 @@ const RoleSelection = () => {
   const [boxUno, setBoxUno] = useState(false);
   const [boxDos, setBoxDos] = useState(false);
   const [role, setRole] = useState('');
+  const dispatch = useDispatch();
 
   const handleMenteeOp = () => {
     if (!boxUno) {
       setBoxUno(true);
       setBoxDos(false);
+      setRole('mentee');
     }
   };
 
@@ -21,7 +24,12 @@ const RoleSelection = () => {
     if (!boxDos) {
       setBoxDos(true);
       setBoxUno(false);
+      setRole('mentor');
     }
+  };
+
+  const confirmOption = () => {
+    dispatch(updateUser({ url: `/api/users/${role}`, data: {} }));
   };
 
   return (
@@ -31,7 +39,7 @@ const RoleSelection = () => {
       <CheckBoxText text="Mentor" isChecked={boxDos} onPress={handleMentorOp} />
       <Button
         title="Siguiente"
-        pressFunction={() => {}}
+        pressFunction={confirmOption}
         style={styles.button}
       />
     </View>

@@ -25,7 +25,6 @@ const Login = ({ navigation }) => {
   const user = useSelector(state => state.user);
 
   const onSubmit = async userData => {
-    console.log(userData);
     const { payload } = await dispatch(getUser(userData));
     if (payload) {
       loginMessage(true);
