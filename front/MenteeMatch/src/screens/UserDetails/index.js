@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {}
 import { setUserImg, getData } from '../../utils/storage';
 import { getSkills } from '../../redux/Reducers/Skills';
 import userImg from '../../assets/static/user_img.png';
