@@ -50,6 +50,7 @@ const getMatchesForUser = async (
       [skillsToFind]: { $in: skillstTomatch }}
       )
       .populate(skillsToFind, "name")
+      .exec()
        ) || [];
 
   if (roleToFind === "isMentor")

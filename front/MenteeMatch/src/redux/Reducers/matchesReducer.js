@@ -16,14 +16,15 @@ const generateAxios = (token) => {
 export const getMatches = createAsyncThunk("GET_MATCHES", ({roleToFind, token}) => {
     if(!roleToFind) throw new Error("No role has been assigned")
     const axiosAuthorized = generateAxios(token)
-    // console.log("Token: ", token)
-    // console.log("roleToFind: ", roleToFind)
     return axiosAuthorized.get(`${API_URL}/api/users/match/${roleToFind}`)
         .then(res => res.data)
-        // .then(res => console.log(res))
         .catch(error => console.log("GET_MATCHES: ", error))
 })
+
+export const setMatches = createAction('SET_MATCHES')
+
 export const matchesReducer = createReducer([], {
     [getMatches.pending]: (state, action) => ["Cargando..."],
-    [getMatches.fulfilled]: (state, action) => action.payload
+    [getMatches.fulfilled]: (state, action) => action.payload,
+    [setMatches]: (state, action) => action.payload
 })
