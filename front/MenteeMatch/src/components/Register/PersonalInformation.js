@@ -5,13 +5,13 @@ import styles from './styles';
 
 import { InputText, Button } from '../../components';
 
-export default ({ onSubmit }) => {
+export default ({ onSubmit, navigation }) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  
   return (
     <View style={styles.login}>
       <Text style={styles.buttonText}>Datos Personales</Text>
@@ -90,7 +90,8 @@ export default ({ onSubmit }) => {
           name="about"
           defaultValue=""
         />
-        <Button title="Siguiete" pressFunction={handleSubmit(onSubmit)} />
+        <Button title="Siguiente" pressFunction={() => {handleSubmit(onSubmit); navigation.navigate('RoleSelection')}} />
+        <Button title="Omitir" pressFunction={() => navigation.navigate('RoleSelection')} />
       </View>
     </View>
   );

@@ -19,7 +19,7 @@ const AppWrapper = () => (
 );
 
 const App = () => {
-  const user = useSelector(state => state.user)
+  const auth = useSelector(state => state.auth)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,19 +27,20 @@ const App = () => {
       try {
         const user = await getData('user');
         user && dispatch(setUser(user));
+        user && dispatch(restoreToken({token: user.token}))
       } catch (e) {
         console.log(e);
       }
     };
     checkIfStoragedUser();
-  }, []);
+  }, [auth.userToken]);
 
 
   return (
     <Provider store={store}>
       <SafeAreaProvider>
         <NavigationContainer>
-          {user.token ? <HomeApp /> : <LoginApp />}
+          {auth.userToken ? <HomeApp /> : <LoginApp />}
           <FlashMessage position="top" />
         </NavigationContainer>
       </SafeAreaProvider>

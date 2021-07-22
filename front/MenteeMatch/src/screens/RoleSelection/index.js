@@ -6,7 +6,7 @@ import { updateUser } from '../../redux/Reducers/UserReducer';
 import { Button, CheckBoxText } from '../../components';
 import styles from './styles';
 
-const RoleSelection = () => {
+const RoleSelection = ({ navigation }) => {
   const [boxUno, setBoxUno] = useState(false);
   const [boxDos, setBoxDos] = useState(false);
   const [role, setRole] = useState('');
@@ -30,6 +30,7 @@ const RoleSelection = () => {
 
   const confirmOption = () => {
     dispatch(updateUser({ url: `/api/users/${role}`, data: {} }));
+    navigation.navigate('SelectSkills')
   };
 
   return (
