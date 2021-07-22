@@ -23,11 +23,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  footer: {
-    color: 'white',
-    marginTop: 30,
-    fontSize: 15,
-  },
   error: {
     color: 'red',
     fontSize: 16,

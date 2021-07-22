@@ -29,20 +29,29 @@ const RoleSelection = ({ navigation }) => {
   };
 
   const confirmOption = () => {
-    dispatch(updateUser({ url: `/api/users/${role}`, data: {} }));
-    navigation.navigate('SelectSkills')
+    dispatch(updateUser({ url: `/api/users/${role}`, data: {} })).then(() =>
+      navigation.navigate('SelectSkills'),
+    );
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{'Quiero ser...'}</Text>
-      <CheckBoxText text="Mentee" isChecked={boxUno} onPress={handleMenteeOp} />
-      <CheckBoxText text="Mentor" isChecked={boxDos} onPress={handleMentorOp} />
-      <Button
-        title="Siguiente"
-        pressFunction={confirmOption}
-        style={styles.button}
-      />
+
+      <View style={styles.select_container}>
+        <CheckBoxText
+          text="Mentee"
+          isChecked={boxUno}
+          onPress={handleMenteeOp}
+        />
+        <CheckBoxText
+          text="Mentor"
+          isChecked={boxDos}
+          onPress={handleMentorOp}
+        />
+      </View>
+
+      <Button title="Siguiente" pressFunction={confirmOption} />
     </View>
   );
 };

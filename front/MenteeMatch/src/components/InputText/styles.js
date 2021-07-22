@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     borderWidth: 0.5,
+    color: globantBright.text,
     borderColor: globantBright.text,
     backgroundColor: globantBright.inputBg,
     marginBottom: 15,
@@ -17,7 +18,8 @@ const styles = StyleSheet.create({
     height: 50,
     padding: 15,
     borderColor: 'red',
-    borderBottomWidth: 2,
+    borderRadius: 10,
+    borderWidth: 1,
     marginBottom: 20,
   },
 });

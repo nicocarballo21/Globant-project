@@ -1,45 +1,44 @@
 import { StyleSheet } from 'react-native';
 import { globantBright, globantDark } from '../../assets/styles/colors';
+// let theme = 'light'
+// let colors
 
-let theme = 'light'
-let colors
+// if(theme === 'dark')
+//   colors = globantDark
 
-if(theme === 'dark')
-  colors = globantDark
-
-if(theme === 'light')
-  colors = globantBright
+// if(theme === 'light')
+//   colors = globantBright
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.bg,
+    backgroundColor: globantBright.bg,
     alignItems: 'center',
   },
   header: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: colors.bg,
+    backgroundColor: globantBright.inputBg,
     padding: 32,
     fontSize: 24,
     position: 'relative',
     zIndex: 10,
   },
   headerText: {
-    color: colors.text,
+    color: globantBright.text,
     fontSize: 24,
     textAlign: 'center',
   },
   arrowImg: {
-    backgroundColor: "black"
+    backgroundColor: 'black',
   },
   btnsContainer: {
     flex: 1,
     flexDirection: 'row',
     position: 'relative',
-    borderColor: colors.blackPearl,
-    backgroundColor: colors.lightgray,
+    borderColor: globantBright.blackPearl,
+    backgroundColor: globantBright.lightgray,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     elevation: 1,
@@ -47,23 +46,23 @@ const styles = StyleSheet.create({
   pressable: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.bg,
+    backgroundColor: globantBright.bg,
     paddingHorizontal: 16,
     height: 50,
     borderRadius: 15,
     borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: colors.charade,
+    borderColor: globantBright.charade,
     margin: 5,
     elevation: 5,
     width: 120,
     height: 75,
   },
   pressed: {
-    backgroundColor: colors.green
+    backgroundColor: globantBright.green,
   },
   pressableTxt: {
-    color: colors.text,
+    color: globantBright.text,
   },
   pressableImg: {
     position: 'absolute',
@@ -89,11 +88,11 @@ const styles = StyleSheet.create({
   },
   menteeQtyTitleTxt: {
     padding: 16,
-    color: colors.text,
+    color: globantBright.text,
     fontSize: 18,
   },
   menteeQtyTxt: {
-    color: colors.text,
+    color: globantBright.text,
     textAlignVertical: 'center',
     fontSize: 18,
   },
@@ -104,9 +103,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     marginTop: 0,
   },
-  nextBtn: {
-    marginTop: 16,
-    marginBottom: 32,
+  footer: {
+    display: 'flex',
+    backgroundColor: globantBright.inputBg,
+    width: '100%',
+    alignItems: 'center',
+    paddingBottom: 15,
   },
 });
 

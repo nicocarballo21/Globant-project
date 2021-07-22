@@ -29,15 +29,29 @@ const SelectSkills = ({ navigation }) => {
   }, [dispatch]);
 
   const handleNext = () => {
-    if(selection.length < 5)
-      return simpleMessage('Atención', 'Debés seleccionar al menos 5 skills', 'warning')
-    if(user.isMentee) {
-      dispatch(updateUser({url: '/api/users/skills/learn', data: {skillsToLearn: selection}}))
-      dispatch(login({token: user.token}))
+    if (selection.length < 5)
+      return simpleMessage(
+        'Atención',
+        'Debés seleccionar al menos 5 skills',
+        'warning',
+      );
+    if (user.isMentee) {
+      dispatch(
+        updateUser({
+          url: '/api/users/skills/learn',
+          data: { skillsToLearn: selection },
+        }),
+      );
+      dispatch(login({ token: user.token }));
     }
-    if(user.isMentor) {
-      dispatch(updateUser({url: '/api/users/skills/teach', data: {skillsToTeach: selection}}))
-      dispatch(login({token: user.token}))
+    if (user.isMentor) {
+      dispatch(
+        updateUser({
+          url: '/api/users/skills/teach',
+          data: { skillsToTeach: selection },
+        }),
+      );
+      dispatch(login({ token: user.token }));
     }
   };
 
@@ -92,6 +106,7 @@ const SelectSkills = ({ navigation }) => {
           {user.isMentor ? 'Skills a enseñar' : 'Skills a aprender'}
         </Text>
       </View>
+
       <View style={styles.btnsContainer}>
         <FlatList
           scrollEnabled={true}
@@ -113,6 +128,7 @@ const SelectSkills = ({ navigation }) => {
           )}
         />
       </View>
+
       {user.isMentor && (
         <View>
           <Text style={styles.menteeQtyTitleTxt}>
@@ -133,11 +149,14 @@ const SelectSkills = ({ navigation }) => {
           </View>
         </View>
       )}
-      <Button
-        title={'Siguiente'}
-        style={styles.nextBtn}
-        pressFunction={handleNext}
-      />
+
+      <View style={styles.footer}>
+        <Button
+          title={'Siguiente'}
+          style={styles.nextBtn}
+          pressFunction={handleNext}
+        />
+      </View>
     </SafeAreaView>
   );
 };

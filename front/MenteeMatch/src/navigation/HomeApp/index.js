@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home, Matcher } from '../../screens/';
 import { SettingsDraw } from '../';
 import { useSelector } from 'react-redux';
+import { globantBright } from '../../assets/styles/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,8 +14,9 @@ export default function HomeApp() {
     <Tab.Navigator
       initialRouteName="Home"
       tabBarOptions={{
-        activeTintColor: '#BFD732',
-        inactiveTintColor: '#666666',
+        style: { backgroundColor: globantBright.green },
+        activeTintColor: globantBright.text,
+        inactiveTintColor: globantBright.bg,
         showLabel: true,
       }}>
       {!user.mentor && (
