@@ -26,7 +26,7 @@ export default function Matcher() {
   const handleLike = likedUser => {
     const finalMatch = user.likes.find(userPrevLiked => userPrevLiked._id === likedUser._id,);
     if (finalMatch) {
-      simpleMessage('Información', `El mentor ${finalMatch.name} ${finalMatch.surname} te ha sido asignado`, 'info');
+      simpleMessage('Información', `${finalMatch.name} ${finalMatch.surname} es tu nuevo mentor`, 'info');
       return dispatch(setUser({ ...user, mentor: finalMatch }));
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id)

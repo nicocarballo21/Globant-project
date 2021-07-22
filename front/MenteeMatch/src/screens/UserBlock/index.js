@@ -10,6 +10,9 @@ export default function UserBlock({
   handleDislike,
   disableButtons,
 }) {
+
+    const skills = user.isMentee ? user.skillsToLearn : user.skillsToTeach
+
   return (
     <View style={styles.container}>
       {user._id ? (
@@ -28,7 +31,7 @@ export default function UserBlock({
           </View>
           <View style={styles.skillsContainer}>
             <Text style={styles.skills}>
-              {user.skillsToTeach.map(skill => (
+              {skills.map(skill => (
                 <Text key={skill._id}> {skill.name} •</Text>
               ))}
             </Text>
