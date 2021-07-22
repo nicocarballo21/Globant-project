@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     subtitle: {
       color: globantBright.text,
       fontSize: 15,
-      paddingLeft: 25
+      paddingLeft: 25,
+      marginBottom: 5
    },
    text: {
       color: globantBright.text,
@@ -45,8 +46,8 @@ const styles = StyleSheet.create({
    optionsTxt:{
       textAlign: "center",
       fontSize: 16,
-      padding: 8,
-      paddingBottom: 4,
+      paddingTop: 0,
+      paddingBottom: 0,
    },
 });
 

@@ -22,15 +22,14 @@ const App = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    let user;
     const storageUser = async () => {
       try {
-        user = await getData('user');
-        user ?? dispatch(setUser(user));
+        const user = await getData('user');
+        user && dispatch(setUser(user));
+        user && dispatch(restoreToken({ token: user.token }));
       } catch (e) {
         console.log(e);
       }
-      user ?? dispatch(restoreToken({ token: user.token }));
     };
     storageUser();
   }, [dispatch, auth.userToken]);
