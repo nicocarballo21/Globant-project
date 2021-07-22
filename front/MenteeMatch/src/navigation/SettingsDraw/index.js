@@ -8,7 +8,7 @@ import {
 import { useDispatch } from 'react-redux';
 import Switch from '../../components/Switch';
 
-import { UserDetails, Register, UserData } from '../../screens/';
+import { UserDetails } from '../../screens/';
 import { removeData } from '../../utils/storage';
 import { setUser } from '../../redux/Reducers/UserReducer';
 import { logout } from '../../redux/Slices/authSlice';
@@ -21,8 +21,8 @@ function CustomDrawerContent(props) {
   const handleLogOut = async () => {
     try {
       await removeData('user');
-      dispatch(setUser({}));
       dispatch(logout());
+      dispatch(setUser({}));
     } catch (error) {
       console.log(error);
     }

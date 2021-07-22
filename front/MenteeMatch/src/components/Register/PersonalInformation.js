@@ -4,14 +4,17 @@ import { useForm, Controller } from 'react-hook-form';
 import styles from './styles';
 
 import { InputText, Button } from '../../components';
+import { useNavigation } from '@react-navigation/native';
 
-export default ({ onSubmit, navigation }) => {
+export default ({ onSubmit }) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
   
+  const navigation = useNavigation()
+
   return (
     <View style={styles.login}>
       <Text style={styles.buttonText}>Datos Personales</Text>
@@ -29,7 +32,7 @@ export default ({ onSubmit, navigation }) => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder="Pais"
+              placeholder="País"
             />
           )}
           name="country"
@@ -47,7 +50,7 @@ export default ({ onSubmit, navigation }) => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder="position"
+              placeholder="Position"
             />
           )}
           name="position"
@@ -72,25 +75,25 @@ export default ({ onSubmit, navigation }) => {
           name="phone"
           defaultValue=""
         />
-        {errors.about && (
-          <Text style={styles.error}>{errors.about.message}</Text>
+        {errors.personalDescription && (
+          <Text style={styles.error}>{errors.personalDescription.message}</Text>
         )}
         <Controller
           control={control}
           rules={{ required: 'Campo Requerido' }}
           render={({ field: { onChange, onBlur, value } }) => (
             <InputText
-              errors={errors.about}
+              errors={errors.personalDescription}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder="Acerca de ..."
+              placeholder="Acerca de mí..."
             />
           )}
-          name="about"
+          name="personalDescription"
           defaultValue=""
         />
-        <Button title="Siguiente" pressFunction={() => {handleSubmit(onSubmit); navigation.navigate('RoleSelection')}} />
+        <Button title="Siguiente" pressFunction={handleSubmit(onSubmit)} />
         <Button title="Omitir" pressFunction={() => navigation.navigate('RoleSelection')} />
       </View>
     </View>

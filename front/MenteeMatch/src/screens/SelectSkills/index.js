@@ -13,7 +13,7 @@ import { getSkills } from '../../redux/Reducers/Skills';
 import { simpleMessage } from '../../utils';
 import goBack from '../../assets/static/goBack.png';
 import styles from './styles';
-import { updateUser } from '../../redux/Reducers/UserReducer';
+import { setUser, updateUser } from '../../redux/Reducers/UserReducer';
 import { login } from '../../redux/Slices/authSlice';
 
 const SelectSkills = ({ navigation }) => {
@@ -30,15 +30,33 @@ const SelectSkills = ({ navigation }) => {
 
   const handleNext = () => {
     if(selection.length < 5)
-      return simpleMessage('Atención', 'Debés seleccionar al menos 5 skills', 'warning')
-    if(user.isMentee) {
-      dispatch(updateUser({url: '/api/users/skills/learn', data: {skillsToLearn: selection}}))
+    return simpleMessage('Atención', 'Debés seleccionar al menos 5 skills', 'warning')
+  
+    // const learnOrTeach = user.isMentee ? 'learn' : 'teach'
+    /* let property, learnOrTeach
+    if(user.skillsToTeach.length) {
+      property = 'skillsToLearn'
+      learnOrTeach = 'learn'
+    } else {
+      property = 'skillsToTeach'
+      learnOrTeach = 'teach'
+    } */
+
+    const [property, learnOrTeach] = user.skillsToTeach.length ? ['skillsToLearn',"learn"] : ['skillsToTeach','teach'] 
+    // const learnOrTeach = user.skillsToTeach.length ? 'learn' : 'teach'
+    console.log("property ->", property)
+    console.log("learOrTeach ->", learnOrTeach)
+    console.log("selection ->", selection)
+
+    dispatch(updateUser({url: `/api/users/skills/${learnOrTeach}`, data: {[property]: selection}}))
+    /* dispatch(setUser({...user, [property]: selection})) */
+    /* dispatch(setUser({...user, skillsToLearn: [], skillsToTeach: []})) */
+
+    setSelection([])
+    setButtonsStyle({})
+
+    if(learnOrTeach === 'learn')
       dispatch(login({token: user.token}))
-    }
-    if(user.isMentor) {
-      dispatch(updateUser({url: '/api/users/skills/teach', data: {skillsToTeach: selection}}))
-      dispatch(login({token: user.token}))
-    }
   };
 
   const handleGoBack = () => {
@@ -89,7 +107,7 @@ const SelectSkills = ({ navigation }) => {
           <Image source={goBack} style={styles.arrowImg} />
         </Pressable>
         <Text style={styles.headerText}>
-          {user.isMentor ? 'Skills a enseñar' : 'Skills a aprender'}
+          {user.skillsToTeach.length ? '¿Qué quieres aprender?' : '¿Qué conocimientos tienes?'}
         </Text>
       </View>
       <View style={styles.btnsContainer}>

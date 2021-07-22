@@ -7,7 +7,7 @@ import { updateUser } from '../../redux/Reducers/UserReducer';
 
 import { simpleMessage } from '../../utils';
 
-const UserData = () => {
+const UserData = ({ navigation }) => {
   const dispatch = useDispatch();
   const onSubmit = personalData => {
     dispatch(updateUser({ url: '/api/users/profile', data: personalData }))
@@ -18,6 +18,7 @@ const UserData = () => {
             'Su usuario fue registrado correctamente',
             'success',
           );
+          navigation.navigate('RoleSelection')
         } else simpleMessage('Error', 'Algo ha ocurrido', 'danger');
       })
       .catch(() => simpleMessage('Error', 'Algo ha ocurrido', 'danger'));

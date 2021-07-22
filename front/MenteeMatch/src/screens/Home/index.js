@@ -17,7 +17,7 @@ const Home = () => {
         height: '100%',
         textAlignVertical: 'center',
       }}>
-      No tenés ningún mentor asignado
+      {user.isMentee ? `No tenés ningún mentor asignado` : `No tenés mentees asignados`}
     </Text>
   );
 };
