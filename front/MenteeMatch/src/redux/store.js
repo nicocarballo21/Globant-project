@@ -13,7 +13,7 @@ const store = configureStore({
     selectedUser: selectedUserReducer,
     matches: matchesReducer,
     skills: skillsReducer,
-    auth: authReducer,
+    /* auth: authReducer, */
   },
 });
 

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../assets/styles/colors';
+import { colors, globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,8 +24,11 @@ const styles = StyleSheet.create({
   },
   pressableImg: {
     position: 'absolute',
-    top: 32,
-    left: 32,
+    top: 10,
+    left: 16,
+    borderWidth: 1,
+    borderColor: globantBright.green,
+    borderRadius: 10,
   },
   arrowImg: {
     width: 32,

@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { View, Image } from 'react-native';
 
@@ -6,10 +7,12 @@ import logoG from '../../utils/logoG.png';
 import styles from './styles';
 
 const FirstScreen = () => {
+  const navigation = useNavigation()
+
   useEffect(() => {
     setTimeout(() => {
-      //navigation.navigate('Login');
-    }, 2000);
+      navigation.navigate('Login');
+    }, 1000);
   }, []);
 
   return (

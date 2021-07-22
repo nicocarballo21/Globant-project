@@ -29,10 +29,10 @@ function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      <DrawerItem
+      {/* <DrawerItem
         label="Close drawer"
         onPress={() => props.navigation.closeDrawer()}
-      />
+      /> */}
       <DrawerItem label="Cerrar sesion" onPress={handleLogOut} />
     </DrawerContentScrollView>
   );
@@ -52,12 +52,12 @@ export default function SettingsDraw() {
         component={UserDetails}
         options={{ title: 'Mi perfil' }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="EditProfile"
-        component={Register}
+        component={EditProfile}
         options={{ title: 'Editar perfil' }}
-      />
-      <Drawer.Screen name="CancelMatch" component={UserData} />
+      /> */}
+      {/* <Drawer.Screen name="Cancel Match" component={UserData} /> */}
     </Drawer.Navigator>
   );
 }

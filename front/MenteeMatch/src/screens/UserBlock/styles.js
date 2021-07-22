@@ -15,13 +15,13 @@ export const styles = StyleSheet.create({
     block: {
         // position: "relative",
         paddingTop: 20,
-        paddingBottom: 25,
+        paddingBottom: 15,
         marginTop: 0,
         marginBottom: 10,
         flexDirection: "column",
         width: "90%",
-        /* height: "auto", */
-       borderWidth: 1,
+        height: "auto",
+    //    borderWidth: 1,
        borderRadius: 20,
        /* margin: 5, */
        backgroundColor: "#e2e2e2",
@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     likeButton: {
-        borderWidth: 1,
+        borderWidth: 0,
         borderRadius: 50,
         backgroundColor: "#006606",
         height: 50,
@@ -74,7 +74,7 @@ export const styles = StyleSheet.create({
         marginRight: 20
     },
     dislikeButton: {
-        borderWidth: 1,
+        borderWidth: 0,
         borderRadius: 50,
         backgroundColor: "#aa0000",
         height: 50,
