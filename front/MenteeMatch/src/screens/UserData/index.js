@@ -7,10 +7,10 @@ import { updateUser } from '../../redux/Reducers/UserReducer';
 
 import { simpleMessage } from '../../utils';
 
-export default () => {
+const UserData = () => {
   const dispatch = useDispatch();
   const onSubmit = personalData => {
-    dispatch(updateUser({url: '/api/users/profile', data: personalData}))
+    dispatch(updateUser({ url: '/api/users/profile', data: personalData }))
       .then(payload => {
         if (payload) {
           simpleMessage(
@@ -29,3 +29,5 @@ export default () => {
     </View>
   );
 };
+
+export default UserData;

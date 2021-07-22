@@ -1,37 +1,41 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View } from 'react-native';
+
+import { globantBright } from '../../assets/styles/colors';
+import { Button, CheckBoxText } from '../../components';
+import styles from './styles';
 
 const RoleSelection = () => {
+  const [boxUno, setBoxUno] = useState(false);
+  const [boxDos, setBoxDos] = useState(false);
+  const [role, setRole] = useState('');
 
-  
+  const handleMenteeOp = () => {
+    if (!boxUno) {
+      setBoxUno(true);
+      setBoxDos(false);
+    }
+  };
+
+  const handleMentorOp = () => {
+    if (!boxDos) {
+      setBoxDos(true);
+      setBoxUno(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={styles.option}
-        title={'w'}
-        onPress={'e'}>
-        <Text style={styles.buttonText}>{'title'}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={styles.option}
-        title={'title'}
-        onPress={'pressFunction'}>
-        <Text style={styles.buttonText}>{'title'}</Text>
-      </TouchableOpacity>
+      <Text style={styles.text}>{'Quiero ser...'}</Text>
+      <CheckBoxText text="Mentee" isChecked={boxUno} onPress={handleMenteeOp} />
+      <CheckBoxText text="Mentor" isChecked={boxDos} onPress={handleMentorOp} />
+      <Button
+        title="Siguiente"
+        pressFunction={() => {}}
+        style={styles.button}
+      />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    backgroundColor: 'cadetblue',
-  },
-});
 
 export default RoleSelection;
