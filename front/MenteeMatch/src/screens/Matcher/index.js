@@ -1,81 +1,115 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from "react-redux"
-import { View, Text } from 'react-native'
-import styles from './styles'
-import { UserBlock } from '../'
-import { getMatches } from '../../redux/Reducers/matchesReducer'
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { View, Text, SafeAreaView, FlatList } from 'react-native';
+import styles from './styles';
+import { UserBlock } from '../';
+import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
+import { setUser } from '../../redux/Reducers/UserReducer';
+import { simpleMessage } from '../../utils';
 
 export default function Matcher() {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
+  const matches = useSelector(state => state.matches);
+  const roleToFind = user.isMentee ? 'mentors' : 'mentees';
 
-    const dispatch = useDispatch();
-    const user = useSelector(state => state.user);
-    const roleToFind = user.isMentee ? "mentors" : "mentees"
+  // Seed inicial
+  useEffect(() => {
+    dispatch(getMatches({ roleToFind, token: user.token }));
+  }, []);
 
-    const handlePress = (e) => {
-        console.log("Press: ", e)
+  // Si se queda sin candidatos, hago de nuevo el pedido
+  if(!matches.length)
+    dispatch(getMatches({ roleToFind, token: user.token }))
+  
+
+  const handleLike = likedUser => {
+    const finalMatch = user.likes.find(userPrevLiked => userPrevLiked._id === likedUser._id,);
+    if (finalMatch) {
+      simpleMessage('Información', `${finalMatch.name} ${finalMatch.surname} es tu nuevo mentor`, 'info');
+      return dispatch(setUser({ ...user, mentor: finalMatch }));
     }
+    const orderedMatches = matches.filter(match => match._id !== likedUser._id)
+    orderedMatches.push(likedUser)
+    dispatch(setUser({ ...user, likes: [likedUser, ...user.likes] }));
+    dispatch(setMatches(orderedMatches))
+  };
 
-    useEffect(() => {
-        dispatch(getMatches(roleToFind))
-            .then(matches => matches.payload)
-    }, [dispatch, matches])
+  const handleDislike = dislikedUser => {
+    dispatch(setUser({ ...user, disLikes: [...user.disLikes, dislikedUser] }));
+    const hasLikedThatOne = user.likes.find(likedUser => likedUser._id === dislikedUser._id)
+    if(hasLikedThatOne) {
+      const filteredLikes = user.likes.filter(likedUser => likedUser._id !== dislikedUser._id)
+      dispatch(setUser({...user, likes: filteredLikes}))
+    }
+      
 
-    let matches = useSelector(store => store.matches)
-    if(!user) matches = []
+    const filteredMatches = matches.filter(
+      match => match._id !== dislikedUser._id,
+    );
+    dispatch(setMatches(filteredMatches));
+  };
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Hola, {user.name}.</Text> 
+  return (
+      <>
+      {matches.length ? (
+        <SafeAreaView style={styles.container}>
+          <View style={styles.titleBox}>
+            <Text style={styles.title}>Hola, {user.name}.</Text>
             <Text style={styles.subtitle}>Elije entre tus posibles matches:</Text>
-            {matches.length ? matches.map(match => 
-                    <Pressable onPress={handlePress}>
-                        <UserBlock key={match.id} user={match}/>
-                    </Pressable>
-            ) : <Text style={{ textAlign: "center", paddingTop: "50%" }}>No hay matches :(</Text>}
-        </View>
-    )
+          </View>
+          {user.likes.length ? (
+            <>
+              <Text style={styles.optionsTxt}>Estos son tus likes</Text>
+              <FlatList
+              horizontal
+              contentContainerStyle={{
+                paddingHorizontal: 6,
+              }}
+              numColumns={1}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              data={user.likes}
+              keyExtractor={(matches, index) => matches._id + index}
+              renderItem={({ item }) => (
+                <UserBlock
+                  user={item}
+                  handleLike={handleLike}
+                  handleDislike={handleDislike}
+                  disableButtons={true}
+                />
+              )}
+            />
+          </>
+          ) : null}
+          {!user.likes.length && <View style={{ height: 120 }}></View>}
+          <View style={styles.subContainer}>
+            <Text style={styles.optionsTxt}>Estas son tus opciones</Text>
+            <FlatList
+              horizontal
+              contentContainerStyle={{
+                height: 350,
+                paddingHorizontal: 6
+              }}
+              numColumns={1}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              data={matches}
+              keyExtractor={(matches, index) => matches._id + index}
+              renderItem={({ item }) => (
+                <UserBlock
+                  user={item}
+                  handleLike={handleLike}
+                  handleDislike={handleDislike}
+                  disableButtons={false}
+                />
+              )}
+            />
+          </View>
+        </SafeAreaView>
+      ) : (
+        <Text style={{textAlign: "center", height:"100%", textAlignVertical:"center", fontSize: 45}}>Cargando...</Text>
+      )}
+    </>
+  );
 }
-
-
-
-
-
-
-
-
-// const users = [
-    //     {
-    //         id: 1,
-    //         name: "Elon",
-    //         surname: "Musk",
-    //         email: "elonmusk@tesla.com",
-    //         img: "https://i.dailymail.co.uk/i/newpix/2018/09/07/08/4FD1F62300000578-6142193-image-m-9_1536304932759.jpg",
-    //         skills: [
-    //             "Diseño (UX/VD)",
-    //             "Back-End",
-    //             "Front-End",
-    //             "Testing",
-    //             "QA",
-    //             "PHP",
-    //             "Python",
-    //             "Leadership"
-    //         ]
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Britney",
-    //         surname: "Spears",
-    //         email: "freebritney@scalabritney.com",
-    //         img: "https://i.pinimg.com/originals/44/72/3e/44723ec062349202981fc2b389e84ada.jpg",
-    //         skills: [
-    //             "Full-Stack",
-    //             "AWS",
-    //             ".NET",
-    //             "Tech Support",
-    //             "Data Analyst",
-    //             "SalesForce",
-    //             "Costumer Service",
-    //             "Executive"
-    //         ]
-    //     }
-    // ]

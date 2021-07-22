@@ -30,6 +30,7 @@ const Login = ({ navigation }) => {
       loginMessage(true);
       await storeData('user', payload);
       dispatch(login({ token: user.token }));
+      navigation.navigate('SelectionRole');
     } else {
       loginMessage(false);
     }

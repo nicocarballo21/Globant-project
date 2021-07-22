@@ -5,7 +5,7 @@ const orderByCoincidences = (userSkills, matches, skillsToFind) =>
     .map(match => ({
       ...match._doc,
       password: null,
-      coincidences: countCoincidences(userSkills, match[skillsToFind])
+      coincidences: countCoincidences(userSkills, match[skillsToFind].map((x) => x._id)),
     }))
     .sort((a, b) => a.coincidences - b.coincidences)
     .reverse()

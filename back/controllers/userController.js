@@ -67,7 +67,6 @@ module.exports = {
         skillsToFind,
         userSkills,
       });
-
       res.status(200).json(matches);
     } catch (err) {
       next(err);

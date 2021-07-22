@@ -3,24 +3,30 @@ import {globantBright} from '../../assets/styles/colors'
 
 export const styles = StyleSheet.create({
     container: {
-        marginTop: 15,
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        marginTop: 40
+        paddingTop: 10,
+        /* marginTop: 20, */
+        paddingHorizontal: 2,
+        width: 400,
+        marginBottom: 10,
+       /*  alignSelf: "center", */
     },
     block: {
         // position: "relative",
         paddingTop: 20,
+        paddingBottom: 25,
+        marginTop: 0,
+        marginBottom: 10,
         flexDirection: "column",
         width: "90%",
-        height: 200,
+        /* height: "auto", */
        borderWidth: 1,
        borderRadius: 20,
-       margin: 5,
+       /* margin: 5, */
        backgroundColor: "#e2e2e2",
        borderColor: "#e2e2e2",
-       elevation: 14
+       elevation: 12
        //b7bfe5
    },
    title: {
@@ -48,11 +54,32 @@ export const styles = StyleSheet.create({
         marginTop: 20,
         paddingLeft: 20, 
         paddingRight: 20,
+        height: 85
     },
     skills: {
         fontSize: 13,
         textAlign: "center",
         lineHeight: 20,
-    }
+    },
+    buttonsContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    likeButton: {
+        borderWidth: 1,
+        borderRadius: 50,
+        backgroundColor: "#006606",
+        height: 50,
+        width: 90,
+        marginRight: 20
+    },
+    dislikeButton: {
+        borderWidth: 1,
+        borderRadius: 50,
+        backgroundColor: "#aa0000",
+        height: 50,
+        width: 90,
+        marginLeft: 20
 
+    },
   });

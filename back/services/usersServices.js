@@ -44,8 +44,11 @@ const getMatchesForUser = async (_id, { roleToFind, skillsToFind, userSkills }) 
   let matches =
     (await Users.find({
       [roleToFind]: true,
-      [skillsToFind]: { $in: skillstTomatch }
-    })) || []
+      [skillsToFind]: { $in: skillstTomatch }}
+      )
+      .populate(skillsToFind, "name")
+      .exec()
+       ) || [];
 
   if (roleToFind === "isMentor")
     matches = matches.filter(user => {
