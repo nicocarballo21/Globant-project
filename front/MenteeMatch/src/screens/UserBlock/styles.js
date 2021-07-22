@@ -6,10 +6,11 @@ export const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         paddingTop: 10,
-        marginTop: 20,
+        /* marginTop: 20, */
         paddingHorizontal: 2,
         width: 400,
-        alignSelf: "center"
+        marginBottom: 10,
+       /*  alignSelf: "center", */
     },
     block: {
         // position: "relative",
@@ -19,13 +20,13 @@ export const styles = StyleSheet.create({
         marginBottom: 10,
         flexDirection: "column",
         width: "90%",
-        height: "auto",
+        /* height: "auto", */
        borderWidth: 1,
        borderRadius: 20,
-       margin: 5,
+       /* margin: 5, */
        backgroundColor: "#e2e2e2",
        borderColor: "#e2e2e2",
-       elevation: 14
+       elevation: 12
        //b7bfe5
    },
    title: {
@@ -53,11 +54,23 @@ export const styles = StyleSheet.create({
         marginTop: 20,
         paddingLeft: 20, 
         paddingRight: 20,
+        height: 85
     },
     skills: {
         fontSize: 13,
         textAlign: "center",
         lineHeight: 20,
-    }
-
+    },
+    buttonsContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    likeButton: {
+        width: 20
+    },
+    dislikeButton: {
+        borderWidth: 1,
+        borderRadius: 10,
+        backgroundColor: globantBright.violet
+    },
   });

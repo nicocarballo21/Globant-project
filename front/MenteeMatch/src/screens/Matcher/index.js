@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, Pressable, SafeAreaView, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, FlatList } from 'react-native';
 import styles from './styles';
 import { UserBlock } from '../';
 import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
@@ -27,12 +27,19 @@ export default function Matcher() {
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id)
     orderedMatches.push(likedUser)
-    dispatch(setUser({ ...user, likes: [...user.likes, likedUser] }));
+    dispatch(setUser({ ...user, likes: [likedUser, ...user.likes] }));
     dispatch(setMatches(orderedMatches))
   };
 
   const handleDislike = dislikedUser => {
     dispatch(setUser({ ...user, disLikes: [...user.disLikes, dislikedUser] }));
+    const hasLikedThatOne = user.likes.find(likedUser => likedUser._id === dislikedUser._id)
+    if(hasLikedThatOne) {
+      const filteredLikes = user.likes.filter(likedUser => likedUser._id !== dislikedUser._id)
+      dispatch(setUser({...user, likes: filteredLikes}))
+    }
+      
+
     const filteredMatches = matches.filter(
       match => match._id !== dislikedUser._id,
     );
@@ -40,42 +47,65 @@ export default function Matcher() {
   };
 
   return (
-    <View style={styles.container}>
+      <>
       {matches.length ? (
-        <SafeAreaView>
-          <Text style={styles.title}>Hola, {user.name}.</Text>
-          <Text style={styles.subtitle}>Elije entre tus posibles matches:</Text>
+        <SafeAreaView style={styles.container}>
+          <View style={styles.titleBox}>
+            <Text style={styles.title}>Hola, {user.name}.</Text>
+            <Text style={styles.subtitle}>Elije entre tus posibles matches:</Text>
+          </View>
           {user.likes.length ? (
-            <UserBlock
-              user={user.likes[user.likes.length - 1]}
-              handleLike={handleLike}
-              handleDislike={handleDislike}
-              disableButtons={true}
+            <>
+              <Text style={styles.optionsTxt}>Estos son tus likes</Text>
+              <FlatList
+              horizontal
+              contentContainerStyle={{
+                paddingHorizontal: 6,
+              }}
+              numColumns={1}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              data={user.likes}
+              keyExtractor={(matches, index) => matches._id + index}
+              renderItem={({ item }) => (
+                <UserBlock
+                  user={item}
+                  handleLike={handleLike}
+                  handleDislike={handleDislike}
+                  disableButtons={true}
+                />
+              )}
             />
+          </>
           ) : null}
-          <FlatList
-            horizontal
-            contentContainerStyle={{
-              paddingHorizontal: 6,
-            }}
-            numColumns={1}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={matches}
-            keyExtractor={matches => matches._id}
-            renderItem={({ item }) => (
-              <UserBlock
-                user={item}
-                handleLike={handleLike}
-                handleDislike={handleDislike}
-                disableButtons={false}
-              />
-            )}
-          />
+          {!user.likes.length && <View style={{ height: 120 }}></View>}
+          <View style={styles.subContainer}>
+            <Text style={styles.optionsTxt}>Estas son tus opciones</Text>
+            <FlatList
+              horizontal
+              contentContainerStyle={{
+                height: 350,
+                paddingHorizontal: 6
+              }}
+              numColumns={1}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              data={matches}
+              keyExtractor={(matches, index) => matches._id + index}
+              renderItem={({ item }) => (
+                <UserBlock
+                  user={item}
+                  handleLike={handleLike}
+                  handleDislike={handleDislike}
+                  disableButtons={false}
+                />
+              )}
+            />
+          </View>
         </SafeAreaView>
       ) : (
         <Text>Cargando...</Text>
       )}
-    </View>
+    </>
   );
 }

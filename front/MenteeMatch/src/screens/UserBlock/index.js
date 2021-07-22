@@ -33,10 +33,10 @@ export default function UserBlock({
             </Text>
           </View>
           {!disableButtons && (
-            <>
-              <Button title="Like" onPress={() => handleLike(user)} />
-              <Button title="Dislike" onPress={() => handleDislike(user)} />
-            </>
+            <View style={styles.buttonsContainer}>
+              <Button color="red" styles={styles.dislikeButton} title="Dislike" onPress={() => handleDislike(user)} />
+              <Button color="green" styles={styles.likeButton} title="Like" onPress={() => handleLike(user)} />
+            </View>
           )}
         </View>
       ) : (
