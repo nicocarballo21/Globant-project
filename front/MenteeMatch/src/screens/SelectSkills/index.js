@@ -14,6 +14,7 @@ import { simpleMessage } from '../../utils';
 import goBack from '../../assets/static/goBack.png';
 import styles from './styles';
 import { updateUser } from '../../redux/Reducers/UserReducer';
+import { login } from '../../redux/Slices/authSlice';
 
 const SelectSkills = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -30,10 +31,14 @@ const SelectSkills = ({ navigation }) => {
   const handleNext = () => {
     if(selection.length < 5)
       return simpleMessage('Atención', 'Debés seleccionar al menos 5 skills', 'warning')
-    if(user.isMentee)
+    if(user.isMentee) {
       dispatch(updateUser({url: '/api/users/skills/learn', data: {skillsToLearn: selection}}))
-    if(user.isMentor)
+      dispatch(login({token: user.token}))
+    }
+    if(user.isMentor) {
       dispatch(updateUser({url: '/api/users/skills/teach', data: {skillsToTeach: selection}}))
+      dispatch(login({token: user.token}))
+    }
   };
 
   const handleGoBack = () => {
@@ -108,7 +113,7 @@ const SelectSkills = ({ navigation }) => {
           )}
         />
       </View>
-      {user.isMentee && (
+      {user.isMentor && (
         <View>
           <Text style={styles.menteeQtyTitleTxt}>
             Cantidad de mentees a mentorear

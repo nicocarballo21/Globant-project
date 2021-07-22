@@ -6,7 +6,7 @@ import styles from './styles';
 import { InputText, Button } from '../../components';
 import logo from '../../utils/logo.png';
 
-export default ({ onSubmit }) => {
+export default ({ onSubmit, navigation }) => {
   const {
     control,
     handleSubmit,
@@ -91,8 +91,17 @@ export default ({ onSubmit }) => {
           name="about"
           defaultValue=""
         />
-        <Button title="Siguiente" pressFunction={handleSubmit(onSubmit)} />
-        <Button title="Omitir" pressFunction={() => {}} />
+        <Button
+          title="Siguiente"
+          pressFunction={() => {
+            handleSubmit(onSubmit);
+            navigation.navigate('RoleSelection');
+          }}
+        />
+        <Button
+          title="Omitir"
+          pressFunction={() => navigation.navigate('RoleSelection')}
+        />
       </View>
     </View>
   );
