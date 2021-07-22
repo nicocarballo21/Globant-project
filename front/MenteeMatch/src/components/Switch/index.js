@@ -8,7 +8,7 @@ export default function () {
     <View style={styles.container}>
       <Text style={styles.title}>Dark mode</Text>
       <Switch
-        style={styles.o}
+        style={styles.switch}
         trackColor={{ false: '#767577', true: '#767577' }}
         thumbColor={isEnabled ? '#BFD732' : '#f4f3f4'}
         ios_backgroundColor="#3e3e3e"
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  o: {
+  switch: {
     marginTop: 20,
     marginRight: 20,
   },
