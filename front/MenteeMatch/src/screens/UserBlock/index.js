@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, View, Image, Pressable, Button, Alert } from 'react-native';
+import { Text, View, Image, Pressable, Button } from 'react-native';
 import { styles } from './styles';
 import user_img from '../../assets/static/user_img.png';
 
-export default function UserBlock({ user, handleDislike}) {
+export default function UserBlock({ user, handleLike, handleDislike}) {
   // const dispatch = useDispatch();
   //let history = useHistory();
   // !user.img ? user.img = user_img : user.img
@@ -14,11 +14,11 @@ export default function UserBlock({ user, handleDislike}) {
 
   // !user.img ? user.img = user_img : user.img
 
-    const handleLike = () => {
-        console.log("Press")
-        // dispatch(setSelectedUser(user))
-        // .then(() => history.push('/matcher'))
-    }
+    // const handlePress = () => {
+    //     console.log("Press")
+    //     // dispatch(setSelectedUser(user))
+    //     // .then(() => history.push('/matcher'))
+    // }
 
     // console.log("User en userBlock: ", user)
     
@@ -45,8 +45,8 @@ export default function UserBlock({ user, handleDislike}) {
                         </Text>
                     </View>
 
-                    <Button title="Like" onPress={() => Alert.alert("Like")}/>
-                    <Button title="Dislike" onPress={handleDislike}><Text>Dislike</Text></Button>
+                    <Button title="Dislike" onPress={()=> console.log("Dislike!!")}/>
+                    <Button title="Like" onPress={handleDislike}/>
                 
 
                 </View> 
