@@ -13,7 +13,7 @@ import logo from '../../utils/logo.png';
 import { InputText, Button } from '../../components';
 
 import { getData, storeData } from '../../utils/storage';
-import { login } from "../../redux/Slices/authSlice"
+import { login } from '../../redux/Slices/authSlice';
 
 const Login = ({ navigation }) => {
   const {
@@ -30,7 +30,7 @@ const Login = ({ navigation }) => {
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
-        dispatch(login({ token: user.token }))
+      dispatch(login({ token: user.token }));
     } else {
       loginMessage(false);
     }
