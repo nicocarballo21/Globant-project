@@ -15,11 +15,12 @@ export default function Matcher() {
 
   // Seed inicial
   useEffect(() => {
-    const token = user.token;
-    dispatch(getMatches({ roleToFind, token }));
+    dispatch(getMatches({ roleToFind, token: user.token }));
   }, []);
 
   // Si se queda sin candidatos, hago de nuevo el pedido
+  if(!matches.length)
+    dispatch(getMatches({ roleToFind, token: user.token }))
   
 
   const handleLike = likedUser => {
