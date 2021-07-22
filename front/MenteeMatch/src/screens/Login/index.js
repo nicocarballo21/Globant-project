@@ -83,10 +83,11 @@ const Login = ({ navigation }) => {
             />
           )}
         />
-        <Button title={'Log in'} pressFunction={handleSubmit(onSubmit)} />
-        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.footer}>Registrate aca!</Text>
-        </TouchableOpacity>
+        <Button title={'Acceder'} pressFunction={handleSubmit(onSubmit)} />
+        <Button
+          title={'Registrarse'}
+          pressFunction={() => navigation.navigate('Register')}
+        />
       </View>
     </View>
   );
