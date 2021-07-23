@@ -116,12 +116,6 @@ const UserDetails = ({ navigation }) => {
         initialSnap={2}
       />
     <SafeAreaView style={styles.container}>
-
-      <View style={styles.header}>
-        <Pressable style={styles.pressableImg} onPress={() => navigation.toggleDrawer() }>
-          <Ionicons name="reorder-three" size={50} color="#BFD732" />
-        </Pressable>
-      </View>
       <TouchableOpacity onPress={() => sheetRef.current.snapTo(0)}>
           {img ? (
             <Image source={{ uri: img }} style={styles.userImg} />

@@ -2,8 +2,9 @@ import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home, Matcher } from '../../screens/';
-import { SettingsDraw } from '../';
 import { useSelector } from 'react-redux';
+import ProfileNavigator from '../ProfileNavigator';
+import HomeNavigator from '../HomeNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,7 +31,7 @@ export default function HomeApp() {
       )}
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
@@ -39,7 +40,7 @@ export default function HomeApp() {
       />
       <Tab.Screen
         name="Perfil"
-        component={SettingsDraw}
+        component={ProfileNavigator}
         options={{
           tabBarLabel: 'Perfil',
           tabBarIcon: ({ color, size }) => (
