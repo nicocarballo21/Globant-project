@@ -19,6 +19,18 @@ export default function Matcher() {
     dispatch(getMatches({ roleToFind, token: user.token }));
   }, []);
 
+  //-------------------------------------------------------------//
+  useEffect(() => {
+    if(user.likes.length || user.disLikes.length) {
+      const coincidencesToFind = [...user.likes, ...user.disLikes]
+      const filteredMatches = matches.filter(({_id}) => {
+        const truthArr = coincidencesToFind.map(coincidence => coincidence._id === _id)
+        return !truthArr.includes(true) 
+      })
+      dispatch(setMatches(filteredMatches))
+    }
+  }, [matches.length])
+
   // Si se queda sin candidatos, hago de nuevo el pedido
   if(!matches.length)
     dispatch(getMatches({ roleToFind, token: user.token }))
@@ -31,7 +43,7 @@ export default function Matcher() {
       return dispatch(updateUser({url, data: { mentor: finalMatch._id }}));
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id)
-    orderedMatches.push(likedUser)
+    /* orderedMatches.push(likedUser) */
     dispatch(updateUser({url, data: { likes: [likedUser, ...user.likes] }}));
     dispatch(setMatches(orderedMatches))
   };

@@ -11,8 +11,7 @@ export default function UserBlock({
   handleDislike,
   disableButtons,
 }) {
-
-  const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn
+  const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
   return (
     <View style={styles.container}>
       {user._id ? (
@@ -22,12 +21,22 @@ export default function UserBlock({
               style={styles.img}
               source={user.img ? { uri: user.img } : user_img}
             />
-            <View>
-              <Text style={styles.title}>
-                {user.name} {user.surname}
-              </Text>
-              <Text style={styles.text}>{user.email}</Text>
-            </View>
+            <View style={styles.cardTitleBox}>
+              <View>
+                <Text style={styles.title}>
+                  {user.name} {user.surname}
+    
+                </Text>
+                <Text style={styles.text}>{user.email}</Text>
+              </View>
+              </View>
+              {disableButtons && (
+                <Button
+                  buttonStyle={[styles.likeButton, styles.confirmButton]}
+                  title="✔"
+                  onPress={() => handleLike(user)}
+                />
+              )}
           </View>
           <View style={styles.skillsContainer}>
             <Text style={styles.skills}>
@@ -38,8 +47,16 @@ export default function UserBlock({
           </View>
           {!disableButtons && (
             <View style={styles.buttonsContainer}>
-              <Button buttonStyle={styles.dislikeButton} title="Rechazar" onPress={() => handleDislike(user)} />
-              <Button buttonStyle={styles.likeButton} title="Aceptar" onPress={() => handleLike(user)} />
+              <Button
+                buttonStyle={styles.dislikeButton}
+                title="Rechazar"
+                onPress={() => handleDislike(user)}
+              />
+              <Button
+                buttonStyle={styles.likeButton}
+                title="Aceptar"
+                onPress={() => handleLike(user)}
+              />
             </View>
           )}
         </View>
@@ -49,4 +66,3 @@ export default function UserBlock({
     </View>
   );
 }
-
