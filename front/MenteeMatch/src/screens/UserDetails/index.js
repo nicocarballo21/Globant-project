@@ -138,7 +138,7 @@ const UserDetails = ({ navigation }) => {
       <Text style={styles.valueText}>{email}</Text>
       <Text style={styles.keyText}>Posición</Text>
       <Text style={styles.valueText}>{position}</Text>
-      <Text style={styles.skillsText}>Skills:</Text>
+      <Text style={styles.skillsText}>Habilidades:</Text>
       <View style={styles.btnsContainer}>
         <ScrollView
           horizontal

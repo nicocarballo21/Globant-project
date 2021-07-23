@@ -35,7 +35,7 @@ function CustomDrawerContent(props) {
         label="Close drawer"
         onPress={() => props.navigation.closeDrawer()}
       /> */}
-      <DrawerItem label="Cerrar sesion" onPress={handleLogOut} />
+      <DrawerItem label="Cerrar sesión" onPress={handleLogOut} />
       <Switch />
     </DrawerContentScrollView>
   );

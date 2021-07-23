@@ -30,7 +30,7 @@ const SelectSkills = ({ navigation }) => {
 
   const handleNext = () => {
     if(selection.length < 5)
-    return simpleMessage('Atención', 'Debés seleccionar al menos 5 skills', 'warning')
+    return simpleMessage('¡Atención!', 'Debes seleccionar al menos 5 habilidades', 'warning')
   
     const [property, learnOrTeach] = user.skillsToTeach.length ? ['skillsToLearn',"learn"] : ['skillsToTeach','teach'] 
 
@@ -70,14 +70,14 @@ const SelectSkills = ({ navigation }) => {
       setMenteesQty(menteesQty + number);
     } else if (totalQty < 1) {
       simpleMessage(
-        'Atención',
-        'No podés tener una cantidad menor a uno',
+        '¡Atención!',
+        'No puedes tener una cantidad menor a uno',
         'warning',
       );
     } else if (totalQty > 5) {
       simpleMessage(
-        'Atención',
-        `Solo podés mentorear hasta ${totalQty - 1} al mismo tiempo`,
+        '¡Atención!',
+        `Solo puedes tener hasta ${totalQty - 1} mentees`,
         'warning',
       );
     }

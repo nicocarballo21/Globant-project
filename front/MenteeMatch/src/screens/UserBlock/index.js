@@ -39,7 +39,7 @@ export default function UserBlock({
               )}
           </View>
           <View style={styles.skillsContainer}>
-            <Text style={styles.skills}>
+            <Text style={styles.skills}>•
               {skills.map(skill => (
                 <Text key={skill._id}> {skill.name} •</Text>
               ))}
@@ -49,12 +49,12 @@ export default function UserBlock({
             <View style={styles.buttonsContainer}>
               <Button
                 buttonStyle={styles.dislikeButton}
-                title="Rechazar"
+                title="Descartar"
                 onPress={() => handleDislike(user)}
               />
               <Button
                 buttonStyle={styles.likeButton}
-                title="Aceptar"
+                title="Elegir"
                 onPress={() => handleLike(user)}
               />
             </View>

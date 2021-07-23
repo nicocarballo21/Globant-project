@@ -50,7 +50,7 @@ export default ({ onSubmit }) => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder="Position"
+              placeholder="Posición en la empresa"
             />
           )}
           name="position"
@@ -93,7 +93,7 @@ export default ({ onSubmit }) => {
           name="personalDescription"
           defaultValue=""
         />
-        <Button title="Siguiente" pressFunction={handleSubmit(onSubmit)} />
+        <Button title="Guardar" pressFunction={handleSubmit(onSubmit)} />
         <Button title="Omitir" pressFunction={() => navigation.navigate('RoleSelection')} />
       </View>
     </View>

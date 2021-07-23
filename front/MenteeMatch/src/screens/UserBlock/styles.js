@@ -33,14 +33,14 @@ export const styles = StyleSheet.create({
     color: globantBright.violet,
     fontSize: 18,
     fontWeight: 'bold',
-    paddingTop: 0,
+    paddingTop: 4,
     marginLeft: '5%',
     paddingLeft: 5
   },
   text: {
     color: '#434343',
-    fontSize: 10,
-    marginLeft: '15%',
+    fontSize: 15,
+    marginLeft: '9%',
   },
   img: {
     width: 90,
@@ -89,7 +89,7 @@ export const styles = StyleSheet.create({
     /* marginRight: 0, */
     height: 45,
     width: 45,
-    fontSize: 25,
+    // fontSize: 25,
     // alignSelf: "flex-end",
     marginTop: 5,
     marginLeft: 3,

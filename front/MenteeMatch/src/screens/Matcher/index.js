@@ -16,8 +16,9 @@ export default function Matcher() {
 
   // Seed inicial
   useEffect(() => {
-    dispatch(getMatches({ roleToFind, token: user.token }));
-  }, []);
+    if(!matches.length)
+      dispatch(getMatches({ roleToFind, token: user.token }));
+  }, [dispatch]);
 
   //-------------------------------------------------------------//
   useEffect(() => {
@@ -29,12 +30,7 @@ export default function Matcher() {
       })
       dispatch(setMatches(filteredMatches))
     }
-  }, [matches.length])
-
-  // Si se queda sin candidatos, hago de nuevo el pedido
-  if(!matches.length)
-    dispatch(getMatches({ roleToFind, token: user.token }))
-  
+  }, [matches.length])  
 
   const handleLike = likedUser => {
     const finalMatch = user.likes.find(userPrevLiked => userPrevLiked._id === likedUser._id);
@@ -69,7 +65,7 @@ export default function Matcher() {
         <SafeAreaView style={styles.container}>
           <View style={styles.titleBox}>
             <Text style={styles.title}>Hola, {user.name}.</Text>
-            <Text style={styles.subtitle}>Elije entre tus posibles matches:</Text>
+            <Text style={styles.subtitle}>Elige entre tus posibles matches:</Text>
           </View>
           {user.likes.length ? (
             <>
@@ -121,7 +117,7 @@ export default function Matcher() {
           </View>
         </SafeAreaView>
       ) : (
-        <Text style={{textAlign: "center", height:"100%", textAlignVertical:"center", fontSize: 45}}>Cargando...</Text>
+        <Text style={{textAlign: "center", height:"100%", textAlignVertical:"center", fontSize: 30}}>Cargando...</Text>
       )}
     </>
   );
