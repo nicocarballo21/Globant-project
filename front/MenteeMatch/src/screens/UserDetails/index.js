@@ -21,7 +21,6 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { logout } from '../../redux/Slices/authSlice';
 
 const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
@@ -111,6 +110,7 @@ const UserDetails = ({ navigation }) => {
             <Ionicons name="reorder-three" size={50} color="#BFD732" />
           </Pressable>
         </View>
+       
         <TouchableOpacity onPress={() => sheetRef.current.snapTo(0)}>
           {img ? (
             <Image source={{ uri: img }} style={styles.userImg} />
@@ -121,6 +121,7 @@ const UserDetails = ({ navigation }) => {
             />
           )}
         </TouchableOpacity>
+
         <Text style={styles.keyText}>Nombre</Text>
         <Text style={styles.valueText}>{`${name} ${surname}`}</Text>
         <Text style={styles.keyText}>Contacto</Text>
@@ -128,6 +129,7 @@ const UserDetails = ({ navigation }) => {
         <Text style={styles.keyText}>Posición</Text>
         <Text style={styles.valueText}>{position}</Text>
         <Text style={styles.skillsText}>Skills:</Text>
+        
         <View style={styles.btnsContainer}>
           <ScrollView
             horizontal

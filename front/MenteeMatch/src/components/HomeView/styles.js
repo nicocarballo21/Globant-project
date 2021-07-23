@@ -1,56 +1,59 @@
 import { StyleSheet } from 'react-native';
-import { globantBright } from '../../assets/styles/colors';
+import { globantBright, globantDark } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
-  foto: {
-    width: 150,
-    height: 150,
-    backgroundColor: 'lightgrey',
-    borderRadius: 100,
+  container: {
+    maxHeight: '100%',
+    flex: 1,
   },
 
   user_data_container: {
-    display: 'flex',
+    flex: 4,
     alignItems: 'center',
-    backgroundColor: globantBright.inputBg,
-    width: '100%',
-    height: '45%',
+    backgroundColor: globantBright.bg,
+  },
+
+  recuadro_container: {
+    flex: 6,
+    backgroundColor: globantBright.bg,
+  },
+
+  container_interno: {
+    maxHeight: '100%',
+    flex: 1,
+    alignItems: 'center',
+  },
+
+  recuadro_interno: {
+    flex: 1,
+    backgroundColor: globantBright.green,
+    width: '85%',
+    borderRadius: 10,
+    margin: '4%',
+    textAlign: 'justify',
+    marginBottom: '2%',
+  },
+
+  recuadro_interno2: {
+    flex: 1,
+    backgroundColor: globantBright.green,
+    width: '85%',
+    borderRadius: 10,
+    margin: '4%',
+    textAlign: 'justify',
+    marginTop: '2%',
+  },
+
+  foto: {
+    width: '35%',
+    height: '55%',
+    backgroundColor: 'lightgrey',
+    borderRadius: 100,
   },
 
   text: {
     margin: 10,
     fontSize: 20,
-  },
-
-  recuadro_container: {
-    display: 'flex',
-    backgroundColor: globantBright.bg,
-    justifyContent: 'space-evenly',
-    width: '100%',
-    height: '55%',
-    alignItems: 'center',
-  },
-
-  recuadro_1: {
-    width: '80%',
-
-    backgroundColor: globantBright.green,
-    margin: 15,
-    borderRadius: 10,
-    textAlign: 'justify',
-  },
-  recuadro_2: {
-    width: '80%',
-
-    backgroundColor: globantBright.green,
-    margin: 15,
-    borderRadius: 10,
-    textAlign: 'justify',
-  },
-
-  background: {
-    backgroundColor: globantBright.bg,
-    display: 'flex',
   },
 
   inScrollViewDate: {

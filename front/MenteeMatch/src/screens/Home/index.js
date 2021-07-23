@@ -6,9 +6,9 @@ import HomeView from '../../components/HomeView';
 const Home = () => {
   const user = useSelector(state => state.user);
   return user.mentor ? (
-    <View>
+    <>
       <HomeView />
-    </View>
+    </>
   ) : (
     <Text
       style={{

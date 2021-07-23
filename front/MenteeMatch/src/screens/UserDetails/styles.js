@@ -3,19 +3,10 @@ import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   container: {
+    height: '100%',
     flex: 1,
     backgroundColor: globantBright.bg,
     alignItems: 'center',
-  },
-  header: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    color: globantBright.text,
-    backgroundColor: globantBright.bg,
-    padding: 32,
-    fontSize: 24,
-    position: 'relative',
   },
   headerText: {
     color: globantBright.text,
@@ -33,6 +24,16 @@ const styles = StyleSheet.create({
   arrowImg: {
     width: 32,
     height: 32,
+  },
+  header: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    color: globantBright.text,
+    backgroundColor: globantBright.bg,
+    padding: 32,
+    fontSize: 24,
+    position: 'relative',
   },
   textContainer: {
     flexDirection: 'row',
