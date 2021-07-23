@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, Image, Pressable, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { styles } from './styles';
 import user_img from '../../assets/static/user_img.png';
+import { useSelector } from 'react-redux';
 
 export default function UserBlock({
   user,
@@ -11,8 +12,7 @@ export default function UserBlock({
   disableButtons,
 }) {
 
-    const skills = user.isMentee ? user.skillsToLearn : user.skillsToTeach
-
+  const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn
   return (
     <View style={styles.container}>
       {user._id ? (
