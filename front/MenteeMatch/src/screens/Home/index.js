@@ -1,12 +1,64 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
+import HomeView from '../../components/HomeView';
 
-export default function Home() {
-  return (
-    <SafeAreaView
-      style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home</Text>
-    </SafeAreaView>
-  );
+const Home = () => {
+  const user = useSelector(state => state.user);
+  return user.isMentee && user.mentor ? (
+    <View>
+      <HomeView/>
+    </View>
+  ) : (
+    <Text
+      style={{
+        fontSize: 25,
+        textAlign: 'center',
+        height: '100%',
+        textAlignVertical: 'center',
+      }}>
+       No tienes mentor asignado.
+    </Text>
+  )
 }
+
+export default Home;
+
+
+
+// const Home = () => {
+//   const user = useSelector(state => state.user);
+//   return user.isMentor ? user.mentees ? (
+//     <View>
+//       <HomeView/>
+//     </View>
+//   ) : (
+//     <Text
+//       style={{
+//         fontSize: 25,
+//         textAlign: 'center',
+//         height: '100%',
+//         textAlignVertical: 'center',
+//       }}>
+//        No tienes mentees asignados.
+//     </Text>
+//   )
+//   :
+//   user.mentor ? (
+//     <View>
+//       <HomeView/>
+//     </View>
+//   ) : (
+//     <Text
+//       style={{
+//         fontSize: 25,
+//         textAlign: 'center',
+//         height: '100%',
+//         textAlignVertical: 'center',
+//       }}>
+//        No tienes mentor asignado.
+//     </Text>
+//   )
+// };
+
+// export default Home;

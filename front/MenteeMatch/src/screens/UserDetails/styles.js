@@ -24,8 +24,11 @@ const styles = StyleSheet.create({
   },
   pressableImg: {
     position: 'absolute',
-    top: 32,
-    left: 32,
+    top: 10,
+    left: 16,
+    borderWidth: 1,
+    borderColor: globantBright.green,
+    borderRadius: 10,
   },
   arrowImg: {
     width: 32,

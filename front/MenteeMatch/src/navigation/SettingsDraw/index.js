@@ -6,8 +6,9 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import { useDispatch } from 'react-redux';
+import Switch from '../../components/Switch';
 
-import { UserDetails, Register, UserData } from '../../screens/';
+import { UserDetails } from '../../screens/';
 import { removeData } from '../../utils/storage';
 import { setUser } from '../../redux/Reducers/UserReducer';
 import { logout } from '../../redux/Slices/authSlice';
@@ -20,20 +21,22 @@ function CustomDrawerContent(props) {
   const handleLogOut = async () => {
     try {
       await removeData('user');
-      dispatch(setUser({}));
       dispatch(logout());
+      dispatch(setUser({}));
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      <DrawerItem
+      {/* <DrawerItem
         label="Close drawer"
         onPress={() => props.navigation.closeDrawer()}
-      />
-      <DrawerItem label="Cerrar sesion" onPress={handleLogOut} />
+      /> */}
+      <DrawerItem label="Cerrar sesión" onPress={handleLogOut} />
+      <Switch />
     </DrawerContentScrollView>
   );
 }
@@ -52,12 +55,12 @@ export default function SettingsDraw() {
         component={UserDetails}
         options={{ title: 'Mi perfil' }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="EditProfile"
-        component={Register}
+        component={EditProfile}
         options={{ title: 'Editar perfil' }}
-      />
-      <Drawer.Screen name="CancelMatch" component={UserData} />
+      /> */}
+      {/* <Drawer.Screen name="Cancel Match" component={UserData} /> */}
     </Drawer.Navigator>
   );
 }

@@ -11,6 +11,22 @@ const findUserByEmail = (email) => {
   return Users.findOne({ email }, "-__v")
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
+    .populate("mentor")
+    .populate({
+      path: 'likes',
+      populate: {
+        path: 'skillsToTeach',
+        model: 'Skills'
+      }
+    })
+    .populate({
+      path: 'mentor',
+      populate: {
+        path: 'skillsToTeach',
+        model: 'Skills'
+      }
+    })
+    .populate("disLikes")
     .exec();
 };
 
@@ -18,6 +34,20 @@ const findUserById = (_id) => {
   return Users.findOne({ _id })
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
+    .populate({
+      path: 'likes',
+      populate: {
+        path: 'skillsToTeach',
+        model: 'Skills'
+      }
+    })
+    .populate({
+      path: 'mentor',
+      populate: {
+        path: 'skillsToTeach',
+        model: 'Skills'
+      }
+    })
     .exec();
 };
 
@@ -25,6 +55,20 @@ const updateById = (_id, body) => {
   return Users.findOneAndUpdate({ _id }, body, { new: true })
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
+    .populate({
+      path: 'likes',
+      populate: {
+        path: 'skillsToTeach',
+        model: 'Skills'
+      }
+    })
+    .populate({
+      path: 'mentor',
+      populate: {
+        path: 'skillsToTeach',
+        model: 'Skills'
+      }
+    })
     .exec();
 };
 

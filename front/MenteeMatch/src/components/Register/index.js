@@ -111,7 +111,7 @@ const Register = ({ onSubmit }) => {
           name="passwordConf"
           defaultValue=""
         />
-        <Button title="Registrarse" pressFunction={handleSubmit(onSubmit)} />
+        <Button title="Enviar" pressFunction={handleSubmit(onSubmit)} />
       </View>
     </View>
   );

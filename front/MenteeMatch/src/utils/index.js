@@ -3,7 +3,7 @@ import { showMessage } from 'react-native-flash-message';
 export const loginMessage = type => {
   showMessage({
     message: type ? 'Exitoso' : 'Error',
-    description: type ? 'Ahora estás logueado!' : 'Algo salió mal!',
+    description: type ? 'Te has logueado' : 'Datos incorrectos',
     type: type ? 'success' : 'danger',
     icon: type ? 'success' : 'danger',
     floating: true,

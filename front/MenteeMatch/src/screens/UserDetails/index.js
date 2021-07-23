@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {}
 import { setUserImg, getData } from '../../utils/storage';
 import { getSkills } from '../../redux/Reducers/Skills';
 import userImg from '../../assets/static/user_img.png';
@@ -22,7 +21,6 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { logout } from '../../redux/Slices/authSlice';
 
 const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
@@ -128,7 +126,7 @@ const UserDetails = ({ navigation }) => {
         <Text style={styles.valueText}>{email}</Text>
         <Text style={styles.keyText}>Posición</Text>
         <Text style={styles.valueText}>{position}</Text>
-        <Text style={styles.skillsText}>Skills:</Text>
+        <Text style={styles.skillsText}>Habilidades:</Text>
         <View style={styles.btnsContainer}>
           <ScrollView
             horizontal
