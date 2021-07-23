@@ -110,7 +110,7 @@ const UserDetails = ({ navigation }) => {
             <Ionicons name="reorder-three" size={50} color="#BFD732" />
           </Pressable>
         </View>
-       
+
         <TouchableOpacity onPress={() => sheetRef.current.snapTo(0)}>
           {img ? (
             <Image source={{ uri: img }} style={styles.userImg} />
@@ -128,8 +128,7 @@ const UserDetails = ({ navigation }) => {
         <Text style={styles.valueText}>{email}</Text>
         <Text style={styles.keyText}>Posición</Text>
         <Text style={styles.valueText}>{position}</Text>
-        <Text style={styles.skillsText}>Skills:</Text>
-        
+        <Text style={styles.skillsText}>Habilidades:</Text>
         <View style={styles.btnsContainer}>
           <ScrollView
             horizontal

@@ -4,7 +4,7 @@ import { View, Text, SafeAreaView, FlatList } from 'react-native';
 import styles from './styles';
 import { UserBlock } from '../';
 import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
-import { setUser } from '../../redux/Reducers/UserReducer';
+import { setUser, updateUser } from '../../redux/Reducers/UserReducer';
 import { simpleMessage } from '../../utils';
 
 export default function Matcher() {
@@ -12,35 +12,44 @@ export default function Matcher() {
   const user = useSelector(state => state.user);
   const matches = useSelector(state => state.matches);
   const roleToFind = user.isMentee ? 'mentors' : 'mentees';
+  const url = '/api/users/profile'
 
   // Seed inicial
   useEffect(() => {
-    dispatch(getMatches({ roleToFind, token: user.token }));
-  }, []);
+    if(!matches.length)
+      dispatch(getMatches({ roleToFind, token: user.token }));
+  }, [dispatch]);
 
-  // Si se queda sin candidatos, hago de nuevo el pedido
-  if(!matches.length)
-    dispatch(getMatches({ roleToFind, token: user.token }))
-  
+  //-------------------------------------------------------------//
+  useEffect(() => {
+    if(user.likes.length || user.disLikes.length) {
+      const coincidencesToFind = [...user.likes, ...user.disLikes]
+      const filteredMatches = matches.filter(({_id}) => {
+        const truthArr = coincidencesToFind.map(coincidence => coincidence._id === _id)
+        return !truthArr.includes(true) 
+      })
+      dispatch(setMatches(filteredMatches))
+    }
+  }, [matches.length])  
 
   const handleLike = likedUser => {
-    const finalMatch = user.likes.find(userPrevLiked => userPrevLiked._id === likedUser._id,);
+    const finalMatch = user.likes.find(userPrevLiked => userPrevLiked._id === likedUser._id);
     if (finalMatch) {
       simpleMessage('Información', `${finalMatch.name} ${finalMatch.surname} es tu nuevo mentor`, 'info');
-      return dispatch(setUser({ ...user, mentor: finalMatch }));
+      return dispatch(updateUser({url, data: { mentor: finalMatch._id }}));
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id)
-    orderedMatches.push(likedUser)
-    dispatch(setUser({ ...user, likes: [likedUser, ...user.likes] }));
+    /* orderedMatches.push(likedUser) */
+    dispatch(updateUser({url, data: { likes: [likedUser, ...user.likes] }}));
     dispatch(setMatches(orderedMatches))
   };
 
   const handleDislike = dislikedUser => {
-    dispatch(setUser({ ...user, disLikes: [...user.disLikes, dislikedUser] }));
+    dispatch(updateUser({url, data: { disLikes: [...user.disLikes, dislikedUser] }}));
     const hasLikedThatOne = user.likes.find(likedUser => likedUser._id === dislikedUser._id)
     if(hasLikedThatOne) {
       const filteredLikes = user.likes.filter(likedUser => likedUser._id !== dislikedUser._id)
-      dispatch(setUser({...user, likes: filteredLikes}))
+      dispatch(updateUser({url, data: { likes: filteredLikes }}))
     }
       
 
@@ -56,7 +65,7 @@ export default function Matcher() {
         <SafeAreaView style={styles.container}>
           <View style={styles.titleBox}>
             <Text style={styles.title}>Hola, {user.name}.</Text>
-            <Text style={styles.subtitle}>Elije entre tus posibles matches:</Text>
+            <Text style={styles.subtitle}>Elige entre tus posibles matches:</Text>
           </View>
           {user.likes.length ? (
             <>
@@ -108,7 +117,7 @@ export default function Matcher() {
           </View>
         </SafeAreaView>
       ) : (
-        <Text style={{textAlign: "center", height:"100%", textAlignVertical:"center", fontSize: 45}}>Cargando...</Text>
+        <Text style={{textAlign: "center", height:"100%", textAlignVertical:"center", fontSize: 30}}>Cargando...</Text>
       )}
     </>
   );

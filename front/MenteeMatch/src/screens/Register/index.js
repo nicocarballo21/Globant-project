@@ -15,7 +15,7 @@ const RegisterContainer = () => {
       dispatch(userRegister(data)).then(({ payload }) => {
         if (payload) {
           simpleMessage('Exito', 'Paso 1 de 2 completado!', 'success');
-          navigation.navigate('PersonalInformation');
+          navigation.navigate('UserData');
         } else {
           simpleMessage('Error', 'Algo salio mal!', 'danger');
         }
