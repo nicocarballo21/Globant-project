@@ -17,7 +17,7 @@ export default function ProfileStack({ navigation }) {
       <Stack.Screen name="Home" component={Home} options={{
           title:"Home",
               headerLeft: () => (
-                  <Ionicons name="reorder-three" size={50} color={"#BFD732"} onPress={() => navigation.openDrawer()} />
+                  <Ionicons name="menu" size={40} color={"#BFD732"} onPress={() => navigation.openDrawer()} />
               )
       }}/>
     </Stack.Navigator>

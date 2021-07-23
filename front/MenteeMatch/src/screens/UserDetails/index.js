@@ -54,24 +54,12 @@ const UserDetails = ({ navigation }) => {
 
     const choosePhoto = () => {
         sheetRef.current.snapTo(2)
-        //const options = {
-        //    mediaType: "photo",
-        //    noData: true,
-        //};
-        //launchImageLibrary(options, response => {
-        //    if (response.didCancel) return;
-        //    else {
-        //        setImg(response.assets[0].uri)
-        //        setUserImg(response.assets[0].uri)
-        //    }
-        //}) 
         ImagePicker.openPicker({
             width: 300,
             height: 300,
             cropping: true,
             compressImageQuality: 0.7
         }).then(image => {
-                console.log(image);
                 setImg(image.path);
                 setUserImg(image.path)
             });
@@ -104,8 +92,8 @@ const UserDetails = ({ navigation }) => {
         </View>
     );
  
-    const sheetRef = React.useRef(null);
-//renderComponent={handleGoBack}
+  const sheetRef = React.useRef(null);
+  
   return (
       <SafeAreaView style={{flex:1}}>
     <BottomSheet
