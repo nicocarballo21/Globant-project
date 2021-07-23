@@ -3,15 +3,17 @@ import { globantBright, globantDark } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   login: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
     backgroundColor: globantBright.bg,
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
 
   logo: {
+    backgroundColor: 'red',
     width: 150,
     height: 150,
+    marginVertical: 15,
     backgroundColor: '#F5F6F7',
     borderColor: globantBright.green,
     borderWidth: 2,
