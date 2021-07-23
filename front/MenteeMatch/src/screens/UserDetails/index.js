@@ -18,8 +18,6 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
 const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
   const skills = user.skillsToTeach;
@@ -79,7 +77,7 @@ const UserDetails = ({ navigation }) => {
   const sheetRef = React.useRef(null);
 
   return (
-    <SafeAreaView style={{ height: '100%', flex: 1 }}>
+    <SafeAreaView style={styles.mainContainer}>
       <BottomSheet
         ref={sheetRef}
         snapPoints={[300, 200, 0]}
@@ -88,14 +86,6 @@ const UserDetails = ({ navigation }) => {
         initialSnap={2}
       />
       <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
-          <Pressable
-            style={styles.pressableImg}
-            onPress={() => navigation.toggleDrawer()}>
-            <Ionicons name="reorder-three" size={50} color="#BFD732" />
-          </Pressable>
-        </View>
-
         <View style={styles.pressableFoto}>
           <TouchableOpacity onPress={() => sheetRef.current.snapTo(0)}>
             {img ? (

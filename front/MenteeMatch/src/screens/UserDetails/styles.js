@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
+  mainContainer: { height: '100%', flex: 1 },
   container: {
     height: '100%',
     flex: 1,
@@ -44,37 +45,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
   },
-  headerText: {
-    color: globantBright.text,
-    fontSize: 24,
-    textAlign: 'center',
-  },
-  pressableImg: {
-    position: 'absolute',
-    top: 1,
-    left: 1,
-    borderWidth: 1,
-    borderColor: globantBright.green,
-    borderRadius: 10,
-  },
-  arrowImg: {
-    width: 32,
-    height: 32,
-  },
-  header: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    color: globantBright.text,
-    backgroundColor: globantBright.bg,
-    padding: 32,
-    fontSize: 24,
-    position: 'absolute',
-  },
-  textContainer: {
-    flexDirection: 'row',
-    paddingHorizontal: 16,
-  },
   pressable: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -106,31 +76,6 @@ const styles = StyleSheet.create({
     borderRadius: 62.5,
     marginBottom: 16,
   },
-  btn: {
-    width: '75%',
-    padding: 14,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    backgroundColor: '#4E181D',
-    borderRadius: 16,
-    margin: 32,
-    textAlign: 'center',
-    position: 'absolute',
-    borderColor: globantBright.green,
-    elevation: 10,
-    bottom: -10,
-  },
-  btnText: {
-    textAlign: 'center',
-    color: globantBright.text,
-  },
-  commandButton: {
-    padding: 15,
-    borderRadius: 10,
-    backgroundColor: '#FF6347',
-    alignItems: 'center',
-    marginTop: 10,
-  },
   panel: {
     padding: 20,
     backgroundColor: globantBright.bg,
@@ -156,7 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: globantBright.green,
     alignItems: 'center',
-    marginVertical: 7,
+    marginVertical: 8,
   },
   panelButtonTitle: {
     fontSize: 17,
