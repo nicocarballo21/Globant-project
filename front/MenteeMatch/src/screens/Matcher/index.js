@@ -25,10 +25,10 @@ export default function Matcher() {
   
 
   const handleLike = likedUser => {
-    const finalMatch = user.likes.find(userPrevLiked => userPrevLiked._id === likedUser._id,);
+    const finalMatch = user.likes.find(userPrevLiked => userPrevLiked._id === likedUser._id);
     if (finalMatch) {
       simpleMessage('Información', `${finalMatch.name} ${finalMatch.surname} es tu nuevo mentor`, 'info');
-      return dispatch(updateUser(url, {data: { ...user, mentor: finalMatch }}));
+      return dispatch(updateUser({url, data: {mentor: finalMatch._id }}));
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id)
     orderedMatches.push(likedUser)

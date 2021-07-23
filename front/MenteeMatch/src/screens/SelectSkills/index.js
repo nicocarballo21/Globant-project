@@ -32,26 +32,9 @@ const SelectSkills = ({ navigation }) => {
     if(selection.length < 5)
     return simpleMessage('Atención', 'Debés seleccionar al menos 5 skills', 'warning')
   
-    // const learnOrTeach = user.isMentee ? 'learn' : 'teach'
-    /* let property, learnOrTeach
-    if(user.skillsToTeach.length) {
-      property = 'skillsToLearn'
-      learnOrTeach = 'learn'
-    } else {
-      property = 'skillsToTeach'
-      learnOrTeach = 'teach'
-    } */
-
     const [property, learnOrTeach] = user.skillsToTeach.length ? ['skillsToLearn',"learn"] : ['skillsToTeach','teach'] 
-    // const learnOrTeach = user.skillsToTeach.length ? 'learn' : 'teach'
-    console.log("property ->", property)
-    console.log("learOrTeach ->", learnOrTeach)
-    console.log("selection ->", selection)
 
     dispatch(updateUser({url: `/api/users/skills/${learnOrTeach}`, data: {[property]: selection}}))
-    /* dispatch(setUser({...user, [property]: selection})) */
-    /* dispatch(setUser({...user, skillsToLearn: [], skillsToTeach: []})) */
-
     setSelection([])
     setButtonsStyle({})
 

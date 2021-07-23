@@ -41,7 +41,6 @@ export const updateUser = createAsyncThunk(
   async ({ url, data }, thunkAPI) => {
     try {
       const { user } = thunkAPI.getState();
-      console.log("Recibo el token? --->", user.token)
       const userUpdated = await updateUserData(data, user.token, url);
       userUpdated['token'] = user.token;
       return userUpdated;
