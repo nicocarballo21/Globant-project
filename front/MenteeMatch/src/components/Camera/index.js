@@ -2,6 +2,7 @@ import React from "react";
 import { RNCamera } from "react-native-camera";
 import { TouchableOpacity, StyleSheet, Text, View, Image } from 'react-native';
 import { useCamera } from 'react-native-camera-hooks';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function Camera( {  route, navigation } ) {
     const [ { cameraRef }, { takePicture } ] = useCamera(null);
@@ -53,9 +54,8 @@ export default function Camera( {  route, navigation } ) {
             >
             <TouchableOpacity
                 style={styles.capture}
-                onPress={() => takePhoto()}
             >
-                <Text>CAMERA</Text>
+                  <Ionicons name="camera" size={50} color={"#FFFFFF"} onPress={() => takePhoto()} />
             </ TouchableOpacity>
             </RNCamera>
             )
@@ -67,7 +67,7 @@ export default function Camera( {  route, navigation } ) {
 const styles = StyleSheet.create({
     capture: {
         flex: 0,
-        backgroundColor: '#fff',
+        backgroundColor: 'transparent',
         borderRadius: 5,
         padding: 15,
         paddingHorizontal: 20,

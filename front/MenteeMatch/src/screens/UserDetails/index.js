@@ -5,7 +5,6 @@ import {
   Pressable,
   Image,
   FlatList,
-  ScrollView,
   TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,7 +14,6 @@ import { getSkills } from '../../redux/Reducers/Skills';
 import userImg from '../../assets/static/user_img.png';
 import styles from './styles';
 
-//import { launchImageLibrary } from 'react-native-image-picker';
 import BottomSheet from 'reanimated-bottom-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -27,7 +25,6 @@ const UserDetails = ({ navigation }) => {
   const skills = user.skillsToTeach;
   const dispatch = useDispatch();
   const { name, surname, email, position } = user;
-  /* const numColumns = Math.ceil(skills.length / 4); */
   const [img, setImg] = React.useState(null);
 
   useEffect(() => {
@@ -44,24 +41,12 @@ const UserDetails = ({ navigation }) => {
 
   const choosePhoto = () => {
     sheetRef.current.snapTo(2);
-    //const options = {
-    //    mediaType: "photo",
-    //    noData: true,
-    //};
-    //launchImageLibrary(options, response => {
-    //    if (response.didCancel) return;
-    //    else {
-    //        setImg(response.assets[0].uri)
-    //        setUserImg(response.assets[0].uri)
-    //    }
-    //})
     ImagePicker.openPicker({
       width: 300,
       height: 300,
       cropping: true,
       compressImageQuality: 0.7,
     }).then(image => {
-      console.log(image);
       setImg(image.path);
       setUserImg(image.path);
     });
@@ -92,7 +77,7 @@ const UserDetails = ({ navigation }) => {
   );
 
   const sheetRef = React.useRef(null);
-  //renderComponent={handleGoBack}
+
   return (
     <SafeAreaView style={{ height: '100%', flex: 1 }}>
       <BottomSheet
