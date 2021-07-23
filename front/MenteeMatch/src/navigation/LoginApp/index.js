@@ -1,6 +1,12 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Login, Register, RoleSelection, SelectSkills, UserData } from '../../screens';
+import {
+  Login,
+  Register,
+  RoleSelection,
+  SelectSkills,
+  UserData,
+} from '../../screens';
 import { FirstScreen } from '../../components';
 
 const Stack = createStackNavigator();

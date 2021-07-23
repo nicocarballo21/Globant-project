@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import HomeView from '../../components/HomeView';
 
 const Home = () => {
   const user = useSelector(state => state.user);
-  return user.isMentee && user.mentor ? (
-    <View>
-      <HomeView/>
-    </View>
+  return user.mentor ? (
+    <>
+      <HomeView />
+    </>
   ) : (
     <Text
       style={{
@@ -17,14 +17,12 @@ const Home = () => {
         height: '100%',
         textAlignVertical: 'center',
       }}>
-       No tienes mentor asignado.
+      No tienes mentor asignado.
     </Text>
-  )
-}
+  );
+};
 
 export default Home;
-
-
 
 // const Home = () => {
 //   const user = useSelector(state => state.user);

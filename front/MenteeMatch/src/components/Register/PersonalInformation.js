@@ -1,9 +1,10 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import styles from './styles';
 
 import { InputText, Button } from '../../components';
+import logo from '../../utils/logo.png';
 import { useNavigation } from '@react-navigation/native';
 
 export default ({ onSubmit }) => {
@@ -12,12 +13,12 @@ export default ({ onSubmit }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
-  const navigation = useNavigation()
+
+  const navigation = useNavigation();
 
   return (
     <View style={styles.login}>
-      <Text style={styles.buttonText}>Datos Personales</Text>
+      <Image style={styles.logo} source={logo} />
 
       <View style={styles.inputs}>
         {errors.country && (
@@ -94,7 +95,10 @@ export default ({ onSubmit }) => {
           defaultValue=""
         />
         <Button title="Guardar" pressFunction={handleSubmit(onSubmit)} />
-        <Button title="Omitir" pressFunction={() => navigation.navigate('RoleSelection')} />
+        <Button
+          title="Omitir"
+          pressFunction={() => navigation.navigate('RoleSelection')}
+        />
       </View>
     </View>
   );

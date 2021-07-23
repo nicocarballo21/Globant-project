@@ -13,7 +13,7 @@ import { getSkills } from '../../redux/Reducers/Skills';
 import { simpleMessage } from '../../utils';
 import goBack from '../../assets/static/goBack.png';
 import styles from './styles';
-import { setUser, updateUser } from '../../redux/Reducers/UserReducer';
+import { updateUser } from '../../redux/Reducers/UserReducer';
 import { login } from '../../redux/Slices/authSlice';
 
 const SelectSkills = ({ navigation }) => {
@@ -29,17 +29,29 @@ const SelectSkills = ({ navigation }) => {
   }, [dispatch]);
 
   const handleNext = () => {
-    if(selection.length < 5)
-    return simpleMessage('¡Atención!', 'Debes seleccionar al menos 5 habilidades', 'warning')
-  
-    const [property, learnOrTeach] = user.skillsToTeach.length ? ['skillsToLearn',"learn"] : ['skillsToTeach','teach'] 
+    if (selection.length < 5) {
+      return simpleMessage(
+        '¡Atención!',
+        'Debes seleccionar al menos 5 habilidades',
+        'warning',
+      );
+    }
+    const [property, learnOrTeach] = user.skillsToTeach.length
+      ? ['skillsToLearn', 'learn']
+      : ['skillsToTeach', 'teach'];
 
-    dispatch(updateUser({url: `/api/users/skills/${learnOrTeach}`, data: {[property]: selection}}))
-    setSelection([])
-    setButtonsStyle({})
+    dispatch(
+      updateUser({
+        url: `/api/users/skills/${learnOrTeach}`,
+        data: { [property]: selection },
+      }),
+    );
+    setSelection([]);
+    setButtonsStyle({});
 
-    if(learnOrTeach === 'learn')
-      dispatch(login({token: user.token}))
+    if (learnOrTeach === 'learn') {
+      dispatch(login({ token: user.token }));
+    }
   };
 
   const handleGoBack = () => {
@@ -47,12 +59,12 @@ const SelectSkills = ({ navigation }) => {
   };
 
   const handlePress = item => {
-    if (!buttonsStyle[item.name])
+    if (!buttonsStyle[item.name]) {
       return setButtonsStyle({
         ...buttonsStyle,
         [item.name]: { ...item, styles: styles.pressed },
       });
-
+    }
     const updatedButtonsStyle = { ...buttonsStyle };
     delete updatedButtonsStyle[item.name];
     setButtonsStyle(updatedButtonsStyle);
@@ -90,9 +102,12 @@ const SelectSkills = ({ navigation }) => {
           <Image source={goBack} style={styles.arrowImg} />
         </Pressable>
         <Text style={styles.headerText}>
-          {user.skillsToTeach.length ? '¿Qué quieres aprender?' : '¿Qué conocimientos tienes?'}
+          {user.skillsToTeach.length
+            ? '¿Qué quieres aprender?'
+            : '¿Qué conocimientos tienes?'}
         </Text>
       </View>
+
       <View style={styles.btnsContainer}>
         <FlatList
           scrollEnabled={true}
@@ -114,6 +129,7 @@ const SelectSkills = ({ navigation }) => {
           )}
         />
       </View>
+
       {user.isMentor && (
         <View>
           <Text style={styles.menteeQtyTitleTxt}>
@@ -134,11 +150,14 @@ const SelectSkills = ({ navigation }) => {
           </View>
         </View>
       )}
-      <Button
-        title={'Siguiente'}
-        style={styles.nextBtn}
-        pressFunction={handleNext}
-      />
+
+      <View style={styles.footer}>
+        <Button
+          title={'Siguiente'}
+          style={styles.nextBtn}
+          pressFunction={handleNext}
+        />
+      </View>
     </SafeAreaView>
   );
 };

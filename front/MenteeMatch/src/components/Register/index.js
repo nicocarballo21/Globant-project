@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
+
 import { InputText, Button } from '../../components';
+import logo from '../../utils/logo.png';
 
 import styles from './styles';
 
@@ -14,7 +16,7 @@ const Register = ({ onSubmit }) => {
 
   return (
     <View style={styles.login}>
-      <Text style={styles.buttonText}>Registro</Text>
+      <Image style={styles.logo} source={logo} />
 
       <View style={styles.inputs}>
         {errors.name && <Text style={styles.error}>{errors.name.message}</Text>}

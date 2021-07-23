@@ -6,12 +6,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: globantBright.green,
+    backgroundColor: globantBright.bg,
   },
   logo: {
-    width: 220,
-    height: 220,
-    backgroundColor: globantBright.green,
+    width: 200,
+    height: 200,
+    backgroundColor: globantBright.bg,
+    borderColor: globantBright.green,
+    borderWidth: 2,
     borderRadius: 100,
   },
   logo_g_container: {
