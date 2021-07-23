@@ -94,7 +94,7 @@ const UserDetails = ({ navigation }) => {
   const sheetRef = React.useRef(null);
   //renderComponent={handleGoBack}
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ height: '100%', flex: 1 }}>
       <BottomSheet
         ref={sheetRef}
         snapPoints={[300, 200, 0]}
@@ -111,37 +111,32 @@ const UserDetails = ({ navigation }) => {
           </Pressable>
         </View>
 
-        <TouchableOpacity onPress={() => sheetRef.current.snapTo(0)}>
-          {img ? (
-            <Image source={{ uri: img }} style={styles.userImg} />
-          ) : (
-            <Image
-              source={user.img ? { uri: user.img } : userImg}
-              style={styles.userImg}
-            />
-          )}
-        </TouchableOpacity>
-
-        <Text style={styles.keyText}>Nombre</Text>
-        <Text style={styles.valueText}>{`${name} ${surname}`}</Text>
-        <Text style={styles.keyText}>Contacto</Text>
-        <Text style={styles.valueText}>{email}</Text>
-        <Text style={styles.keyText}>Posición</Text>
-        <Text style={styles.valueText}>{position}</Text>
-        <Text style={styles.skillsText}>Habilidades:</Text>
+        <View style={styles.pressableFoto}>
+          <TouchableOpacity onPress={() => sheetRef.current.snapTo(0)}>
+            {img ? (
+              <Image source={{ uri: img }} style={styles.userImg} />
+            ) : (
+              <Image
+                source={user.img ? { uri: user.img } : userImg}
+                style={styles.userImg}
+              />
+            )}
+          </TouchableOpacity>
+        </View>
+        <View style={styles.UserInfo}>
+          <Text style={styles.keyText}>Nombre</Text>
+          <Text style={styles.valueText}>{`${name} ${surname}`}</Text>
+          <Text style={styles.keyText}>Contacto</Text>
+          <Text style={styles.valueText}>{email}</Text>
+          <Text style={styles.keyText}>Posición</Text>
+          <Text style={styles.valueText}>{position}</Text>
+        </View>
         <View style={styles.btnsContainer}>
-          <ScrollView
-            horizontal
-            pagingEnabled
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingVertical: 20 }}>
+          <Text style={styles.keyText}>Habilidades</Text>
+          <View style={styles.flatlist}>
             <FlatList
-              scrollEnabled={false}
-              contentContainerStyle={{
-                alignItems: 'center',
-              }}
-              numColumns={4}
+              scrollEnabled={true}
+              numColumns={3}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               data={skills}
@@ -152,7 +147,7 @@ const UserDetails = ({ navigation }) => {
                 </Pressable>
               )}
             />
-          </ScrollView>
+          </View>
         </View>
       </SafeAreaView>
     </SafeAreaView>

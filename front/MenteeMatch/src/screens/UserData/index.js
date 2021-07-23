@@ -18,8 +18,10 @@ const UserData = ({ navigation }) => {
             'Su usuario fue registrado correctamente',
             'success',
           );
-          navigation.navigate('RoleSelection')
-        } else simpleMessage('Error', 'Algo ha ocurrido', 'danger');
+          navigation.navigate('RoleSelection');
+        } else {
+          simpleMessage('Error', 'Algo ha ocurrido', 'danger');
+        }
       })
       .catch(() => simpleMessage('Error', 'Algo ha ocurrido', 'danger'));
   };
