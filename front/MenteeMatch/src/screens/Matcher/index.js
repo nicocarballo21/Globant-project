@@ -28,20 +28,20 @@ export default function Matcher() {
     const finalMatch = user.likes.find(userPrevLiked => userPrevLiked._id === likedUser._id);
     if (finalMatch) {
       simpleMessage('Información', `${finalMatch.name} ${finalMatch.surname} es tu nuevo mentor`, 'info');
-      return dispatch(updateUser({url, data: {mentor: finalMatch._id }}));
+      return dispatch(updateUser({url, data: { mentor: finalMatch._id }}));
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id)
     orderedMatches.push(likedUser)
-    dispatch(updateUser({url, data: { ...user, likes: [likedUser, ...user.likes] }}));
+    dispatch(updateUser({url, data: { likes: [likedUser, ...user.likes] }}));
     dispatch(setMatches(orderedMatches))
   };
 
   const handleDislike = dislikedUser => {
-    dispatch(updateUser({url, data: { ...user, disLikes: [...user.disLikes, dislikedUser] }}));
+    dispatch(updateUser({url, data: { disLikes: [...user.disLikes, dislikedUser] }}));
     const hasLikedThatOne = user.likes.find(likedUser => likedUser._id === dislikedUser._id)
     if(hasLikedThatOne) {
       const filteredLikes = user.likes.filter(likedUser => likedUser._id !== dislikedUser._id)
-      dispatch(updateUser({url, data: {...user, likes: filteredLikes}}))
+      dispatch(updateUser({url, data: { likes: filteredLikes }}))
     }
       
 
