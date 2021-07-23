@@ -4,7 +4,7 @@ import { View, Text, SafeAreaView, FlatList } from 'react-native';
 import styles from './styles';
 import { UserBlock } from '../';
 import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
-import { setUser } from '../../redux/Reducers/UserReducer';
+import { setUser, updateUser } from '../../redux/Reducers/UserReducer';
 import { simpleMessage } from '../../utils';
 
 export default function Matcher() {
@@ -12,6 +12,7 @@ export default function Matcher() {
   const user = useSelector(state => state.user);
   const matches = useSelector(state => state.matches);
   const roleToFind = user.isMentee ? 'mentors' : 'mentees';
+  const url = '/api/users/profile'
 
   // Seed inicial
   useEffect(() => {
@@ -27,20 +28,20 @@ export default function Matcher() {
     const finalMatch = user.likes.find(userPrevLiked => userPrevLiked._id === likedUser._id,);
     if (finalMatch) {
       simpleMessage('Información', `${finalMatch.name} ${finalMatch.surname} es tu nuevo mentor`, 'info');
-      return dispatch(setUser({ ...user, mentor: finalMatch }));
+      return dispatch(updateUser(url, {data: { ...user, mentor: finalMatch }}));
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id)
     orderedMatches.push(likedUser)
-    dispatch(setUser({ ...user, likes: [likedUser, ...user.likes] }));
+    dispatch(updateUser({url, data: { ...user, likes: [likedUser, ...user.likes] }}));
     dispatch(setMatches(orderedMatches))
   };
 
   const handleDislike = dislikedUser => {
-    dispatch(setUser({ ...user, disLikes: [...user.disLikes, dislikedUser] }));
+    dispatch(updateUser({url, data: { ...user, disLikes: [...user.disLikes, dislikedUser] }}));
     const hasLikedThatOne = user.likes.find(likedUser => likedUser._id === dislikedUser._id)
     if(hasLikedThatOne) {
       const filteredLikes = user.likes.filter(likedUser => likedUser._id !== dislikedUser._id)
-      dispatch(setUser({...user, likes: filteredLikes}))
+      dispatch(updateUser({url, data: {...user, likes: filteredLikes}}))
     }
       
 

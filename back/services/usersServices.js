@@ -25,6 +25,20 @@ const updateById = (_id, body) => {
   return Users.findOneAndUpdate({ _id }, body, { new: true })
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
+    .populate({
+      path: 'likes',
+      populate: {
+        path: 'skillsToTeach',
+        model: 'Skills'
+      }
+    })
+    .populate({
+      path: 'mentor',
+      populate: {
+        path: 'skillsToTeach',
+        model: 'Skills'
+      }
+    })
     .exec();
 };
 

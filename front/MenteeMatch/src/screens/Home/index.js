@@ -5,21 +5,37 @@ import HomeView from '../../components/HomeView';
 
 const Home = () => {
   const user = useSelector(state => state.user);
-  return user.mentor ? (
+  return user.isMentor ? user.mentees ? (
     <View>
-      <HomeView />
+      <HomeView/>
     </View>
   ) : (
     <Text
       style={{
-        fontSize: 32,
+        fontSize: 25,
         textAlign: 'center',
         height: '100%',
         textAlignVertical: 'center',
       }}>
-      {user.isMentee ? `No tenés ningún mentor asignado` : `No tenés mentees asignados`}
+       No tienes mentees asignados.
     </Text>
-  );
+  )
+  :
+  user.mentor ? (
+    <View>
+      <HomeView/>
+    </View>
+  ) : (
+    <Text
+      style={{
+        fontSize: 25,
+        textAlign: 'center',
+        height: '100%',
+        textAlignVertical: 'center',
+      }}>
+       No tienes mentor asignado.
+    </Text>
+  )
 };
 
 export default Home;
