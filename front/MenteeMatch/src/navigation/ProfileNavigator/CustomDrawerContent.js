@@ -17,8 +17,8 @@ export default function CustomDrawerContent(props) {
   const handleLogOut = async () => {
     try {
       await removeData('user');
-      dispatch(setUser({}));
       dispatch(logout());
+      dispatch(setUser({}));
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +28,7 @@ export default function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
       <DrawerItem
-        label="Cerra Menu"
+        label="Cerrar menú"
         onPress={() => props.navigation.closeDrawer()}
       /> 
       <DrawerItem label="Cerrar sesion" onPress={handleLogOut} />

@@ -18,7 +18,7 @@ export default function Matcher() {
   useEffect(() => {
     if(!matches.length)
       dispatch(getMatches({ roleToFind, token: user.token }));
-  }, [dispatch]);
+  }, []);
 
   //-------------------------------------------------------------//
   useEffect(() => {

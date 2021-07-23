@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     flex: 2.5,
     width: '100%',
     alignItems: 'center',
+    justifyContent: "center"
   },
   UserInfo: {
     flex: 3,

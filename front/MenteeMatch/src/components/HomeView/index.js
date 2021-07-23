@@ -9,6 +9,9 @@ import { useSelector } from 'react-redux';
 export default () => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [toggleCheckBox1, setToggleCheckBox1] = useState(false);
+  const [toggleCheckBox2, setToggleCheckBox2] = useState(false);
+  const [toggleCheckBox3, setToggleCheckBox3] = useState(false);
+  const [toggleCheckBox4, setToggleCheckBox4] = useState(false);
   const now = new Date();
   const hour = now.toLocaleTimeString();
   const date = now.toLocaleDateString();
@@ -51,16 +54,16 @@ export default () => {
               <View style={{ flexDirection: 'row' }}>
                 <CheckBox
                   disabled={false}
-                  value={toggleCheckBox1}
-                  onValueChange={newValue => setToggleCheckBox1(newValue)}
+                  value={toggleCheckBox2}
+                  onValueChange={newValue => setToggleCheckBox2(newValue)}
                 />
                 <Text style={styles.inScrollViewText}>Consolidar express</Text>
               </View>
               <View style={{ flexDirection: 'row' }}>
                 <CheckBox
                   disabled={false}
-                  value={toggleCheckBox1}
-                  onValueChange={newValue => setToggleCheckBox1(newValue)}
+                  value={toggleCheckBox3}
+                  onValueChange={newValue => setToggleCheckBox3(newValue)}
                 />
                 <Text style={styles.inScrollViewText}>Consolidar node</Text>
               </View>
