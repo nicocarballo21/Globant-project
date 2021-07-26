@@ -39,6 +39,7 @@ const App = () => {
     <Provider store={store}>
       <SafeAreaProvider>
         <NavigationContainer>
+          {/* <HomeApp /> */}
           {auth.userToken ? <HomeApp /> : <LoginApp />}
           <FlashMessage position="top" />
         </NavigationContainer>

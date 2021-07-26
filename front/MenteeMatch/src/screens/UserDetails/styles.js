@@ -2,55 +2,63 @@ import { StyleSheet } from 'react-native';
 import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
-  mainContainer: { height: '100%', flex: 1 },
+  mainContainer: {
+    flex: 1,
+  },
+
   container: {
-    height: '100%',
-    flex: 1,
     backgroundColor: globantBright.bg,
     alignItems: 'center',
   },
-  flatlist: {
-    flex: 9,
-    justifyContent: 'space-around',
-    width: '100%',
-    marginLeft: 2.5,
-  },
+
   pressableFoto: {
-    flex: 2.5,
     width: '100%',
     alignItems: 'center',
-    justifyContent: "center"
+    justifyContent: 'center',
+    marginTop: 20,
   },
+
   UserInfo: {
-    flex: 3,
-    width: '100%',
+    justifyContent: 'center',
+    paddingLeft: 40,
+    width: '85%',
+    borderRadius: 20,
+    backgroundColor: globantBright.green,
+    borderRadius: 10,
+    marginBottom: 20,
   },
+
   btnsContainer: {
-    flex: 4.5,
     width: '100%',
     alignItems: 'center',
   },
+
   keyText: {
-    flex: 1,
     color: globantBright.text,
-    backgroundColor: globantBright.bg,
-    width: '100%',
-    textAlign: 'center',
-    textAlignVertical: 'center',
+    fontSize: 15,
+    paddingVertical: 8,
   },
-  valueText: {
-    flex: 1,
+
+  btns_title: {
     color: globantBright.text,
-    backgroundColor: globantBright.inputBg,
-    width: '100%',
-    textAlign: 'center',
-    textAlignVertical: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: globantBright.green,
+    borderRadius: 10,
+    fontSize: 15,
   },
+
+  flatlist: {
+    paddingHorizontal: 15,
+    paddingTop: 5,
+    height: '60%',
+  },
+
   pressable: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: globantBright.inputBg,
-    paddingHorizontal: 16,
+    paddingHorizontal: 10,
     height: 50,
     borderRadius: 15,
     borderStyle: 'solid',
@@ -67,7 +75,7 @@ const styles = StyleSheet.create({
     width: '100%',
     color: globantBright.text,
     textAlign: 'center',
-    padding: 16,
+    padding: 10,
     fontSize: 14,
     borderBottomWidth: 1,
   },

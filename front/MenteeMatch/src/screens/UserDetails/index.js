@@ -85,6 +85,7 @@ const UserDetails = ({ navigation }) => {
         renderContent={renderContent}
         initialSnap={2}
       />
+
       <SafeAreaView style={styles.container}>
         <View style={styles.pressableFoto}>
           <TouchableOpacity onPress={() => sheetRef.current.snapTo(0)}>
@@ -98,16 +99,15 @@ const UserDetails = ({ navigation }) => {
             )}
           </TouchableOpacity>
         </View>
+
         <View style={styles.UserInfo}>
-          <Text style={styles.keyText}>Nombre</Text>
-          <Text style={styles.valueText}>{`${name} ${surname}`}</Text>
-          <Text style={styles.keyText}>Contacto</Text>
-          <Text style={styles.valueText}>{email}</Text>
-          <Text style={styles.keyText}>Posición</Text>
-          <Text style={styles.valueText}>{position}</Text>
+          <Text style={styles.keyText}>Nombre: {`${name} ${surname}`}</Text>
+          <Text style={styles.keyText}>Contacto: {email}</Text>
+          <Text style={styles.keyText}>Posición: {position}</Text>
         </View>
+
         <View style={styles.btnsContainer}>
-          <Text style={styles.keyText}>Habilidades</Text>
+          <Text style={styles.btns_title}>Habilidades</Text>
           <View style={styles.flatlist}>
             <FlatList
               scrollEnabled={true}
