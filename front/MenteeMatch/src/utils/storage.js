@@ -27,11 +27,10 @@ export const removeData = async key => {
 };
 
 export const setUserImg = async value => {
-    try {
-        const imgValue = JSON.stringify(value);
-        await AsyncStorage.setItem("userImg", imgValue);
-    } catch (e) {
-        console.log(e);
-    }
-}
-
+  try {
+    const imgValue = JSON.stringify(value);
+    await AsyncStorage.setItem('userImg', imgValue);
+  } catch (e) {
+    console.log(e);
+  }
+};

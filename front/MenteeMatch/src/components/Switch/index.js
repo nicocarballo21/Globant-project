@@ -3,7 +3,10 @@ import { View, Switch, StyleSheet, Text } from 'react-native';
 
 export default function () {
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch = () => {
+    setIsEnabled(previousState => !previousState);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Modo oscuro</Text>

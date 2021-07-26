@@ -1,5 +1,5 @@
 const { Users } = require("../db/models");
-const { orderByCoincidences } = require("../utils");
+const { orderByCoincidences, menteeResultFilter } = require("../utils");
 
 const createUser = (body) => {
   const { name, surname, email, password } = body;
@@ -13,18 +13,18 @@ const findUserByEmail = (email) => {
     .populate("skillsToTeach", "name")
     .populate("mentor")
     .populate({
-      path: 'likes',
+      path: "likes",
       populate: {
-        path: 'skillsToTeach',
-        model: 'Skills'
-      }
+        path: "skillsToTeach",
+        model: "Skills",
+      },
     })
     .populate({
-      path: 'mentor',
+      path: "mentor",
       populate: {
-        path: 'skillsToTeach',
-        model: 'Skills'
-      }
+        path: "skillsToTeach",
+        model: "Skills",
+      },
     })
     .populate("disLikes")
     .exec();
@@ -35,18 +35,18 @@ const findUserById = (_id) => {
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
     .populate({
-      path: 'likes',
+      path: "likes",
       populate: {
-        path: 'skillsToTeach',
-        model: 'Skills'
-      }
+        path: "skillsToTeach",
+        model: "Skills",
+      },
     })
     .populate({
-      path: 'mentor',
+      path: "mentor",
       populate: {
-        path: 'skillsToTeach',
-        model: 'Skills'
-      }
+        path: "skillsToTeach",
+        model: "Skills",
+      },
     })
     .exec();
 };
@@ -56,18 +56,18 @@ const updateById = (_id, body) => {
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
     .populate({
-      path: 'likes',
+      path: "likes",
       populate: {
-        path: 'skillsToTeach',
-        model: 'Skills'
-      }
+        path: "skillsToTeach",
+        model: "Skills",
+      },
     })
     .populate({
-      path: 'mentor',
+      path: "mentor",
       populate: {
-        path: 'skillsToTeach',
-        model: 'Skills'
-      }
+        path: "skillsToTeach",
+        model: "Skills",
+      },
     })
     .exec();
 };
@@ -91,17 +91,17 @@ const getMatchesForUser = async (
   let matches =
     (await Users.find({
       [roleToFind]: true,
-      [skillsToFind]: { $in: skillstTomatch }}
-      )
+      [skillsToFind]: { $in: skillstTomatch },
+    })
       .populate(skillsToFind, "name")
-      .exec()
-       ) || [];
+      .exec()) || [];
 
-  if (roleToFind === "isMentor")
-    matches = matches.filter((user) => {
-      return user.disponible;
-    });
-
+  if (roleToFind === "isMentor") {
+    matches = menteeResultFilter(
+      [...user.likes, ...user.disLikes],
+      matches
+    );
+  }
   return orderByCoincidences(skillstTomatch, matches, skillsToFind);
 };
 
