@@ -16,7 +16,7 @@ export default function LoginApp() {
     <Stack.Navigator initialRouteName="FirstScreen" headerMode={'none'}>
       {/* <Stack.Screen name="FirstScreen" component={FirstScreen} /> */}
       {/* <Stack.Screen name="Login" component={Login} /> */}
-      {/* <Stack.Screen name="Register" component={Register} /> */}
+      <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="UserData" component={UserData} />
       {/* <Stack.Screen name="RoleSelection" component={RoleSelection} /> */}
       {/* <Stack.Screen name="SelectSkills" component={SelectSkills} /> */}

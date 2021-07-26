@@ -5,26 +5,12 @@ const styles = StyleSheet.create({
   login: {
     display: 'flex',
     backgroundColor: globantBright.bg,
+    height: '100%',
+    justifyContent: 'space-around',
   },
 
   scroll: {
-    justifyContent: 'center',
     alignItems: 'center',
-  },
-
-  inputs: {
-    width: '100%',
-    alignItems: 'center',
-
-    paddingVertical: 20,
-  },
-
-  buttonText: {
-    fontSize: 26,
-    color: globantBright.text,
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    textTransform: 'uppercase',
   },
 
   logo: {
@@ -35,6 +21,21 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 100,
     marginTop: 20,
+    marginBottom: 50,
+  },
+
+  inputs: {
+    width: '100%',
+    alignItems: 'center',
+    paddingVertical: 20,
+  },
+
+  buttonText: {
+    fontSize: 26,
+    color: globantBright.text,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    textTransform: 'uppercase',
   },
 
   error: {

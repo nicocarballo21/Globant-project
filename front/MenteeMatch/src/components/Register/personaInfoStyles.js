@@ -5,10 +5,11 @@ const styles = StyleSheet.create({
   login: {
     display: 'flex',
     backgroundColor: globantBright.bg,
+
+    height: '100%',
   },
 
   scroll: {
-    justifyContent: 'center',
     alignItems: 'center',
   },
 
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 100,
     marginTop: 20,
+    marginBottom: 50,
   },
 
   error: {
