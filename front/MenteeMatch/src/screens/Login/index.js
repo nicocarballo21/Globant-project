@@ -36,7 +36,10 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.login} behavior="height">
+    <KeyboardAvoidingView
+      style={styles.login}
+      behavior="height"
+      keyboardVerticalOffset={-30}>
       <Image style={styles.logo} source={logo} />
 
       <View style={styles.inputs}>
