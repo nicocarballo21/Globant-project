@@ -3,15 +3,20 @@ import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   login: {
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
+    display: 'flex',
     backgroundColor: globantBright.bg,
+  },
+
+  scroll: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   inputs: {
     width: '100%',
     alignItems: 'center',
+
+    paddingVertical: 20,
   },
 
   buttonText: {
@@ -29,6 +34,7 @@ const styles = StyleSheet.create({
     borderColor: globantBright.green,
     borderWidth: 2,
     borderRadius: 100,
+    marginTop: 20,
   },
 
   error: {
