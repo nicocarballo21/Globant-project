@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Image, Text, KeyboardAvoidingView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,10 +36,11 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.login}>
-      <View>
-        <Image style={styles.logo} source={logo} />
-      </View>
+    <KeyboardAvoidingView
+      style={styles.login}
+      behavior="height"
+      keyboardVerticalOffset={-30}>
+      <Image style={styles.logo} source={logo} />
 
       <View style={styles.inputs}>
         {errors.email && (
@@ -89,7 +90,7 @@ const Login = ({ navigation }) => {
           pressFunction={() => navigation.navigate('Register')}
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

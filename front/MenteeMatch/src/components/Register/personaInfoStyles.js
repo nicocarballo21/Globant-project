@@ -5,23 +5,12 @@ const styles = StyleSheet.create({
   login: {
     display: 'flex',
     backgroundColor: globantBright.bg,
+
     height: '100%',
-    justifyContent: 'space-around',
   },
 
   scroll: {
     alignItems: 'center',
-  },
-
-  logo: {
-    width: 100,
-    height: 100,
-    backgroundColor: '#F5F6F7',
-    borderColor: globantBright.green,
-    borderWidth: 2,
-    borderRadius: 100,
-    marginTop: 20,
-    marginBottom: 50,
   },
 
   inputs: {
@@ -36,6 +25,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignSelf: 'center',
     textTransform: 'uppercase',
+  },
+
+  logo: {
+    width: 100,
+    height: 100,
+    backgroundColor: '#F5F6F7',
+    borderColor: globantBright.green,
+    borderWidth: 2,
+    borderRadius: 100,
+    marginTop: 20,
+    marginBottom: 50,
   },
 
   error: {
