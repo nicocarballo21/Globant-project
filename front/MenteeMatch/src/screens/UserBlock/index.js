@@ -3,15 +3,17 @@ import { Text, View, Image, Pressable, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import { styles } from './styles';
 import user_img from '../../assets/static/user_img.png';
-import { useSelector } from 'react-redux';
+import SpinnerCoincidence from '../../components/SpinnerCoincidence';
 
 export default function UserBlock({
   user,
+  userLogin,
   handleLike,
   handleDislike,
   disableButtons,
 }) {
   const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
+
   return (
     <View style={styles.container}>
       {user._id ? (
@@ -25,26 +27,28 @@ export default function UserBlock({
               <View>
                 <Text style={styles.title}>
                   {user.name} {user.surname}
-    
                 </Text>
                 <Text style={styles.text}>{user.email}</Text>
               </View>
-              </View>
-              {disableButtons && (
-                <Button
-                  buttonStyle={[styles.likeButton, styles.confirmButton]}
-                  title="✔"
-                  onPress={() => handleLike(user)}
-                />
-              )}
+            </View>
+            {disableButtons && (
+              <Button
+                buttonStyle={[styles.likeButton, styles.confirmButton]}
+                title="✔"
+                onPress={() => handleLike(user)}
+              />
+            )}
           </View>
+
           <View style={styles.skillsContainer}>
-            <Text style={styles.skills}>•
+            <Text style={styles.skills}>
+              •
               {skills.map(skill => (
                 <Text key={skill._id}> {skill.name} •</Text>
               ))}
             </Text>
           </View>
+
           {!disableButtons && (
             <View style={styles.buttonsContainer}>
               <Button
@@ -52,6 +56,12 @@ export default function UserBlock({
                 title="Descartar"
                 onPress={() => handleDislike(user)}
               />
+
+              <View style={styles.spinnerContainer}>
+                <SpinnerCoincidence mentorSkills={user} userLogin={userLogin} />
+                <Text>Coincidencias</Text>
+              </View>
+
               <Button
                 buttonStyle={styles.likeButton}
                 title="Elegir"

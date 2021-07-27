@@ -1,5 +1,9 @@
-const countCoincidences = (userSkills, skillsToFind) =>
-  userSkills.reduce((a, c) => a + skillsToFind.includes(c), 0);
+const countCoincidences = (userSkills, skillsToFind) => {
+  const userSkillIDs = userSkills.map((x) => (x._id || x).toString());
+  const skillsToFindIDs = skillsToFind.map((x) => (x._id || x).toString());
+
+  return userSkillIDs.reduce((a, c) => a + skillsToFindIDs.includes(c), 0);
+};
 
 const orderByCoincidences = (userSkills, matches, skillsToFind) =>
   matches

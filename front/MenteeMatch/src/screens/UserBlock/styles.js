@@ -3,31 +3,19 @@ import { globantBright } from '../../assets/styles/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
     alignItems: 'center',
     paddingTop: 10,
-    /* marginTop: 20, */
     paddingHorizontal: 2,
     width: 400,
-    marginBottom: 10,
-    /*  alignSelf: "center", */
   },
   block: {
-    // position: "relative",
-    paddingTop: 0,
-    paddingBottom: 15,
-    marginTop: 0,
-    marginBottom: 10,
+    paddingBottom: 10,
     flexDirection: 'column',
     width: '90%',
-    height: 'auto',
-    //    borderWidth: 1,
     borderRadius: 20,
-    /* margin: 5, */
     backgroundColor: '#e2e2e2',
     borderColor: '#e2e2e2',
-    elevation: 12,
-    //b7bfe5
+    elevation: 10,
   },
   title: {
     color: globantBright.violet,
@@ -35,7 +23,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingTop: 4,
     marginLeft: '5%',
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   text: {
     color: '#434343',
@@ -62,10 +50,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 20,
   },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
+
   likeButton: {
     borderWidth: 0,
     borderRadius: 50,
@@ -98,9 +83,19 @@ export const styles = StyleSheet.create({
     // position: "relative",
     marginTop: 40,
     height: 60,
-    width: "53%",
+    width: '53%',
     // borderWidth: 1,
     // borderColor: "red",
-    flexDirection: "row",
-  }
+    flexDirection: 'row',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  spinnerContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
 });

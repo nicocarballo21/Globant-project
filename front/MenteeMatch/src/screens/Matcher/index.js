@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, SafeAreaView, FlatList } from 'react-native';
-import styles from './styles';
 import { UserBlock } from '../';
 import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
 import { setUser, updateUser } from '../../redux/Reducers/UserReducer';
 import { simpleMessage } from '../../utils';
+
+import styles from './styles';
 
 export default function Matcher() {
   const dispatch = useDispatch();
@@ -14,14 +15,17 @@ export default function Matcher() {
   const roleToFind = user.isMentee ? 'mentors' : 'mentees';
   const url = '/api/users/profile';
 
+  // console.log(user.skillsToLearn.length);
+
   // Seed inicial
   useEffect(() => {
     if (!matches.length)
       dispatch(getMatches({ roleToFind, token: user.token }));
   }, []);
 
+  // useEffect(() => {
   //-------------------------------------------------------------//
-  useEffect(() => {
+  /* useEffect(() => {
     if (user.likes.length || user.disLikes.length) {
       const coincidencesToFind = [...user.likes, ...user.disLikes];
       const filteredMatches = matches.filter(({ _id }) => {
@@ -32,7 +36,7 @@ export default function Matcher() {
       });
       dispatch(setMatches(filteredMatches));
     }
-  }, [matches.length]);
+  }, [matches.length]); */
 
   const handleLike = likedUser => {
     const finalMatch = user.likes.find(
@@ -76,20 +80,18 @@ export default function Matcher() {
     <>
       {matches.length ? (
         <SafeAreaView style={styles.container}>
-          <View style={styles.titleBox}>
+          <View style={user.likes ? styles.titleBox_like : styles.title}>
             <Text style={styles.title}>Hola, {user.name}.</Text>
             <Text style={styles.subtitle}>
-              Elige entre tus posibles matches:
+              Elige entre tus posibles matches
             </Text>
           </View>
+
           {user.likes.length ? (
-            <>
-              <Text style={styles.optionsTxt}>Estos son tus likes</Text>
+            <View style={styles.subContainer_1}>
               <FlatList
                 horizontal
-                contentContainerStyle={{
-                  paddingHorizontal: 6,
-                }}
+                contentContainerStyle={{}}
                 numColumns={1}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
@@ -104,17 +106,13 @@ export default function Matcher() {
                   />
                 )}
               />
-            </>
+            </View>
           ) : null}
-          {!user.likes.length && <View style={{ height: 120 }}></View>}
+
           <View style={styles.subContainer}>
-            <Text style={styles.optionsTxt}>Estas son tus opciones</Text>
             <FlatList
-              horizontal
-              contentContainerStyle={{
-                height: 350,
-                paddingHorizontal: 6,
-              }}
+              horizontal={user.likes.length ? true : false}
+              contentContainerStyle={{ alignItems: 'center' }}
               numColumns={1}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
@@ -123,6 +121,7 @@ export default function Matcher() {
               renderItem={({ item }) => (
                 <UserBlock
                   user={item}
+                  userLogin={user}
                   handleLike={handleLike}
                   handleDislike={handleDislike}
                   disableButtons={false}
