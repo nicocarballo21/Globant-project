@@ -1,34 +1,45 @@
 import React, { useState } from 'react';
 import { View, Text, Image, ScrollView } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
-import styles from './styles';
-
-import userImage from '../../assets/static/user_img.png';
 import { useSelector } from 'react-redux';
+import CheckBox from '@react-native-community/checkbox';
+
+import useMode from '../../hooks/useMode';
+import styles from './styles';
 
 export default () => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [toggleCheckBox1, setToggleCheckBox1] = useState(false);
   const [toggleCheckBox2, setToggleCheckBox2] = useState(false);
   const [toggleCheckBox3, setToggleCheckBox3] = useState(false);
-  const [toggleCheckBox4, setToggleCheckBox4] = useState(false);
   const now = new Date();
   const hour = now.toLocaleTimeString();
   const date = now.toLocaleDateString();
-  const nowMili = Date.now();
   const user = useSelector(state => state.user);
   const { mentor } = user;
+  const { mode } = useMode();
 
   return (
     <View style={styles.container}>
-      <View style={styles.user_data_container}>
+      <View
+        style={{
+          ...styles.user_data_container,
+          backgroundColor: mode.bg,
+        }}>
         <Text style={styles.text}>Mentor</Text>
         <Image source={{ uri: mentor.img }} style={styles.foto} />
         <Text style={styles.text}>{`${mentor.name} ${mentor.surname}`}</Text>
       </View>
-      <View style={styles.recuadro_container}>
+      <View
+        style={{
+          ...styles.recuadro_container,
+          backgroundColor: mode.bg,
+        }}>
         <View style={styles.container_interno}>
-          <View style={styles.recuadro_interno}>
+          <View
+            style={{
+              ...styles.recuadro_interno,
+              backgroundColor: mode.green,
+            }}>
             <ScrollView style={{ margin: 9 }}>
               <Text>Objetivos</Text>
               <View style={{ flexDirection: 'row' }}>
@@ -70,7 +81,11 @@ export default () => {
             </ScrollView>
           </View>
 
-          <View style={styles.recuadro_interno2}>
+          <View
+            style={{
+              ...styles.recuadro_interno2,
+              backgroundColor: mode.green,
+            }}>
             <ScrollView style={{ margin: 9 }}>
               <Text>Reuniones Programadas</Text>
               <View>

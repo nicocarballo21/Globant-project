@@ -10,12 +10,10 @@ const styles = StyleSheet.create({
   user_data_container: {
     flex: 4,
     alignItems: 'center',
-    backgroundColor: globantBright.bg,
   },
 
   recuadro_container: {
     flex: 6,
-    backgroundColor: globantBright.bg,
   },
 
   container_interno: {
@@ -26,7 +24,6 @@ const styles = StyleSheet.create({
 
   recuadro_interno: {
     flex: 1,
-    backgroundColor: globantBright.green,
     width: '85%',
     borderRadius: 10,
     margin: '4%',
@@ -36,7 +33,6 @@ const styles = StyleSheet.create({
 
   recuadro_interno2: {
     flex: 1,
-    backgroundColor: globantBright.green,
     width: '85%',
     borderRadius: 10,
     margin: '4%',
