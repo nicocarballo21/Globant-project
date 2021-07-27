@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Switch, StyleSheet, Text } from 'react-native';
+import useTheme from '../../hooks/useTheme';
 
 export default function () {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => {
-    setIsEnabled(previousState => !previousState);
-  };
+  const { isEnabled, toggleSwitch } = useTheme();
 
   return (
     <View style={styles.container}>
