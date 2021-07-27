@@ -21,18 +21,6 @@ export default function Matcher() {
   }, []);
 
   //-------------------------------------------------------------//
-  /* useEffect(() => {
-    if (user.likes.length || user.disLikes.length) {
-      const coincidencesToFind = [...user.likes, ...user.disLikes];
-      const filteredMatches = matches.filter(({ _id }) => {
-        const truthArr = coincidencesToFind.map(
-          coincidence => coincidence._id === _id,
-        );
-        return !truthArr.includes(true);
-      });
-      dispatch(setMatches(filteredMatches));
-    }
-  }, [matches.length]); */
 
   const handleLike = likedUser => {
     const finalMatch = user.likes.find(
@@ -47,7 +35,6 @@ export default function Matcher() {
       return dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id);
-    /* orderedMatches.push(likedUser) */
     dispatch(updateUser({ url, data: { likes: [likedUser, ...user.likes] } }));
     dispatch(setMatches(orderedMatches));
   };
@@ -74,7 +61,7 @@ export default function Matcher() {
 
   return (
     <>
-      {matches.length ? (
+      {matches.length || user.likes.length ? (
         <SafeAreaView style={styles.container}>
           <View style={styles.titleBox}>
             <Text style={styles.title}>Hola, {user.name}.</Text>
@@ -107,29 +94,55 @@ export default function Matcher() {
             </>
           ) : null}
           {!user.likes.length && <View style={{ height: 120 }}></View>}
-          <View style={styles.subContainer}>
-            <Text style={styles.optionsTxt}>Estas son tus opciones</Text>
-            <FlatList
-              horizontal
-              contentContainerStyle={{
-                height: 350,
-                paddingHorizontal: 6,
-              }}
-              numColumns={1}
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              data={matches}
-              keyExtractor={(matches, index) => matches._id + index}
-              renderItem={({ item }) => (
-                <UserBlock
-                  user={item}
-                  handleLike={handleLike}
-                  handleDislike={handleDislike}
-                  disableButtons={false}
-                />
-              )}
-            />
-          </View>
+          {matches.length ? (
+            <View style={styles.subContainer}>
+              <Text style={styles.optionsTxt}>Estas son tus opciones</Text>
+              <FlatList
+                horizontal
+                contentContainerStyle={{
+                  height: 350,
+                  paddingHorizontal: 6,
+                }}
+                numColumns={1}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                data={matches}
+                keyExtractor={(matches, index) => matches._id + index}
+                renderItem={({ item }) => (
+                  <UserBlock
+                    user={item}
+                    handleLike={handleLike}
+                    handleDislike={handleDislike}
+                    disableButtons={false}
+                  />
+                )}
+              />
+            </View>
+          ) : (
+            <View style={styles.subContainer}>
+              <Text style={styles.optionsTxt}>Estos son tus dislikes</Text>
+              <FlatList
+                horizontal
+                contentContainerStyle={{
+                  height: 350,
+                  paddingHorizontal: 6,
+                }}
+                numColumns={1}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                data={user.disLikes}
+                keyExtractor={(matches, index) => matches._id + index}
+                renderItem={({ item }) => (
+                  <UserBlock
+                    user={item}
+                    handleLike={handleLike}
+                    handleDislike={handleDislike}
+                    disableButtons={false}
+                  />
+                )}
+              />
+            </View>
+          )}
         </SafeAreaView>
       ) : (
         <Text

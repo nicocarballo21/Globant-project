@@ -20,13 +20,19 @@ const findUserByEmail = email => {
       },
     })
     .populate({
+      path: "disLikes",
+      populate: {
+        path: "skillsToTeach",
+        model: "Skills",
+      },
+    })
+    .populate({
       path: "mentor",
       populate: {
         path: "skillsToTeach",
         model: "Skills",
       },
     })
-    .populate("disLikes")
     .exec()
 }
 
@@ -36,6 +42,13 @@ const findUserById = _id => {
     .populate("skillsToTeach", "name")
     .populate({
       path: "likes",
+      populate: {
+        path: "skillsToTeach",
+        model: "Skills",
+      },
+    })
+    .populate({
+      path: "disLikes",
       populate: {
         path: "skillsToTeach",
         model: "Skills",
@@ -57,6 +70,13 @@ const updateById = (_id, body) => {
     .populate("skillsToTeach", "name")
     .populate({
       path: "likes",
+      populate: {
+        path: "skillsToTeach",
+        model: "Skills",
+      },
+    })
+    .populate({
+      path: "disLikes",
       populate: {
         path: "skillsToTeach",
         model: "Skills",
