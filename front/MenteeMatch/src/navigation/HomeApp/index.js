@@ -21,7 +21,7 @@ export default function HomeApp() {
         inactiveTintColor: globantBright.bg,
         showLabel: true,
       }}>
-      {/* {!user.mentor && (
+      {!user.mentor && (
         <Tab.Screen
           name="Matcher"
           component={Matcher}
@@ -40,7 +40,7 @@ export default function HomeApp() {
             <Ionicons name="home" size={size} color={color} />
           ),
         }}
-      /> */}
+      />
       <Tab.Screen
         name="Perfil"
         component={ProfileNavigator}
