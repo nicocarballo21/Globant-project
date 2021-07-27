@@ -1,13 +1,13 @@
 const { Users } = require("../db/models");
 const { orderByCoincidences, menteeResultFilter } = require("../utils");
 
-const createUser = (body) => {
-  const { name, surname, email, password } = body;
+const createUser = body => {
+  const { name, surname, email, password } = body
 
-  return Users.create({ name, surname, email, password });
-};
+  return Users.create({ name, surname, email, password })
+}
 
-const findUserByEmail = (email) => {
+const findUserByEmail = email => {
   return Users.findOne({ email }, "-__v")
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
@@ -27,10 +27,10 @@ const findUserByEmail = (email) => {
       },
     })
     .populate("disLikes")
-    .exec();
-};
+    .exec()
+}
 
-const findUserById = (_id) => {
+const findUserById = _id => {
   return Users.findOne({ _id })
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
@@ -48,8 +48,8 @@ const findUserById = (_id) => {
         model: "Skills",
       },
     })
-    .exec();
-};
+    .exec()
+}
 
 const updateById = (_id, body) => {
   return Users.findOneAndUpdate({ _id }, body, { new: true })
@@ -69,24 +69,21 @@ const updateById = (_id, body) => {
         model: "Skills",
       },
     })
-    .exec();
-};
+    .exec()
+}
 
 const toggleMentorOrMentee = async (_id, type) => {
-  const user = await findUserById(_id);
-  user[type] = !user[type];
-  return user.save();
-};
+  const user = await findUserById(_id)
+  user[type] = !user[type]
+  return user.save()
+}
 
-const getMatchesForUser = async (
-  _id,
-  { roleToFind, skillsToFind, userSkills }
-) => {
-  const user = await findUserById(_id);
+const getMatchesForUser = async (_id, { roleToFind, skillsToFind, userSkills }) => {
+  const user = await findUserById(_id)
 
-  if (roleToFind === "isMentor" && user.mentor?._id) return [];
+  if (roleToFind === "isMentor" && user.mentor?._id) return []
 
-  const skillstTomatch = user[userSkills].map((x) => x._id);
+  const skillstTomatch = user[userSkills].map(x => x._id)
 
   let matches =
     (await Users.find({
@@ -111,5 +108,5 @@ module.exports = {
   findUserById,
   updateById,
   toggleMentorOrMentee,
-  getMatchesForUser,
-};
+  getMatchesForUser
+}

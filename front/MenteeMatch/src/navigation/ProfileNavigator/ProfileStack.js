@@ -27,6 +27,7 @@ export default function ProfileStack({ navigation }) {
               name="settings"
               size={30}
               color={'#BFD732'}
+              style={{ marginRight: 15 }}
               onPress={() => navigation.openDrawer()}
             />
           ),
