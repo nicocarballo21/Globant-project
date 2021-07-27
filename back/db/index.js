@@ -1,9 +1,9 @@
-const mongoose = require("mongoose")
-const uri = "mongodb://127.0.0.1:27017"
-
+const mongoose = require("mongoose");
+const uri =
+  "mongodb+srv://admin:menteematch@cluster-db.sr3ho.mongodb.net/menteematch?retryWrites=true&w=majority";
 mongoose.connect(uri, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+  useUnifiedTopology: true,
+});
 
-module.exports = mongoose
+module.exports = mongoose;
