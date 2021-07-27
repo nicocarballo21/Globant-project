@@ -144,7 +144,7 @@ const UserDetails = ({ navigation }) => {
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               data={skills}
-              keyExtractor={skills => skills._id}
+              keyExtractor={skill => skill._id}
               renderItem={({ item }) => (
                 <Pressable
                   style={{
