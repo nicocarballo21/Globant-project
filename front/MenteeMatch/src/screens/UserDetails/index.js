@@ -58,7 +58,7 @@ const UserDetails = ({ navigation }) => {
         backgroundColor: mode.bg,
         borderColor: mode.gray,
       }}>
-      <View style={{ alignItems: 'center' }}>
+      <View style={styles.panelView}>
         <Text style={{ ...styles.panelTitle, color: mode.text }}>
           Subir foto
         </Text>
@@ -116,14 +116,27 @@ const UserDetails = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.userInfo}>
-          <Text style={styles.keyText}>Nombre: {`${name} ${surname}`}</Text>
-          <Text style={styles.keyText}>Contacto: {email}</Text>
-          <Text style={styles.keyText}>Posición: {position}</Text>
+        <View style={{ ...styles.userInfo, backgroundColor: mode.green }}>
+          <Text style={{ ...styles.keyText, color: mode.text }}>
+            Nombre: {`${name} ${surname}`}
+          </Text>
+          <Text style={{ ...styles.keyText, color: mode.text }}>
+            Contacto: {email}
+          </Text>
+          <Text style={{ ...styles.keyText, color: mode.text }}>
+            Posición: {position}
+          </Text>
         </View>
 
         <View style={styles.btnsContainer}>
-          <Text style={styles.btns_title}>Habilidades</Text>
+          <Text
+            style={{
+              ...styles.btns_title,
+              color: mode.text,
+              backgroundColor: mode.green,
+            }}>
+            Habilidades
+          </Text>
           <View style={styles.flatlist}>
             <FlatList
               scrollEnabled={true}
@@ -133,8 +146,13 @@ const UserDetails = ({ navigation }) => {
               data={skills}
               keyExtractor={skills => skills._id}
               renderItem={({ item }) => (
-                <Pressable style={styles.pressable}>
-                  <Text style={styles.pressableTxt}>{item.name}</Text>
+                <Pressable
+                  style={{
+                    ...styles.pressable,
+                    backgroundColor: mode.inputBg,
+                    borderColor: mode.green,
+                  }}>
+                  <Text style={{ color: mode.text }}>{item.name}</Text>
                 </Pressable>
               )}
             />
