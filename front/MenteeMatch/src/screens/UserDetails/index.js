@@ -24,6 +24,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { logout } from '../../redux/Slices/authSlice'
 
+
 const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
   const skills = user.skillsToTeach;
@@ -33,6 +34,7 @@ const UserDetails = ({ navigation }) => {
   const [img, setImg] = React.useState(null);
 
   useEffect(() => {
+    if(!user) navigation.navigate('Login');
     dispatch(getSkills());
     getData('userImg').then(data => {
       if (data) setImg(data);

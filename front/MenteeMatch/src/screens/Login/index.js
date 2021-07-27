@@ -69,7 +69,7 @@ const Login = ({ navigation }) => {
           control={control}
           defaultValue=""
           rules={{
-            required: 'Ingrese su password',
+            required: 'Ingrese su contraseña',
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <InputText
@@ -77,15 +77,15 @@ const Login = ({ navigation }) => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder="Password"
+              placeholder="Contraseña"
               textContentType="password"
               secureTextEntry={true}
             />
           )}
         />
-        <Button title={'Log in'} pressFunction={handleSubmit(onSubmit)} />
+        <Button title={'Ingresar'} pressFunction={handleSubmit(onSubmit)} />
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.footer}>Registrate aca!</Text>
+          <Text style={styles.footer}>Crea tu cuenta</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -12,7 +12,7 @@ export default function Matcher() {
   const user = useSelector(state => state.user);
   const matches = useSelector(state => state.matches);
   const roleToFind = user.isMentee ? 'mentors' : 'mentees';
-
+  
   // Seed inicial
   useEffect(() => {
     dispatch(getMatches({ roleToFind, token: user.token }));
