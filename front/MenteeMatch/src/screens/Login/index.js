@@ -13,6 +13,7 @@ import logo from '../../utils/logo.png';
 import { InputText, Button } from '../../components';
 
 import { getData, storeData } from '../../utils/storage';
+import { login } from '../../redux/Slices/authSlice';
 
 const Login = ({ navigation }) => {
   const {
@@ -21,36 +22,18 @@ const Login = ({ navigation }) => {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
 
   const onSubmit = async userData => {
-    // ! AWAIRT HAS NO EFFECT TRY SOMETHING ELSE
     const { payload } = await dispatch(getUser(userData));
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
-      navigation.navigate('Matcher');
+      dispatch(login({ token: user.token }));
     } else {
       loginMessage(false);
     }
   };
-
-  const user = useSelector(state => state.user);
-
-  useEffect(() => {
-    const accion = async () => {
-      try {
-        const storedUser = await getData('user');
-        if (storedUser) {
-          dispatch(setUser({ ...storedUser }));
-          return navigation.navigate('Matcher');
-        }
-        dispatch(setUser({ ...user }));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    accion();
-  }, []);
 
   return (
     <View style={styles.login}>
@@ -69,7 +52,6 @@ const Login = ({ navigation }) => {
           rules={{ required: 'Ingrese su email' }}
           render={({ field: { onChange, onBlur, value } }) => (
             <InputText
-              autoCompleteType="email"
               errors={errors.email}
               onBlur={onBlur}
               onChangeText={onChange}
@@ -101,7 +83,6 @@ const Login = ({ navigation }) => {
             />
           )}
         />
-
         <Button title={'Log in'} pressFunction={handleSubmit(onSubmit)} />
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>
           <Text style={styles.footer}>Registrate aca!</Text>

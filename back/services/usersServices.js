@@ -4,7 +4,7 @@ const { orderByCoincidences } = require("../utils");
 const createUser = (body) => {
   const { name, surname, email, password } = body;
 
-  return Users.create({ name, surname, email, password }, "-__v");
+  return Users.create({ name, surname, email, password });
 };
 
 const findUserByEmail = (email) => {

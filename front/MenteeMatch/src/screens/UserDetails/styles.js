@@ -1,7 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../assets/styles/colors';
-
-console.log()
+import { colors, globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,8 +24,11 @@ const styles = StyleSheet.create({
   },
   pressableImg: {
     position: 'absolute',
-    top: 32,
-    left: 32,
+    top: 10,
+    left: 16,
+    borderWidth: 1,
+    borderColor: globantBright.green,
+    borderRadius: 10,
   },
   arrowImg: {
     width: 32,
@@ -55,16 +56,11 @@ const styles = StyleSheet.create({
   btnsContainer: {
     flexDirection: 'row',
     position: 'relative',
-    /* flexWrap: "wrap", */
-    /* justifyContent: "center", */
-    /* alignItems: "center", */
-    /* marginHorizontal: 16, */
   },
   pressable: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'blue',
-    /* width: 100, */
     paddingHorizontal: 16,
     height: 50,
     borderRadius: 15,
@@ -86,8 +82,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   userImg: {
-    width: 100,
-    height: 100,
+    width: 125,
+    height: 125,
+    borderRadius: 62.5,
+    marginBottom: 16
   },
   btn: {
     width: '75%',
@@ -134,7 +132,7 @@ const styles = StyleSheet.create({
   panelButton: {
     padding: 13,
     borderRadius: 10,
-    backgroundColor: '#FF6347',
+    backgroundColor: '#BFD732',
     alignItems: 'center',
     marginVertical: 7,
   },

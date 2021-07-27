@@ -17,37 +17,40 @@ import { setUserImg, getData, removeData } from '../../utils/storage';
 
 //import { launchImageLibrary } from 'react-native-image-picker';
 import Animated from 'react-native-reanimated';
-import BottomSheet from "reanimated-bottom-sheet"
+import BottomSheet from 'reanimated-bottom-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const UserDetails = ({ route, navigation }) => {
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { logout } from '../../redux/Slices/authSlice'
+
+const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
   const skills = user.skillsToTeach;
   const dispatch = useDispatch();
   const { name, surname, email, position } = user;
   /* const numColumns = Math.ceil(skills.length / 4); */
-  const [ img, setImg ] = React.useState(null);
+  const [img, setImg] = React.useState(null);
 
   useEffect(() => {
     dispatch(getSkills());
-        getData("userImg").then((data) => {
-            if (data) setImg(data)
-        })
-
+    getData('userImg').then(data => {
+      if (data) setImg(data);
+    });
   }, [dispatch, img]);
 
   const handleGoBack = async () => {
     try {
       await removeData('user');
-      navigation.goBack();
+      dispatch(logout())
     } catch (error) {
       console.log(error);
     }
   };
-    const onPicture = (uri) => {
-        setImg(uri)
-        setUserImg(uri)
-    }
+  const onPicture = uri => {
+    setImg(uri);
+    setUserImg(uri);
+  };
 
     const choosePhoto = () => {
         sheetRef.current.snapTo(2)
@@ -102,9 +105,9 @@ const UserDetails = ({ route, navigation }) => {
     );
  
     const sheetRef = React.useRef(null);
-
+//renderComponent={handleGoBack}
   return (
-      <>
+      <SafeAreaView style={{flex:1}}>
     <BottomSheet
         ref={sheetRef}
         snapPoints={[300, 200, 0]}
@@ -112,23 +115,23 @@ const UserDetails = ({ route, navigation }) => {
         renderContent={renderContent}
         initialSnap={2}
       />
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
 
       <View style={styles.header}>
-        <Pressable style={styles.pressableImg} renderComponent={handleGoBack}>
-          <Image source={goBack} style={styles.arrowImg} />
+        <Pressable style={styles.pressableImg} onPress={() => navigation.toggleDrawer() }>
+          <Ionicons name="reorder-three" size={50} color="#BFD732" />
         </Pressable>
-            <Text style={styles.headerText}>Perfil del usuario</Text>
       </View>
-            <TouchableOpacity
-                onPress={() => sheetRef.current.snapTo(0)}
-              >
-                { img ? (
-                    <Image source={{uri: img}} style={styles.userImg} />
-                    ) : (
-                    <Image source={userImg} style={styles.userImg} />
-                )}
-              </TouchableOpacity>
+      <TouchableOpacity onPress={() => sheetRef.current.snapTo(0)}>
+          {img ? (
+            <Image source={{ uri: img }} style={styles.userImg} />
+          ) : (
+            <Image
+              source={user.img ? { uri: user.img } : userImg}
+              style={styles.userImg}
+            />
+          )}
+        </TouchableOpacity>
       <Text style={styles.keyText}>Nombre</Text>
       <Text style={styles.valueText}>{`${name} ${surname}`}</Text>
       <Text style={styles.keyText}>Contacto</Text>
@@ -161,12 +164,8 @@ const UserDetails = ({ route, navigation }) => {
           />
         </ScrollView>
       </View>
-
-      <Pressable style={styles.btn} onPress={handleGoBack}>
-        <Text style={styles.btnText}>Cerrar sesión</Text>
-      </Pressable>
-    </View>
-      </>
+    </SafeAreaView>
+      </SafeAreaView>
   );
 };
 

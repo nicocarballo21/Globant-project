@@ -63,7 +63,9 @@ const Register = ({ onSubmit }) => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              autoCompleteType="off"
               placeholder="menteematch@ejemplo.com"
+              keyboardType="email-address"
             />
           )}
           name="email"
@@ -107,7 +109,7 @@ const Register = ({ onSubmit }) => {
           name="passwordConf"
           defaultValue=""
         />
-        <Button title="Siguiente" pressFunction={handleSubmit(onSubmit)} />
+        <Button title="Registrarse" pressFunction={handleSubmit(onSubmit)} />
       </View>
     </View>
   );

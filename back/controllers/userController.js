@@ -8,7 +8,7 @@ module.exports = {
   userUpdate: async (req, res, next) => {
     try {
       const user = await updateById(req.user.id, req.body);
-      res.status(200).json(user);
+      res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
       next(err);
     }
@@ -19,8 +19,8 @@ module.exports = {
         (req.path.includes("mentor") && "isMentor") ||
         (req.path.includes("mentee") && "isMentee");
 
-      const user = toggleMentorOrMentee(req.user.id, type);
-      res.status(200).json(user);
+      const user = await toggleMentorOrMentee(req.user.id, type);
+      res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
       next(err);
     }
@@ -42,9 +42,9 @@ module.exports = {
       if (!skills.length)
         return res.status(400).json("You need to add at least one skill");
 
-      updateById(req.user.id, { [type]: skills }).then((user) => {
-        res.status(200).json(user);
-      });
+      const user = await updateById(req.user.id, { [type]: skills });
+
+      res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
       next(err);
     }

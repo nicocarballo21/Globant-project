@@ -2,32 +2,25 @@ import { StyleSheet } from 'react-native';
 import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
-  login: {
+  container: {
     height: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    backgroundColor: globantBright.green,
-  },
-
-  inputs: {
     width: '100%',
     alignItems: 'center',
+    justifyContent: 'space-evenly',
+    backgroundColor: globantBright.bg,
   },
-
-  buttonText: {
-    fontSize: 26,
+  text: {
+    fontSize: 25,
     color: globantBright.text,
+    fontFamily: 'H',
     fontWeight: 'bold',
     alignSelf: 'center',
-    textTransform: 'uppercase',
+    textAlign: 'center',
+    textDecorationLine: 'none',
   },
-
-  error: {
-    color: '#ff0039',
-    fontSize: 14,
-    marginLeft: -190,
-    padding: -2,
+  button: {
+    backgroundColor: globantBright.green,
+    borderColor: globantBright.green,
   },
 });
-
 export default styles;

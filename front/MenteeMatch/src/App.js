@@ -1,38 +1,51 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import FlashMessage from 'react-native-flash-message';
 import store from './redux/store';
 import { Provider } from 'react-redux';
-
-// Components
 import { FirstScreen } from './components';
-import Camera from "./components/Camera";
-
-// Screens
-import { Login, Matcher, Register, UserData, UserDetails } from './screens';
-
-// Navigation
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useDispatch, useSelector } from 'react-redux';
+import { restoreToken } from './redux/Slices/authSlice';
+import { getData } from './utils/storage';
+import { HomeApp, LoginApp } from './navigation';
+import { setUser } from './redux/Reducers/UserReducer';
+import { TapGestureHandler } from 'react-native-gesture-handler';
 
-const Stack = createStackNavigator();
+const AppWrapper = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
 const App = () => {
+  const auth = useSelector(state => state.auth)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const checkIfStoragedUser = async () => {
+      try {
+        const user = await getData('user');
+        user && dispatch(setUser(user));
+        user && dispatch(restoreToken({token: user.token}))
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    checkIfStoragedUser();
+  }, [auth.userToken]);
+
+
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="FirstScreen" headerMode={'none'}>
-          <Stack.Screen name="FirstScreen" component={FirstScreen} />
-          <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
-          <Stack.Screen name="UserDetails" component={UserDetails} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="UserData" component={UserData} />
-          <Stack.Screen name="Matcher" component={Matcher} />
-          <Stack.Screen name="Camera" component={Camera} />
-        </Stack.Navigator>
-        <FlashMessage position="top" />
-      </NavigationContainer>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          {auth.userToken ? <HomeApp /> : <LoginApp />}
+          <FlashMessage position="top" />
+        </NavigationContainer>
+      </SafeAreaProvider>
     </Provider>
   );
 };
 
-export default App;
+export default AppWrapper;
