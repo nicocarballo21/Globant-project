@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingTop: 4,
     marginLeft: '5%',
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   text: {
     color: '#434343',
@@ -62,10 +62,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 20,
   },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
+
   likeButton: {
     borderWidth: 0,
     borderRadius: 50,
@@ -98,9 +95,19 @@ export const styles = StyleSheet.create({
     // position: "relative",
     marginTop: 40,
     height: 60,
-    width: "53%",
+    width: '53%',
     // borderWidth: 1,
     // borderColor: "red",
-    flexDirection: "row",
-  }
+    flexDirection: 'row',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  spinnerContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
 });

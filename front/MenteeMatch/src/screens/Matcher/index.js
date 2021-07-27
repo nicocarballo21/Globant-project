@@ -14,13 +14,14 @@ export default function Matcher() {
   const roleToFind = user.isMentee ? 'mentors' : 'mentees';
   const url = '/api/users/profile';
 
+  // console.log(user.skillsToLearn.length);
+
   // Seed inicial
   useEffect(() => {
     if (!matches.length)
       dispatch(getMatches({ roleToFind, token: user.token }));
   }, []);
 
-  //-------------------------------------------------------------//
   useEffect(() => {
     if (user.likes.length || user.disLikes.length) {
       const coincidencesToFind = [...user.likes, ...user.disLikes];
@@ -123,6 +124,7 @@ export default function Matcher() {
               renderItem={({ item }) => (
                 <UserBlock
                   user={item}
+                  userLogin={user}
                   handleLike={handleLike}
                   handleDislike={handleDislike}
                   disableButtons={false}
