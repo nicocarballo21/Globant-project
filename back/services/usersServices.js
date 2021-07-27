@@ -1,5 +1,5 @@
-const { Users } = require("../db/models")
-const { orderByCoincidences } = require("../utils")
+const { Users } = require("../db/models");
+const { orderByCoincidences, menteeResultFilter } = require("../utils");
 
 const createUser = body => {
   const { name, surname, email, password } = body
@@ -16,15 +16,15 @@ const findUserByEmail = email => {
       path: "likes",
       populate: {
         path: "skillsToTeach",
-        model: "Skills"
-      }
+        model: "Skills",
+      },
     })
     .populate({
       path: "mentor",
       populate: {
         path: "skillsToTeach",
-        model: "Skills"
-      }
+        model: "Skills",
+      },
     })
     .populate("disLikes")
     .exec()
@@ -38,15 +38,15 @@ const findUserById = _id => {
       path: "likes",
       populate: {
         path: "skillsToTeach",
-        model: "Skills"
-      }
+        model: "Skills",
+      },
     })
     .populate({
       path: "mentor",
       populate: {
         path: "skillsToTeach",
-        model: "Skills"
-      }
+        model: "Skills",
+      },
     })
     .exec()
 }
@@ -59,15 +59,15 @@ const updateById = (_id, body) => {
       path: "likes",
       populate: {
         path: "skillsToTeach",
-        model: "Skills"
-      }
+        model: "Skills",
+      },
     })
     .populate({
       path: "mentor",
       populate: {
         path: "skillsToTeach",
-        model: "Skills"
-      }
+        model: "Skills",
+      },
     })
     .exec()
 }
@@ -88,18 +88,19 @@ const getMatchesForUser = async (_id, { roleToFind, skillsToFind, userSkills }) 
   let matches =
     (await Users.find({
       [roleToFind]: true,
-      [skillsToFind]: { $in: skillstTomatch }
+      [skillsToFind]: { $in: skillstTomatch },
     })
       .populate(skillsToFind, "name")
-      .exec()) || []
+      .exec()) || [];
 
-  if (roleToFind === "isMentor")
-    matches = matches.filter(user => {
-      return user.disponible
-    })
-
-  return orderByCoincidences(skillstTomatch, matches, skillsToFind)
-}
+  if (roleToFind === "isMentor") {
+    matches = menteeResultFilter(
+      [...user.likes, ...user.disLikes],
+      matches
+    );
+  }
+  return orderByCoincidences(skillstTomatch, matches, skillsToFind);
+};
 
 module.exports = {
   createUser,

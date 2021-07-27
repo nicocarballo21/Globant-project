@@ -10,15 +10,17 @@ import Switch from '../../components/Switch';
 import { removeData } from '../../utils/storage';
 import { setUser } from '../../redux/Reducers/UserReducer';
 import { logout } from '../../redux/Slices/authSlice';
+import { setSkills } from '../../redux/Reducers/Skills';
 
 export default function CustomDrawerContent(props) {
   const dispatch = useDispatch();
-
+  
   const handleLogOut = async () => {
     try {
       await removeData('user');
       dispatch(logout());
       dispatch(setUser({}));
+      dispatch(setSkills([]))
     } catch (error) {
       console.log(error);
     }

@@ -23,6 +23,8 @@ export default function Matcher() {
   }, []);
 
   useEffect(() => {
+  //-------------------------------------------------------------//
+  /* useEffect(() => {
     if (user.likes.length || user.disLikes.length) {
       const coincidencesToFind = [...user.likes, ...user.disLikes];
       const filteredMatches = matches.filter(({ _id }) => {
@@ -33,7 +35,7 @@ export default function Matcher() {
       });
       dispatch(setMatches(filteredMatches));
     }
-  }, [matches.length]);
+  }, [matches.length]); */
 
   const handleLike = likedUser => {
     const finalMatch = user.likes.find(
