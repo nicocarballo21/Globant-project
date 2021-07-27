@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-import { globantBright } from '../../assets/styles/colors';
+import { globantBright, globantDark } from '../../assets/styles/colors';
 import styles from './styles';
 
 function ChecKBoxText({ text, isChecked, onPress }) {
@@ -12,8 +12,12 @@ function ChecKBoxText({ text, isChecked, onPress }) {
         text={text}
         fillColor={globantBright.green}
         iconStyle={{ borderColor: globantBright.green }}
-        textContainerStyle={styles.option}
-        textStyle={styles.text}
+        textContainerStyle={{
+          ...styles.option,
+          borderColor: globantBright.grey,
+          backgroundColor: globantBright.lightgray,
+        }}
+        textStyle={{ ...styles.text, color: globantBright.text }}
         disableBuiltInState
         isChecked={isChecked}
         onPress={onPress}

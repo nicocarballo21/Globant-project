@@ -1,24 +1,26 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Home, Matcher } from '../../screens/';
+import { Matcher } from '../../screens/';
 import { useSelector } from 'react-redux';
 import ProfileNavigator from '../ProfileNavigator';
 import HomeNavigator from '../HomeNavigator';
 
-import { globantBright } from '../../assets/styles/colors';
+import { globantBright, globantDark } from '../../assets/styles/colors';
 
 const Tab = createBottomTabNavigator();
 
 export default function HomeApp() {
+  const { theme } = useSelector(state => state);
+  const mode = theme === 'ligth' ? globantBright : globantDark;
   const user = useSelector(state => state.user);
   return (
     <Tab.Navigator
       initialRouteName="Home"
       tabBarOptions={{
-        style: { backgroundColor: globantBright.green },
-        activeTintColor: globantBright.text,
-        inactiveTintColor: globantBright.bg,
+        style: { backgroundColor: mode.green },
+        activeTintColor: mode.text,
+        inactiveTintColor: mode.bg,
         showLabel: true,
       }}>
       {!user.mentor && (

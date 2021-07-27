@@ -7,7 +7,7 @@ import logoG from '../../utils/logoG.png';
 import styles from './styles';
 
 const FirstScreen = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   useEffect(() => {
     setTimeout(() => {

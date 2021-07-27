@@ -30,7 +30,7 @@ export default function CustomDrawerContent(props) {
       <DrawerItem
         label="Cerrar menú"
         onPress={() => props.navigation.closeDrawer()}
-      /> 
+      />
       <DrawerItem label="Cerrar sesion" onPress={handleLogOut} />
       <Switch />
     </DrawerContentScrollView>

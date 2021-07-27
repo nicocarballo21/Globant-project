@@ -1,7 +1,7 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import CustomDrawerContent from './CustomDrawerContent'
-import HomeStack from './HomeStack'
+import CustomDrawerContent from './CustomDrawerContent';
+import HomeStack from './HomeStack';
 
 const Drawer = createDrawerNavigator();
 
