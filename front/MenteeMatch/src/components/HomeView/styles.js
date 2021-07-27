@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { globantBright, globantDark } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   container: {

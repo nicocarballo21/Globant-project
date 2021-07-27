@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { globantBright, globantDark } from '../../assets/styles/colors';
+import { globantBright, globantDark } from '../assets/styles/colors';
 
 const useMode = () => {
   const { theme } = useSelector(state => state);

@@ -8,15 +8,15 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import BottomSheet from 'reanimated-bottom-sheet';
+import ImagePicker from 'react-native-image-crop-picker';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { setUserImg, getData } from '../../utils/storage';
 import { getSkills } from '../../redux/Reducers/Skills';
 import userImg from '../../assets/static/user_img.png';
+import useMode from '../../hooks/useMode';
 import styles from './styles';
-
-import BottomSheet from 'reanimated-bottom-sheet';
-import ImagePicker from 'react-native-image-crop-picker';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
@@ -24,6 +24,7 @@ const UserDetails = ({ navigation }) => {
   const dispatch = useDispatch();
   const { name, surname, email, position } = user;
   const [img, setImg] = React.useState(null);
+  const { mode } = useMode();
 
   useEffect(() => {
     dispatch(getSkills());
@@ -51,25 +52,40 @@ const UserDetails = ({ navigation }) => {
   };
 
   const renderContent = () => (
-    <View style={styles.panel}>
+    <View
+      style={{
+        ...styles.panel,
+        backgroundColor: mode.bg,
+        borderColor: mode.gray,
+      }}>
       <View style={{ alignItems: 'center' }}>
-        <Text style={styles.panelTitle}>Subir foto</Text>
-        <Text style={styles.panelSubtitle}>Elija su foto de perfil</Text>
+        <Text style={{ ...styles.panelTitle, color: mode.text }}>
+          Subir foto
+        </Text>
+        <Text style={{ ...styles.panelSubtitle, color: mode.text }}>
+          Elija su foto de perfil
+        </Text>
       </View>
       <TouchableOpacity
-        style={styles.panelButton}
+        style={{ ...styles.panelButton, backgroundColor: mode.green }}
         onPress={() => navigation.navigate('Camera', { onPicture: onPicture })}>
-        <Text style={styles.panelButtonTitle}>Tomar foto</Text>
+        <Text style={{ ...styles.panelButtonTitle, color: mode.bg }}>
+          Tomar foto
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.panelButton}
+        style={{ ...styles.panelButton, backgroundColor: mode.green }}
         onPress={() => choosePhoto()}>
-        <Text style={styles.panelButtonTitle}>Elige de la biblioteca</Text>
+        <Text style={{ ...styles.panelButtonTitle, color: mode.bg }}>
+          Elige de la biblioteca
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.panelButton}
+        style={{ ...styles.panelButton, backgroundColor: mode.green }}
         onPress={() => sheetRef.current.snapTo(2)}>
-        <Text style={styles.panelButtonTitle}>Cancelar</Text>
+        <Text style={{ ...styles.panelButtonTitle, color: mode.bg }}>
+          Cancelar
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -86,7 +102,7 @@ const UserDetails = ({ navigation }) => {
         initialSnap={2}
       />
 
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
         <View style={styles.pressableFoto}>
           <TouchableOpacity onPress={() => sheetRef.current.snapTo(0)}>
             {img ? (
@@ -100,7 +116,7 @@ const UserDetails = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.UserInfo}>
+        <View style={styles.userInfo}>
           <Text style={styles.keyText}>Nombre: {`${name} ${surname}`}</Text>
           <Text style={styles.keyText}>Contacto: {email}</Text>
           <Text style={styles.keyText}>Posición: {position}</Text>

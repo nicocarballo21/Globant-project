@@ -6,13 +6,12 @@ import { useSelector } from 'react-redux';
 import ProfileNavigator from '../ProfileNavigator';
 import HomeNavigator from '../HomeNavigator';
 
-import { globantBright, globantDark } from '../../assets/styles/colors';
+import useMode from '../../hooks/useMode';
 
 const Tab = createBottomTabNavigator();
 
 export default function HomeApp() {
-  const { theme } = useSelector(state => state);
-  const mode = theme === 'ligth' ? globantBright : globantDark;
+  const { mode } = useMode();
   const user = useSelector(state => state.user);
   return (
     <Tab.Navigator

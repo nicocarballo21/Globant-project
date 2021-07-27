@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    backgroundColor: globantBright.bg,
     alignItems: 'center',
   },
 
@@ -18,11 +17,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  UserInfo: {
+  userInfo: {
     justifyContent: 'center',
     paddingLeft: 40,
     width: '85%',
-    borderRadius: 20,
     backgroundColor: globantBright.green,
     borderRadius: 10,
     marginBottom: 20,
@@ -87,35 +85,29 @@ const styles = StyleSheet.create({
   },
   panel: {
     padding: 20,
-    backgroundColor: globantBright.bg,
     borderWidth: 0.5,
-    borderColor: globantBright.gray,
     paddingTop: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
   panelTitle: {
     fontSize: 27,
-    color: globantBright.text,
     height: 35,
   },
   panelSubtitle: {
     fontSize: 14,
-    color: globantBright.text,
     height: 30,
     marginBottom: 10,
   },
   panelButton: {
     padding: 13,
     borderRadius: 10,
-    backgroundColor: globantBright.green,
     alignItems: 'center',
     marginVertical: 8,
   },
   panelButtonTitle: {
     fontSize: 17,
     fontWeight: 'bold',
-    color: globantBright.bg,
   },
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import HomeView from '../../components/HomeView';
 
@@ -10,18 +10,18 @@ const Home = () => {
       <HomeView />
     </>
   ) : (
-    <Text
-      style={{
-        fontSize: 25,
-        textAlign: 'center',
-        height: '100%',
-        textAlignVertical: 'center',
-      }}>
-      No tienes mentor asignado.
-    </Text>
+    <Text style={styles.text}>No tienes mentor asignado.</Text>
   );
 };
 
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 25,
+    textAlign: 'center',
+    height: '100%',
+    textAlignVertical: 'center',
+  },
+});
 export default Home;
 
 // const Home = () => {

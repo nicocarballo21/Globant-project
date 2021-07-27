@@ -1,10 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   login: {
     display: 'flex',
-    backgroundColor: globantBright.bg,
     height: '100%',
     justifyContent: 'space-around',
   },
@@ -17,7 +15,6 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     backgroundColor: '#F5F6F7',
-    borderColor: globantBright.green,
     borderWidth: 2,
     borderRadius: 100,
     marginTop: 20,
@@ -28,14 +25,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     paddingVertical: 20,
-  },
-
-  buttonText: {
-    fontSize: 26,
-    color: globantBright.text,
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    textTransform: 'uppercase',
   },
 
   error: {

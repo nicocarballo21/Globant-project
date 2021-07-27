@@ -6,6 +6,7 @@ import styles from './personaInfoStyles';
 import { InputText, Button } from '../../components';
 import logo from '../../utils/logo.png';
 import { useNavigation } from '@react-navigation/native';
+import useMode from '../../hooks/useMode';
 
 export default ({ onSubmit }) => {
   const {
@@ -13,13 +14,17 @@ export default ({ onSubmit }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { mode } = useMode();
 
   const navigation = useNavigation();
 
   return (
-    <View style={styles.login}>
+    <View style={{ ...styles.login, backgroundColor: mode.bg }}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        <Image style={styles.logo} source={logo} />
+        <Image
+          style={{ ...styles.logo, borderColor: mode.green }}
+          source={logo}
+        />
 
         <View style={styles.inputs}>
           {errors.country && (

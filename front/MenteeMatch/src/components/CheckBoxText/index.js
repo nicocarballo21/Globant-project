@@ -1,14 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import { useSelector } from 'react-redux';
 
-import { globantBright, globantDark } from '../../assets/styles/colors';
+import useMode from '../../hooks/useTheme';
 import styles from './styles';
 
 function ChecKBoxText({ text, isChecked, onPress }) {
-  const { theme } = useSelector(state => state);
-  const mode = theme === 'ligth' ? globantBright : globantDark;
+  const { mode } = useMode();
 
   return (
     <View style={styles.optionContainer}>
