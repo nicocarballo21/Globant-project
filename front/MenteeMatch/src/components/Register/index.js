@@ -114,7 +114,7 @@ const Register = ({ onSubmit }) => {
             name="passwordConf"
             defaultValue=""
           />
-          <Button title="Enviar" pressFunction={handleSubmit(onSubmit)} />
+          <Button title="Crear" pressFunction={handleSubmit(onSubmit)} />
         </View>
       </ScrollView>
     </View>

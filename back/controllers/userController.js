@@ -8,6 +8,7 @@ module.exports = {
   userUpdate: async (req, res, next) => {
     try {
       const user = await updateById(req.user.id, req.body);
+      if(!user) res.status(400).send("Bad request: user not found")
       res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
       next(err);
@@ -61,6 +62,9 @@ module.exports = {
 
       const userSkills =
         roleToFind !== "isMentor" ? "skillsToTeach" : "skillsToLearn";
+
+      if(!roleToFind || !skillsToFind || !userSkills) 
+      res.status(400).send("Bad request: invalid inputs")
 
       const matches = await getMatchesForUser(req.user.id, {
         roleToFind,

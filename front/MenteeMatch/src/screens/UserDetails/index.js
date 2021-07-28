@@ -26,6 +26,7 @@ const UserDetails = ({ navigation }) => {
   const [img, setImg] = React.useState(null);
 
   useEffect(() => {
+    if(!user) navigation.navigate('Login');
     dispatch(getSkills());
     getData('userImg').then(data => {
       data && setImg(data);
