@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, SafeAreaView, FlatList } from 'react-native';
-import styles from './styles';
 import { UserBlock } from '../';
 import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
-import { setUser, updateUser } from '../../redux/Reducers/UserReducer';
+import { updateUser } from '../../redux/Reducers/UserReducer';
 import { simpleMessage } from '../../utils';
 import { Button } from '../../components';
+
+import styles from './styles';
+import useMode from '../../hooks/useMode';
 
 export default function Matcher() {
   const dispatch = useDispatch();
@@ -14,11 +16,14 @@ export default function Matcher() {
   const matches = useSelector(state => state.matches);
   const roleToFind = user.isMentee ? 'mentors' : 'mentees';
   const url = '/api/users/profile';
+  const { mode } = useMode();
 
   // Seed inicial
   useEffect(() => {
-    if (!matches.length)
+    if (!matches.length) {
       dispatch(getMatches({ roleToFind, token: user.token }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //-------------------------------------------------------------//
@@ -68,27 +73,35 @@ export default function Matcher() {
 
   return (
     <>
-      {matches.length || user.likes.length ? (
-        <SafeAreaView style={styles.container}>
-          <View style={styles.titleBox}>
-            <Text style={styles.title}>Hola, {user.name}.</Text>
-            <Text style={styles.subtitle}>
-              Elige entre tus posibles matches:
+      {matches.length ? (
+        <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
+          {/* <View
+            style={
+              user.likes
+                ? {
+                    ...styles.titleBox_like,
+                    backgroundColor: mode.green,
+                  }
+                : { ...styles.title, color: mode.text }
+            }>
+            <Text style={{ ...styles.title, color: mode.text }}>
+              Hola, {user.name}.
             </Text>
-          </View>
+            <Text style={{ ...styles.subtitle, color: mode.text }}>
+              Elige entre tus posibles matches
+            </Text>
+          </View> */}
+
           {user.likes.length ? (
-            <>
-              <Text style={styles.optionsTxt}>Estos son tus likes</Text>
+            <View style={styles.subContainer_1}>
               <FlatList
                 horizontal
-                contentContainerStyle={{
-                  paddingHorizontal: 6,
-                }}
+                contentContainerStyle={{}}
                 numColumns={1}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
                 data={user.likes}
-                keyExtractor={(matches, index) => matches._id + index}
+                keyExtractor={(match, index) => match._id + index}
                 renderItem={({ item }) => (
                   <UserBlock
                     user={item}
@@ -99,23 +112,22 @@ export default function Matcher() {
                   />
                 )}
               />
-            </>
+            </View>
           ) : null}
           {!user.likes.length && <View style={{ height: 120 }}></View>}
           {matches.length ? (
             <View style={styles.subContainer}>
-              <Text style={styles.optionsTxt}>Estas son tus opciones</Text>
+              <Text style={{ ...styles.optionsTxt, color: mode.text }}>
+                Estas son tus opciones
+              </Text>
               <FlatList
                 horizontal
-                contentContainerStyle={{
-                  height: 350,
-                  paddingHorizontal: 6,
-                }}
+                contentContainerStyle={styles.flatContent}
                 numColumns={1}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
                 data={matches}
-                keyExtractor={(matches, index) => matches._id + index}
+                keyExtractor={(match, index) => match._id + index}
                 renderItem={({ item }) => (
                   <UserBlock
                     user={item}
@@ -128,11 +140,12 @@ export default function Matcher() {
               />
             </View>
           ) : (
-            <View style={styles.reloadMatchsBox}>
-              <Text style={styles.reloadMatchsTxt}>
+            <View
+              style={{ ...styles.reloadMatchsBox, backgroundColor: mode.bg }}>
+              <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>
                 ¡Oh!. Te has quedado sin opciones.
               </Text>
-              <Text style={styles.reloadMatchsTxt}>
+              <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>
                 ¿Quieres volver a recargar todos los perfiles?
               </Text>
               <Button
@@ -144,11 +157,12 @@ export default function Matcher() {
           )}
         </SafeAreaView>
       ) : user.disLikes.length ? (
-        <View style={styles.reloadAllDiscardedBox}>
-          <Text style={styles.reloadMatchsTxt}>
+        <View
+          style={{ ...styles.reloadAllDiscardedBox, backgroundColor: mode.bg }}>
+          <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>
             ¡Oh!. Te has quedado sin opciones.
           </Text>
-          <Text style={styles.reloadMatchsTxt}>
+          <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>
             ¿Quieres volver a recargar todos los perfiles?
           </Text>
           <Button
@@ -158,15 +172,7 @@ export default function Matcher() {
           />
         </View>
       ) : (
-        <Text
-          style={{
-            textAlign: 'center',
-            height: '100%',
-            textAlignVertical: 'center',
-            fontSize: 30,
-          }}>
-          Cargando...
-        </Text>
+        <Text style={styles.textCargStyle}>Cargando...</Text>
       )}
     </>
   );

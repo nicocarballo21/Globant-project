@@ -8,13 +8,11 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    borderColor: globantBright.grey,
     borderWidth: 0.6,
     marginTop: 20,
   },
   buttonText: {
     fontSize: 18,
-    color: globantBright.text,
     fontFamily: 'H',
     fontWeight: 'bold',
     alignSelf: 'center',

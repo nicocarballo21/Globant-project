@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { globantBright, globantDark } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   input: {
@@ -8,9 +7,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     borderWidth: 0.5,
-    color: globantBright.text,
-    borderColor: globantBright.text,
-    backgroundColor: globantBright.inputBg,
     marginBottom: 15,
   },
   error: {

@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { globantBright, globantDark } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,13 +9,13 @@ const styles = StyleSheet.create({
   user_data_container: {
     flex: 4,
     alignItems: 'center',
-    backgroundColor: globantBright.bg,
   },
 
   recuadro_container: {
     flex: 6,
-    backgroundColor: globantBright.bg,
   },
+
+  rowView: { flexDirection: 'row' },
 
   container_interno: {
     maxHeight: '100%',
@@ -26,7 +25,6 @@ const styles = StyleSheet.create({
 
   recuadro_interno: {
     flex: 1,
-    backgroundColor: globantBright.green,
     width: '85%',
     borderRadius: 10,
     margin: '4%',
@@ -36,7 +34,6 @@ const styles = StyleSheet.create({
 
   recuadro_interno2: {
     flex: 1,
-    backgroundColor: globantBright.green,
     width: '85%',
     borderRadius: 10,
     margin: '4%',

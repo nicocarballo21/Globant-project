@@ -1,18 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   background: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: globantBright.bg,
   },
   logo: {
     width: 200,
     height: 200,
-    backgroundColor: globantBright.bg,
-    borderColor: globantBright.green,
     borderWidth: 2,
     borderRadius: 100,
   },
