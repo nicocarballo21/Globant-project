@@ -1,21 +1,21 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home } from '../../screens';
+import { RoleEdit } from '../../screens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
 
-export default function HomeStack({ navigation }) {
+export default function RoleStack({ navigation }) {
   return (
-      <Stack.Navigator initialRouteName="Home" screenOptions={{
+      <Stack.Navigator initialRouteName="Role" screenOptions={{
             headerTintColor: "#BFD732",
             headerTitleAlign: "center",
             headerTitleStyle: {
                 fontWeight: "bold"
             }
       }}> 
-      <Stack.Screen name="Home" component={Home} options={{
-          title:"Home",
+      <Stack.Screen name="Role" component={RoleEdit} options={{
+          title:"Opciones de Matcher",
               headerLeft: () => (
                   <Ionicons name="menu" size={40} color={"#BFD732"} onPress={() => navigation.openDrawer()} />
               )
@@ -23,4 +23,3 @@ export default function HomeStack({ navigation }) {
     </Stack.Navigator>
   );
 }
-
