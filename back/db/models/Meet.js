@@ -28,3 +28,4 @@ const meetSchema = new mongoose.Schema({
 const Meets = mongoose.model("Meets", meetSchema);
 
 module.exports = Meets;
+  
