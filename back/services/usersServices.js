@@ -3,11 +3,12 @@ const { orderByCoincidences, menteeResultFilter } = require("../utils");
 
 const createUser = body => {
   const { name, surname, email, password } = body
-
+  if(!name || !surname || !email || !password) return {}
   return Users.create({ name, surname, email, password })
 }
 
 const findUserByEmail = email => {
+  if(!email) return {}
   return Users.findOne({ email }, "-__v")
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
@@ -37,6 +38,7 @@ const findUserByEmail = email => {
 }
 
 const findUserById = _id => {
+  if(!_id) return {}
   return Users.findOne({ _id })
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
@@ -65,6 +67,7 @@ const findUserById = _id => {
 }
 
 const updateById = (_id, body) => {
+  if(!_id || !body) return {}
   return Users.findOneAndUpdate({ _id }, body, { new: true })
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
