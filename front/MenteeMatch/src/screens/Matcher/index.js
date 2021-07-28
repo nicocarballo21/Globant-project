@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, SafeAreaView, FlatList } from 'react-native';
 import styles from './styles';
@@ -6,6 +6,7 @@ import { UserBlock } from '../';
 import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
 import { setUser, updateUser } from '../../redux/Reducers/UserReducer';
 import { simpleMessage } from '../../utils';
+import { Button } from '../../components';
 
 export default function Matcher() {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ export default function Matcher() {
   const matches = useSelector(state => state.matches);
   const roleToFind = user.isMentee ? 'mentors' : 'mentees';
   const url = '/api/users/profile';
+  const [showDislikes, setShowDislikes] = useState(false);
 
   // Seed inicial
   useEffect(() => {
@@ -57,6 +59,12 @@ export default function Matcher() {
       match => match._id !== dislikedUser._id,
     );
     dispatch(setMatches(filteredMatches));
+  };
+
+  const handleReloadMatchs = () => {
+    dispatch(updateUser({ url, data: { disLikes: [] } })).then(dispatched =>
+      dispatch(getMatches({ roleToFind, token: user.token })),
+    );
   };
 
   return (
@@ -119,31 +127,35 @@ export default function Matcher() {
               />
             </View>
           ) : (
-            <View style={styles.subContainer}>
-              <Text style={styles.optionsTxt}>Estos son tus dislikes</Text>
-              <FlatList
-                horizontal
-                contentContainerStyle={{
-                  height: 350,
-                  paddingHorizontal: 6,
-                }}
-                numColumns={1}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-                data={user.disLikes}
-                keyExtractor={(matches, index) => matches._id + index}
-                renderItem={({ item }) => (
-                  <UserBlock
-                    user={item}
-                    handleLike={handleLike}
-                    handleDislike={handleDislike}
-                    disableButtons={false}
-                  />
-                )}
+            <View style={styles.reloadMatchsBox}>
+              <Text style={styles.reloadMatchsTxt}>
+                ¡Oh!. Te has quedado sin opciones.
+              </Text>
+              <Text style={styles.reloadMatchsTxt}>
+                ¿Quieres volver a recargar todos los perfiles?
+              </Text>
+              <Button
+                title="Recargar"
+                style={styles.reloadMatchsBtn}
+                pressFunction={handleReloadMatchs}
               />
             </View>
           )}
         </SafeAreaView>
+      ) : user.disLikes.length ? (
+        <View style={styles.reloadAllDiscardedBox}>
+          <Text style={styles.reloadMatchsTxt}>
+            ¡Oh!. Te has quedado sin opciones.
+          </Text>
+          <Text style={styles.reloadMatchsTxt}>
+            ¿Quieres volver a recargar todos los perfiles?
+          </Text>
+          <Button
+            title="Recargar"
+            style={styles.reloadMatchsBtn}
+            pressFunction={handleReloadMatchs}
+          />
+        </View>
       ) : (
         <Text
           style={{
