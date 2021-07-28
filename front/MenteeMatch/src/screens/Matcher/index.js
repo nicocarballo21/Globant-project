@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, SafeAreaView, FlatList } from 'react-native';
 import styles from './styles';
@@ -6,6 +6,7 @@ import { UserBlock } from '../';
 import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
 import { setUser, updateUser } from '../../redux/Reducers/UserReducer';
 import { simpleMessage } from '../../utils';
+import { Button } from '../../components';
 
 export default function Matcher() {
   const dispatch = useDispatch();
@@ -21,18 +22,6 @@ export default function Matcher() {
   }, []);
 
   //-------------------------------------------------------------//
-  /* useEffect(() => {
-    if (user.likes.length || user.disLikes.length) {
-      const coincidencesToFind = [...user.likes, ...user.disLikes];
-      const filteredMatches = matches.filter(({ _id }) => {
-        const truthArr = coincidencesToFind.map(
-          coincidence => coincidence._id === _id,
-        );
-        return !truthArr.includes(true);
-      });
-      dispatch(setMatches(filteredMatches));
-    }
-  }, [matches.length]); */
 
   const handleLike = likedUser => {
     const finalMatch = user.likes.find(
@@ -47,7 +36,6 @@ export default function Matcher() {
       return dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id);
-    /* orderedMatches.push(likedUser) */
     dispatch(updateUser({ url, data: { likes: [likedUser, ...user.likes] } }));
     dispatch(setMatches(orderedMatches));
   };
@@ -72,9 +60,15 @@ export default function Matcher() {
     dispatch(setMatches(filteredMatches));
   };
 
+  const handleReloadMatchs = () => {
+    dispatch(updateUser({ url, data: { disLikes: [] } })).then(dispatched =>
+      dispatch(getMatches({ roleToFind, token: user.token })),
+    );
+  };
+
   return (
     <>
-      {matches.length ? (
+      {matches.length || user.likes.length ? (
         <SafeAreaView style={styles.container}>
           <View style={styles.titleBox}>
             <Text style={styles.title}>Hola, {user.name}.</Text>
@@ -98,6 +92,7 @@ export default function Matcher() {
                 renderItem={({ item }) => (
                   <UserBlock
                     user={item}
+                    userLogin={user}
                     handleLike={handleLike}
                     handleDislike={handleDislike}
                     disableButtons={true}
@@ -107,30 +102,61 @@ export default function Matcher() {
             </>
           ) : null}
           {!user.likes.length && <View style={{ height: 120 }}></View>}
-          <View style={styles.subContainer}>
-            <Text style={styles.optionsTxt}>Estas son tus opciones</Text>
-            <FlatList
-              horizontal
-              contentContainerStyle={{
-                height: 350,
-                paddingHorizontal: 6,
-              }}
-              numColumns={1}
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              data={matches}
-              keyExtractor={(matches, index) => matches._id + index}
-              renderItem={({ item }) => (
-                <UserBlock
-                  user={item}
-                  handleLike={handleLike}
-                  handleDislike={handleDislike}
-                  disableButtons={false}
-                />
-              )}
-            />
-          </View>
+          {matches.length ? (
+            <View style={styles.subContainer}>
+              <Text style={styles.optionsTxt}>Estas son tus opciones</Text>
+              <FlatList
+                horizontal
+                contentContainerStyle={{
+                  height: 350,
+                  paddingHorizontal: 6,
+                }}
+                numColumns={1}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                data={matches}
+                keyExtractor={(matches, index) => matches._id + index}
+                renderItem={({ item }) => (
+                  <UserBlock
+                    user={item}
+                    userLogin={user}
+                    handleLike={handleLike}
+                    handleDislike={handleDislike}
+                    disableButtons={false}
+                  />
+                )}
+              />
+            </View>
+          ) : (
+            <View style={styles.reloadMatchsBox}>
+              <Text style={styles.reloadMatchsTxt}>
+                ¡Oh!. Te has quedado sin opciones.
+              </Text>
+              <Text style={styles.reloadMatchsTxt}>
+                ¿Quieres volver a recargar todos los perfiles?
+              </Text>
+              <Button
+                title="Recargar"
+                style={styles.reloadMatchsBtn}
+                pressFunction={handleReloadMatchs}
+              />
+            </View>
+          )}
         </SafeAreaView>
+      ) : user.disLikes.length ? (
+        <View style={styles.reloadAllDiscardedBox}>
+          <Text style={styles.reloadMatchsTxt}>
+            ¡Oh!. Te has quedado sin opciones.
+          </Text>
+          <Text style={styles.reloadMatchsTxt}>
+            ¿Quieres volver a recargar todos los perfiles?
+          </Text>
+          <Button
+            title="Recargar"
+            style={styles.reloadMatchsBtn}
+            pressFunction={handleReloadMatchs}
+          />
+        </View>
       ) : (
         <Text
           style={{

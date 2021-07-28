@@ -24,7 +24,6 @@ export const getMatches = createAsyncThunk("GET_MATCHES", ({roleToFind, token}) 
 export const setMatches = createAction('SET_MATCHES')
 
 export const matchesReducer = createReducer([], {
-    [getMatches.pending]: (state, action) => ["Cargando..."],
     [getMatches.fulfilled]: (state, action) => action.payload,
     [setMatches]: (state, action) => action.payload
 })

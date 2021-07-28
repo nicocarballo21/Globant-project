@@ -52,6 +52,24 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 0,
   },
+  reloadMatchsBox: {
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
+    top: -175
+  },
+  reloadMatchsTxt: {
+    fontSize: 16,
+    textAlign: "center"
+  },
+  reloadMatchsBtn: {
+    width: "35%"
+  },
+  reloadAllDiscardedBox: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  }
 });
 
 export default styles;
