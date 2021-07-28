@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { View, TouchableOpacity, Image, Text } from 'react-native';
+import React from 'react';
+import { View, Image, Text, KeyboardAvoidingView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, setUser } from '../../redux/Reducers/UserReducer';
+import { getUser } from '../../redux/Reducers/UserReducer';
 
 import { loginMessage } from '../../utils';
 
@@ -12,7 +12,7 @@ import logo from '../../utils/logo.png';
 
 import { InputText, Button } from '../../components';
 
-import { getData, storeData } from '../../utils/storage';
+import { storeData } from '../../utils/storage';
 import { login } from '../../redux/Slices/authSlice';
 
 const Login = ({ navigation }) => {
@@ -36,10 +36,11 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.login}>
-      <View>
-        <Image style={styles.logo} source={logo} />
-      </View>
+    <KeyboardAvoidingView
+      style={styles.login}
+      behavior="height"
+      keyboardVerticalOffset={-30}>
+      <Image style={styles.logo} source={logo} />
 
       <View style={styles.inputs}>
         {errors.email && (
@@ -56,7 +57,7 @@ const Login = ({ navigation }) => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder="Email"
+              placeholder="E-mail"
               keyboardType="email-address"
             />
           )}
@@ -83,12 +84,16 @@ const Login = ({ navigation }) => {
             />
           )}
         />
-        <Button title={'Ingresar'} pressFunction={handleSubmit(onSubmit)} />
-        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.footer}>Crea tu cuenta</Text>
-        </TouchableOpacity>
+        <Button title={'Acceder'} pressFunction={handleSubmit(onSubmit)} />
+        <Text style={styles.create}onPress={() => navigation.navigate('Register')}>
+          Crear una cuenta
+        </Text>
+        {/* <Button
+          title={'Registrarme'}
+          pressFunction={() => navigation.navigate('Register')}
+        /> */}
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

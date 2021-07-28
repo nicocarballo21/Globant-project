@@ -1,7 +1,7 @@
-const { Skills } = require("../db/models");
+const { Skills } = require("../db/models")
 
 module.exports = {
   getSkills: () => {
-    return Skills.find({}, "name");
-  },
-};
+    return Skills.find({}, "name")
+  }
+}

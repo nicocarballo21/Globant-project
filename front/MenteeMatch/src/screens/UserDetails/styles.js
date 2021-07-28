@@ -1,83 +1,81 @@
 import { StyleSheet } from 'react-native';
-import { colors, globantBright } from '../../assets/styles/colors';
+import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
-    backgroundColor: colors.blackPearl,
+  },
+
+  container: {
+    backgroundColor: globantBright.bg,
     alignItems: 'center',
   },
-  header: {
+
+  pressableFoto: {
     width: '100%',
-    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'center',
-    color: colors.white,
-    backgroundColor: colors.blackPearl,
-    padding: 32,
-    fontSize: 24,
-    position: 'relative',
+    marginTop: 20,
   },
-  headerText: {
-    color: colors.white,
-    fontSize: 24,
-    textAlign: 'center',
-  },
-  pressableImg: {
-    position: 'absolute',
-    top: 10,
-    left: 16,
-    borderWidth: 1,
-    borderColor: globantBright.green,
+
+  UserInfo: {
+    justifyContent: 'center',
+    paddingLeft: 40,
+    width: '85%',
+    borderRadius: 20,
+    backgroundColor: globantBright.green,
     borderRadius: 10,
+    marginBottom: 20,
   },
-  arrowImg: {
-    width: 32,
-    height: 32,
-  },
-  textContainer: {
-    flexDirection: 'row',
-    paddingHorizontal: 16,
-  },
-  keyText: {
-    color: colors.white,
-    backgroundColor: colors.blackPearl,
-    width: '100%',
-    textAlign: 'center',
-    borderWidth: 1,
-  },
-  valueText: {
-    color: colors.white,
-    backgroundColor: 'black',
-    width: '100%',
-    textAlign: 'center',
-    height: 32,
-    textAlignVertical: 'center',
-  },
+
   btnsContainer: {
-    flexDirection: 'row',
-    position: 'relative',
+    width: '100%',
+    alignItems: 'center',
   },
+
+  keyText: {
+    color: globantBright.text,
+    fontSize: 15,
+    paddingVertical: 8,
+  },
+
+  btns_title: {
+    color: globantBright.text,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: globantBright.green,
+    borderRadius: 10,
+    fontSize: 15,
+  },
+
+  flatlist: {
+    paddingHorizontal: 15,
+    paddingTop: 5,
+    height: '60%',
+  },
+
   pressable: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'blue',
-    paddingHorizontal: 16,
+    backgroundColor: globantBright.inputBg,
+    paddingHorizontal: 10,
     height: 50,
     borderRadius: 15,
     borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: colors.charade,
-    margin: 5,
+    borderWidth: 2,
+    borderColor: globantBright.green,
+    margin: '0.5%',
+    width: '32%',
     elevation: 5,
   },
   pressableTxt: {
-    color: colors.white,
+    color: globantBright.text,
   },
   skillsText: {
     width: '100%',
-    color: colors.white,
+    color: globantBright.text,
     textAlign: 'center',
-    padding: 16,
+    padding: 10,
     fontSize: 14,
     borderBottomWidth: 1,
   },
@@ -85,61 +83,39 @@ const styles = StyleSheet.create({
     width: 125,
     height: 125,
     borderRadius: 62.5,
-    marginBottom: 16
-  },
-  btn: {
-    width: '75%',
-    padding: 14,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    backgroundColor: '#4E181D',
-    borderRadius: 16,
-    margin: 32,
-    textAlign: 'center',
-    position: 'absolute',
-    borderColor: colors.charade,
-    elevation: 10,
-    bottom: -10,
-  },
-  btnText: {
-    textAlign: 'center',
-    color: 'white',
-  },
-  commandButton: {
-    padding: 15,
-    borderRadius: 10,
-    backgroundColor: '#FF6347',
-    alignItems: 'center',
-    marginTop: 10,
+    marginBottom: 16,
   },
   panel: {
     padding: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: globantBright.bg,
+    borderWidth: 0.5,
+    borderColor: globantBright.gray,
     paddingTop: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-   panelTitle: {
+  panelTitle: {
     fontSize: 27,
+    color: globantBright.text,
     height: 35,
   },
   panelSubtitle: {
     fontSize: 14,
-    color: 'gray',
+    color: globantBright.text,
     height: 30,
     marginBottom: 10,
   },
   panelButton: {
     padding: 13,
     borderRadius: 10,
-    backgroundColor: '#BFD732',
+    backgroundColor: globantBright.green,
     alignItems: 'center',
-    marginVertical: 7,
+    marginVertical: 8,
   },
   panelButtonTitle: {
     fontSize: 17,
     fontWeight: 'bold',
-    color: 'white',
+    color: globantBright.bg,
   },
 });
 

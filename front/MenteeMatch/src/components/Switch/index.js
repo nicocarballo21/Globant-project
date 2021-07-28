@@ -6,7 +6,7 @@ export default function () {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Dark mode</Text>
+      <Text style={styles.title}>Modo oscuro</Text>
       <Switch
         style={styles.switch}
         trackColor={{ false: '#767577', true: '#767577' }}

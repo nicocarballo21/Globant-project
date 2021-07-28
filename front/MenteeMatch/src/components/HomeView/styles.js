@@ -1,9 +1,52 @@
 import { StyleSheet } from 'react-native';
+import { globantBright, globantDark } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
+  container: {
+    maxHeight: '100%',
+    flex: 1,
+  },
+
+  user_data_container: {
+    flex: 4,
+    alignItems: 'center',
+    backgroundColor: globantBright.bg,
+  },
+
+  recuadro_container: {
+    flex: 6,
+    backgroundColor: globantBright.bg,
+  },
+
+  container_interno: {
+    maxHeight: '100%',
+    flex: 1,
+    alignItems: 'center',
+  },
+
+  recuadro_interno: {
+    flex: 1,
+    backgroundColor: globantBright.green,
+    width: '85%',
+    borderRadius: 10,
+    margin: '4%',
+    textAlign: 'justify',
+    marginBottom: '2%',
+  },
+
+  recuadro_interno2: {
+    flex: 1,
+    backgroundColor: globantBright.green,
+    width: '85%',
+    borderRadius: 10,
+    margin: '4%',
+    textAlign: 'justify',
+    marginTop: '2%',
+  },
+
   foto: {
-    width: 150,
-    height: 150,
+    width: '35%',
+    height: '55%',
     backgroundColor: 'lightgrey',
     borderRadius: 100,
   },
@@ -11,22 +54,6 @@ const styles = StyleSheet.create({
   text: {
     margin: 10,
     fontSize: 20,
-  },
-
-  recuadro: {
-    width: 325,
-    height: 120,
-    backgroundColor: 'lightgrey',
-    margin: 10,
-    borderRadius: 10,
-    textAlign: 'justify',
-  },
-
-  background: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'cadetblue',
-    height: '100%',
   },
 
   inScrollViewDate: {
@@ -41,7 +68,7 @@ const styles = StyleSheet.create({
   inScrollViewText: {
     textAlign: 'left',
     fontSize: 14,
-    textAlignVertical: 'center'
+    textAlignVertical: 'center',
   },
 
   error: {

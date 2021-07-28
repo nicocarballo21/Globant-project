@@ -42,7 +42,6 @@ export const updateUser = createAsyncThunk(
     try {
       const { user } = thunkAPI.getState();
       const userUpdated = await updateUserData(data, user.token, url);
-      console.log(userUpdated);
       userUpdated['token'] = user.token;
       return userUpdated;
     } catch (error) {

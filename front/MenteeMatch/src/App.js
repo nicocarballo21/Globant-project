@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import FlashMessage from 'react-native-flash-message';
 import store from './redux/store';
 import { Provider } from 'react-redux';
@@ -19,7 +19,7 @@ const AppWrapper = () => (
 );
 
 const App = () => {
-  const auth = useSelector(state => state.auth)
+  const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,14 +27,13 @@ const App = () => {
       try {
         const user = await getData('user');
         user && dispatch(setUser(user));
-        user && dispatch(restoreToken({token: user.token}))
+        user && dispatch(restoreToken({ token: user.token }));
       } catch (e) {
         console.log(e);
       }
     };
     checkIfStoragedUser();
   }, [auth.userToken]);
-
 
   return (
     <Provider store={store}>

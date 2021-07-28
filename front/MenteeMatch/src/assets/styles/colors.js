@@ -6,7 +6,7 @@ const colors = {
 };
 
 const globantBright = {
-  bg: '#FFFFFF',
+  bg: '#F5F6F7',
   text: '#434343',
   lightgray: '#F5F6F7',
   gray: '#444444',
@@ -14,6 +14,7 @@ const globantBright = {
   green: '#BFD832',
   violet: '#662E91',
   grass: '#39B54A',
+  inputBg: '#eeeeee',
 };
 
 const globantDark = {
@@ -25,6 +26,7 @@ const globantDark = {
   green: '#BFD832',
   violet: '#662E91',
   grass: '#39B54A',
+  inputBg: '#333333',
 };
 
-export { colors, globantBright, globantDark }
+export { colors, globantBright, globantDark };

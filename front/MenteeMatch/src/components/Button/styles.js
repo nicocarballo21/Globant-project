@@ -8,8 +8,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    borderColor: globantBright.gray,
-    borderWidth: 2,
+    borderColor: globantBright.grey,
+    borderWidth: 0.6,
     marginTop: 20,
   },
   buttonText: {

@@ -29,15 +29,28 @@ const SelectSkills = ({ navigation }) => {
   }, [dispatch]);
 
   const handleNext = () => {
-    if(selection.length < 5)
-      return simpleMessage('Atención', 'Debés seleccionar al menos 5 skills', 'warning')
-    if(user.isMentee) {
-      dispatch(updateUser({url: '/api/users/skills/learn', data: {skillsToLearn: selection}}))
-      dispatch(login({token: user.token}))
+    if (selection.length < 5) {
+      return simpleMessage(
+        '¡Atención!',
+        'Debes seleccionar al menos 5 habilidades',
+        'warning',
+      );
     }
-    if(user.isMentor) {
-      dispatch(updateUser({url: '/api/users/skills/teach', data: {skillsToTeach: selection}}))
-      dispatch(login({token: user.token}))
+    const [property, learnOrTeach] = user.skillsToTeach.length
+      ? ['skillsToLearn', 'learn']
+      : ['skillsToTeach', 'teach'];
+
+    dispatch(
+      updateUser({
+        url: `/api/users/skills/${learnOrTeach}`,
+        data: { [property]: selection },
+      }),
+    );
+    setSelection([]);
+    setButtonsStyle({});
+
+    if (learnOrTeach === 'learn') {
+      dispatch(login({ token: user.token }));
     }
   };
 
@@ -46,12 +59,12 @@ const SelectSkills = ({ navigation }) => {
   };
 
   const handlePress = item => {
-    if (!buttonsStyle[item.name])
+    if (!buttonsStyle[item.name]) {
       return setButtonsStyle({
         ...buttonsStyle,
         [item.name]: { ...item, styles: styles.pressed },
       });
-
+    }
     const updatedButtonsStyle = { ...buttonsStyle };
     delete updatedButtonsStyle[item.name];
     setButtonsStyle(updatedButtonsStyle);
@@ -69,14 +82,14 @@ const SelectSkills = ({ navigation }) => {
       setMenteesQty(menteesQty + number);
     } else if (totalQty < 1) {
       simpleMessage(
-        'Atención',
-        'No podés tener una cantidad menor a uno',
+        '¡Atención!',
+        'No puedes tener una cantidad menor a uno',
         'warning',
       );
     } else if (totalQty > 5) {
       simpleMessage(
-        'Atención',
-        `Solo podés mentorear hasta ${totalQty - 1} al mismo tiempo`,
+        '¡Atención!',
+        `Solo puedes tener hasta ${totalQty - 1} mentees`,
         'warning',
       );
     }
@@ -89,9 +102,12 @@ const SelectSkills = ({ navigation }) => {
           <Image source={goBack} style={styles.arrowImg} />
         </Pressable>
         <Text style={styles.headerText}>
-          {user.isMentor ? 'Skills a enseñar' : 'Skills a aprender'}
+          {user.skillsToTeach.length
+            ? '¿Qué quieres aprender?'
+            : '¿Qué conocimientos tienes?'}
         </Text>
       </View>
+
       <View style={styles.btnsContainer}>
         <FlatList
           scrollEnabled={true}
@@ -113,6 +129,7 @@ const SelectSkills = ({ navigation }) => {
           )}
         />
       </View>
+
       {user.isMentor && (
         <View>
           <Text style={styles.menteeQtyTitleTxt}>
@@ -133,11 +150,14 @@ const SelectSkills = ({ navigation }) => {
           </View>
         </View>
       )}
-      <Button
-        title={'Siguiente'}
-        style={styles.nextBtn}
-        pressFunction={handleNext}
-      />
+
+      <View style={styles.footer}>
+        <Button
+          title={'Siguiente'}
+          style={styles.nextBtn}
+          pressFunction={handleNext}
+        />
+      </View>
     </SafeAreaView>
   );
 };

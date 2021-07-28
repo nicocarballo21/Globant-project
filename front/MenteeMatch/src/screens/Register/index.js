@@ -15,15 +15,15 @@ const RegisterContainer = () => {
       dispatch(userRegister(data)).then(({ payload }) => {
         if (payload) {
           simpleMessage('Exito', 'Paso 1 de 2 completado!', 'success');
-          navigation.navigate('PersonalInformation');
+          navigation.navigate('UserData');
         } else {
-          simpleMessage('Error', 'Algo salio mal!', 'danger');
+          simpleMessage('Error', 'Error de conexión!', 'danger');
         }
       });
 
       return;
     }
-    simpleMessage('Error', 'Las passwords deben ser iguales', 'danger');
+    simpleMessage('Error', 'Las contraseñas no son iguales', 'danger');
   };
   return (
     <View>

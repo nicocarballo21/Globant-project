@@ -3,8 +3,7 @@ import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
-    width: '100%',
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'space-evenly',
     backgroundColor: globantBright.bg,
@@ -18,9 +17,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textDecorationLine: 'none',
   },
-  button: {
-    backgroundColor: globantBright.green,
-    borderColor: globantBright.green,
+  select_container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    height: '50%',
+    backgroundColor: globantBright.inputBg,
+    width: '100%',
   },
 });
 export default styles;
