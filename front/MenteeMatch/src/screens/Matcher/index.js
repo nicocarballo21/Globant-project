@@ -92,6 +92,7 @@ export default function Matcher() {
                 renderItem={({ item }) => (
                   <UserBlock
                     user={item}
+                    userLogin={user}
                     handleLike={handleLike}
                     handleDislike={handleDislike}
                     disableButtons={true}
@@ -118,6 +119,7 @@ export default function Matcher() {
                 renderItem={({ item }) => (
                   <UserBlock
                     user={item}
+                    userLogin={user}
                     handleLike={handleLike}
                     handleDislike={handleDislike}
                     disableButtons={false}

@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements';
 import { styles } from './styles';
 import user_img from '../../assets/static/user_img.png';
 import SpinnerCoincidence from '../../components/SpinnerCoincidence';
+import { useSelector } from 'react-redux';
 
 export default function UserBlock({
   user,
