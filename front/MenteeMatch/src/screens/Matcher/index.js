@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, SafeAreaView, FlatList } from 'react-native';
 import { UserBlock } from '../';
 import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
-import { setUser, updateUser } from '../../redux/Reducers/UserReducer';
+import { updateUser } from '../../redux/Reducers/UserReducer';
 import { simpleMessage } from '../../utils';
 
 import styles from './styles';
+import useMode from '../../hooks/useMode';
 
 export default function Matcher() {
   const dispatch = useDispatch();
@@ -14,13 +15,16 @@ export default function Matcher() {
   const matches = useSelector(state => state.matches);
   const roleToFind = user.isMentee ? 'mentors' : 'mentees';
   const url = '/api/users/profile';
+  const { mode } = useMode();
 
   // console.log(user.skillsToLearn.length);
 
   // Seed inicial
   useEffect(() => {
-    if (!matches.length)
+    if (!matches.length) {
       dispatch(getMatches({ roleToFind, token: user.token }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // useEffect(() => {
@@ -79,13 +83,23 @@ export default function Matcher() {
   return (
     <>
       {matches.length ? (
-        <SafeAreaView style={styles.container}>
-          <View style={user.likes ? styles.titleBox_like : styles.title}>
-            <Text style={styles.title}>Hola, {user.name}.</Text>
-            <Text style={styles.subtitle}>
+        <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
+          {/* <View
+            style={
+              user.likes
+                ? {
+                    ...styles.titleBox_like,
+                    backgroundColor: mode.green,
+                  }
+                : { ...styles.title, color: mode.text }
+            }>
+            <Text style={{ ...styles.title, color: mode.text }}>
+              Hola, {user.name}.
+            </Text>
+            <Text style={{ ...styles.subtitle, color: mode.text }}>
               Elige entre tus posibles matches
             </Text>
-          </View>
+          </View> */}
 
           {user.likes.length ? (
             <View style={styles.subContainer_1}>
@@ -96,7 +110,7 @@ export default function Matcher() {
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
                 data={user.likes}
-                keyExtractor={(matches, index) => matches._id + index}
+                keyExtractor={(match, index) => match._id + index}
                 renderItem={({ item }) => (
                   <UserBlock
                     user={item}
@@ -112,12 +126,12 @@ export default function Matcher() {
           <View style={styles.subContainer}>
             <FlatList
               horizontal={user.likes.length ? true : false}
-              contentContainerStyle={{ alignItems: 'center' }}
+              contentContainerStyle={styles.flatAlign}
               numColumns={1}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               data={matches}
-              keyExtractor={(matches, index) => matches._id + index}
+              keyExtractor={(match, index) => match._id + index}
               renderItem={({ item }) => (
                 <UserBlock
                   user={item}
@@ -131,15 +145,7 @@ export default function Matcher() {
           </View>
         </SafeAreaView>
       ) : (
-        <Text
-          style={{
-            textAlign: 'center',
-            height: '100%',
-            textAlignVertical: 'center',
-            fontSize: 30,
-          }}>
-          Cargando...
-        </Text>
+        <Text style={styles.textCargStyle}>Cargando...</Text>
       )}
     </>
   );

@@ -3,7 +3,6 @@ import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: globantBright.bg,
     flex: 1,
   },
 
@@ -14,17 +13,14 @@ const styles = StyleSheet.create({
 
   titleBox_like: {
     flex: 0,
-    backgroundColor: globantBright.green,
   },
 
   title: {
-    color: globantBright.text,
     fontSize: 20,
     paddingTop: 20,
     paddingLeft: 25,
   },
   subtitle: {
-    color: globantBright.text,
     fontSize: 15,
     paddingLeft: 25,
     marginBottom: 5,
@@ -58,6 +54,13 @@ const styles = StyleSheet.create({
 
   pressablePressed: {
     backgroundColor: 'gray',
+  },
+  flatAlign: { alignItems: 'center' },
+  textCargStyle: {
+    textAlign: 'center',
+    height: '100%',
+    textAlignVertical: 'center',
+    fontSize: 30,
   },
 });
 

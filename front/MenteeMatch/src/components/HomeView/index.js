@@ -42,7 +42,7 @@ export default () => {
             }}>
             <ScrollView style={{ margin: 9 }}>
               <Text>Objetivos</Text>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={styles.rowView}>
                 <CheckBox
                   disabled={false}
                   value={toggleCheckBox}
@@ -52,7 +52,7 @@ export default () => {
                   Aprender React-Native
                 </Text>
               </View>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={styles.rowView}>
                 <CheckBox
                   disabled={false}
                   value={toggleCheckBox1}
@@ -62,7 +62,7 @@ export default () => {
                   Consolidar React-Redux
                 </Text>
               </View>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={styles.rowView}>
                 <CheckBox
                   disabled={false}
                   value={toggleCheckBox2}
@@ -70,7 +70,7 @@ export default () => {
                 />
                 <Text style={styles.inScrollViewText}>Consolidar express</Text>
               </View>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={styles.rowView}>
                 <CheckBox
                   disabled={false}
                   value={toggleCheckBox3}

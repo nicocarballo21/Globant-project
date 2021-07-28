@@ -10,11 +10,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  userImg: {
+    width: 125,
+    height: 125,
+    borderRadius: 62.5,
+  },
+
   pressableFoto: {
     flex: 3,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 10,
   },
 
   userInfo: {
@@ -66,12 +73,6 @@ const styles = StyleSheet.create({
   },
   panelView: {
     alignItems: 'center',
-  },
-  userImg: {
-    width: 125,
-    height: 125,
-    borderRadius: 62.5,
-    marginBottom: 16,
   },
   panel: {
     padding: 20,

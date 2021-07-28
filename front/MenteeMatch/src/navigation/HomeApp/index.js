@@ -1,10 +1,10 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Matcher } from '../../screens/';
 import { useSelector } from 'react-redux';
 import ProfileNavigator from '../ProfileNavigator';
 import HomeNavigator from '../HomeNavigator';
+import MatcherNavigator from '../HomeNavigator/MatchNav';
 
 import useMode from '../../hooks/useMode';
 
@@ -18,14 +18,14 @@ export default function HomeApp() {
       initialRouteName="Home"
       tabBarOptions={{
         style: { backgroundColor: mode.green },
-        activeTintColor: mode.text,
-        inactiveTintColor: mode.bg,
+        activeTintColor: mode.lightgray,
+        inactiveTintColor: mode.blackPearl,
         showLabel: true,
       }}>
       {!user.mentor && (
         <Tab.Screen
           name="Matcher"
-          component={Matcher}
+          component={MatcherNavigator}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="people-circle" size={size} color={color} />

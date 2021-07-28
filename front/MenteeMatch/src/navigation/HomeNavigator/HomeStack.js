@@ -10,7 +10,8 @@ export default function ProfileStack({ navigation }) {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerTintColor: '#BFD732',
+        headerStyle: { backgroundColor: '#BFD732' },
+        headerTintColor: '#F5F6F7',
         headerTitleAlign: 'center',
         headerTitleStyle: {
           fontWeight: 'bold',
@@ -25,7 +26,7 @@ export default function ProfileStack({ navigation }) {
             <Ionicons
               name="menu"
               size={40}
-              color={'#BFD732'}
+              color={'#F5F6F7'}
               onPress={() => navigation.openDrawer()}
             />
           ),

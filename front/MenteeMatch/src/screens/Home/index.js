@@ -2,15 +2,20 @@ import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import HomeView from '../../components/HomeView';
+import useMode from '../../hooks/useMode';
 
 const Home = () => {
   const user = useSelector(state => state.user);
+  const { mode } = useMode();
   return user.mentor ? (
     <>
       <HomeView />
     </>
   ) : (
-    <Text style={styles.text}>No tienes mentor asignado.</Text>
+    <Text
+      style={{ ...styles.text, backgroundColor: mode.bg, color: mode.text }}>
+      No tienes mentor asignado.
+    </Text>
   );
 };
 

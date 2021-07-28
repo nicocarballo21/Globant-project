@@ -104,7 +104,9 @@ const UserDetails = ({ navigation }) => {
 
       <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
         <View style={styles.pressableFoto}>
-          <TouchableOpacity onPress={() => sheetRef.current.snapTo(0)}>
+          <TouchableOpacity
+            style={styles.container}
+            onPress={() => sheetRef.current.snapTo(0)}>
             {img ? (
               <Image source={{ uri: img }} style={styles.userImg} />
             ) : (

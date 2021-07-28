@@ -14,13 +14,13 @@ import { setSkills } from '../../redux/Reducers/Skills';
 
 export default function CustomDrawerContent(props) {
   const dispatch = useDispatch();
-  
+
   const handleLogOut = async () => {
     try {
       await removeData('user');
       dispatch(logout());
       dispatch(setUser({}));
-      dispatch(setSkills([]))
+      dispatch(setSkills([]));
     } catch (error) {
       console.log(error);
     }

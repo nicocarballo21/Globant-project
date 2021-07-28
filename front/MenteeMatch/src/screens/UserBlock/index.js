@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
-import { Text, View, Image, Pressable, Alert } from 'react-native';
+import React from 'react';
+import { Text, View, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 import { styles } from './styles';
 import user_img from '../../assets/static/user_img.png';
 import SpinnerCoincidence from '../../components/SpinnerCoincidence';
+import useMode from '../../hooks/useMode';
 
 export default function UserBlock({
   user,
@@ -14,21 +15,33 @@ export default function UserBlock({
 }) {
   const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
 
+  const { mode } = useMode();
   return (
     <View style={styles.container}>
       {user._id ? (
-        <View style={styles.block}>
-          <View style={{ flexDirection: 'row' }}>
+        <View
+          style={{
+            ...styles.block,
+            backgroundColor: mode.inputBg,
+            borderColor: mode.inputBg,
+          }}>
+          <View style={styles.rowDirection}>
             <Image
-              style={styles.img}
+              style={{ ...styles.img, borderColor: mode.violet }}
               source={user.img ? { uri: user.img } : user_img}
             />
             <View style={styles.cardTitleBox}>
               <View>
-                <Text style={styles.title}>
+                <Text
+                  style={{
+                    ...styles.title,
+                    color: mode.violet,
+                  }}>
                   {user.name} {user.surname}
                 </Text>
-                <Text style={styles.text}>{user.email}</Text>
+                <Text style={{ ...styles.text, color: mode.text }}>
+                  {user.email}
+                </Text>
               </View>
             </View>
             {disableButtons && (
@@ -41,7 +54,7 @@ export default function UserBlock({
           </View>
 
           <View style={styles.skillsContainer}>
-            <Text style={styles.skills}>
+            <Text style={{ ...styles.skills, color: mode.text }}>
               •
               {skills.map(skill => (
                 <Text key={skill._id}> {skill.name} •</Text>
@@ -59,7 +72,7 @@ export default function UserBlock({
 
               <View style={styles.spinnerContainer}>
                 <SpinnerCoincidence mentorSkills={user} userLogin={userLogin} />
-                <Text>Coincidencias</Text>
+                <Text style={{ color: mode.text }}>Coincidencias</Text>
               </View>
 
               <Button
@@ -71,7 +84,13 @@ export default function UserBlock({
           )}
         </View>
       ) : (
-        <Text style={{ textAlign: 'center', fontSize: 30 }}>...</Text>
+        <Text
+          style={{
+            ...styles.textCargando,
+            color: mode.text,
+          }}>
+          ...
+        </Text>
       )}
     </View>
   );

@@ -15,6 +15,8 @@ const styles = StyleSheet.create({
     flex: 6,
   },
 
+  rowView: { flexDirection: 'row' },
+
   container_interno: {
     maxHeight: '100%',
     flex: 1,
