@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
 
-export default function ProfileStack({ navigation }) {
+export default function HomeStack({ navigation }) {
   return (
     <Stack.Navigator
       initialRouteName="Home"
