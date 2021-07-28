@@ -11,6 +11,7 @@ import { removeData } from '../../utils/storage';
 import { setUser } from '../../redux/Reducers/UserReducer';
 import { logout } from '../../redux/Slices/authSlice';
 import { setSkills } from '../../redux/Reducers/Skills';
+import { setMatches } from '../../redux/Reducers/matchesReducer';
 import useMode from '../../hooks/useMode';
 
 export default function CustomDrawerContent(props) {
@@ -23,6 +24,7 @@ export default function CustomDrawerContent(props) {
       dispatch(logout());
       dispatch(setUser({}));
       dispatch(setSkills([]));
+      dispatch(setMatches([]));
     } catch (error) {
       console.log(error);
     }

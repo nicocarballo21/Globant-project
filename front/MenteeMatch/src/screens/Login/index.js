@@ -86,10 +86,13 @@ const Login = ({ navigation }) => {
           )}
         />
         <Button title={'Acceder'} pressFunction={handleSubmit(onSubmit)} />
-        <Button
-          title={'Registrarse'}
+        <Text style={styles.create}onPress={() => navigation.navigate('Register')}>
+          Crear una cuenta
+        </Text>
+        {/* <Button
+          title={'Registrarme'}
           pressFunction={() => navigation.navigate('Register')}
-        />
+        /> */}
       </View>
     </KeyboardAvoidingView>
   );

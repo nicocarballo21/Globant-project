@@ -27,6 +27,7 @@ const UserDetails = ({ navigation }) => {
   const { mode } = useMode();
 
   useEffect(() => {
+    if(!user) navigation.navigate('Login');
     dispatch(getSkills());
     getData('userImg').then(data => {
       data && setImg(data);

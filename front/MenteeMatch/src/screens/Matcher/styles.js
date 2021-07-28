@@ -1,14 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-
-  titleBox: {
-    flex: 1.25,
-    backgroundColor: globantBright.green,
   },
 
   titleBox_like: {
@@ -26,17 +20,15 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 
-  text: {
-    color: globantBright.text,
-    fontSize: 10,
-  },
-
   subContainer_1: {
     flex: 3.8,
     // backgroundColor: 'red',
     // paddingBottom: 10,
   },
-
+  optionsTxt: {
+    textAlign: 'center',
+    fontSize: 16,
+  },
   subContainer: {
     flex: 5.25,
     // backgroundColor: 'green',
@@ -56,11 +48,33 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
   },
   flatAlign: { alignItems: 'center' },
+  flatContent: {
+    height: 350,
+    paddingHorizontal: 6,
+  },
   textCargStyle: {
     textAlign: 'center',
     height: '100%',
     textAlignVertical: 'center',
     fontSize: 30,
+  },
+  reloadMatchsBox: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: -175,
+  },
+  reloadMatchsTxt: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  reloadMatchsBtn: {
+    width: '35%',
+  },
+  reloadAllDiscardedBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

@@ -3,11 +3,12 @@ const { orderByCoincidences, menteeResultFilter } = require("../utils");
 
 const createUser = body => {
   const { name, surname, email, password } = body
-
+  if(!name || !surname || !email || !password) return {}
   return Users.create({ name, surname, email, password })
 }
 
 const findUserByEmail = email => {
+  if(!email) return {}
   return Users.findOne({ email }, "-__v")
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
@@ -20,22 +21,36 @@ const findUserByEmail = email => {
       },
     })
     .populate({
+      path: "disLikes",
+      populate: {
+        path: "skillsToTeach",
+        model: "Skills",
+      },
+    })
+    .populate({
       path: "mentor",
       populate: {
         path: "skillsToTeach",
         model: "Skills",
       },
     })
-    .populate("disLikes")
     .exec()
 }
 
 const findUserById = _id => {
+  if(!_id) return {}
   return Users.findOne({ _id })
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
     .populate({
       path: "likes",
+      populate: {
+        path: "skillsToTeach",
+        model: "Skills",
+      },
+    })
+    .populate({
+      path: "disLikes",
       populate: {
         path: "skillsToTeach",
         model: "Skills",
@@ -52,11 +67,19 @@ const findUserById = _id => {
 }
 
 const updateById = (_id, body) => {
+  if(!_id || !body) return {}
   return Users.findOneAndUpdate({ _id }, body, { new: true })
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
     .populate({
       path: "likes",
+      populate: {
+        path: "skillsToTeach",
+        model: "Skills",
+      },
+    })
+    .populate({
+      path: "disLikes",
       populate: {
         path: "skillsToTeach",
         model: "Skills",

@@ -5,6 +5,7 @@ import { UserBlock } from '../';
 import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
 import { updateUser } from '../../redux/Reducers/UserReducer';
 import { simpleMessage } from '../../utils';
+import { Button } from '../../components';
 
 import styles from './styles';
 import useMode from '../../hooks/useMode';
@@ -17,8 +18,6 @@ export default function Matcher() {
   const url = '/api/users/profile';
   const { mode } = useMode();
 
-  // console.log(user.skillsToLearn.length);
-
   // Seed inicial
   useEffect(() => {
     if (!matches.length) {
@@ -27,20 +26,7 @@ export default function Matcher() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(() => {
   //-------------------------------------------------------------//
-  /* useEffect(() => {
-    if (user.likes.length || user.disLikes.length) {
-      const coincidencesToFind = [...user.likes, ...user.disLikes];
-      const filteredMatches = matches.filter(({ _id }) => {
-        const truthArr = coincidencesToFind.map(
-          coincidence => coincidence._id === _id,
-        );
-        return !truthArr.includes(true);
-      });
-      dispatch(setMatches(filteredMatches));
-    }
-  }, [matches.length]); */
 
   const handleLike = likedUser => {
     const finalMatch = user.likes.find(
@@ -55,7 +41,6 @@ export default function Matcher() {
       return dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id);
-    /* orderedMatches.push(likedUser) */
     dispatch(updateUser({ url, data: { likes: [likedUser, ...user.likes] } }));
     dispatch(setMatches(orderedMatches));
   };
@@ -78,6 +63,12 @@ export default function Matcher() {
       match => match._id !== dislikedUser._id,
     );
     dispatch(setMatches(filteredMatches));
+  };
+
+  const handleReloadMatchs = () => {
+    dispatch(updateUser({ url, data: { disLikes: [] } })).then(dispatched =>
+      dispatch(getMatches({ roleToFind, token: user.token })),
+    );
   };
 
   return (
@@ -114,6 +105,7 @@ export default function Matcher() {
                 renderItem={({ item }) => (
                   <UserBlock
                     user={item}
+                    userLogin={user}
                     handleLike={handleLike}
                     handleDislike={handleDislike}
                     disableButtons={true}
@@ -122,28 +114,63 @@ export default function Matcher() {
               />
             </View>
           ) : null}
-
-          <View style={styles.subContainer}>
-            <FlatList
-              horizontal={user.likes.length ? true : false}
-              contentContainerStyle={styles.flatAlign}
-              numColumns={1}
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              data={matches}
-              keyExtractor={(match, index) => match._id + index}
-              renderItem={({ item }) => (
-                <UserBlock
-                  user={item}
-                  userLogin={user}
-                  handleLike={handleLike}
-                  handleDislike={handleDislike}
-                  disableButtons={false}
-                />
-              )}
-            />
-          </View>
+          {!user.likes.length && <View style={{ height: 120 }}></View>}
+          {matches.length ? (
+            <View style={styles.subContainer}>
+              <Text style={{ ...styles.optionsTxt, color: mode.text }}>
+                Estas son tus opciones
+              </Text>
+              <FlatList
+                horizontal
+                contentContainerStyle={styles.flatContent}
+                numColumns={1}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                data={matches}
+                keyExtractor={(match, index) => match._id + index}
+                renderItem={({ item }) => (
+                  <UserBlock
+                    user={item}
+                    userLogin={user}
+                    handleLike={handleLike}
+                    handleDislike={handleDislike}
+                    disableButtons={false}
+                  />
+                )}
+              />
+            </View>
+          ) : (
+            <View
+              style={{ ...styles.reloadMatchsBox, backgroundColor: mode.bg }}>
+              <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>
+                ¡Oh!. Te has quedado sin opciones.
+              </Text>
+              <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>
+                ¿Quieres volver a recargar todos los perfiles?
+              </Text>
+              <Button
+                title="Recargar"
+                style={styles.reloadMatchsBtn}
+                pressFunction={handleReloadMatchs}
+              />
+            </View>
+          )}
         </SafeAreaView>
+      ) : user.disLikes.length ? (
+        <View
+          style={{ ...styles.reloadAllDiscardedBox, backgroundColor: mode.bg }}>
+          <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>
+            ¡Oh!. Te has quedado sin opciones.
+          </Text>
+          <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>
+            ¿Quieres volver a recargar todos los perfiles?
+          </Text>
+          <Button
+            title="Recargar"
+            style={styles.reloadMatchsBtn}
+            pressFunction={handleReloadMatchs}
+          />
+        </View>
       ) : (
         <Text style={styles.textCargStyle}>Cargando...</Text>
       )}

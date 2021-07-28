@@ -25,6 +25,11 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 16,
   },
+
+  create: {
+    color: 'gray',
+    paddingTop: 40
+  }
 });
 
 export default styles;
