@@ -18,11 +18,13 @@ const orderByCoincidences = (userSkills, matches, skillsToFind) =>
     .sort((a, b) => b.coincidences - a.coincidences)
 
 const menteeResultFilter = (userDis_Likes, matches) => {
-  const ids = userDis_Likes.map(x => (x._id || x).toString())
-  return matches.filter(match => !ids.includes(match._id.toString()) && match.disponible)
-}
+  const ids = userDis_Likes.map((x) => x.id);
+  return matches.filter(
+    (match) => !ids.includes(match.id) && match.disponible
+  );
+};
 
 module.exports = {
   orderByCoincidences,
-  menteeResultFilter
-}
+  menteeResultFilter,
+};
