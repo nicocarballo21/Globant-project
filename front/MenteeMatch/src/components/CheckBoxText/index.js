@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-import useMode from '../../hooks/useTheme';
+import useMode from '../../hooks/useMode';
 import styles from './styles';
 
 function ChecKBoxText({ text, isChecked, onPress }) {

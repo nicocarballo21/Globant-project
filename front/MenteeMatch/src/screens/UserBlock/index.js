@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 import { styles } from './styles';
 import user_img from '../../assets/static/user_img.png';
 import SpinnerCoincidence from '../../components/SpinnerCoincidence';
 import useMode from '../../hooks/useMode';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 
 export default function UserBlock({
   user,
@@ -14,6 +15,15 @@ export default function UserBlock({
   disableButtons,
 }) {
   const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
+  const [show, setShow] = useState(false);
+
+  const handleOpen = () => {
+    setShow(true);
+  };
+
+  const handleClose = () => {
+    setShow(false);
+  };
 
   const { mode } = useMode();
   return (
@@ -45,11 +55,26 @@ export default function UserBlock({
               </View>
             </View>
             {disableButtons && (
-              <Button
-                buttonStyle={[styles.likeButton, styles.confirmButton]}
-                title="✔"
-                onPress={() => handleLike(user)}
-              />
+              <>
+                <Button
+                  buttonStyle={[styles.likeButton, styles.confirmButton]}
+                  title="✔"
+                  onPress={() => handleOpen()}
+                />
+                <SCLAlert
+                  show={show}
+                  onRequestClose={handleClose}
+                  theme="info"
+                  title="¡Atención!"
+                  subtitle={`¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`}>
+                  <SCLAlertButton theme="info" onPress={() => handleLike(user)}>
+                    Confirmar
+                  </SCLAlertButton>
+                  <SCLAlertButton theme="default" onPress={handleClose}>
+                    Cancelar
+                  </SCLAlertButton>
+                </SCLAlert>
+              </>
             )}
           </View>
 
