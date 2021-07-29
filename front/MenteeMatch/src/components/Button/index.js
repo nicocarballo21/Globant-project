@@ -21,7 +21,11 @@ const Button = props => {
       ]}
       title={title}
       onPress={pressFunction}>
-      <Text style={{ ...styles.buttonText, color: mode.text }}>{title}</Text>
+      {props.icon ? (
+        props.icon
+      ) : (
+        <Text style={{ ...styles.buttonText, color: mode.text }}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 };

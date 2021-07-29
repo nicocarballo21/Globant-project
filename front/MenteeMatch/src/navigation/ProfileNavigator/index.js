@@ -24,7 +24,6 @@ export default function ProfileNavigator() {
         component={ProfileStack}
         options={{ title: 'Mi Perfil' }}
       />
-      {/* <Drawer.Screen name="Cancel Match" component={UserData} /> */}
     </Drawer.Navigator>
   );
 }

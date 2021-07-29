@@ -43,6 +43,7 @@ export default function CustomDrawerContent(props) {
         labelStyle={{ color: mode.text }}
         onPress={handleLogOut}
       />
+
       <Switch />
     </DrawerContentScrollView>
   );

@@ -25,4 +25,18 @@ const postUserSkillsToTeach = async (skills, token) => {
   }
 };
 
-export { postUserSkillsToLearn, postUserSkillsToTeach };
+const getObjectivesFromUser = async (id, token) => {
+  try {
+    const server = generateAxios(token);
+    const objectives = await server.get(
+      API_URL + `/api/users/objectives/${id}`,
+    );
+    return objectives;
+  } catch (error) {}
+};
+
+module.exports = {
+  postUserSkillsToLearn,
+  postUserSkillsToTeach,
+  getObjectivesFromUser,
+};
