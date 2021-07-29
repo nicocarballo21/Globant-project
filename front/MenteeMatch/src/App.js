@@ -35,6 +35,8 @@ const App = () => {
     checkIfStoragedUser();
   }, [auth.userToken]);
 
+  console.disableYellowBox = true;
+
   return (
     <Provider store={store}>
       <SafeAreaProvider>
