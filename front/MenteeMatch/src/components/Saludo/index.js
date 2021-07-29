@@ -5,7 +5,7 @@ import RoleButton from '../RoleButton';
 const HeaderTitle = ({ user, mode }) => {
 
   const getCorrectOption = ({ actualRole, isMentor }) => {
-    if(actualRole) return `${user.actualRole.toLowerCase()}s`
+    if(actualRole) return user.actualRole === 'Mentor' ? 'mentees' : 'mentors'
     return isMentor ? 'mentees' : 'mentors'
   }
 

@@ -24,7 +24,15 @@ const menteeResultFilter = (userDis_Likes, matches) => {
   );
 };
 
+const mentorResultFilter = (userDis_Likes, matches) => {
+  const ids = userDis_Likes.map((x) => x.id);
+  return matches.filter(
+    (match) => !ids.includes(match.id)
+  );
+};
+
 module.exports = {
   orderByCoincidences,
   menteeResultFilter,
+  mentorResultFilter
 };

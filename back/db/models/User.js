@@ -69,13 +69,25 @@ const userSchema = new mongoose.Schema({
       ref: "Objectives"
     }
   ],
-  likes: [
+  likedMentees: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Users",
     },
   ],
-  disLikes: [
+  dislikedMentees: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
+    },
+  ],
+  likedMentors: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
+    },
+  ],
+  dislikedMentors: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Users",

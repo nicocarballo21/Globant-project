@@ -13,7 +13,7 @@ module.exports = {
   userUpdate: async (req, res, next) => {
     try {
       const user = await updateById(req.user.id, req.body);
-      if(!user) res.status(400).send("Bad request: user not found")
+      if(!user) return res.status(400).send("Bad request: user not found")
       res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
       next(err);
