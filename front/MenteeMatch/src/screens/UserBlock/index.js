@@ -58,16 +58,16 @@ export default function UserBlock({
               <>
                 <Button
                   buttonStyle={[styles.likeButton, styles.confirmButton]}
-                  title="Confirmar ✔"
+                  title="✔"
                   onPress={() => handleOpen()}
                 />
                 <SCLAlert
                   show={show}
                   onRequestClose={handleClose}
-                  theme="inverse"
+                  theme="info"
                   title="¡Atención!"
                   subtitle={`¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`}>
-                  <SCLAlertButton theme="info" onPress={handleClose}>
+                  <SCLAlertButton theme="info" onPress={() => handleLike(user)}>
                     Confirmar
                   </SCLAlertButton>
                   <SCLAlertButton theme="default" onPress={handleClose}>

@@ -67,33 +67,9 @@ export default function Matcher() {
     );
   };
 
-  /* const showAlert = (theChosenOne) =>
-  Alert.alert(
-    "¡Atención!",
-    `¿Quieres confirmar a ${theChosenOne.name} ${theChosenOne.surname} cómo tu mentor?`,
-    [
-      {
-        text: "Cancelar",
-        onPress: () => Alert.alert("Cancel Pressed"),
-      },
-      {
-        text: "Aceptar",
-        onPress: () => Alert.alert("Aceptar Pressed"),
-      },
-    ],
-    {
-      cancelable: true,
-      onDismiss: () =>
-        Alert.alert(
-          "This alert was dismissed by tapping outside of the alert dialog."
-        ),
-    }
-    
-  ); */
-
   return (
     <>
-      {matches.length ? (
+      {matches.length || user.likes.length ? (
         <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
           {user.likes.length ? (
             <View style={styles.subContainer_1}>
