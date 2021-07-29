@@ -88,6 +88,9 @@ const userSchema = new mongoose.Schema({
   img: {
     type: String,
   },
+  actualRole: {
+    type: String,
+  }
 });
 
 userSchema.pre("save", function (next) {

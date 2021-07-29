@@ -38,7 +38,7 @@ const SelectSkills = () => {
     dispatch(
       updateUser({
         url: `/api/users/skills/${learnOrTeach}`,
-        data: { [property]: selection },
+        data: { [property]: selection, maxMentees: menteesQty },
       }),
     );
     setSelection([]);

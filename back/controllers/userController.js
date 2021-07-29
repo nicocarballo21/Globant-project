@@ -42,14 +42,13 @@ module.exports = {
         return res
           .status(400)
           .json("The body of your request is not correct!, try again");
-
       const skills = req.body[type];
+      const { maxMentees } = req.body 
 
       if (!skills.length)
         return res.status(400).json("You need to add at least one skill");
 
-      const user = await updateById(req.user.id, { [type]: skills });
-
+      const user = await updateById(req.user.id, { [type]: skills, maxMentees });
       res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
       next(err);
