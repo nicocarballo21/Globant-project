@@ -1,16 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    backgroundColor: globantBright.bg,
   },
   text: {
     fontSize: 25,
-    color: globantBright.text,
     fontFamily: 'H',
     fontWeight: 'bold',
     alignSelf: 'center',
@@ -22,7 +19,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     height: '50%',
-    backgroundColor: globantBright.inputBg,
     width: '100%',
   },
 });

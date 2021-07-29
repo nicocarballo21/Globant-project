@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Switch, StyleSheet, Text } from 'react-native';
+import useMode from '../../hooks/useMode';
+import useTheme from '../../hooks/useTheme';
 
 export default function () {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const { isEnabled, toggleSwitch } = useTheme();
+  const { mode } = useMode();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Modo oscuro</Text>
+      <Text style={{ ...styles.title, color: mode.text }}>Modo oscuro</Text>
       <Switch
         style={styles.switch}
         trackColor={{ false: '#767577', true: '#767577' }}
@@ -31,7 +34,6 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   title: {
-    color: 'grey',
     marginTop: 20,
     marginLeft: 20,
   },

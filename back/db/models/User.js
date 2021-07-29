@@ -63,6 +63,12 @@ const userSchema = new mongoose.Schema({
       ref: "Meets",
     },
   ],
+  objectives: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Objectives"
+    }
+  ],
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,

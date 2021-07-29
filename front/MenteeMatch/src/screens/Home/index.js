@@ -1,27 +1,32 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import HomeView from '../../components/HomeView';
+import useMode from '../../hooks/useMode';
 
 const Home = () => {
   const user = useSelector(state => state.user);
+  const { mode } = useMode();
   return user.mentor ? (
     <>
       <HomeView />
     </>
   ) : (
     <Text
-      style={{
-        fontSize: 25,
-        textAlign: 'center',
-        height: '100%',
-        textAlignVertical: 'center',
-      }}>
+      style={{ ...styles.text, backgroundColor: mode.bg, color: mode.text }}>
       No tienes mentor asignado.
     </Text>
   );
 };
 
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 25,
+    textAlign: 'center',
+    height: '100%',
+    textAlignVertical: 'center',
+  },
+});
 export default Home;
 
 // const Home = () => {

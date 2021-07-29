@@ -1,44 +1,28 @@
 import { StyleSheet } from 'react-native';
-import { globantBright } from '../../assets/styles/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
     alignItems: 'center',
     paddingTop: 10,
-    /* marginTop: 20, */
     paddingHorizontal: 2,
     width: 400,
-    marginBottom: 10,
-    /*  alignSelf: "center", */
   },
   block: {
-    // position: "relative",
-    paddingTop: 0,
-    paddingBottom: 15,
-    marginTop: 0,
-    marginBottom: 10,
+    paddingBottom: 10,
     flexDirection: 'column',
     width: '90%',
-    height: 'auto',
-    //    borderWidth: 1,
     borderRadius: 20,
-    /* margin: 5, */
-    backgroundColor: '#e2e2e2',
-    borderColor: '#e2e2e2',
-    elevation: 12,
-    //b7bfe5
+    elevation: 10,
   },
   title: {
-    color: globantBright.violet,
     fontSize: 18,
     fontWeight: 'bold',
     paddingTop: 4,
     marginLeft: '5%',
     paddingLeft: 5,
   },
+  rowDirection: { flexDirection: 'row' },
   text: {
-    color: '#434343',
     fontSize: 15,
     marginLeft: '9%',
   },
@@ -49,7 +33,6 @@ export const styles = StyleSheet.create({
     marginTop: 15,
     borderWidth: 2,
     borderRadius: 100,
-    borderColor: globantBright.violet,
   },
   skillsContainer: {
     marginTop: 20,
@@ -106,6 +89,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  textCargando: { textAlign: 'center', fontSize: 30 },
   spinnerContainer: {
     flex: 1,
     alignItems: 'center',

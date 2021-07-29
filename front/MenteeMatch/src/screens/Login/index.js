@@ -1,19 +1,16 @@
 import React from 'react';
 import { View, Image, Text, KeyboardAvoidingView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
-
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getUser } from '../../redux/Reducers/UserReducer';
-
 import { loginMessage } from '../../utils';
-
 import styles from './styles';
 import logo from '../../utils/logo.png';
-
 import { InputText, Button } from '../../components';
-
 import { storeData } from '../../utils/storage';
 import { login } from '../../redux/Slices/authSlice';
+import useMode from '../../hooks/useMode';
 
 const Login = ({ navigation }) => {
   const {
@@ -23,6 +20,7 @@ const Login = ({ navigation }) => {
   } = useForm();
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
+  const { mode } = useMode();
 
   const onSubmit = async userData => {
     const { payload } = await dispatch(getUser(userData));
@@ -37,10 +35,13 @@ const Login = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
-      style={styles.login}
+      style={{ ...styles.login, backgroundColor: mode.bg }}
       behavior="height"
       keyboardVerticalOffset={-30}>
-      <Image style={styles.logo} source={logo} />
+      <Image
+        style={{ ...styles.logo, borderColor: mode.green }}
+        source={logo}
+      />
 
       <View style={styles.inputs}>
         {errors.email && (

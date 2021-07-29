@@ -25,7 +25,10 @@ const meetSchema = new mongoose.Schema({
   },
 });
 
+meetSchema.virtual('isActive').get(() => {
+  return (this.date - Date() > 0)
+})
+
 const Meets = mongoose.model("Meets", meetSchema);
 
 module.exports = Meets;
-  

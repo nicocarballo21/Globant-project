@@ -6,6 +6,7 @@ import { InputText, Button } from '../../components';
 import logo from '../../utils/logo.png';
 
 import styles from './styles';
+import useMode from '../../hooks/useMode';
 
 const Register = ({ onSubmit }) => {
   const {
@@ -13,11 +14,15 @@ const Register = ({ onSubmit }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { mode } = useMode();
 
   return (
-    <View style={styles.login}>
+    <View style={{ ...styles.login, backgroundColor: mode.bg }}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        <Image style={styles.logo} source={logo} />
+        <Image
+          style={{ ...styles.logo, borderColor: mode.green }}
+          source={logo}
+        />
 
         <View style={styles.inputs}>
           {errors.name && (

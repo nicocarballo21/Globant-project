@@ -20,7 +20,7 @@ module.exports = {
     try {
       const user = await findUserByEmail(req.body.email)
       if (!user) return res.status(401).send("Unauthorized: invalid Credentials")
-      const compareResult = await user.comparePassword(req.body.passord)
+      const compareResult = await user.comparePassword(req.body.password)
       if (!compareResult) return res.status(401).send("Unauthorized: invalid Credentials")
       const token = jwt.sign({ id: user.id }, "mentee")
       res.status(200).json({ user: { ...user._doc, password: null }, token })

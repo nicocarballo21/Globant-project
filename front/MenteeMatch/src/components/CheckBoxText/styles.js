@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { globantBright } from '../../assets/styles/colors';
 
 const styles = StyleSheet.create({
   optionContainer: {
@@ -9,17 +8,14 @@ const styles = StyleSheet.create({
   },
   option: {
     width: 200,
-    backgroundColor: globantBright.lightgray,
     borderRadius: 15,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    borderColor: globantBright.grey,
     borderWidth: 2,
     marginLeft: 20,
   },
   text: {
     fontSize: 25,
-    color: globantBright.text,
     fontFamily: 'H',
     fontWeight: 'bold',
     alignSelf: 'center',

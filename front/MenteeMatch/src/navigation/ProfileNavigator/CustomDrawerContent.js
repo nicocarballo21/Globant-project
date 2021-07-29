@@ -15,14 +15,14 @@ import { setMatches } from '../../redux/Reducers/matchesReducer';
 
 export default function CustomDrawerContent(props) {
   const dispatch = useDispatch();
-  
+
   const handleLogOut = async () => {
     try {
       await removeData('user');
       dispatch(logout());
       dispatch(setUser({}));
-      dispatch(setSkills([]))
-      dispatch(setMatches([]))
+      dispatch(setSkills([]));
+      dispatch(setMatches([]));
     } catch (error) {
       console.log(error);
     }
@@ -34,7 +34,7 @@ export default function CustomDrawerContent(props) {
       <DrawerItem
         label="Cerrar menú"
         onPress={() => props.navigation.closeDrawer()}
-      /> 
+      />
       <DrawerItem label="Cerrar sesion" onPress={handleLogOut} />
       <Switch />
     </DrawerContentScrollView>
