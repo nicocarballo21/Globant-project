@@ -27,9 +27,8 @@ const styles = StyleSheet.create({
   },
 
   create: {
-    color: 'gray',
-    paddingTop: 40
-  }
+    paddingTop: 40,
+  },
 });
 
 export default styles;
