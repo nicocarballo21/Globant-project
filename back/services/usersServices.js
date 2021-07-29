@@ -16,14 +16,14 @@ const findUserByEmail = email => {
     .populate({
       path: "likedMentees",
       populate: {
-        path: "skillsToTeach",
+        path: "skillsToLearn",
         model: "Skills",
       },
     })
     .populate({
       path: "dislikedMentees",
       populate: {
-        path: "skillsToTeach",
+        path: "skillsToLearn",
         model: "Skills",
       },
     })
@@ -53,14 +53,14 @@ const findUserById = _id => {
     .populate({
       path: "likedMentees",
       populate: {
-        path: "skillsToTeach",
+        path: "skillsToLearn",
         model: "Skills",
       },
     })
     .populate({
       path: "dislikedMentees",
       populate: {
-        path: "skillsToTeach",
+        path: "skillsToLearn",
         model: "Skills",
       },
     })
@@ -97,14 +97,14 @@ const updateById = (_id, body) => {
     .populate({
       path: "likedMentees",
       populate: {
-        path: "skillsToTeach",
+        path: "skillsToLearn",
         model: "Skills",
       },
     })
     .populate({
       path: "dislikedMentees",
       populate: {
-        path: "skillsToTeach",
+        path: "skillsToLearn",
         model: "Skills",
       },
     })
@@ -154,15 +154,18 @@ const getMatchesForUser = async (_id, { roleToFind, skillsToFind, userSkills }) 
       .populate(skillsToFind, "name")
       .exec()) || [];
 
+  // Para que no se incluya a él mismo
+  matches = matches.filter(match => match.id !== _id)
+    
   if (roleToFind === "isMentor") {
-    matches = menteeResultFilter(
+    matches = mentorResultFilter(
       [...user.likedMentors, ...user.dislikedMentors],
       matches
     );
   }
 
   if (roleToFind === "isMentee") {
-    matches = mentorResultFilter(
+    matches = menteeResultFilter(
       [...user.likedMentees, ...user.dislikedMentees],
       matches
     );
