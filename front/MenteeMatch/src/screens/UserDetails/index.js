@@ -5,168 +5,164 @@ import {
   Pressable,
   Image,
   FlatList,
-  ScrollView,
   TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import styles from './styles';
-import userImg from '../../assets/static/user_img.png';
-import goBack from '../../assets/static/goBack.png';
-import { getSkills } from '../../redux/Reducers/Skills';
-import { setUserImg, getData, removeData } from '../../utils/storage';
-
-//import { launchImageLibrary } from 'react-native-image-picker';
-import Animated from 'react-native-reanimated';
-import BottomSheet from "reanimated-bottom-sheet"
+import BottomSheet from 'reanimated-bottom-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const UserDetails = ({ route, navigation }) => {
+import { setUserImg, getData } from '../../utils/storage';
+import { getSkills } from '../../redux/Reducers/Skills';
+import userImg from '../../assets/static/user_img.png';
+import useMode from '../../hooks/useMode';
+import styles from './styles';
+
+const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
   const skills = user.skillsToTeach;
   const dispatch = useDispatch();
   const { name, surname, email, position } = user;
-  /* const numColumns = Math.ceil(skills.length / 4); */
-  const [ img, setImg ] = React.useState(null);
+  const [img, setImg] = React.useState(null);
+  const { mode } = useMode();
 
   useEffect(() => {
+    if(!user) navigation.navigate('Login');
     dispatch(getSkills());
-        getData("userImg").then((data) => {
-            if (data) setImg(data)
-        })
-
+    getData('userImg').then(data => {
+      data && setImg(data);
+    });
   }, [dispatch, img]);
 
-  const handleGoBack = async () => {
-    try {
-      await removeData('user');
-      navigation.goBack();
-    } catch (error) {
-      console.log(error);
-    }
+  const onPicture = uri => {
+    setImg(uri);
+    setUserImg(uri);
   };
-    const onPicture = (uri) => {
-        setImg(uri)
-        setUserImg(uri)
-    }
 
-    const choosePhoto = () => {
-        sheetRef.current.snapTo(2)
-        //const options = {
-        //    mediaType: "photo",
-        //    noData: true,
-        //};
-        //launchImageLibrary(options, response => {
-        //    if (response.didCancel) return;
-        //    else {
-        //        setImg(response.assets[0].uri)
-        //        setUserImg(response.assets[0].uri)
-        //    }
-        //}) 
-        ImagePicker.openPicker({
-            width: 300,
-            height: 300,
-            cropping: true,
-            compressImageQuality: 0.7
-        }).then(image => {
-                console.log(image);
-                setImg(image.path);
-                setUserImg(image.path)
-            });
-    }
-    
-    const renderContent = () => (
-        <View style={styles.panel}>
-            <View style={{alignItems: 'center'}}>
-                <Text style={styles.panelTitle}>Subir foto</Text>
-                <Text style={styles.panelSubtitle}>Elija su foto de perfil</Text>
-            </View>
-            <TouchableOpacity
-                style={styles.panelButton}
-                onPress={() => navigation.navigate("Camera", { onPicture: onPicture })} 
-            >
-                <Text style={styles.panelButtonTitle}>Tomar foto</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.panelButton}
-                onPress={() => choosePhoto()} 
-            >
-            <Text style={styles.panelButtonTitle}>Elige de la biblioteca</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.panelButton}
-                onPress={() => sheetRef.current.snapTo(2)}
-            >
-                <Text style={styles.panelButtonTitle}>Cancelar</Text>
-            </TouchableOpacity>
-        </View>
-    );
- 
-    const sheetRef = React.useRef(null);
+  const choosePhoto = () => {
+    sheetRef.current.snapTo(2);
+    ImagePicker.openPicker({
+      width: 300,
+      height: 300,
+      cropping: true,
+      compressImageQuality: 0.7,
+    }).then(image => {
+      setImg(image.path);
+      setUserImg(image.path);
+    });
+  };
+
+  const renderContent = () => (
+    <View
+      style={{
+        ...styles.panel,
+        backgroundColor: mode.bg,
+        borderColor: mode.gray,
+      }}>
+      <View style={styles.panelView}>
+        <Text style={{ ...styles.panelTitle, color: mode.text }}>
+          Subir foto
+        </Text>
+        <Text style={{ ...styles.panelSubtitle, color: mode.text }}>
+          Elija su foto de perfil
+        </Text>
+      </View>
+      <TouchableOpacity
+        style={{ ...styles.panelButton, backgroundColor: mode.green }}
+        onPress={() => navigation.navigate('Camera', { onPicture: onPicture })}>
+        <Text style={{ ...styles.panelButtonTitle, color: mode.bg }}>
+          Tomar foto
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{ ...styles.panelButton, backgroundColor: mode.green }}
+        onPress={() => choosePhoto()}>
+        <Text style={{ ...styles.panelButtonTitle, color: mode.bg }}>
+          Elige de la biblioteca
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{ ...styles.panelButton, backgroundColor: mode.green }}
+        onPress={() => sheetRef.current.snapTo(2)}>
+        <Text style={{ ...styles.panelButtonTitle, color: mode.bg }}>
+          Cancelar
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  const sheetRef = React.useRef(null);
 
   return (
-      <>
-    <BottomSheet
+    <SafeAreaView style={styles.mainContainer}>
+      <BottomSheet
         ref={sheetRef}
         snapPoints={[300, 200, 0]}
         borderRadius={10}
         renderContent={renderContent}
         initialSnap={2}
       />
-    <View style={styles.container}>
 
-      <View style={styles.header}>
-        <Pressable style={styles.pressableImg} renderComponent={handleGoBack}>
-          <Image source={goBack} style={styles.arrowImg} />
-        </Pressable>
-            <Text style={styles.headerText}>Perfil del usuario</Text>
-      </View>
-            <TouchableOpacity
-                onPress={() => sheetRef.current.snapTo(0)}
-              >
-                { img ? (
-                    <Image source={{uri: img}} style={styles.userImg} />
-                    ) : (
-                    <Image source={userImg} style={styles.userImg} />
-                )}
-              </TouchableOpacity>
-      <Text style={styles.keyText}>Nombre</Text>
-      <Text style={styles.valueText}>{`${name} ${surname}`}</Text>
-      <Text style={styles.keyText}>Contacto</Text>
-      <Text style={styles.valueText}>{email}</Text>
-      <Text style={styles.keyText}>Posición</Text>
-      <Text style={styles.valueText}>{position}</Text>
-      <Text style={styles.skillsText}>Skills:</Text>
-      <View style={styles.btnsContainer}>
-        <ScrollView
-          horizontal
-          pagingEnabled
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingVertical: 20 }}>
-          <FlatList
-            scrollEnabled={false}
-            contentContainerStyle={{
-              alignItems: 'center',
-            }}
-            numColumns={4}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={skills}
-            keyExtractor={skills => skills._id}
-            renderItem={({ item }) => (
-              <Pressable style={styles.pressable}>
-                <Text style={styles.pressableTxt}>{item.name}</Text>
-              </Pressable>
+      <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
+        <View style={styles.pressableFoto}>
+          <TouchableOpacity
+            style={styles.container}
+            onPress={() => sheetRef.current.snapTo(0)}>
+            {img ? (
+              <Image source={{ uri: img }} style={styles.userImg} />
+            ) : (
+              <Image
+                source={user.img ? { uri: user.img } : userImg}
+                style={styles.userImg}
+              />
             )}
-          />
-        </ScrollView>
-      </View>
+          </TouchableOpacity>
+        </View>
 
-      <Pressable style={styles.btn} onPress={handleGoBack}>
-        <Text style={styles.btnText}>Cerrar sesión</Text>
-      </Pressable>
-    </View>
-      </>
+        <View style={{ ...styles.userInfo, backgroundColor: mode.green }}>
+          <Text style={{ ...styles.keyText, color: mode.text }}>
+            Nombre: {`${name} ${surname}`}
+          </Text>
+          <Text style={{ ...styles.keyText, color: mode.text }}>
+            Contacto: {email}
+          </Text>
+          <Text style={{ ...styles.keyText, color: mode.text }}>
+            Posición: {position}
+          </Text>
+        </View>
+
+        <View style={styles.btnsContainer}>
+          <Text
+            style={{
+              ...styles.btns_title,
+              color: mode.text,
+              backgroundColor: mode.green,
+            }}>
+            Habilidades
+          </Text>
+          <View style={styles.flatlist}>
+            <FlatList
+              scrollEnabled={true}
+              numColumns={3}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              data={skills}
+              keyExtractor={skill => skill._id}
+              renderItem={({ item }) => (
+                <Pressable
+                  style={{
+                    ...styles.pressable,
+                    backgroundColor: mode.inputBg,
+                    borderColor: mode.green,
+                  }}>
+                  <Text style={{ color: mode.text }}>{item.name}</Text>
+                </Pressable>
+              )}
+            />
+          </View>
+        </View>
+      </SafeAreaView>
+    </SafeAreaView>
   );
 };
 

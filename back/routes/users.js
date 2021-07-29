@@ -1,5 +1,7 @@
 const express = require("express")
 const router = express.Router()
+const objectivesRoutes = require("../routes/objectives")
+const meetsRoutes = require("../routes/meets")
 
 const {
   userUpdate,
@@ -23,5 +25,9 @@ router.put("/skills/teach", setSkills)
 router.get("/match/mentors", getMatch)
 
 router.get("/match/mentees", getMatch)
+
+router.use("/meets", meetsRoutes)
+
+router.use("/objectives", objectivesRoutes)
 
 module.exports = router

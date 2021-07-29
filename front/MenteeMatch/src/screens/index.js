@@ -5,6 +5,9 @@ import Register from './Register';
 import UserData from './UserData';
 import UserDetails from './UserDetails';
 import SelectSkills from './SelectSkills';
+import RoleSelection from './RoleSelection';
+import Home from './Home';
+import RoleEdit from './RoleEdit';
 
 export {
   Matcher,
@@ -14,4 +17,7 @@ export {
   Register,
   UserData,
   SelectSkills,
+  RoleSelection,
+  Home,
+  RoleEdit,
 };

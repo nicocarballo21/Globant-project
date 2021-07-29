@@ -1,27 +1,81 @@
-import { StyleSheet } from "react-native";
-import {globantBright} from '../../assets/styles/colors'
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-   container: {
-      backgroundColor: globantBright.bg,
-      height: "100%",
-   },
-   title: {
-       color: globantBright.text,
-       fontSize: 20,
-       paddingTop: 25,
-       paddingLeft: 25
-    },
-    subtitle: {
-      color: globantBright.text,
-      fontSize: 15,
-      paddingLeft: 25
-   },
-    text: {
-        color: globantBright.text,
-        fontSize: 10
-     },
-     lastText: { textAlign: 'center', paddingTop: '50%' },
+  container: {
+    flex: 1,
+  },
+
+  titleBox_like: {
+    flex: 0,
+  },
+
+  title: {
+    fontSize: 20,
+    paddingTop: 20,
+    paddingLeft: 25,
+  },
+  subtitle: {
+    fontSize: 15,
+    paddingLeft: 25,
+    marginBottom: 5,
+  },
+
+  subContainer_1: {
+    flex: 3.8,
+    // backgroundColor: 'red',
+    // paddingBottom: 10,
+  },
+  optionsTxt: {
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  subContainer: {
+    flex: 5.25,
+    // backgroundColor: 'green',
+    // paddingBottom: 10,
+  },
+
+  lastText: {
+    textAlign: 'center',
+    paddingTop: '50%',
+  },
+
+  pressable: {
+    justifyContent: 'center',
+  },
+
+  pressablePressed: {
+    backgroundColor: 'gray',
+  },
+  flatAlign: { alignItems: 'center' },
+  flatContent: {
+    height: 350,
+    paddingHorizontal: 6,
+  },
+  textCargStyle: {
+    textAlign: 'center',
+    height: '100%',
+    textAlignVertical: 'center',
+    fontSize: 30,
+  },
+  reloadMatchsBox: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: -175,
+  },
+  reloadMatchsTxt: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  reloadMatchsBtn: {
+    width: '35%',
+  },
+  reloadAllDiscardedBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default styles;

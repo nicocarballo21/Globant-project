@@ -1,20 +1,28 @@
 import React from 'react';
 import { View } from 'react-native';
-import { sendUserData } from '../../services/reduxServices';
+import { useDispatch } from 'react-redux';
 import PersonalInformation from '../../components/Register/PersonalInformation';
+
+import { updateUser } from '../../redux/Reducers/UserReducer';
 
 import { simpleMessage } from '../../utils';
 
-export default () => {
-  const onSubmit = data => {
-    sendUserData(data)
-      .then(() =>
-        simpleMessage(
-          'Registro exitoso',
-          'Su usuario fue registrado correctamente',
-          'success',
-        ),
-      )
+const UserData = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const onSubmit = personalData => {
+    dispatch(updateUser({ url: '/api/users/profile', data: personalData }))
+      .then(payload => {
+        if (payload) {
+          simpleMessage(
+            'Registro exitoso',
+            'Su usuario fue registrado correctamente',
+            'success',
+          );
+          navigation.navigate('RoleSelection');
+        } else {
+          simpleMessage('Error', 'Algo ha ocurrido', 'danger');
+        }
+      })
       .catch(() => simpleMessage('Error', 'Algo ha ocurrido', 'danger'));
   };
 
@@ -24,3 +32,5 @@ export default () => {
     </View>
   );
 };
+
+export default UserData;

@@ -12,6 +12,17 @@ const userLogin = async user => {
   }
 };
 
+const updateUserData = async (data, token, url) => {
+  try {
+    const res = await axios.put(`${API_URL}${url}`, data, {
+      headers: { authorization: `Bearer ${token}` },
+    });
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const registerUser = async data => {
   try {
     const res = await axios.post(`${API_URL}/api/auth/register`, {
@@ -19,15 +30,12 @@ const registerUser = async data => {
       surname: data.surname,
       email: data.email,
       password: data.password,
-      position: data.position,
-      phone: data.phone,
-      personalDescription: data.about,
-      country: data.country,
     });
-    const registeredUser = res.data;
-    return registeredUser;
-  } catch (error) {
-    console.log(error);
+    const { token } = res.data;
+    const finalUser = { ...res.data.user, token };
+    return finalUser;
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -41,4 +49,48 @@ const obtainSkills = async () => {
   }
 };
 
-export { userLogin, registerUser, obtainSkills };
+const getMeets = async () => {
+  try {
+    const res = await axios.get(`${API_URL}/api/meets`)
+    return res.data
+  } catch(err) { console.log(err) } 
+}
+
+const createMeet = async (data) => {
+  try {
+    const res = await axios.post(`${API_URL}/api/meets`, {
+      title: data.title,
+      description: data.decription,
+      mentor: data.mentor,
+      mentee: data.mentee,
+      link: data.link,
+      date: data.date
+    })
+    return res.data
+  } catch(err) { console.log(err) } 
+}
+
+const updateMeet = async (data) => {
+  try {
+    const res = await axios.put(`${API_URL}/api/meets`, data)
+    return res.data
+  } catch(err) { console.log(err) }
+}
+
+const deleteMeet = async (_id) => {
+  try {
+    const res = axios.delete(`${API_URL}/api/meets`, _id)
+    return res.data
+  } catch(err) { console.log(err) }
+}
+
+export { 
+  userLogin, 
+  registerUser, 
+  obtainSkills, 
+  updateUserData, 
+  getMeets, 
+  createMeet,
+  updateMeet,
+  deleteMeet
+ };

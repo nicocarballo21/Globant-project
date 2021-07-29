@@ -1,18 +1,29 @@
 import React from 'react';
+
 import { TouchableOpacity, Text } from 'react-native';
 import styles from './styles';
+import useMode from '../../hooks/useMode';
 
-const button = props => {
-  const { title, pressFunction } = props;
+const Button = props => {
+  const { mode } = useMode();
+
+  const { title, pressFunction, style } = props;
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      style={styles.button}
+      style={[
+        {
+          ...styles.button,
+          borderColor: mode.grey,
+          backgroundColor: mode.green,
+        },
+        style,
+      ]}
       title={title}
       onPress={pressFunction}>
-      <Text style={styles.buttonText}>{title}</Text>
+      <Text style={{ ...styles.buttonText, color: mode.text }}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
-export default button;
+export default Button;

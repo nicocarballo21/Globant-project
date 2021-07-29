@@ -1,81 +1,162 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from "react-redux"
-import { View, Text } from 'react-native'
-import styles from './styles'
-import { UserBlock } from '../'
-import { getMatches } from '../../redux/Reducers/matchesReducer'
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { View, Text, SafeAreaView, FlatList, Alert } from 'react-native';
+import { UserBlock } from '../';
+import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
+import { updateUser } from '../../redux/Reducers/UserReducer';
+import { simpleMessage } from '../../utils';
+import { Button } from '../../components';
+
+import styles from './styles';
+import useMode from '../../hooks/useMode';
 
 export default function Matcher() {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
+  const matches = useSelector(state => state.matches);
+  const roleToFind = user.isMentee ? 'mentors' : 'mentees';
+  const url = '/api/users/profile';
+  const { mode } = useMode();
 
-    const dispatch = useDispatch();
-    const user = useSelector(state => state.user);
-    const roleToFind = user.isMentee ? "mentors" : "mentees"
+  // Seed inicial
+  useEffect(() => {
+    if (!matches.length) {
+      dispatch(getMatches({ roleToFind, token: user.token }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    const handlePress = (e) => {
-        console.log("Press: ", e)
+  //-------------------------------------------------------------//
+
+  const handleLike = likedUser => {
+    const finalMatch = user.likes.find(
+      userPrevLiked => userPrevLiked._id === likedUser._id,
+    );
+    if (finalMatch) {
+      simpleMessage(
+        'Información',
+        `${finalMatch.name} ${finalMatch.surname} es tu nuevo mentor`,
+        'info',
+      );
+      return dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
+    }
+    const orderedMatches = matches.filter(match => match._id !== likedUser._id);
+    dispatch(updateUser({ url, data: { likes: [likedUser, ...user.likes] } }));
+    dispatch(setMatches(orderedMatches));
+  };
+
+  const handleDislike = dislikedUser => {
+    dispatch(
+      updateUser({ url, data: { disLikes: [...user.disLikes, dislikedUser] } }),
+    );
+    const hasLikedThatOne = user.likes.find(
+      likedUser => likedUser._id === dislikedUser._id,
+    );
+    if (hasLikedThatOne) {
+      const filteredLikes = user.likes.filter(
+        likedUser => likedUser._id !== dislikedUser._id,
+      );
+      dispatch(updateUser({ url, data: { likes: filteredLikes } }));
     }
 
-    useEffect(() => {
-        dispatch(getMatches(roleToFind))
-            .then(matches => matches.payload)
-    }, [dispatch, matches])
+    const filteredMatches = matches.filter(
+      match => match._id !== dislikedUser._id,
+    );
+    dispatch(setMatches(filteredMatches));
+  };
 
-    let matches = useSelector(store => store.matches)
-    if(!user) matches = []
+  const handleReloadMatchs = () => {
+    dispatch(updateUser({ url, data: { disLikes: [] } })).then(dispatched =>
+      dispatch(getMatches({ roleToFind, token: user.token })),
+    );
+  };
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Hola, {user.name}.</Text> 
-            <Text style={styles.subtitle}>Elije entre tus posibles matches:</Text>
-            {matches.length ? matches.map(match => 
-                    <Pressable onPress={handlePress}>
-                        <UserBlock key={match.id} user={match}/>
-                    </Pressable>
-            ) : <Text style={{ textAlign: "center", paddingTop: "50%" }}>No hay matches :(</Text>}
+  return (
+    <>
+      {matches.length || user.likes.length ? (
+        <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
+          {user.likes.length ? (
+            <View style={styles.subContainer_1}>
+              <FlatList
+                horizontal
+                contentContainerStyle={{}}
+                numColumns={1}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                data={user.likes}
+                keyExtractor={(match, index) => match._id + index}
+                renderItem={({ item }) => (
+                  <UserBlock
+                    user={item}
+                    userLogin={user}
+                    handleLike={handleLike}
+                    handleDislike={handleDislike}
+                    disableButtons={true}
+                  />
+                )}
+              />
+            </View>
+          ) : null}
+          {!user.likes.length && <View style={{ height: 120 }}></View>}
+          {matches.length ? (
+            <View style={styles.subContainer}>
+              <Text style={{ ...styles.optionsTxt, color: mode.text }}>
+                Estas son tus opciones
+              </Text>
+              <FlatList
+                horizontal
+                contentContainerStyle={styles.flatContent}
+                numColumns={1}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                data={matches}
+                keyExtractor={(match, index) => match._id + index}
+                renderItem={({ item }) => (
+                  <UserBlock
+                    user={item}
+                    userLogin={user}
+                    handleLike={handleLike}
+                    handleDislike={handleDislike}
+                    disableButtons={false}
+                  />
+                )}
+              />
+            </View>
+          ) : (
+            <View
+              style={{ ...styles.reloadMatchsBox, backgroundColor: mode.bg }}>
+              <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>
+                ¡Oh!. Te has quedado sin opciones.
+              </Text>
+              <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>
+                ¿Quieres volver a recargar todos los perfiles?
+              </Text>
+              <Button
+                title="Recargar"
+                style={styles.reloadMatchsBtn}
+                pressFunction={handleReloadMatchs}
+              />
+            </View>
+          )}
+        </SafeAreaView>
+      ) : user.disLikes.length ? (
+        <View
+          style={{ ...styles.reloadAllDiscardedBox, backgroundColor: mode.bg }}>
+          <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>
+            ¡Oh!. Te has quedado sin opciones.
+          </Text>
+          <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>
+            ¿Quieres volver a recargar todos los perfiles?
+          </Text>
+          <Button
+            title="Recargar"
+            style={styles.reloadMatchsBtn}
+            pressFunction={handleReloadMatchs}
+          />
         </View>
-    )
+      ) : (
+        <Text style={styles.textCargStyle}>Cargando...</Text>
+      )}
+    </>
+  );
 }
-
-
-
-
-
-
-
-
-// const users = [
-    //     {
-    //         id: 1,
-    //         name: "Elon",
-    //         surname: "Musk",
-    //         email: "elonmusk@tesla.com",
-    //         img: "https://i.dailymail.co.uk/i/newpix/2018/09/07/08/4FD1F62300000578-6142193-image-m-9_1536304932759.jpg",
-    //         skills: [
-    //             "Diseño (UX/VD)",
-    //             "Back-End",
-    //             "Front-End",
-    //             "Testing",
-    //             "QA",
-    //             "PHP",
-    //             "Python",
-    //             "Leadership"
-    //         ]
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Britney",
-    //         surname: "Spears",
-    //         email: "freebritney@scalabritney.com",
-    //         img: "https://i.pinimg.com/originals/44/72/3e/44723ec062349202981fc2b389e84ada.jpg",
-    //         skills: [
-    //             "Full-Stack",
-    //             "AWS",
-    //             ".NET",
-    //             "Tech Support",
-    //             "Data Analyst",
-    //             "SalesForce",
-    //             "Costumer Service",
-    //             "Executive"
-    //         ]
-    //     }
-    // ]

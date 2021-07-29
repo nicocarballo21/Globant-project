@@ -3,14 +3,17 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   login: {
     flex: 1,
+    justifyContent: 'space-around',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
-    backgroundColor: 'cadetblue',
   },
 
   logo: {
     width: 150,
     height: 150,
+    backgroundColor: '#F5F6F7',
+    marginVertical: 15,
+    borderWidth: 2,
+    borderRadius: 100,
   },
 
   inputs: {
@@ -18,14 +21,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  footer: {
-    color: 'white',
-    marginTop: 30,
-    fontSize: 15,
-  },
   error: {
     color: 'red',
     fontSize: 16,
+  },
+
+  create: {
+    paddingTop: 40,
   },
 });
 

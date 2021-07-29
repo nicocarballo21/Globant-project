@@ -2,13 +2,19 @@ const {
   updateById,
   toggleMentorOrMentee,
   getMatchesForUser,
+  getObjectivesFromUser,
+  findUserById,
+  postObjectivesToUser,
+  putObjectivesFromUser,
+  deleteObjectivesFromUser,
 } = require("../services/usersServices");
 
 module.exports = {
   userUpdate: async (req, res, next) => {
     try {
       const user = await updateById(req.user.id, req.body);
-      res.status(200).json(user);
+      if(!user) res.status(400).send("Bad request: user not found")
+      res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
       next(err);
     }
@@ -19,8 +25,8 @@ module.exports = {
         (req.path.includes("mentor") && "isMentor") ||
         (req.path.includes("mentee") && "isMentee");
 
-      const user = toggleMentorOrMentee(req.user.id, type);
-      res.status(200).json(user);
+      const user = await toggleMentorOrMentee(req.user.id, type);
+      res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
       next(err);
     }
@@ -42,9 +48,9 @@ module.exports = {
       if (!skills.length)
         return res.status(400).json("You need to add at least one skill");
 
-      updateById(req.user.id, { [type]: skills }).then((user) => {
-        res.status(200).json(user);
-      });
+      const user = await updateById(req.user.id, { [type]: skills });
+
+      res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
       next(err);
     }
@@ -62,15 +68,70 @@ module.exports = {
       const userSkills =
         roleToFind !== "isMentor" ? "skillsToTeach" : "skillsToLearn";
 
-      const matches = getMatchesForUser(req.user.id, {
+      if(!roleToFind || !skillsToFind || !userSkills) 
+      res.status(400).send("Bad request: invalid inputs")
+
+      const matches = await getMatchesForUser(req.user.id, {
         roleToFind,
         skillsToFind,
         userSkills,
       });
-
       res.status(200).json(matches);
     } catch (err) {
       next(err);
+    }
+  },
+  getUserObjectives: async (req, res, next) => {
+    try {
+      const { id } = req.user;
+      const objectives = await getObjectivesFromUser(id)
+      res.status(200).send(objectives);
+    } catch (error) {
+      next(error)
+    }
+  },
+  postUserObjectives: async (req, res, next) => {
+    try {
+      const { menteeId, description, state, due } = req.body;
+      if(!menteeId || !description)
+        return res.status(400).send("Invalid request body.")
+      const user = await findUserById(menteeId)
+      if (!user) 
+        return res.status(404).send("Mentee not found!.");
+      const createdObjective = await postObjectivesToUser(user, description, state, due)
+      const { objectives } = user;
+      user.objectives = [...objectives, createdObjective];
+      await user.save()
+      res.status(201).send(createdObjective);
+    } catch (error) {
+      next(error);
+    }
+  },
+  putUserObjectives: async (req, res, next) => {
+    try {
+      const { objectiveId, data } = req.body;
+      if(!objectiveId || !data)
+        return res.status(400).send("Invalid request body.")
+      const updatedObjective = await putObjectivesFromUser(objectiveId, data)
+      if(!updatedObjective)
+        return res.status(404).send("Objective not found!.")
+      res.status(200).send(updatedObjective)
+    } catch (error) {
+      next(error);
+    }
+  },
+  deleteUserObjectives: async (req, res, next) => {
+    try {
+      const { menteeId, objectiveId } = req.body;
+      if(!menteeId || !objectiveId)
+        return res.status(400).send("Invalid request body.")
+      const user = await findUserById(menteeId)
+      const objectivePromises = await deleteObjectivesFromUser(objectiveId, user)
+      if(!objectivePromises) return res.status(404).send("Objective not found.")
+      else await Promise.all(objectivePromises)
+      res.sendStatus(204)
+    } catch (error) {
+      next(error)
     }
   },
 };

@@ -1,46 +1,122 @@
-import React from 'react';
-import { Text, View, Image, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, Image } from 'react-native';
+import { Button } from 'react-native-elements';
 import { styles } from './styles';
 import user_img from '../../assets/static/user_img.png';
+import SpinnerCoincidence from '../../components/SpinnerCoincidence';
+import useMode from '../../hooks/useMode';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 
-export default function UserBlock({ user }) {
-  // const dispatch = useDispatch();
-  //let history = useHistory();
-  // !user.img ? user.img = user_img : user.img
+export default function UserBlock({
+  user,
+  userLogin,
+  handleLike,
+  handleDislike,
+  disableButtons,
+}) {
+  const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
+  const [show, setShow] = useState(false);
 
-  // !user.img ? user.img = user_img : user.img
+  const handleOpen = () => {
+    setShow(true);
+  };
 
-    const handlePress = () => {
-        console.log("Press")
-        // dispatch(setSelectedUser(user))
-        // .then(() => history.push('/matcher'))
-    }
-    
-    return (
-        <Pressable style={styles.container} onPress={handlePress}>
-            {
-                user ?
-                <View style={styles.block}>
-                   <View style={{flexDirection: "row" }}>
-                        <Image 
-                        style={styles.img} 
-                        source={user.img ? {uri: user.img} : user_img}
-                        />
-                        <View>
-                            <Text style={styles.title}>{user.name} {user.surname}</Text>
-                            <Text style={styles.text}>{user.email}</Text>
-                        </View>
-                    </View>
-                    <View style={styles.skillsContainer}>
-                        <Text style={styles.skills}>
-                        •{ user.skills.length ? user.skills.map(skill =>  '  ' + skill + "  •") : "Sin Skills" }
-                        {/* { user.abilities.length ? user.abilities.map(ability => { <Text>{ability}</Text> }) : "Sin Habilidades" } */}
-                        </Text>
-                    </View>
-                </View> 
-                    : 
-                <Text style={{ textAlign: "center"}}>...</Text>
-            }
-        </Pressable>
-    )
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  const { mode } = useMode();
+  return (
+    <View style={styles.container}>
+      {user._id ? (
+        <View
+          style={{
+            ...styles.block,
+            backgroundColor: mode.inputBg,
+            borderColor: mode.inputBg,
+          }}>
+          <View style={styles.rowDirection}>
+            <Image
+              style={{ ...styles.img, borderColor: mode.violet }}
+              source={user.img ? { uri: user.img } : user_img}
+            />
+            <View style={styles.cardTitleBox}>
+              <View>
+                <Text
+                  style={{
+                    ...styles.title,
+                    color: mode.violet,
+                  }}>
+                  {user.name} {user.surname}
+                </Text>
+                <Text style={{ ...styles.text, color: mode.text }}>
+                  {user.email}
+                </Text>
+              </View>
+            </View>
+            {disableButtons && (
+              <>
+                <Button
+                  buttonStyle={[styles.likeButton, styles.confirmButton]}
+                  title="✔"
+                  onPress={() => handleOpen()}
+                />
+                <SCLAlert
+                  show={show}
+                  onRequestClose={handleClose}
+                  theme="info"
+                  title="¡Atención!"
+                  subtitle={`¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`}>
+                  <SCLAlertButton theme="info" onPress={() => handleLike(user)}>
+                    Confirmar
+                  </SCLAlertButton>
+                  <SCLAlertButton theme="default" onPress={handleClose}>
+                    Cancelar
+                  </SCLAlertButton>
+                </SCLAlert>
+              </>
+            )}
+          </View>
+
+          <View style={styles.skillsContainer}>
+            <Text style={{ ...styles.skills, color: mode.text }}>
+              •
+              {skills.map(skill => (
+                <Text key={skill._id}> {skill.name} •</Text>
+              ))}
+            </Text>
+          </View>
+
+          {!disableButtons && (
+            <View style={styles.buttonsContainer}>
+              <Button
+                buttonStyle={styles.dislikeButton}
+                title="Descartar"
+                onPress={() => handleDislike(user)}
+              />
+
+              <View style={styles.spinnerContainer}>
+                <SpinnerCoincidence mentorSkills={user} userLogin={userLogin} />
+                <Text style={{ color: mode.text }}>Coincidencias</Text>
+              </View>
+
+              <Button
+                buttonStyle={styles.likeButton}
+                title="Elegir"
+                onPress={() => handleLike(user)}
+              />
+            </View>
+          )}
+        </View>
+      ) : (
+        <Text
+          style={{
+            ...styles.textCargando,
+            color: mode.text,
+          }}>
+          ...
+        </Text>
+      )}
+    </View>
+  );
 }

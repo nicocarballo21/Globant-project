@@ -3,18 +3,19 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   input: {
     width: '80%',
-    height: 50,
-    padding: 15,
-    borderColor: 'white',
-    borderBottomWidth: 1,
-    marginBottom: 20,
+    height: 54,
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 0.5,
+    marginBottom: 15,
   },
   error: {
     width: '80%',
     height: 50,
     padding: 15,
     borderColor: 'red',
-    borderBottomWidth: 2,
+    borderRadius: 10,
+    borderWidth: 1,
     marginBottom: 20,
   },
 });

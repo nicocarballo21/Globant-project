@@ -1,62 +1,47 @@
-import React, { useEffect } from 'react';
-import { View, TouchableOpacity, Image, Text } from 'react-native';
+import React from 'react';
+import { View, Image, Text, KeyboardAvoidingView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, setUser } from '../../redux/Reducers/UserReducer';
 
+import { getUser } from '../../redux/Reducers/UserReducer';
 import { loginMessage } from '../../utils';
-
 import styles from './styles';
 import logo from '../../utils/logo.png';
-
 import { InputText, Button } from '../../components';
-
-import { getData, storeData } from '../../utils/storage';
+import { storeData } from '../../utils/storage';
+import { login } from '../../redux/Slices/authSlice';
+import useMode from '../../hooks/useMode';
 
 const Login = ({ navigation }) => {
+  const { mode } = useMode();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
 
   const onSubmit = async userData => {
-    // ! AWAIRT HAS NO EFFECT TRY SOMETHING ELSE
     const { payload } = await dispatch(getUser(userData));
     if (payload) {
       loginMessage(true);
       await storeData('user', payload);
-      navigation.navigate('UserDetails');
+      dispatch(login({ token: user.token }));
     } else {
       loginMessage(false);
     }
   };
 
-  const user = useSelector(state => state.user);
-
-  useEffect(() => {
-    const accion = async () => {
-      try {
-        const storedUser = await getData('user');
-        if (storedUser) {
-          dispatch(setUser({ ...storedUser }));
-          return navigation.navigate('UserDetails');
-        }
-        dispatch(setUser({ ...user }));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    accion();
-  }, []);
-
   return (
-    <View style={styles.login}>
-      <View>
-        <Image style={styles.logo} source={logo} />
-      </View>
+    <KeyboardAvoidingView
+      style={{ ...styles.login, backgroundColor: mode.bg }}
+      behavior="height"
+      keyboardVerticalOffset={-30}>
+      <Image
+        style={{ ...styles.logo, borderColor: mode.green }}
+        source={logo}
+      />
 
       <View style={styles.inputs}>
         {errors.email && (
@@ -69,12 +54,11 @@ const Login = ({ navigation }) => {
           rules={{ required: 'Ingrese su email' }}
           render={({ field: { onChange, onBlur, value } }) => (
             <InputText
-              autoCompleteType="email"
               errors={errors.email}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder="Email"
+              placeholder="E-mail"
               keyboardType="email-address"
             />
           )}
@@ -87,7 +71,7 @@ const Login = ({ navigation }) => {
           control={control}
           defaultValue=""
           rules={{
-            required: 'Ingrese su password',
+            required: 'Ingrese su contraseña',
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <InputText
@@ -95,19 +79,24 @@ const Login = ({ navigation }) => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              placeholder="Password"
+              placeholder="Contraseña"
               textContentType="password"
               secureTextEntry={true}
             />
           )}
         />
-
-        <Button title={'Log in'} pressFunction={handleSubmit(onSubmit)} />
-        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.footer}>Registrate aca!</Text>
-        </TouchableOpacity>
+        <Button title={'Acceder'} pressFunction={handleSubmit(onSubmit)} />
+        <Text
+          style={{ ...styles.create, color: mode.text }}
+          onPress={() => navigation.navigate('Register')}>
+          Crear una cuenta
+        </Text>
+        {/* <Button
+          title={'Registrarme'}
+          pressFunction={() => navigation.navigate('Register')}
+        /> */}
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

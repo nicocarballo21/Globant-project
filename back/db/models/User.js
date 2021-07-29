@@ -63,6 +63,12 @@ const userSchema = new mongoose.Schema({
       ref: "Meets",
     },
   ],
+  objectives: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Objectives"
+    }
+  ],
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -77,7 +83,7 @@ const userSchema = new mongoose.Schema({
   ],
   maxMentees: {
     type: Number,
-    default: 3,
+    default: 0,
   },
   img: {
     type: String,
