@@ -3,8 +3,6 @@ import { API_URL } from '@env';
 
 const postUserSkillsToLearn = async (skills, token) => {
   try {
-    console.log('token ->', token);
-    console.log('skills ->', skills);
     const server = generateAxios(token);
     const updatedUser = await server.put(API_URL + '/api/users/skills/learn', {
       skillsToLearn: skills,
