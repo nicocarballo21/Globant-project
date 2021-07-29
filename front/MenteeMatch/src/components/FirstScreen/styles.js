@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
+    backgroundColor: '#F5F6F7',
     width: 200,
     height: 200,
     borderWidth: 2,

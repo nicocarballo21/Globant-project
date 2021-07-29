@@ -1,30 +1,24 @@
 import { useEffect, useState } from 'react';
-import { getData, storeData } from '../utils/storage';
-import { useDispatch } from 'react-redux';
+import { storeData } from '../utils/storage';
+import { useDispatch, useSelector } from 'react-redux';
 import { setReduxTheme } from '../redux/Reducers/themeReducer';
 
 const useTheme = () => {
-  const [theme, setTheme] = useState('');
-  const [isEnabled, setIsEnabled] = useState(false);
+  const { theme } = useSelector(state => state);
+  const [hookTheme, setHookTheme] = useState(theme);
+  const [isEnabled, setIsEnabled] = useState(theme === 'dark');
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getData('menteeTheme').then(res => {
-      if (res) {
-        setTheme(res);
-        setIsEnabled(x => res === 'dark');
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    setTheme(previousState => (isEnabled ? 'dark' : 'ligth'));
+    setHookTheme(previousState => (isEnabled ? 'dark' : 'ligth'));
   }, [isEnabled]);
 
   useEffect(() => {
-    storeData('menteeTheme', theme);
-    dispatch(setReduxTheme(theme));
-  }, [dispatch, theme]);
+    storeData('menteeTheme', hookTheme).then(() =>
+      dispatch(setReduxTheme(hookTheme)),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hookTheme]);
 
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);

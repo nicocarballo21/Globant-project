@@ -15,5 +15,5 @@ export {
   Matcher,
   UserBlock,
   CheckBoxText,
-  PersonalInformation
+  PersonalInformation,
 };

@@ -13,6 +13,7 @@ import { login } from '../../redux/Slices/authSlice';
 import useMode from '../../hooks/useMode';
 
 const Login = ({ navigation }) => {
+  const { mode } = useMode();
   const {
     control,
     handleSubmit,
@@ -20,7 +21,6 @@ const Login = ({ navigation }) => {
   } = useForm();
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  const { mode } = useMode();
 
   const onSubmit = async userData => {
     const { payload } = await dispatch(getUser(userData));
@@ -86,7 +86,9 @@ const Login = ({ navigation }) => {
           )}
         />
         <Button title={'Acceder'} pressFunction={handleSubmit(onSubmit)} />
-        <Text style={styles.create}onPress={() => navigation.navigate('Register')}>
+        <Text
+          style={{ ...styles.create, color: mode.text }}
+          onPress={() => navigation.navigate('Register')}>
           Crear una cuenta
         </Text>
         {/* <Button

@@ -10,6 +10,7 @@ import styles from './styles';
 const RoleSelection = ({ navigation }) => {
   const [boxUno, setBoxUno] = useState(false);
   const [boxDos, setBoxDos] = useState(false);
+  const [boxTres, setBoxTres] = useState(false);
   const [role, setRole] = useState('');
   const dispatch = useDispatch();
   const { mode } = useMode();
@@ -18,6 +19,7 @@ const RoleSelection = ({ navigation }) => {
     if (!boxUno) {
       setBoxUno(true);
       setBoxDos(false);
+      setBoxTres(false);
       setRole('mentee');
     }
   };
@@ -26,14 +28,33 @@ const RoleSelection = ({ navigation }) => {
     if (!boxDos) {
       setBoxDos(true);
       setBoxUno(false);
+      setBoxTres(false);
       setRole('mentor');
     }
   };
 
+  const handleBoth = () => {
+    if (!boxTres) {
+      setBoxTres(true);
+      setBoxDos(false);
+      setBoxUno(false);
+      setRole('ambos');
+    }
+  };
+
   const confirmOption = () => {
-    dispatch(updateUser({ url: `/api/users/${role}`, data: {} })).then(() =>
-      navigation.navigate('SelectSkills'),
-    );
+    if (role === 'ambos') {
+      dispatch(
+        updateUser({
+          url: '/api/users/profile',
+          data: { isMentor: true, isMentee: true },
+        }),
+      ).then(() => navigation.navigate('SelectSkills'));
+    } else {
+      dispatch(updateUser({ url: `/api/users/${role}`, data: {} })).then(() =>
+        navigation.navigate('SelectSkills'),
+      );
+    }
   };
 
   return (
@@ -48,14 +69,22 @@ const RoleSelection = ({ navigation }) => {
           backgroundColor: mode.inputBg,
         }}>
         <CheckBoxText
+          mode={mode}
           text="Mentee"
           isChecked={boxUno}
           onPress={handleMenteeOp}
         />
         <CheckBoxText
+          mode={mode}
           text="Mentor"
           isChecked={boxDos}
           onPress={handleMentorOp}
+        />
+        <CheckBoxText
+          mode={mode}
+          text="Mentor Y Mentee"
+          isChecked={boxTres}
+          onPress={handleBoth}
         />
       </View>
 

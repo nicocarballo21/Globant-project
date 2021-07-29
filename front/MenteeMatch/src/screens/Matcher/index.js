@@ -33,8 +33,12 @@ export default function Matcher() {
       userPrevLiked => userPrevLiked._id === likedUser._id,
     );
     if (finalMatch) {
-      showAlert(finalMatch);
-      return /* dispatch(updateUser({ url, data: { mentor: finalMatch._id } })); */
+      simpleMessage(
+        'Información',
+        `${finalMatch.name} ${finalMatch.surname} es tu nuevo mentor`,
+        'info',
+      );
+      return dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id);
     dispatch(updateUser({ url, data: { likes: [likedUser, ...user.likes] } }));

@@ -27,7 +27,6 @@ const FirstScreen = () => {
         <Image
           style={{
             ...styles.logo,
-            backgroundColor: mode.bg,
             borderColor: mode.green,
           }}
           source={logo}

@@ -12,8 +12,10 @@ import { setUser } from '../../redux/Reducers/UserReducer';
 import { logout } from '../../redux/Slices/authSlice';
 import { setSkills } from '../../redux/Reducers/Skills';
 import { setMatches } from '../../redux/Reducers/matchesReducer';
+import useMode from '../../hooks/useMode';
 
 export default function CustomDrawerContent(props) {
+  const { mode } = useMode();
   const dispatch = useDispatch();
 
   const handleLogOut = async () => {
@@ -33,9 +35,14 @@ export default function CustomDrawerContent(props) {
       <DrawerItemList {...props} />
       <DrawerItem
         label="Cerrar menú"
+        labelStyle={{ color: mode.text }}
         onPress={() => props.navigation.closeDrawer()}
       />
-      <DrawerItem label="Cerrar sesion" onPress={handleLogOut} />
+      <DrawerItem
+        label="Cerrar sesion"
+        labelStyle={{ color: mode.text }}
+        onPress={handleLogOut}
+      />
       <Switch />
     </DrawerContentScrollView>
   );

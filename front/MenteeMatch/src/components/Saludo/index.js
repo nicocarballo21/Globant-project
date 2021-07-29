@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 
-export default function HeaderTitle({ user, mode }) {
+const HeaderTitle = ({ user, mode }) => {
   return (
     <>
       <Text style={{ ...styles.title, color: mode.text }}>
@@ -12,7 +12,7 @@ export default function HeaderTitle({ user, mode }) {
       </Text>
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   title: {
@@ -22,3 +22,5 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 });
+
+export default HeaderTitle;

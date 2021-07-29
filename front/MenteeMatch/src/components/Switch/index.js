@@ -3,7 +3,7 @@ import { View, Switch, StyleSheet, Text } from 'react-native';
 import useMode from '../../hooks/useMode';
 import useTheme from '../../hooks/useTheme';
 
-export default function () {
+const SwitchDarkMode = () => {
   const { isEnabled, toggleSwitch } = useTheme();
   const { mode } = useMode();
 
@@ -20,7 +20,7 @@ export default function () {
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -38,3 +38,5 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
 });
+
+export default SwitchDarkMode;

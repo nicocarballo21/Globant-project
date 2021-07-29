@@ -83,7 +83,7 @@ const userSchema = new mongoose.Schema({
   ],
   maxMentees: {
     type: Number,
-    default: 3,
+    default: 0,
   },
   img: {
     type: String,
