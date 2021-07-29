@@ -26,8 +26,8 @@ router.get("/match/mentors", getMatch)
 
 router.get("/match/mentees", getMatch)
 
-router.use("/meets", checkIfMentor, )
+router.use("/meets", meetsRoutes)
 
-router.use("/objectives", checkIfMentor, objectivesRoutes)
+router.use("/objectives", objectivesRoutes)
 
 module.exports = router

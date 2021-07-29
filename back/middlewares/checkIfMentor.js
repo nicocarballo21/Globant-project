@@ -1,4 +1,4 @@
-import { Users } from "../db/models"
+const { Users } = require("../db/models")
 
 const checkIfMentor = async (req, res, next) => {
   try {

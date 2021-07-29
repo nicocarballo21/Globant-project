@@ -1,4 +1,4 @@
-const { Users } = require("../db/models");
+const { Users, Objectives } = require("../db/models");
 const { orderByCoincidences, menteeResultFilter } = require("../utils");
 
 const createUser = body => {
@@ -34,6 +34,7 @@ const findUserByEmail = email => {
         model: "Skills",
       },
     })
+    .populate("objectives")
     .exec()
 }
 
@@ -63,6 +64,7 @@ const findUserById = _id => {
         model: "Skills",
       },
     })
+    .populate("objectives")
     .exec()
 }
 
@@ -92,6 +94,7 @@ const updateById = (_id, body) => {
         model: "Skills",
       },
     })
+    .populate("objectives")
     .exec()
 }
 
@@ -125,11 +128,46 @@ const getMatchesForUser = async (_id, { roleToFind, skillsToFind, userSkills }) 
   return orderByCoincidences(skillstTomatch, matches, skillsToFind);
 };
 
+const getObjectivesFromUser = async id => {
+  const objectivesPromise = Objectives.find({ mentee: id }).exec()
+  return objectivesPromise
+}
+
+const postObjectivesToUser = async (mentee, description, state, due) => {
+  const createdObjectivePromise = Objectives.create({
+    mentee: mentee.id,
+    description,
+    state,
+    due,
+  });
+  return createdObjectivePromise
+}
+
+const putObjectivesFromUser = async (objectiveId, data) => {
+  const updatedObjectivePromise = Objectives.findByIdAndUpdate(objectiveId, data, { new: true }).exec()
+  return updatedObjectivePromise
+}
+
+const deleteObjectivesFromUser = async (objectiveId, user) => {
+  const { objectives } = user
+  console.log(objectives)
+  const objective = objectives.find(objective => objective.id === objectiveId)
+  if(!objective) return null
+  else {
+    user.objectives = user.objectives.filter(objective => objective.id !== objectiveId)
+    return [user.save(), objective.delete()]
+  }
+}
+
 module.exports = {
   createUser,
   findUserByEmail,
   findUserById,
   updateById,
   toggleMentorOrMentee,
-  getMatchesForUser
+  getMatchesForUser,
+  getObjectivesFromUser,
+  postObjectivesToUser,
+  putObjectivesFromUser,
+  deleteObjectivesFromUser,
 }
