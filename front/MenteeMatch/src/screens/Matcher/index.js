@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, SafeAreaView, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, FlatList, Alert } from 'react-native';
 import { UserBlock } from '../';
 import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
 import { updateUser } from '../../redux/Reducers/UserReducer';
@@ -33,12 +33,8 @@ export default function Matcher() {
       userPrevLiked => userPrevLiked._id === likedUser._id,
     );
     if (finalMatch) {
-      simpleMessage(
-        'Información',
-        `${finalMatch.name} ${finalMatch.surname} es tu nuevo mentor`,
-        'info',
-      );
-      return dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
+      showAlert(finalMatch);
+      return /* dispatch(updateUser({ url, data: { mentor: finalMatch._id } })); */
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id);
     dispatch(updateUser({ url, data: { likes: [likedUser, ...user.likes] } }));
@@ -71,27 +67,34 @@ export default function Matcher() {
     );
   };
 
+  /* const showAlert = (theChosenOne) =>
+  Alert.alert(
+    "¡Atención!",
+    `¿Quieres confirmar a ${theChosenOne.name} ${theChosenOne.surname} cómo tu mentor?`,
+    [
+      {
+        text: "Cancelar",
+        onPress: () => Alert.alert("Cancel Pressed"),
+      },
+      {
+        text: "Aceptar",
+        onPress: () => Alert.alert("Aceptar Pressed"),
+      },
+    ],
+    {
+      cancelable: true,
+      onDismiss: () =>
+        Alert.alert(
+          "This alert was dismissed by tapping outside of the alert dialog."
+        ),
+    }
+    
+  ); */
+
   return (
     <>
       {matches.length ? (
         <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
-          {/* <View
-            style={
-              user.likes
-                ? {
-                    ...styles.titleBox_like,
-                    backgroundColor: mode.green,
-                  }
-                : { ...styles.title, color: mode.text }
-            }>
-            <Text style={{ ...styles.title, color: mode.text }}>
-              Hola, {user.name}.
-            </Text>
-            <Text style={{ ...styles.subtitle, color: mode.text }}>
-              Elige entre tus posibles matches
-            </Text>
-          </View> */}
-
           {user.likes.length ? (
             <View style={styles.subContainer_1}>
               <FlatList
