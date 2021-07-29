@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -17,21 +17,28 @@ import { getSkills } from '../../redux/Reducers/Skills';
 import userImg from '../../assets/static/user_img.png';
 import useMode from '../../hooks/useMode';
 import styles from './styles';
+import ButtonSkills from './ButtonsSkills';
+import useToggleSkills from '../../hooks/useToggleSkills';
 
 const UserDetails = ({ navigation }) => {
   const user = useSelector(state => state.user);
-  const skills = user.skillsToTeach;
   const dispatch = useDispatch();
   const { name, surname, email, position } = user;
-  const [img, setImg] = React.useState(null);
+  const [img, setImg] = useState(null);
   const { mode } = useMode();
 
+  const { skillsToRender, learn, teach, handleTeach, handleLearn } =
+    useToggleSkills(user);
+
   useEffect(() => {
-    if(!user) navigation.navigate('Login');
+    if (!user) {
+      return navigation.navigate('Login');
+    }
     dispatch(getSkills());
     getData('userImg').then(data => {
       data && setImg(data);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, img]);
 
   const onPicture = uri => {
@@ -132,21 +139,21 @@ const UserDetails = ({ navigation }) => {
         </View>
 
         <View style={styles.btnsContainer}>
-          <Text
-            style={{
-              ...styles.btns_title,
-              color: mode.text,
-              backgroundColor: mode.green,
-            }}>
-            Habilidades
-          </Text>
+          <ButtonSkills
+            user={user}
+            mode={mode}
+            learn={learn}
+            teach={teach}
+            handleLearn={handleLearn}
+            handleTeach={handleTeach}
+          />
           <View style={styles.flatlist}>
             <FlatList
               scrollEnabled={true}
               numColumns={3}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
-              data={skills}
+              data={skillsToRender}
               keyExtractor={skill => skill._id}
               renderItem={({ item }) => (
                 <Pressable
