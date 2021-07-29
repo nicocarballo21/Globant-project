@@ -66,6 +66,18 @@ export default function UserBlock({
                   onRequestClose={handleClose}
                   theme="info"
                   title="¡Atención!"
+                  titleStyle={{
+                    color: mode.text,
+                  }}
+                  subtitleStyle={{
+                    color: mode.text,
+                  }}
+                  innerStyle={{
+                    backgroundColor: mode.bg,
+                  }}
+                  headerContainerStyles={{
+                    backgroundColor: mode.bg,
+                  }}
                   subtitle={`¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`}>
                   <SCLAlertButton theme="info" onPress={() => handleLike(user)}>
                     Confirmar

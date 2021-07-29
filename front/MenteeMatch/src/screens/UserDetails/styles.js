@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
+    marginBottom: 10,
   },
 
   userInfo: {
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
   },
 
   btnsContainer: {
-    flex: 4,
+    flex: 5,
     width: '100%',
     alignItems: 'center',
   },
@@ -44,16 +45,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
 
-  btns_title: {
-    flex: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 10,
-    fontSize: 15,
-  },
-
   flatlist: {
-    flex: 9,
+    flex: 8,
     paddingHorizontal: 15,
     paddingTop: 5,
     paddingBottom: 5,
