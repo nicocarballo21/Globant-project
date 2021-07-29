@@ -1,0 +1,3 @@
+1) Ir a path node_modules/react-native-scl-alert/src/components 
+2) Reemplazar los archivos "SCLAlert" y "SCLAlertHeader" 
+    por los del mismo nombre que proviene esta carpeta

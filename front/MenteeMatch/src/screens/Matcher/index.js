@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, SafeAreaView, FlatList, Alert } from 'react-native';
+import { View, Text, SafeAreaView, FlatList } from 'react-native';
 import { UserBlock } from '../';
 import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
 import { updateUser } from '../../redux/Reducers/UserReducer';
@@ -155,7 +155,14 @@ export default function Matcher() {
           />
         </View>
       ) : (
-        <Text style={styles.textCargStyle}>Cargando...</Text>
+        <Text
+          style={{
+            ...styles.textCargStyle,
+            backgroundColor: mode.bg,
+            color: mode.text,
+          }}>
+          Cargando...
+        </Text>
       )}
     </>
   );
