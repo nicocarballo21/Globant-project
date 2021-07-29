@@ -54,10 +54,6 @@ const SelectSkills = ({ navigation }) => {
     }
   };
 
-  const handleGoBack = () => {
-    navigation.goBack();
-  };
-
   const handlePress = item => {
     if (!buttonsStyle[item.name]) {
       return setButtonsStyle({
@@ -98,9 +94,6 @@ const SelectSkills = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Pressable style={styles.pressableImg} onPress={handleGoBack}>
-          <Image source={goBack} style={styles.arrowImg} />
-        </Pressable>
         <Text style={styles.headerText}>
           {user.skillsToTeach.length
             ? '¿Qué quieres aprender?'
