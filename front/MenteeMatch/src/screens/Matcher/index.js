@@ -15,7 +15,6 @@ export default function Matcher() {
   const user = useSelector(state => state.user);
   const matches = useSelector(state => state.matches);
   const getRoleToFind = () => {
-    console.log({userActualRole: user.actualRole})
     if(!user.actualRole) {
       return user.isMentor ? 'mentees' : 'mentors'
     }
@@ -24,7 +23,7 @@ export default function Matcher() {
   const roleToFind = getRoleToFind()
   const url = '/api/users/profile';
   const { mode } = useMode();
-  const likedRole = roleToFind === 'mentors' ? 'likedMentees' : 'likedMentors'
+  const likedRole = roleToFind === 'mentors' ? 'likedMentors' : 'likedMentees'
   const dislikedRole = likedRole === 'likedMentees' ? 'dislikedMentees' : 'dislikedMentors'
 
   // Seed inicial
