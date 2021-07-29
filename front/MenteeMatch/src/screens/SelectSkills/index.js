@@ -30,9 +30,10 @@ const SelectSkills = () => {
         'warning',
       );
     }
-    const [property, learnOrTeach] = user.skillsToTeach.length
-      ? ['skillsToLearn', 'learn']
-      : ['skillsToTeach', 'teach'];
+    const [property, learnOrTeach] =
+      (!user.isMentor && user.isMentee) || user.skillsToTeach.length
+        ? ['skillsToLearn', 'learn']
+        : ['skillsToTeach', 'teach'];
 
     dispatch(
       updateUser({
@@ -43,7 +44,7 @@ const SelectSkills = () => {
     setSelection([]);
     setButtonsStyle({});
 
-    if (learnOrTeach === 'learn') {
+    if (learnOrTeach === 'learn' || !user.isMentee) {
       dispatch(login({ token: user.token }));
     }
   };
@@ -90,7 +91,7 @@ const SelectSkills = () => {
     <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
       <View style={{ ...styles.header, backgroundColor: mode.inputBg }}>
         <Text style={{ ...styles.headerText, color: mode.text }}>
-          {user.skillsToTeach.length
+          {(!user.isMentor && user.isMentee) || user.skillsToTeach.length
             ? '¿Qué quieres aprender?'
             : '¿Qué quieres enseñar?'}
         </Text>
