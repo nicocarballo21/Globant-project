@@ -79,7 +79,7 @@ const updateMeet = async (data) => {
 
 const deleteMeet = async (_id) => {
   try {
-    const res = axios.delete(`${API_URL}/api/meets`, {_id})
+    const res = axios.delete(`${API_URL}/api/meets`, _id)
     return res.data
   } catch(err) { console.log(err) }
 }
