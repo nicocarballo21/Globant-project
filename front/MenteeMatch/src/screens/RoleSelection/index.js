@@ -47,7 +47,7 @@ const RoleSelection = ({ navigation }) => {
       dispatch(
         updateUser({
           url: '/api/users/profile',
-          data: { isMentor: true, isMentee: true },
+          data: { isMentor: true, isMentee: true, actualRole: 'Mentor' },
         }),
       ).then(() => navigation.navigate('SelectSkills'));
     } else {

@@ -31,6 +31,7 @@ const initialState = {
   maxMentees: null,
   img: null,
   token: '',
+  actualRole: '',
 };
 
 export const setUser = createAction('SET_USER');

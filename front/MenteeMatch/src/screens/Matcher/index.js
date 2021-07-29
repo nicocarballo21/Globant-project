@@ -14,7 +14,7 @@ export default function Matcher() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const matches = useSelector(state => state.matches);
-  const roleToFind = user.isMentee ? 'mentors' : 'mentees';
+  const roleToFind = user.actualRole ? `${user.actualRole.toLowerCase()}s` : ( user.isMentor ? 'mentees' : 'mentors' );
   const url = '/api/users/profile';
   const { mode } = useMode();
 
@@ -27,6 +27,11 @@ export default function Matcher() {
   }, []);
 
   //-------------------------------------------------------------//
+  // Sí el usuario cambia de mentor role a mentee role o visceversa
+
+  useEffect(() => {
+    dispatch(getMatches({ roleToFind, token: user.token }));
+  }, [user.actualRole]);
 
   const handleLike = likedUser => {
     const finalMatch = user.likes.find(
