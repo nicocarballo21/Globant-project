@@ -4,7 +4,7 @@ import { createReducer, createAction } from '@reduxjs/toolkit';
 const setReduxTheme = createAction('SET_THEME');
 
 //------------------- Reducer -------------------//
-const themeReducer = createReducer('', {
+const themeReducer = createReducer('ligth', {
   [setReduxTheme]: (_, action) => action.payload,
 });
 

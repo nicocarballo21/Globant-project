@@ -8,7 +8,7 @@ import logo from '../../utils/logo.png';
 import { useNavigation } from '@react-navigation/native';
 import useMode from '../../hooks/useMode';
 
-export default ({ onSubmit }) => {
+const PersonalInformation = ({ onSubmit }) => {
   const {
     control,
     handleSubmit,
@@ -112,3 +112,5 @@ export default ({ onSubmit }) => {
     </View>
   );
 };
+
+export default PersonalInformation;

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setReduxTheme } from '../redux/Reducers/themeReducer';
 
 const useTheme = () => {
-  const [theme, setTheme] = useState('');
+  const [theme, setTheme] = useState('ligth');
   const [isEnabled, setIsEnabled] = useState(false);
   const dispatch = useDispatch();
 
@@ -22,9 +22,9 @@ const useTheme = () => {
   }, [isEnabled]);
 
   useEffect(() => {
-    storeData('menteeTheme', theme);
-    dispatch(setReduxTheme(theme));
-  }, [dispatch, theme]);
+    storeData('menteeTheme', theme).then(() => dispatch(setReduxTheme(theme)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [theme]);
 
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);

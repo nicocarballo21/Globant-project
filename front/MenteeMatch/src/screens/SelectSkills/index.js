@@ -10,10 +10,9 @@ import { updateUser } from '../../redux/Reducers/UserReducer';
 import { login } from '../../redux/Slices/authSlice';
 import useMode from '../../hooks/useMode';
 
-const SelectSkills = ({ navigation }) => {
+const SelectSkills = () => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
-  const skills = useSelector(state => state.skills);
+  const { user, skills } = useSelector(state => state);
   const [buttonsStyle, setButtonsStyle] = useState({});
   const [selection, setSelection] = useState([]);
   const [menteesQty, setMenteesQty] = useState(1);
@@ -93,7 +92,7 @@ const SelectSkills = ({ navigation }) => {
         <Text style={{ ...styles.headerText, color: mode.text }}>
           {user.skillsToTeach.length
             ? '¿Qué quieres aprender?'
-            : '¿Qué conocimientos tienes?'}
+            : '¿Qué quieres enseñar?'}
         </Text>
       </View>
 
@@ -128,7 +127,7 @@ const SelectSkills = ({ navigation }) => {
         />
       </View>
 
-      {user.isMentor && (
+      {user.isMentor && !user.skillsToTeach.length && (
         <View>
           <Text style={{ ...styles.menteeQtyTitleTxt, color: mode.text }}>
             Cantidad de mentees a mentorear
