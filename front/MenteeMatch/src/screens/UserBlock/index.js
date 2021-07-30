@@ -15,12 +15,12 @@ export default function UserBlock({
   disableButtons,
 }) {
   const getIsMentor = () => {
-    if(user.actualRole)
-      return user.actualRole === 'Mentor'
-    return !!user.isMentor
+    if(userLogin.actualRole)
+      return userLogin.actualRole === 'Mentor'
+    return !!userLogin.isMentor
   }
   const isMentor = getIsMentor()
-  const skills = isMentor ? user.skillsToTeach : user.skillsToLearn;
+  const skills = isMentor ? user.skillsToLearn : user.skillsToTeach;
   const [show, setShow] = useState(false);
 
   const getPopMessage = () => {
