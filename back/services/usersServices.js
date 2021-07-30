@@ -41,6 +41,13 @@ const findUserByEmail = email => {
         model: "Skills",
       },
     })
+    .populate({
+      path: "mentees",
+      populate: {
+        path: "skillsToLearn",
+        model: "Skills",
+      },
+    })
     .populate("objectives")
     .exec()
 }
@@ -75,6 +82,13 @@ const findUserById = _id => {
       path: "dislikedMentors",
       populate: {
         path: "skillsToTeach",
+        model: "Skills",
+      },
+    })
+    .populate({
+      path: "mentees",
+      populate: {
+        path: "skillsToLearn",
         model: "Skills",
       },
     })
@@ -119,6 +133,13 @@ const updateById = (_id, body) => {
       path: "dislikedMentors",
       populate: {
         path: "skillsToTeach",
+        model: "Skills",
+      },
+    })
+    .populate({
+      path: "mentees",
+      populate: {
+        path: "skillsToLearn",
         model: "Skills",
       },
     })
@@ -206,11 +227,25 @@ const deleteObjectivesFromUser = (objectiveId, user) => {
 
 const setMenteeToMentor = async (menteeId, mentorId) => {
   try {
-    const mentor = await Users.findById(mentorId)
+    const mentor = await Users.findById(mentorId).exec()
     if(!mentor) 
       return null
     mentor.mentees.push(menteeId)
     return mentor.save()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const setMentorToMentee = async (mentorId, menteeId) => {
+  try {
+    const mentee = await Users.findById(menteeId).exec()
+    mentee.mentor = mentorId
+    const mentor = await Users.findById(mentorId).populate("likedMentees").exec()
+    console.log({likedMentees: mentor.likedMentees, mentor, menteeId})
+    mentor.likedMentees = mentor.likedMentees.filter(mentee => mentee.id !== menteeId)
+    console.log({likedMentees: mentor.likedMentees, mentor, menteeId})
+    return [mentee.save(), mentor.save()]
   } catch (error) {
     console.log(error)
   }
@@ -228,4 +263,5 @@ module.exports = {
   putObjectivesFromUser,
   deleteObjectivesFromUser,
   setMenteeToMentor,
+  setMentorToMentee,
 }

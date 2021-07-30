@@ -9,7 +9,7 @@ import { Button } from '../../components';
 
 import styles from './styles';
 import useMode from '../../hooks/useMode';
-import { setMenteeToMentor } from '../../services/axiosServices';
+import { setMenteeToMentor, setMentorToMentee } from '../../services/axiosServices';
 
 export default function Matcher() {
   const dispatch = useDispatch();
@@ -49,15 +49,25 @@ export default function Matcher() {
       userPrevLiked => userPrevLiked._id === likedUser._id,
     );
     if (finalMatch) {
+      if (roleToFind === 'mentees') {
+        // Acá se debería enviar la notificación al mentee pero por ahora directamente se asigna ahora
+        if(user.mentees.length >= user.maxMentees) 
+          return simpleMessage(
+            '¡Atención!',
+            `Puedes tener hasta ${user.maxMentees} mentees cómo máximo al mismo tiempo`,
+            'warning',
+            );
+        setMentorToMentee(user._id, finalMatch._id, user.token)
+        dispatch(updateUser({ url, data: { mentees: [...user.mentees, finalMatch._id] } }));
+        return console.log(
+          'Se le mandó una notificación de humo al mentee (?)',
+          );
+      }
       simpleMessage(
         'Información',
         `${finalMatch.name} ${finalMatch.surname} es tu nuevo ${roleToFind}`,
         'info',
       );
-      if (roleToFind === 'mentees')
-        return console.log(
-          'Se le mandó una notificación de humo al mentee (?)',
-        );
       dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
       return setMenteeToMentor(user._id, finalMatch._id, user.token);
     }

@@ -34,4 +34,14 @@ const setMenteeToMentor = async (menteeId, mentorId, token) => {
   }
 }
 
-export { postUserSkillsToLearn, postUserSkillsToTeach, setMenteeToMentor };
+const setMentorToMentee = async (mentorId, menteeId, token) => {
+  try {
+    const server = generateAxios(token)
+    await server.put(API_URL + '/api/users/mentee/set', { id: mentorId, _id: menteeId })
+  } catch (error) {
+    console.log({error})
+  }
+}
+
+
+export { postUserSkillsToLearn, postUserSkillsToTeach, setMenteeToMentor, setMentorToMentee };

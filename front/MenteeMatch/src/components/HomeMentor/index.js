@@ -16,11 +16,11 @@ export default () => {
    
     return(
         <View style={{...styles.container, backgroundColor: mode.bg}}>
-            <Text style={styles.title}>{user.likedMentees.length ? 'Tus mentees son los siguientes:' : 'No tienes mentees asignados todavia. Dirígete al Matcher para seleccionar mentees'}</Text>
+            <Text style={styles.title}>{user.mentees.length ? 'Tus mentees son los siguientes:' : 'No tienes mentees asignados todavia. Dirígete al Matcher para seleccionar mentees'}</Text>
             <View style={{...styles.block, backgroundColor: mode.bg,
         borderColor: mode.inputBg,}}>
                 <ScrollView >
-                {user.likedMentees.map(mentee => 
+                {user.mentees.map(mentee => 
                     <View style={styles.bord} >
                         <Image onPress={()=> navigation.navigate('UserViewModel')}  style={styles.img} source={{ uri: mentee.img }}/>
                         <Text onPress={()=> navigation.navigate('UserViewModel', {name: mentee})} style={styles.name}>
