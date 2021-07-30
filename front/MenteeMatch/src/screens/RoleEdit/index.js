@@ -1,75 +1,94 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, SafeAreaView, FlatList, View, Pressable } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, SafeAreaView, FlatList, View, Pressable, ToastAndroid } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSkills } from '../../redux/Reducers/Skills';
 import { updateUser } from '../../redux/Reducers/UserReducer';
 import LinearGradient from 'react-native-linear-gradient';
 import BouncyCheckbox from "react-native-bouncy-checkbox" ;
 import { globantBright } from '../../assets/styles/colors';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function RoleEdit() {
+
+export default function RoleEdit({ navigation }) {
     const user = useSelector(state => state.user);
-    console.log(user.isMentee)
-    const [ renderSkillsToLearn, setRenderSkillsToLearn ] = React.useState(user.isMentee);
-    const [ renderSkillsToTeach, setRenderSkillsToTeach] = React.useState(user.isMentor);
+    const [ menteeBox, setMenteeBox] = React.useState(user.isMentee);
+    const [ mentorBox, setMentorBox] = React.useState(user.isMentor);
     const [ role, setRole ] = React.useState('');
   
     const dispatch = useDispatch();
     const skills = useSelector(state => state.skills);
-    const [ selection, setSelection ] = React.useState([]);
     
     React.useEffect(() => {
        if (!skills.length) dispatch(getSkills())
-    }, [dispatch, user])
+    }, [dispatch, user.isMentor, user.isMentee])
 
     const menteeCheck = () => {
-            setRenderSkillsToTeach(false)
-            setRenderSkillsToLearn(!renderSkillsToLearn)
-            setRole('mentee');
+        setMenteeBox(!menteeBox)
+        if (menteeBox) setRole('mentee');
     }
     
     const mentorCheck = () => {
-            setRenderSkillsToLearn(false)
-            setRenderSkillsToTeach(!renderSkillsToTeach)
-            setRole('mentor');
+        setMentorBox(!mentorBox)
+        if (mentorBox) setRole('mentor');
     }
     
     const handleSubmit = () => {
-        if ( role === "mentee" ) {
-            if ( user.isMentee ) dispatch(updateUser({ url: `/api/users/skills/skillsToLearn`, data: { [property]: selection }}))
-            else {
-                return dispatch(updateUser({ url: `/api/users/${role}`, data: {} }))
-                    .then(() => dispatch(updateUser({
-                        url: `/api/users/skills/skillsToLearn`,
-                        data: { [property]: selection },
-                        }))
-                    )
-            } 
-        } else if ( role === "mentor" ) {
-            if ( user.isMentor ) dispatch(updateUser({ url: `/api/users/skills/skillsToTeach`, data: { [property]: selection }}))
-            else {
-                return dispatch(updateUser({ url: `/api/users/${role}`, data: {} }))
-                    .then(() => dispatch(updateUser({
-                        url: `/api/users/skills/skillsToTeach`,
-                        data: { [property]: selection },
-                        }))
-                    )
-            } 
+        if ( role === "mentee" && !user.isMentee ) {
+            return dispatch(updateUser({ url: `/api/users/${role}`, data: {} }))
+                .then(() => ToastAndroid.showWithGravityAndOffset("Ahora tambien sos Mentee!", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50))
         }
-        setSelection([]);
+        else if ( role === "mentor" && !user.isMentor) {
+                return dispatch(updateUser({ url: `/api/users/${role}`, data: {} }))
+                    .then(() => ToastAndroid.showWithGravityAndOffset("Ahora tambien sos Mentor!", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50))
+        } 
     }
 
     return (
-        <SafeAreaView style={{ flex:1, justifyContent: "space-between", alignItems: "center"}}>
-            <View style={ styles.container }>
+        <SafeAreaView style={{ flex:1, justifyContent: "space-around", alignItems: "center"}}>
+            <View >
                 <BouncyCheckbox 
                     disableBuiltInState={user.isMentee}
                     isChecked={user.isMentee}
                     text="Mentee"
                     fillColor= "#BFD732"
                     iconStyle={{ borderColor: "#BFD732" }}
-                    onPress={() => menteeCheck()}
+                    onPress={() => user.isMentee ? ToastAndroid.showWithGravityAndOffset("No puedes desmarcar esta opcion", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50): menteeCheck()}
                 />
+            { user.isMentee ? (
+                <>
+                <TouchableOpacity style={styles.editButton}
+                    onPress={() => navigation.navigate("Skills", { name: "Mentee", learnOrTeach: "learn", property:"skillsToLearn"})}
+                >
+                    <Text style={styles.editText} >editar</Text>
+                </TouchableOpacity>
+                    <View style={styles.btnsContainer}>
+                        <FlatList
+                            scrollEnabled={true}
+                            contentContainerStyle={{
+                                alignSelf: 'center',
+                                alignItems: 'center',
+                            }}
+                            numColumns={3}
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            data={user.skillsToLearn}
+                            keyExtractor={skills => skills._id}
+                            renderItem={({ item }) => (
+                                <Pressable
+                                    style={[styles.pressable]}
+                                >
+                                <Text style={styles.pressableTxt}>{item.name}</Text>
+                                </Pressable>
+                            )}
+                        />
+                    </View>
+                </>
+
+            ) : (
+                null
+            )}
+
+            </View> 
                 <BouncyCheckbox 
                     disableBuiltInState={user.isMentor}
                     isChecked={user.isMentor}
@@ -77,42 +96,17 @@ export default function RoleEdit() {
                     fillColor= "#BFD732"
                     iconStyle={{ borderColor: "#BFD732" }}
                     onPress={() => mentorCheck()}
+                    onPress={() => user.isMentor ? ToastAndroid.showWithGravityAndOffset("No puedes desmarcar esta opcion", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50): mentorCheck()}
                 />
-            </View> 
-            { renderSkillsToLearn ? (
-                <>
-                    <Text>Que habilidades quieres aprender?</Text>
-                    <View style={styles.btnsContainer}>
-                        <FlatList
-                            scrollEnabled={true}
-                            contentContainerStyle={{
-                                alignSelf: 'center',
-                                alignItems: 'center',
-                            }}
-                            numColumns={3}
-                            showsVerticalScrollIndicator={false}
-                            showsHorizontalScrollIndicator={false}
-                            data={skills}
-                            keyExtractor={skills => skills._id}
-                            renderItem={({ item }) => (
-                                <Pressable
-                                    style={[styles.pressable]}
-                                    onPress={() => console.log(item)}
-                                >
-                                <Text style={styles.pressableTxt}>{item.name}</Text>
-                                </Pressable>
-                            )}
-                        />
-                    </View>
-                </>
 
-            ) : (
-                null
-            )}
        
-            { renderSkillsToTeach ? (
+            { user.isMentor ? (
                 <>
-                    <Text>Que habilidades quieres enseñar?</Text>
+                <TouchableOpacity style={styles.editButton}
+                    onPress={() => navigation.navigate("Skills", { name: "Mentor", learnOrTeach: "teach", property:"skillsToTeach"})}
+                >
+                    <Text style={styles.editText} >editar</Text>
+                </TouchableOpacity>
                     <View style={styles.btnsContainer}>
                         <FlatList
                             scrollEnabled={true}
@@ -123,12 +117,11 @@ export default function RoleEdit() {
                             numColumns={3}
                             showsVerticalScrollIndicator={false}
                             showsHorizontalScrollIndicator={false}
-                            data={skills}
+                            data={user.skillsToTeach}
                             keyExtractor={skills => skills._id}
                             renderItem={({ item }) => (
                                 <Pressable
                                     style={[styles.pressable]}
-                                    onPress={() => console.log(item)}
                                 >
                                 <Text style={styles.pressableTxt}>{item.name}</Text>
                                 </Pressable>
@@ -138,12 +131,11 @@ export default function RoleEdit() {
                 </>
 
             ) : (
-                null
-
+                <Text>Todavia no eres Mentor</Text>
             )}
 
             <TouchableOpacity style={styles.button}
-                onPress={() => console.log("SUBMITT")}
+                onPress={() => handleSubmit()}
             >
                 <LinearGradient
                     colors={['#D9E021', '#8CC63f']}
@@ -178,7 +170,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     btnsContainer: {
-        flex: 1,
         flexDirection: 'row',
         position: 'relative',
         borderColor: globantBright.blackPearl,
@@ -205,5 +196,17 @@ const styles = StyleSheet.create({
     pressableTxt: {
         color: globantBright.text,
     },
+    editButton: {
+        alignItems: "center",
+        justifyContent: "center",
+        height: "5%",
+        width: "15%",
+        backgroundColor: "#BFD732",
+        borderRadius: 10
+    },
+    editText: {
+        fontSize: 16,
+        color: "#FFF"
+    }
 })
 

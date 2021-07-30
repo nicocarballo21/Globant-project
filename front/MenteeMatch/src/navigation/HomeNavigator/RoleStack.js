@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { RoleEdit } from '../../screens';
+import { RoleEdit, Skills } from '../../screens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
@@ -20,6 +20,10 @@ export default function RoleStack({ navigation }) {
                   <Ionicons name="menu" size={40} color={"#BFD732"} onPress={() => navigation.openDrawer()} />
               )
       }}/>
+      <Stack.Screen name="Skills" component={Skills} options={{
+          title:"Habilidades",
+      }}/>
+
     </Stack.Navigator>
   );
 }
