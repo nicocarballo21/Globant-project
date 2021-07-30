@@ -14,13 +14,18 @@ export default function Matcher() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const matches = useSelector(state => state.matches);
-  const roleToFind = user.actualRole
-    ? `${user.actualRole.toLowerCase()}s`
-    : user.isMentor
-    ? 'mentees'
-    : 'mentors';
+  const getRoleToFind = () => {
+    if (!user.actualRole) {
+      return user.isMentor ? 'mentees' : 'mentors';
+    }
+    return user.actualRole === 'Mentor' ? 'mentees' : 'mentors';
+  };
+  const roleToFind = getRoleToFind();
   const url = '/api/users/profile';
   const { mode } = useMode();
+  const likedRole = roleToFind === 'mentors' ? 'likedMentors' : 'likedMentees';
+  const dislikedRole =
+    likedRole === 'likedMentees' ? 'dislikedMentees' : 'dislikedMentors';
 
   // Seed inicial
   useEffect(() => {
@@ -39,34 +44,46 @@ export default function Matcher() {
   }, [user.actualRole]);
 
   const handleLike = likedUser => {
-    const finalMatch = user.likes.find(
+    const finalMatch = user[likedRole].find(
       userPrevLiked => userPrevLiked._id === likedUser._id,
     );
     if (finalMatch) {
       simpleMessage(
         'Información',
-        `${finalMatch.name} ${finalMatch.surname} es tu nuevo mentor`,
+        `${finalMatch.name} ${finalMatch.surname} es tu nuevo ${roleToFind}`,
         'info',
       );
+      if (roleToFind === 'mentees')
+        return console.log(
+          'Se le mandó una notificación de humo al mentee (?)',
+        );
       return dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id);
-    dispatch(updateUser({ url, data: { likes: [likedUser, ...user.likes] } }));
+    dispatch(
+      updateUser({
+        url,
+        data: { [likedRole]: [likedUser, ...user[likedRole]] },
+      }),
+    );
     dispatch(setMatches(orderedMatches));
   };
 
   const handleDislike = dislikedUser => {
     dispatch(
-      updateUser({ url, data: { disLikes: [...user.disLikes, dislikedUser] } }),
+      updateUser({
+        url,
+        data: { [dislikedRole]: [...user[dislikedRole], dislikedUser] },
+      }),
     );
-    const hasLikedThatOne = user.likes.find(
+    const hasLikedThatOne = user[likedRole].find(
       likedUser => likedUser._id === dislikedUser._id,
     );
     if (hasLikedThatOne) {
-      const filteredLikes = user.likes.filter(
+      const filteredLikes = user[likedRole].filter(
         likedUser => likedUser._id !== dislikedUser._id,
       );
-      dispatch(updateUser({ url, data: { likes: filteredLikes } }));
+      dispatch(updateUser({ url, data: { [likedRole]: filteredLikes } }));
     }
 
     const filteredMatches = matches.filter(
@@ -76,16 +93,16 @@ export default function Matcher() {
   };
 
   const handleReloadMatchs = () => {
-    dispatch(updateUser({ url, data: { disLikes: [] } })).then(dispatched =>
-      dispatch(getMatches({ roleToFind, token: user.token })),
+    dispatch(updateUser({ url, data: { [dislikedRole]: [] } })).then(
+      dispatched => dispatch(getMatches({ roleToFind, token: user.token })),
     );
   };
 
   return (
     <>
-      {matches.length || user.likes.length ? (
+      {matches.length || user[likedRole].length ? (
         <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
-          {user.likes.length ? (
+          {user[likedRole].length ? (
             <View style={styles.subContainer_1}>
               <FlatList
                 horizontal
@@ -93,7 +110,7 @@ export default function Matcher() {
                 numColumns={1}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                data={user.likes}
+                data={user[likedRole]}
                 keyExtractor={(match, index) => match._id + index}
                 renderItem={({ item }) => (
                   <UserBlock
@@ -107,7 +124,7 @@ export default function Matcher() {
               />
             </View>
           ) : null}
-          {!user.likes.length && <View style={{ height: 120 }}></View>}
+          {!user[likedRole].length && <View style={{ height: 120 }}></View>}
           {matches.length ? (
             <View style={styles.subContainer}>
               <Text style={{ ...styles.optionsTxt, color: mode.text }}>
@@ -149,7 +166,7 @@ export default function Matcher() {
             </View>
           )}
         </SafeAreaView>
-      ) : user.disLikes.length ? (
+      ) : user[dislikedRole].length ? (
         <View
           style={{ ...styles.reloadAllDiscardedBox, backgroundColor: mode.bg }}>
           <Text style={{ ...styles.reloadMatchsTxt, color: mode.text }}>

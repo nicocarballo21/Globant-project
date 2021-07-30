@@ -17,6 +17,12 @@ export default function UserBlock({
   const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
   const [show, setShow] = useState(false);
 
+  const getPopMessage = () => {
+    return user.isMentor 
+    ? `¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`
+    : `¿Quieres invitar a ${user.name} ${user.surname} a ser tu mentee?` 
+  }
+
   const handleOpen = () => {
     setShow(true);
   };
@@ -64,8 +70,8 @@ export default function UserBlock({
                 <SCLAlert
                   show={show}
                   onRequestClose={handleClose}
-                  theme="info"
-                  title="¡Atención!"
+                  theme="success"
+                  title="¡Perfecto!"
                   titleStyle={{
                     color: mode.text,
                   }}
@@ -78,7 +84,7 @@ export default function UserBlock({
                   headerContainerStyles={{
                     backgroundColor: mode.bg,
                   }}
-                  subtitle={`¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`}>
+                  subtitle={getPopMessage()}>
                   <SCLAlertButton theme="info" onPress={() => handleLike(user)}>
                     Confirmar
                   </SCLAlertButton>
@@ -121,13 +127,7 @@ export default function UserBlock({
           )}
         </View>
       ) : (
-        <Text
-          style={{
-            ...styles.textCargando,
-            color: mode.text,
-          }}>
-          ...
-        </Text>
+        null
       )}
     </View>
   );

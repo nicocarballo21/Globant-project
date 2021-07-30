@@ -20,7 +20,7 @@ const RoleButton = ({ style }) => {
   return actualRole ? (
     <Button
       pressFunction={toggleRole}
-      title={actualRole}
+      title={`Soy ${actualRole}`}
       style={style}
     />
   ) : null;

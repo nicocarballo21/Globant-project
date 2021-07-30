@@ -34,9 +34,9 @@ export default function HomeStack({ navigation }) {
           ),
           headerRight: () => <RoleButton style={{
             alignSelf: "center",
-            width: 100,
+            width: 140,
             height: 45.6,
-            marginRight: 16,
+            marginRight: 8,
             textAlignVertical: "center",
             marginBottom: 20,
             elevation: 5,
