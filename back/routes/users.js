@@ -15,6 +15,8 @@ const {
 
 router.put("/profile", userUpdate)
 
+router.put("/mentor/set", setMentor)
+
 router.put("/mentor", mentorAndMenteeToggling)
 
 router.put("/mentee", mentorAndMenteeToggling)

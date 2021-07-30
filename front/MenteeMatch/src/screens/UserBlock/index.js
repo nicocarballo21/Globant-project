@@ -14,8 +14,13 @@ export default function UserBlock({
   handleDislike,
   disableButtons,
 }) {
-  const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
-  /* console.log(skills) */
+  const getIsMentor = () => {
+    if(user.actualRole)
+      return user.actualRole === 'Mentor'
+    return !!user.isMentor
+  }
+  const isMentor = getIsMentor()
+  const skills = isMentor ? user.skillsToTeach : user.skillsToLearn;
   const [show, setShow] = useState(false);
 
   const getPopMessage = () => {
