@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ObjectivesComponent from '../../components/ObjectivesComponent';
-import { getObjectivesFromUser } from '../../services/axiosServices';
+import {
+  getObjectivesFromUser,
+  postObjectivesToUser,
+} from '../../services/axiosServices';
 import { useSelector } from 'react-redux';
 
 const Objectives = () => {
@@ -17,9 +20,15 @@ const Objectives = () => {
     init();
   }, []);
 
-  //handlea add
+  // handlea add
+  const handleAdd = async (objective, meenteId) => {
+    const res = await postObjectivesToUser(meenteId, userToken, objective);
+    console.log('posteado');
+  };
+  // handel delete
+  // handle edit
 
-  return <ObjectivesComponent data={data} />;
+  return <ObjectivesComponent data={data} handleAdd={handleAdd} />;
 };
 
 export default Objectives;

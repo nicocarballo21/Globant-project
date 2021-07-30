@@ -6,8 +6,6 @@ import ProfileNavigator from '../ProfileNavigator';
 import HomeNavigator from '../HomeNavigator';
 import MatcherNavigator from '../HomeNavigator/MatchNav';
 
-import Objectives from '../../screens/Objectives';
-
 import useMode from '../../hooks/useMode';
 
 const Tab = createBottomTabNavigator();
@@ -37,11 +35,11 @@ export default function HomeApp() {
       ) : null}
       <Tab.Screen
         name="Home"
-        component={Objectives}
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
-          ), // cambiar el componente a HomeNavigator
+          ),
         }}
       />
       <Tab.Screen

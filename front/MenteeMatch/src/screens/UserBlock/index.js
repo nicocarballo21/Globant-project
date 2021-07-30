@@ -19,10 +19,10 @@ export default function UserBlock({
   const [show, setShow] = useState(false);
 
   const getPopMessage = () => {
-    return user.isMentor 
-    ? `¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`
-    : `¿Quieres invitar a ${user.name} ${user.surname} a ser tu mentee?` 
-  }
+    return user.isMentor
+      ? `¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`
+      : `¿Quieres invitar a ${user.name} ${user.surname} a ser tu mentee?`;
+  };
 
   const handleOpen = () => {
     setShow(true);
@@ -127,9 +127,7 @@ export default function UserBlock({
             </View>
           )}
         </View>
-      ) : (
-        null
-      )}
+      ) : null}
     </View>
   );
 }

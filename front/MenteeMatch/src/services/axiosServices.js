@@ -32,7 +32,23 @@ const getObjectivesFromUser = async (id, token) => {
       API_URL + `/api/users/objectives/${id}`,
     );
     return objectives;
-  } catch (error) {}
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const postObjectivesToUser = async (meenteId, token, objective) => {
+  try {
+    const server = generateAxios(token);
+    const res = await server.post(API_URL + '/api/users/objectives', {
+      meenteId,
+      objective,
+    });
+
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const setMenteeToMentor = async (menteeId, mentorId, token) => {
@@ -52,4 +68,5 @@ export {
   postUserSkillsToTeach,
   setMenteeToMentor,
   getObjectivesFromUser,
+  postObjectivesToUser,
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, FlatList, ScrollView } from 'react-native';
 import styles from './styles';
 import useMode from '../../hooks/useMode';
@@ -40,9 +40,10 @@ const Item = ({ objetive, mode, state }) => {
   );
 };
 
-const ObjectivesComponent = ({ data }) => {
+const ObjectivesComponent = ({ data, handleAdd }) => {
+  const [input, setinput] = useState('');
   const { mode } = useMode();
-  console.log(data);
+
   const renderItem = ({ item }) => (
     <Item objetive={item.description} state={item.state} mode={mode} />
   );
@@ -54,8 +55,16 @@ const ObjectivesComponent = ({ data }) => {
         </View>
 
         <View style={styles.add_objectives}>
-          <InputText placeholder="Ingresar objetivo a cumplir" />
-          <Button title={'Agregar'} />
+          <InputText
+            onChangeText={setinput}
+            value={input}
+            placeholder="Ingresar objetivo a cumplir"
+          />
+
+          <Button
+            title={'Agregar'}
+            pressFunction={() => handleAdd(input, menteeId)}
+          />
         </View>
 
         <View style={{ ...styles.content, backgroundColor: mode.bg }}>
