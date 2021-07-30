@@ -7,15 +7,18 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu';
 
 import {styles} from './styles'
+import useMode from '../../hooks/useMode';
 
 export default () => {
+    const { mode } = useMode()
     const user = useSelector(state => state.user);
     const navigation = useNavigation();
    
     return(
-        <View style={styles.container}>
+        <View style={{...styles.container, backgroundColor: mode.bg}}>
             <Text style={styles.title}>{user.likedMentees.length ? 'Tus mentees son los siguientes:' : 'No tienes mentees asignados todavia. Dirígete al Matcher para seleccionar mentees'}</Text>
-            <View style={styles.block}>
+            <View style={{...styles.block, backgroundColor: mode.bg,
+        borderColor: mode.inputBg,}}>
                 <ScrollView >
                 {user.likedMentees.map(mentee => 
                     <View style={styles.bord} >
