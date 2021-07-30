@@ -10,11 +10,11 @@ import {styles} from './styles'
 
 export default () => {
     const user = useSelector(state => state.user);
-    const usersLikes = useSelector(state => state.user.likes);
     const navigation = useNavigation();
    
     return(
         <View style={styles.container}>
+            <Text style={styles.title}>{user.likedMentees.length ? 'Tus mentees son los siguientes:' : 'No tienes mentees asignados todavia. Dirígete al Matcher para seleccionar mentees'}</Text>
             <View style={styles.block}>
                 <ScrollView >
                 {user.likedMentees.map(mentee => 
