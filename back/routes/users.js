@@ -7,14 +7,15 @@ const {
   userUpdate,
   mentorAndMenteeToggling,
   setSkills,
-  getMatch
+  getMatch,
+  setMentor
 } = require("../controllers/userController")
 
 // RUTAS /api/users
 
 router.put("/profile", userUpdate)
 
-router.put("/mentor", mentorAndMenteeToggling)
+router.put("/mentor", setMentor)
 
 router.put("/mentee", mentorAndMenteeToggling)
 

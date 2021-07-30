@@ -15,7 +15,14 @@ export default function UserBlock({
   disableButtons,
 }) {
   const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
+  /* console.log(skills) */
   const [show, setShow] = useState(false);
+
+  const getPopMessage = () => {
+    return user.isMentor 
+    ? `¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`
+    : `¿Quieres invitar a ${user.name} ${user.surname} a ser tu mentee?` 
+  }
 
   const handleOpen = () => {
     setShow(true);
@@ -64,9 +71,21 @@ export default function UserBlock({
                 <SCLAlert
                   show={show}
                   onRequestClose={handleClose}
-                  theme="info"
-                  title="¡Atención!"
-                  subtitle={`¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`}>
+                  theme="success"
+                  title="¡Perfecto!"
+                  titleStyle={{
+                    color: mode.text,
+                  }}
+                  subtitleStyle={{
+                    color: mode.text,
+                  }}
+                  innerStyle={{
+                    backgroundColor: mode.bg,
+                  }}
+                  headerContainerStyles={{
+                    backgroundColor: mode.bg,
+                  }}
+                  subtitle={getPopMessage()}>
                   <SCLAlertButton theme="info" onPress={() => handleLike(user)}>
                     Confirmar
                   </SCLAlertButton>
@@ -82,7 +101,7 @@ export default function UserBlock({
             <Text style={{ ...styles.skills, color: mode.text }}>
               •
               {skills.map(skill => (
-                <Text key={skill._id}> {skill.name} •</Text>
+                <Text key={skill._id ? skill._id : skill}> {skill.name} •</Text>
               ))}
             </Text>
           </View>
@@ -109,13 +128,7 @@ export default function UserBlock({
           )}
         </View>
       ) : (
-        <Text
-          style={{
-            ...styles.textCargando,
-            color: mode.text,
-          }}>
-          ...
-        </Text>
+        null
       )}
     </View>
   );

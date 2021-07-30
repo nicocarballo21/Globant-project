@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Pressable, Text, FlatList, SafeAreaView } from 'react-native';
+import { View, Pressable, Text, FlatList, SafeAreaView, ToastAndroid } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../components/Button';
@@ -7,10 +7,11 @@ import { getSkills } from '../../redux/Reducers/Skills';
 import { simpleMessage } from '../../utils';
 import styles from './styles';
 import { updateUser } from '../../redux/Reducers/UserReducer';
-import { login } from '../../redux/Slices/authSlice';
 import useMode from '../../hooks/useMode';
 
-const SelectSkills = () => {
+const Skills= ({ route, navigation }) => {
+  const learnOrTeach = route.params.learnOrTeach
+  const property = route.params.property
   const dispatch = useDispatch();
   const { user, skills } = useSelector(state => state);
   const [buttonsStyle, setButtonsStyle] = useState({});
@@ -22,7 +23,7 @@ const SelectSkills = () => {
     dispatch(getSkills());
   }, [dispatch]);
 
-  const handleNext = () => {
+  const handleSubmit = () => {
     if (selection.length < 5) {
       return simpleMessage(
         '¡Atención!',
@@ -30,23 +31,19 @@ const SelectSkills = () => {
         'warning',
       );
     }
-    const [property, learnOrTeach] =
-      (!user.isMentor && user.isMentee) || user.skillsToTeach.length
-        ? ['skillsToLearn', 'learn']
-        : ['skillsToTeach', 'teach'];
-
-    dispatch(
+    dispatch( 
       updateUser({
         url: `/api/users/skills/${learnOrTeach}`,
-        data: { [property]: selection, maxMentees: menteesQty },
+        data: { [property]: selection },
       }),
-    );
+    ).then(() => {
+        navigation.navigate("Role") 
+        setSelection([]);
+        setButtonsStyle({});
+        return ToastAndroid.showWithGravityAndOffset("Se actualizaron tus habilidades", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50)
+    })
     setSelection([]);
     setButtonsStyle({});
-
-    if (learnOrTeach === 'learn' || !user.isMentee) {
-      dispatch(login({ token: user.token }));
-    }
   };
 
   const handlePress = item => {
@@ -65,7 +62,6 @@ const SelectSkills = () => {
     const selectedSkills = Object.values(buttonsStyle);
     const finalSkillsIds = selectedSkills.map(skill => ({ _id: skill._id }));
     setSelection(finalSkillsIds);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Object.keys(buttonsStyle).length]);
 
   const handleChangeQty = number => {
@@ -75,7 +71,7 @@ const SelectSkills = () => {
     } else if (totalQty < 1) {
       simpleMessage(
         '¡Atención!',
-        'No puedes tener una cantidad menor a uno',
+        'No puedes tener una cantidad menor a uCENTERno',
         'warning',
       );
     } else if (totalQty > 5) {
@@ -91,7 +87,7 @@ const SelectSkills = () => {
     <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
       <View style={{ ...styles.header, backgroundColor: mode.inputBg }}>
         <Text style={{ ...styles.headerText, color: mode.text }}>
-          {(!user.isMentor && user.isMentee) || user.skillsToTeach.length
+          {route.params.name === "Mentee"
             ? '¿Qué quieres aprender?'
             : '¿Qué quieres enseñar?'}
         </Text>
@@ -128,7 +124,7 @@ const SelectSkills = () => {
         />
       </View>
 
-      {user.isMentor && !user.skillsToTeach.length && (
+      {route.params.name === "Mentor" && (
         <View>
           <Text style={{ ...styles.menteeQtyTitleTxt, color: mode.text }}>
             Cantidad de mentees a mentorear
@@ -153,13 +149,13 @@ const SelectSkills = () => {
 
       <View style={{ ...styles.footer, backgroundColor: mode.inputBg }}>
         <Button
-          title={'Siguiente'}
+          title={'Confirmar'}
           style={styles.nextBtn}
-          pressFunction={handleNext}
+          pressFunction={handleSubmit}
         />
       </View>
     </SafeAreaView>
   );
 };
 
-export default SelectSkills;
+export default Skills;

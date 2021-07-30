@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import FlashMessage from 'react-native-flash-message';
 import store from './redux/store';
 import { Provider } from 'react-redux';
-import { FirstScreen } from './components';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,12 +9,15 @@ import { restoreToken } from './redux/Slices/authSlice';
 import { getData } from './utils/storage';
 import { HomeApp, LoginApp } from './navigation';
 import { setUser } from './redux/Reducers/UserReducer';
-import { TapGestureHandler } from 'react-native-gesture-handler';
+import { setReduxTheme } from './redux/Reducers/themeReducer';
+import { MenuProvider } from 'react-native-popup-menu';
 
 const AppWrapper = () => (
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <MenuProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </MenuProvider>
 );
 
 const App = () => {
@@ -25,14 +27,19 @@ const App = () => {
   useEffect(() => {
     const checkIfStoragedUser = async () => {
       try {
-        const user = await getData('user');
+        const [user, theme] = await Promise.all([
+          getData('user'),
+          getData('menteeTheme'),
+        ]);
         user && dispatch(setUser(user));
         user && dispatch(restoreToken({ token: user.token }));
+        theme && dispatch(setReduxTheme(theme));
       } catch (e) {
         console.log(e);
       }
     };
     checkIfStoragedUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth.userToken]);
 
   console.disableYellowBox = true;

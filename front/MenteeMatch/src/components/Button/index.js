@@ -16,6 +16,7 @@ const Button = props => {
           ...styles.button,
           borderColor: mode.grey,
           backgroundColor: mode.green,
+          justifyContent: "center"
         },
         style,
       ]}

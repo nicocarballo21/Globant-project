@@ -35,8 +35,21 @@ const getObjectivesFromUser = async (id, token) => {
   } catch (error) {}
 };
 
-module.exports = {
+const setMenteeToMentor = async (menteeId, mentorId, token) => {
+  try {
+    const server = generateAxios(token);
+    await server.put(API_URL + '/api/users/mentor', {
+      id: menteeId,
+      _id: mentorId,
+    });
+  } catch (error) {
+    console.log({ error });
+  }
+};
+
+export {
   postUserSkillsToLearn,
   postUserSkillsToTeach,
+  setMenteeToMentor,
   getObjectivesFromUser,
 };
