@@ -71,7 +71,6 @@ export const styles = StyleSheet.create({
   },
 
   text: {
-    color: '#434343',
     fontSize: 15,
     marginLeft: '9%',
   },
