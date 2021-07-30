@@ -23,7 +23,6 @@ export default ({ navigation }) => {
   const skills = user.skillsToTeach;
 /*   const dispatch = useDispatch(); */
   const { name, surname, email, position, img } = user;
-  console.log(user)
 
 
  /*  useEffect(() => {

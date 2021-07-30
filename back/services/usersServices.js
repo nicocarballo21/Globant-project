@@ -174,12 +174,12 @@ const getMatchesForUser = async (_id, { roleToFind, skillsToFind, userSkills }) 
   return orderByCoincidences(skillstTomatch, matches, skillsToFind);
 };
 
-const getObjectivesFromUser = async id => {
+const getObjectivesFromUser = id => {
   const objectivesPromise = Objectives.find({ mentee: id }).exec()
   return objectivesPromise
 }
 
-const postObjectivesToUser = async (mentee, description, state, due) => {
+const postObjectivesToUser = (mentee, description, state, due) => {
   const createdObjectivePromise = Objectives.create({
     mentee: mentee.id,
     description,
@@ -189,19 +189,30 @@ const postObjectivesToUser = async (mentee, description, state, due) => {
   return createdObjectivePromise
 }
 
-const putObjectivesFromUser = async (objectiveId, data) => {
+const putObjectivesFromUser = (objectiveId, data) => {
   const updatedObjectivePromise = Objectives.findByIdAndUpdate(objectiveId, data, { new: true }).exec()
   return updatedObjectivePromise
 }
 
-const deleteObjectivesFromUser = async (objectiveId, user) => {
+const deleteObjectivesFromUser = (objectiveId, user) => {
   const { objectives } = user
-  console.log(objectives)
   const objective = objectives.find(objective => objective.id === objectiveId)
   if(!objective) return null
   else {
     user.objectives = user.objectives.filter(objective => objective.id !== objectiveId)
     return [user.save(), objective.delete()]
+  }
+}
+
+const setMenteeToMentor = async (menteeId, mentorId) => {
+  try {
+    const mentor = await Users.findById(mentorId)
+    if(!mentor) 
+      return null
+    mentor.mentees.push(menteeId)
+    return mentor.save()
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -216,4 +227,5 @@ module.exports = {
   postObjectivesToUser,
   putObjectivesFromUser,
   deleteObjectivesFromUser,
+  setMenteeToMentor,
 }

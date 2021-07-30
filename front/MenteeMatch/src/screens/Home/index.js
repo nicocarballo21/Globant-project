@@ -7,7 +7,13 @@ import { styles } from './styles';
 
 const Home = () => {
   const user = useSelector(state => state.user);
-  const usersLikes = useSelector(state => state.user.likedMentees)
+  const getIsMentor = () => {
+    if(user.actualRole)
+      return user.actualRole === 'Mentor'
+    return !!user.isMentor
+  }
+  const isMentor = getIsMentor()
+  const usersLikes = useSelector(state => isMentor ? state.user.likedMentees : state.user.likedMentors)
 
   const usersToConfirm = usersLikes.map((userLike, indice) => 
   <View key={indice}>
@@ -18,14 +24,13 @@ const Home = () => {
   </View>
   )
 
-
-  return user.isMentor ? (
+  return isMentor || user.mentor ? (
     <>
       <HomeView />
     </>
-  ) : usersLikes.length ? 
+  ) : user.likedMentors.length ? 
     <View style={styles.container}>
-        <Text style={styles.title}>Debes confirmar algun mentor, para eso dirijete a matcher y seleccione la imagen de confirmar</Text>
+        <Text style={styles.title}>Debes confirmar algun mentor, para eso dirijete a matcher y confirma la selección</Text>
       <View style={styles.block}>
         <ScrollView >
           {usersToConfirm}

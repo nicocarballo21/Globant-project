@@ -18,9 +18,15 @@ export default () => {
   const date = now.toLocaleDateString();
   const nowMili = Date.now();
   const user = useSelector(state => state.user);
+  const getIsMentor = () => {
+    if(user.actualRole)
+      return user.actualRole === 'Mentor'
+    return !!user.isMentor
+  }
+  const isMentor = getIsMentor()
 
   return (
-    user.isMentor ?
+    isMentor ?
       <HomeMentor/> 
       :(
         <View style={styles.container}>

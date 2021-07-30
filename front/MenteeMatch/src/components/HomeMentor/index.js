@@ -12,8 +12,6 @@ export default () => {
     const user = useSelector(state => state.user);
     const usersLikes = useSelector(state => state.user.likes);
     const navigation = useNavigation();
-
-    console.log(user.likedMentees)
    
     return(
         <View style={styles.container}>

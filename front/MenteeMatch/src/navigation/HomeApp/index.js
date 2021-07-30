@@ -22,7 +22,7 @@ export default function HomeApp() {
         inactiveTintColor: mode.blackPearl,
         showLabel: true,
       }}>
-      {!user.mentor && (
+      {!user.mentor || user.actualRole === 'Mentor' ? (
         <Tab.Screen
           name="Matcher"
           component={MatcherNavigator}
@@ -32,7 +32,7 @@ export default function HomeApp() {
             ),
           }}
         />
-      )}
+      ) : null}
       <Tab.Screen
         name="Home"
         component={HomeNavigator}
