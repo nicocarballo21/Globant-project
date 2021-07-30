@@ -14,7 +14,11 @@ export default function Matcher() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const matches = useSelector(state => state.matches);
-  const roleToFind = user.actualRole ? `${user.actualRole.toLowerCase()}s` : ( user.isMentor ? 'mentees' : 'mentors' );
+  const roleToFind = user.actualRole
+    ? `${user.actualRole.toLowerCase()}s`
+    : user.isMentor
+    ? 'mentees'
+    : 'mentors';
   const url = '/api/users/profile';
   const { mode } = useMode();
 
@@ -31,6 +35,7 @@ export default function Matcher() {
 
   useEffect(() => {
     dispatch(getMatches({ roleToFind, token: user.token }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.actualRole]);
 
   const handleLike = likedUser => {
