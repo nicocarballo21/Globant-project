@@ -39,10 +39,7 @@ export default function UserBlock({
     if (enableTooltip) {
       setTimeout(() => {
         tooltipRef.current.toggleTooltip();
-        setTimeout(() => {
-          tooltipRef.current.toggleTooltip();
-        }, 3000);
-      }, 2000);
+      }, 1500);
     }
   }, [enableTooltip]);
 
