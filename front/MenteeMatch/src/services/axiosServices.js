@@ -28,7 +28,7 @@ const postUserSkillsToTeach = async (skills, token) => {
 const setMenteeToMentor = async (menteeId, mentorId, token) => {
   try {
     const server = generateAxios(token)
-    await server.put(API_URL + '/api/users/mentor', { id: menteeId, _id: mentorId })
+    await server.put(API_URL + '/api/users/mentor/set', { id: menteeId, _id: mentorId })
   } catch (error) {
     console.log({error})
   }

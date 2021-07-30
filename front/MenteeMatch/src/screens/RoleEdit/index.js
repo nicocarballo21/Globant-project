@@ -26,13 +26,11 @@ export default function RoleEdit({ navigation }) {
     }, [dispatch, user.isMentor, user.isMentee])
 
     const menteeCheck = () => {
-        setMenteeBox(!menteeBox)
-        if (menteeBox) setRole('mentee');
+        setRole('mentee');
     }
     
     const mentorCheck = () => {
-        setMentorBox(!mentorBox)
-        if (mentorBox) setRole('mentor');
+        setRole('mentor');
     }
     
     const handleSubmit = () => {

@@ -16,6 +16,7 @@ export default ({ navigation, route }) => {
   const user = useSelector(state => state.user);
   const { name, surname, email, position, img, skillsToLearn } = route.params.name;
   const { mode } = useMode()
+
   const sheetRef = React.useRef(null);
 
   return (

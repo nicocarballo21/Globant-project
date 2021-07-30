@@ -20,8 +20,6 @@ export const styles = StyleSheet.create({
         width: '90%',
         height: '88%',
         borderRadius: 20,
-        backgroundColor: '#e2e2e2',
-        borderColor: '#e2e2e2',
         elevation: 12,
     },
     title: {

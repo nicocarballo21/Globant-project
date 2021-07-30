@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Pressable, Text, FlatList, SafeAreaView, ToastAndroid } from 'react-native';
+import {
+  View,
+  Pressable,
+  Text,
+  FlatList,
+  SafeAreaView,
+  ToastAndroid,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../../components/Button';
@@ -9,9 +16,9 @@ import styles from './styles';
 import { updateUser } from '../../redux/Reducers/UserReducer';
 import useMode from '../../hooks/useMode';
 
-const Skills= ({ route, navigation }) => {
-  const learnOrTeach = route.params.learnOrTeach
-  const property = route.params.property
+const Skills = ({ route, navigation }) => {
+  const learnOrTeach = route.params.learnOrTeach;
+  const property = route.params.property;
   const dispatch = useDispatch();
   const { user, skills } = useSelector(state => state);
   const [buttonsStyle, setButtonsStyle] = useState({});
@@ -31,17 +38,23 @@ const Skills= ({ route, navigation }) => {
         'warning',
       );
     }
-    dispatch( 
+    dispatch(
       updateUser({
         url: `/api/users/skills/${learnOrTeach}`,
         data: { [property]: selection },
       }),
     ).then(() => {
-        navigation.navigate("Role") 
-        setSelection([]);
-        setButtonsStyle({});
-        return ToastAndroid.showWithGravityAndOffset("Se actualizaron tus habilidades", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50)
-    })
+      navigation.navigate('Role');
+      setSelection([]);
+      setButtonsStyle({});
+      return ToastAndroid.showWithGravityAndOffset(
+        'Se actualizaron tus habilidades',
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+        25,
+        50,
+      );
+    });
     setSelection([]);
     setButtonsStyle({});
   };
@@ -62,6 +75,7 @@ const Skills= ({ route, navigation }) => {
     const selectedSkills = Object.values(buttonsStyle);
     const finalSkillsIds = selectedSkills.map(skill => ({ _id: skill._id }));
     setSelection(finalSkillsIds);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Object.keys(buttonsStyle).length]);
 
   const handleChangeQty = number => {
@@ -87,7 +101,7 @@ const Skills= ({ route, navigation }) => {
     <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
       <View style={{ ...styles.header, backgroundColor: mode.inputBg }}>
         <Text style={{ ...styles.headerText, color: mode.text }}>
-          {route.params.name === "Mentee"
+          {route.params.name === 'Mentee'
             ? '¿Qué quieres aprender?'
             : '¿Qué quieres enseñar?'}
         </Text>
@@ -124,7 +138,7 @@ const Skills= ({ route, navigation }) => {
         />
       </View>
 
-      {route.params.name === "Mentor" && (
+      {route.params.name === 'Mentor' && (
         <View>
           <Text style={{ ...styles.menteeQtyTitleTxt, color: mode.text }}>
             Cantidad de mentees a mentorear

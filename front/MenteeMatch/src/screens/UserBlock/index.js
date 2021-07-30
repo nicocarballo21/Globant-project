@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Tooltip, Text as ToltipText } from 'react-native-elements';
 import { Text, View, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 import { styles } from './styles';
@@ -11,18 +12,25 @@ export default function UserBlock({
   user,
   userLogin,
   handleLike,
+  enableTooltip,
   handleDislike,
   disableButtons,
 }) {
-  const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
-  /* console.log(skills) */
+  const getIsMentor = () => {
+    if(userLogin.actualRole)
+      return userLogin.actualRole === 'Mentor'
+    return !!userLogin.isMentor
+  }
+  const isMentor = getIsMentor()
+  const skills = isMentor ? user.skillsToLearn : user.skillsToTeach;
   const [show, setShow] = useState(false);
+  const tooltipRef = useRef(null);
 
   const getPopMessage = () => {
-    return user.isMentor 
-    ? `¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`
-    : `¿Quieres invitar a ${user.name} ${user.surname} a ser tu mentee?` 
-  }
+    return user.isMentor
+      ? `¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`
+      : `¿Quieres invitar a ${user.name} ${user.surname} a ser tu mentee?`;
+  };
 
   const handleOpen = () => {
     setShow(true);
@@ -31,6 +39,14 @@ export default function UserBlock({
   const handleClose = () => {
     setShow(false);
   };
+
+  useEffect(() => {
+    if (enableTooltip) {
+      setTimeout(() => {
+        tooltipRef.current.toggleTooltip();
+      }, 1500);
+    }
+  }, [enableTooltip]);
 
   const { mode } = useMode();
   return (
@@ -63,11 +79,19 @@ export default function UserBlock({
             </View>
             {disableButtons && (
               <>
-                <Button
-                  buttonStyle={[styles.likeButton, styles.confirmButton]}
-                  title="✔"
-                  onPress={() => handleOpen()}
-                />
+                <Tooltip
+                  width={150}
+                  height={60}
+                  ref={tooltipRef}
+                  popover={
+                    <ToltipText>Presiona acá para confirmar</ToltipText>
+                  }>
+                  <Button
+                    buttonStyle={[styles.likeButton, styles.confirmButton]}
+                    title="✔"
+                    onPress={() => handleOpen()}
+                  />
+                </Tooltip>
                 <SCLAlert
                   show={show}
                   onRequestClose={handleClose}
@@ -127,9 +151,7 @@ export default function UserBlock({
             </View>
           )}
         </View>
-      ) : (
-        null
-      )}
+      ) : null}
     </View>
   );
 }
