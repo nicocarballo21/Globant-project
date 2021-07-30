@@ -14,8 +14,8 @@ export const simpleMessage = (message, description, type) => {
   showMessage({
     message: message,
     description: description,
-    //types: success, danger
     type: type,
+    // animationDuration: 1000,
     icon: type,
     floating: true,
   });

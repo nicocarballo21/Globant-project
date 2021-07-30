@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, FlatList, ScrollView } from 'react-native';
 import styles from './styles';
 import useMode from '../../hooks/useMode';
 import InputText from '../InputText';
 import Button from '../Button';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 
-const Item = ({ objetive, mode, state }) => {
+const Item = ({
+  objetive,
+  mode,
+  state,
+  objective_id,
+  handleDelete,
+  handleEdit,
+}) => {
+  const [show, setshow] = useState(false);
+
+  const toggle = () => setshow(!show);
+
   return (
     <View style={{ ...styles.item, backgroundColor: mode.inputBg }}>
       <View style={styles.container}>
@@ -29,26 +41,57 @@ const Item = ({ objetive, mode, state }) => {
               <Ionicons name="pencil-outline" size={30} color={mode.text} />
             }
             style={styles.btn}
+            pressFunction={() => handleEdit(objective_id)}
           />
           <Button
             icon={<Ionicons name="trash-outline" size={30} color={mode.text} />}
             style={styles.btn}
+            pressFunction={() => toggle()}
           />
+          <SCLAlert
+            show={show}
+            onRequestClose={toggle}
+            theme="danger"
+            title="Atencion!"
+            subtitle="Estas por eliminar un objetivo"
+            headerIconComponent={
+              <Ionicons name="alert-outline" size={32} color="white" />
+            }>
+            <SCLAlertButton
+              theme="info"
+              onPress={() => handleDelete(objective_id)}>
+              Eliminar
+            </SCLAlertButton>
+            <SCLAlertButton theme="default" onPress={toggle}>
+              Cancelar
+            </SCLAlertButton>
+          </SCLAlert>
         </View>
       </View>
     </View>
   );
 };
 
-const ObjectivesComponent = ({ data, handleAdd, mentee }) => {
+const ObjectivesComponent = ({
+  data,
+  handleAdd,
+  handleDelete,
+  handleEdit,
+  mentee,
+}) => {
   const [input, setinput] = useState('');
   const { mode } = useMode();
 
-  console.log(data);
-
   const renderItem = ({ item }) => (
-    <Item objetive={item.description} state={item.state} mode={mode} />
+    <Item
+      objetive={item.description}
+      objective_id={item._id}
+      state={item.state}
+      mode={mode}
+      handleDelete={handleDelete}
+    />
   );
+
   return (
     <ScrollView>
       <View style={{ ...styles.container, backgroundColor: mode.bg }}>

@@ -17,6 +17,6 @@ const router = express.Router()
 router.get("/:id", getUserObjectives)
 router.post("/", checkIfMentor, postUserObjectives)
 router.put("/", checkIfMentor, putUserObjectives)
-router.delete("/", checkIfMentor, deleteUserObjectives)
+router.delete("/:menteeId/:objectiveId", checkIfMentor, deleteUserObjectives)
 
 module.exports = router

@@ -114,6 +114,7 @@ module.exports = {
   putUserObjectives: async (req, res, next) => {
     try {
       const { objectiveId, data } = req.body
+      console.log(req.body)
       if (!objectiveId || !data) return res.status(400).send("Invalid request body.")
       const updatedObjective = await putObjectivesFromUser(objectiveId, data)
       if (!updatedObjective) return res.status(404).send("Objective not found!.")
@@ -124,7 +125,7 @@ module.exports = {
   },
   deleteUserObjectives: async (req, res, next) => {
     try {
-      const { menteeId, objectiveId } = req.body
+      const { menteeId, objectiveId } = req.params
       if (!menteeId || !objectiveId) return res.status(400).send("Invalid request body.")
       const user = await findUserById(menteeId)
       const objectivePromises = await deleteObjectivesFromUser(objectiveId, user)

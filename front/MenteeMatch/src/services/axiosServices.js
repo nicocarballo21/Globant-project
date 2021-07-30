@@ -37,21 +37,40 @@ const getObjectivesFromUser = async (id, token) => {
   }
 };
 
-const postObjectivesToUser = async (menteeId, token, objective) => {
-  console.log(menteeId);
-  console.log(objective);
+const postObjectivesToUser = async (menteeId, token, description) => {
   try {
     const server = generateAxios(token);
     const res = await server.post(API_URL + '/api/users/objectives', {
       menteeId,
-      objective,
+      description,
     });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+const deleteObjectivesToUser = async (menteeId, token, objetiveId) => {
+  try {
+    const server = generateAxios(token);
+    const res = await server.delete(
+      API_URL + `/api/users/objectives/${menteeId}/${objetiveId}`,
+    );
 
     return res;
   } catch (err) {
     console.log(err);
   }
 };
+// const updateObjectivesToUser = async (token, objetiveId) => {
+//   try {
+//     const server = generateAxios(token);
+//     const res = await server.put(API_URL + `/api/users/objectives`);
+
+//     return res;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 const setMenteeToMentor = async (menteeId, mentorId, token) => {
   try {
@@ -71,4 +90,5 @@ export {
   setMenteeToMentor,
   getObjectivesFromUser,
   postObjectivesToUser,
+  deleteObjectivesToUser,
 };
