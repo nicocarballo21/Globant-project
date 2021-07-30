@@ -7,8 +7,8 @@ export const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         maxHeight: '100%',
-        marginHorizontal: 20,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
     block: {
@@ -33,7 +33,6 @@ export const styles = StyleSheet.create({
         width: '90%',
         paddingBottom: 5,
         textAlign: 'center',
-        
     },
 
     title_1: {
