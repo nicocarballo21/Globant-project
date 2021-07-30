@@ -87,5 +87,7 @@ export const styles = StyleSheet.create({
         borderRadius: 100,
         borderColor: globantBright.violet,
     },
-
+    /* box: {
+        justifyContent: "center"
+    }, */
 });

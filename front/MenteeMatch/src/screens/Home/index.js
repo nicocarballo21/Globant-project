@@ -30,7 +30,7 @@ const Home = () => {
     </>
   ) : user.likedMentors.length ? 
     <View style={styles.container}>
-        <Text style={styles.title}>Debes confirmar algun mentor, para eso dirijete a matcher y confirma la selección</Text>
+        <Text style={styles.title}>Debes confirmar algun mentor, para eso dirígete a matcher y confirma la selección</Text>
       <View style={styles.block}>
         <ScrollView >
           {usersToConfirm}
@@ -38,13 +38,13 @@ const Home = () => {
       </View>
     </View>
     : (
-    <View>
+    <View style={styles.box}>
       <Text style={styles.title_1}>
         Bienvenido a MenteeMatch.
       </Text>
       <View>
         <Text style={styles.text_1}>
-          Como es la primera vez que ingresas no tienes un mentor asignado. Por favor dirijase al icono de matcher ubicado en la esquina inferior izquierda para buscar un mentor que se adecue a tu perfil.
+          No tienes un mentor asignado. Por favor dirígete al matcher para buscar un mentor que se adecue a tu perfil.
         </Text>
       </View>
     </View>
