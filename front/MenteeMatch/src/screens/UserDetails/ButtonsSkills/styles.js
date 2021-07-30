@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     width: '85%',
     flex: 2,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
 
   selectedSkills: {

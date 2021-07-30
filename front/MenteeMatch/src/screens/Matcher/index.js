@@ -15,16 +15,17 @@ export default function Matcher() {
   const user = useSelector(state => state.user);
   const matches = useSelector(state => state.matches);
   const getRoleToFind = () => {
-    if(!user.actualRole) {
-      return user.isMentor ? 'mentees' : 'mentors'
+    if (!user.actualRole) {
+      return user.isMentor ? 'mentees' : 'mentors';
     }
-    return user.actualRole === 'Mentor' ? 'mentees' : 'mentors'
-  }
-  const roleToFind = getRoleToFind()
+    return user.actualRole === 'Mentor' ? 'mentees' : 'mentors';
+  };
+  const roleToFind = getRoleToFind();
   const url = '/api/users/profile';
   const { mode } = useMode();
-  const likedRole = roleToFind === 'mentors' ? 'likedMentors' : 'likedMentees'
-  const dislikedRole = likedRole === 'likedMentees' ? 'dislikedMentees' : 'dislikedMentors'
+  const likedRole = roleToFind === 'mentors' ? 'likedMentors' : 'likedMentees';
+  const dislikedRole =
+    likedRole === 'likedMentees' ? 'dislikedMentees' : 'dislikedMentors';
 
   // Seed inicial
   useEffect(() => {
@@ -39,6 +40,7 @@ export default function Matcher() {
 
   useEffect(() => {
     dispatch(getMatches({ roleToFind, token: user.token }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.actualRole]);
 
   const handleLike = likedUser => {
@@ -51,18 +53,28 @@ export default function Matcher() {
         `${finalMatch.name} ${finalMatch.surname} es tu nuevo ${roleToFind}`,
         'info',
       );
-      if(roleToFind === 'mentees')
-        return console.log("Se le mandó una notificación de humo al mentee (?)")
+      if (roleToFind === 'mentees')
+        return console.log(
+          'Se le mandó una notificación de humo al mentee (?)',
+        );
       return dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id);
-    dispatch(updateUser({ url, data: { [likedRole]: [likedUser, ...user[likedRole]] } }));
+    dispatch(
+      updateUser({
+        url,
+        data: { [likedRole]: [likedUser, ...user[likedRole]] },
+      }),
+    );
     dispatch(setMatches(orderedMatches));
   };
 
   const handleDislike = dislikedUser => {
     dispatch(
-      updateUser({ url, data: { [dislikedRole]: [...user[dislikedRole], dislikedUser] } }),
+      updateUser({
+        url,
+        data: { [dislikedRole]: [...user[dislikedRole], dislikedUser] },
+      }),
     );
     const hasLikedThatOne = user[likedRole].find(
       likedUser => likedUser._id === dislikedUser._id,
@@ -81,8 +93,8 @@ export default function Matcher() {
   };
 
   const handleReloadMatchs = () => {
-    dispatch(updateUser({ url, data: { [dislikedRole]: [] } })).then(dispatched =>
-      dispatch(getMatches({ roleToFind, token: user.token })),
+    dispatch(updateUser({ url, data: { [dislikedRole]: [] } })).then(
+      dispatched => dispatch(getMatches({ roleToFind, token: user.token })),
     );
   };
 

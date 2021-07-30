@@ -32,7 +32,7 @@ export default function CustomDrawerContent(props) {
 
   return (
     <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
+      <DrawerItemList labelStyle={{ color: mode.green }} {...props} />
       {/* <DrawerItem
         label="Cerrar menú"
         labelStyle={{ color: mode.text }}
