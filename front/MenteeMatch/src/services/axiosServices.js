@@ -37,11 +37,13 @@ const getObjectivesFromUser = async (id, token) => {
   }
 };
 
-const postObjectivesToUser = async (meenteId, token, objective) => {
+const postObjectivesToUser = async (menteeId, token, objective) => {
+  console.log(menteeId);
+  console.log(objective);
   try {
     const server = generateAxios(token);
     const res = await server.post(API_URL + '/api/users/objectives', {
-      meenteId,
+      menteeId,
       objective,
     });
 

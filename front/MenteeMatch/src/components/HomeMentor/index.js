@@ -49,7 +49,11 @@ export default () => {
                   />
                   <MenuOptions>
                     <MenuOption
-                      onSelect={() => console.log('Objetivos')}
+                      onSelect={() =>
+                        navigation.navigate('Objectives', {
+                          mente: mentee,
+                        })
+                      }
                       text="Objetivos"
                     />
                     <MenuOption

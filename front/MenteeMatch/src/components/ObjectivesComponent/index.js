@@ -40,9 +40,11 @@ const Item = ({ objetive, mode, state }) => {
   );
 };
 
-const ObjectivesComponent = ({ data, handleAdd }) => {
+const ObjectivesComponent = ({ data, handleAdd, mentee }) => {
   const [input, setinput] = useState('');
   const { mode } = useMode();
+
+  console.log(data);
 
   const renderItem = ({ item }) => (
     <Item objetive={item.description} state={item.state} mode={mode} />
@@ -51,7 +53,7 @@ const ObjectivesComponent = ({ data, handleAdd }) => {
     <ScrollView>
       <View style={{ ...styles.container, backgroundColor: mode.bg }}>
         <View style={{ ...styles.header, backgroundColor: mode.green }}>
-          <Text style={{ ...styles.title }}>Objetivos de: USER</Text>
+          <Text style={{ ...styles.title }}>Objetivos de: {mentee.name}</Text>
         </View>
 
         <View style={styles.add_objectives}>
@@ -61,10 +63,7 @@ const ObjectivesComponent = ({ data, handleAdd }) => {
             placeholder="Ingresar objetivo a cumplir"
           />
 
-          <Button
-            title={'Agregar'}
-            pressFunction={() => handleAdd(input, menteeId)}
-          />
+          <Button title={'Agregar'} pressFunction={() => handleAdd(input)} />
         </View>
 
         <View style={{ ...styles.content, backgroundColor: mode.bg }}>

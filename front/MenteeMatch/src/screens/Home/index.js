@@ -28,9 +28,7 @@ const Home = () => {
   ));
 
   return isMentor || user.mentor ? (
-    <>
-      <HomeView />
-    </>
+    <HomeView />
   ) : user.likedMentors.length ? (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -50,6 +48,7 @@ const Home = () => {
           buscar un mentor que se adecue a tu perfil.
         </Text>
       </View>
+      s
     </View>
   );
 };

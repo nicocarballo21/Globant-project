@@ -4,6 +4,7 @@ import { Home } from '../../screens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RoleButton from '../../components/RoleButton';
 import UserViewModel from '../../components/UserViewModel';
+import Objectives from '../../screens/Objectives';
 
 const Stack = createStackNavigator();
 
@@ -53,6 +54,21 @@ export default function HomeStack({ navigation }) {
         component={UserViewModel}
         options={{
           title: 'Mentee',
+          headerLeft: () => (
+            <Ionicons
+              name="menu"
+              size={40}
+              color={'#BFD732'}
+              onPress={() => navigation.openDrawer()}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Objectives"
+        component={Objectives}
+        options={{
+          title: 'Objectives',
           headerLeft: () => (
             <Ionicons
               name="menu"

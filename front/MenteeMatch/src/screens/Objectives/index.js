@@ -6,13 +6,15 @@ import {
 } from '../../services/axiosServices';
 import { useSelector } from 'react-redux';
 
-const Objectives = () => {
+const Objectives = ({ route }) => {
+  const mentee = route.params.mente;
+
   const { userToken } = useSelector(state => state.auth);
   const [data, setdata] = useState([]);
 
   useEffect(() => {
     const init = async () => {
-      const id = '61005bd08627a1b6fc9fd74a';
+      const id = mentee._id;
       const res = await getObjectivesFromUser(id, userToken);
       setdata(res.data);
     };
@@ -21,14 +23,16 @@ const Objectives = () => {
   }, []);
 
   // handlea add
-  const handleAdd = async (objective, meenteId) => {
-    const res = await postObjectivesToUser(meenteId, userToken, objective);
-    console.log('posteado');
+  const handleAdd = async objective => {
+    const res = await postObjectivesToUser(mentee._id, userToken, objective);
+    console.log('posteado', res);
   };
   // handel delete
   // handle edit
 
-  return <ObjectivesComponent data={data} handleAdd={handleAdd} />;
+  return (
+    <ObjectivesComponent data={data} handleAdd={handleAdd} mentee={mentee} />
+  );
 };
 
 export default Objectives;
