@@ -15,6 +15,7 @@ export default function UserBlock({
   disableButtons,
 }) {
   const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
+  console.log(skills)
   const [show, setShow] = useState(false);
 
   const getPopMessage = () => {
@@ -100,7 +101,7 @@ export default function UserBlock({
             <Text style={{ ...styles.skills, color: mode.text }}>
               •
               {skills.map(skill => (
-                <Text key={skill._id}> {skill.name} •</Text>
+                <Text key={skill._id ? skill._id : skill}> {skill.name} •</Text>
               ))}
             </Text>
           </View>
