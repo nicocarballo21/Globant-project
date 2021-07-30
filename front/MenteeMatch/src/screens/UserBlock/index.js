@@ -16,8 +16,13 @@ export default function UserBlock({
   handleDislike,
   disableButtons,
 }) {
-  const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
-  /* console.log(skills) */
+  const getIsMentor = () => {
+    if(userLogin.actualRole)
+      return userLogin.actualRole === 'Mentor'
+    return !!userLogin.isMentor
+  }
+  const isMentor = getIsMentor()
+  const skills = isMentor ? user.skillsToLearn : user.skillsToTeach;
   const [show, setShow] = useState(false);
   const tooltipRef = useRef(null);
 
