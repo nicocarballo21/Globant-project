@@ -114,6 +114,7 @@ export default function Matcher() {
                 keyExtractor={(match, index) => match._id + index}
                 renderItem={({ item }) => (
                   <UserBlock
+                    enableTooltip={user[likedRole].length === 1}
                     user={item}
                     userLogin={user}
                     handleLike={handleLike}
