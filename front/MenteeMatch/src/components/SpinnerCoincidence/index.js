@@ -11,7 +11,6 @@ const Spiner = ({ mentorSkills, userLogin }) => {
   const userSkills = getUserSkills();
   const value = (mentorSkills.coincidences * 100) / userSkills.length;
   const { mode } = useMode();
-  console.log({ userSkills, value, mode })
 
   return (
     <CircularProgress
