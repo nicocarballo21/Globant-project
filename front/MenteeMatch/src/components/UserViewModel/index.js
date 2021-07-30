@@ -18,12 +18,11 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default ({ navigation }) => {
+export default ({ navigation, route }) => {
   const user = useSelector(state => state.user);
   const skills = user.skillsToTeach;
 /*   const dispatch = useDispatch(); */
-  const { name, surname, email, position, img } = user;
-
+  const { name, surname, email, position, img } = route.params.name;
 
  /*  useEffect(() => {
     if(!user) navigation.navigate('Login');

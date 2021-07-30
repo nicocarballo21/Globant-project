@@ -23,7 +23,7 @@ export default () => {
                 {user.likedMentees.map(mentee => 
                     <View style={styles.bord} >
                         <Image onPress={()=> navigation.navigate('UserViewModel')}  style={styles.img} source={{ uri: mentee.img }}/>
-                        <Text onPress={()=> navigation.navigate('UserViewModel')} style={styles.name}>
+                        <Text onPress={()=> navigation.navigate('UserViewModel', {name: mentee})} style={styles.name}>
                             {`${mentee.name} ${mentee.surname}`}
                         </Text>
 
