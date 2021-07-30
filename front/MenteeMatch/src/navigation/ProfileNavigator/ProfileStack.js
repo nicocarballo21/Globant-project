@@ -33,15 +33,14 @@ export default function ProfileStack({ navigation }) {
               onPress={() => navigation.openDrawer()}
             />
           ),
-          headerLeft: () => <RoleButton style={{
+          /* headerLeft: () => <RoleButton style={{
             alignSelf: "center",
-            width: 100,
+            width: 140,
             height: 45.6,
-            marginLeft: 16,
-            textAlignVertical: "center",
+            marginLeft: 8,
             marginBottom: 20,
             elevation: 5,
-          }} />
+          }} /> */
         }}
       />
       <Stack.Screen

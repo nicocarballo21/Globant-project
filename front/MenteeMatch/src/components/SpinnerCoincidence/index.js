@@ -3,9 +3,16 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 import useMode from '../../hooks/useMode';
 
 const Spiner = ({ mentorSkills, userLogin }) => {
-  const userSkillsToLearn = userLogin.skillsToLearn;
-  const value = (mentorSkills.coincidences * 100) / userSkillsToLearn.length;
+  const getUserSkills = () => {
+    if(userLogin.actualRole)
+      return userLogin.actualRole === 'Mentor' ? userLogin.skillsToTeach : userLogin.skillsToLearn
+    return userLogin.isMentor ? userLogin.skillsToTeach : userLogin.skillsToLearn
+  }
+  const userSkills = getUserSkills();
+  const value = (mentorSkills.coincidences * 100) / userSkills.length;
   const { mode } = useMode();
+  console.log({ userSkills, value, mode })
+
   return (
     <CircularProgress
       value={value}

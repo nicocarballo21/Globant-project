@@ -5,7 +5,7 @@ import RoleButton from '../RoleButton';
 const HeaderTitle = ({ user, mode }) => {
 
   const getCorrectOption = ({ actualRole, isMentor }) => {
-    if(actualRole) return user.actualRole === 'Mentor' ? 'mentees' : 'mentors'
+    if(actualRole) return user.actualRole === 'Mentor' ? 'mentees' : 'mentores'
     return isMentor ? 'mentees' : 'mentors'
   }
 
@@ -42,9 +42,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   roleSelectionBtn: {
-    width: 100,
+    width: 140,
     marginBottom: 20,
-    elevation: 5
+    elevation: 5,
+    left: 8
   },
 });
 
