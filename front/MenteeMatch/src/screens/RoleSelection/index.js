@@ -82,7 +82,7 @@ const RoleSelection = ({ navigation }) => {
         />
         <CheckBoxText
           mode={mode}
-          text="Mentor Y Mentee"
+          text="Ambos"
           isChecked={boxTres}
           onPress={handleBoth}
         />
