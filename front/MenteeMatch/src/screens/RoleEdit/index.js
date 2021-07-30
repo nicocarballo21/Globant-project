@@ -7,9 +7,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import BouncyCheckbox from "react-native-bouncy-checkbox" ;
 import { globantBright } from '../../assets/styles/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import useMode from '../../hooks/useMode';
+
 
 
 export default function RoleEdit({ navigation }) {
+    const { mode } = useMode()
     const user = useSelector(state => state.user);
     const [ menteeBox, setMenteeBox] = React.useState(user.isMentee);
     const [ mentorBox, setMentorBox] = React.useState(user.isMentor);
@@ -44,8 +47,7 @@ export default function RoleEdit({ navigation }) {
     }
 
     return (
-        <SafeAreaView style={{ flex:1, justifyContent: "space-around", alignItems: "center"}}>
-            <View >
+        <SafeAreaView style={{ flex:1, justifyContent: "space-around", alignItems: "center", backgroundColor: mode.bg}}>
                 <BouncyCheckbox 
                     disableBuiltInState={user.isMentee}
                     isChecked={user.isMentee}
@@ -59,9 +61,15 @@ export default function RoleEdit({ navigation }) {
                 <TouchableOpacity style={styles.editButton}
                     onPress={() => navigation.navigate("Skills", { name: "Mentee", learnOrTeach: "learn", property:"skillsToLearn"})}
                 >
-                    <Text style={styles.editText} >editar</Text>
+                    <Text style={styles.editText} >Editar</Text>
                 </TouchableOpacity>
-                    <View style={styles.btnsContainer}>
+                  <View
+                    style={{
+                        ...styles.btnsContainer,
+                        borderColor: mode.text,
+                        backgroundColor: mode.bg,
+                    }}>
+
                         <FlatList
                             scrollEnabled={true}
                             contentContainerStyle={{
@@ -85,10 +93,9 @@ export default function RoleEdit({ navigation }) {
                 </>
 
             ) : (
-                null
+                <Text>Todavia no sos Mentee</Text>
             )}
 
-            </View> 
                 <BouncyCheckbox 
                     disableBuiltInState={user.isMentor}
                     isChecked={user.isMentor}
@@ -98,16 +105,20 @@ export default function RoleEdit({ navigation }) {
                     onPress={() => mentorCheck()}
                     onPress={() => user.isMentor ? ToastAndroid.showWithGravityAndOffset("No puedes desmarcar esta opcion", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50): mentorCheck()}
                 />
-
-       
             { user.isMentor ? (
                 <>
                 <TouchableOpacity style={styles.editButton}
                     onPress={() => navigation.navigate("Skills", { name: "Mentor", learnOrTeach: "teach", property:"skillsToTeach"})}
                 >
-                    <Text style={styles.editText} >editar</Text>
+                    <Text style={styles.editText} >Editar</Text>
                 </TouchableOpacity>
-                    <View style={styles.btnsContainer}>
+                  <View
+                    style={{
+                        ...styles.btnsContainer,
+                        borderColor: mode.text,
+                        backgroundColor: mode.bg,
+                    }}>
+
                         <FlatList
                             scrollEnabled={true}
                             contentContainerStyle={{
@@ -131,7 +142,7 @@ export default function RoleEdit({ navigation }) {
                 </>
 
             ) : (
-                <Text>Todavia no eres Mentor</Text>
+                <Text>Todavia no sos Mentor</Text>
             )}
 
             <TouchableOpacity style={styles.button}
@@ -151,7 +162,6 @@ export default function RoleEdit({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: "center",
         justifyContent: "center",
     },
