@@ -7,6 +7,7 @@ const {
   postObjectivesToUser,
   putObjectivesFromUser,
   deleteObjectivesFromUser,
+  setMenteeToMentor,
 } = require("../services/usersServices");
 
 module.exports = {
@@ -29,6 +30,18 @@ module.exports = {
       res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
       next(err);
+    }
+  },
+
+  setMentor: async(req, res, next) => {
+    try {
+      const { id } = req.user
+      const { _id } = req.body
+      const updatedMentor = await setMenteeToMentor(id, _id)
+      if(!updatedMentor) return res.status(404).send("Mentor not found!")
+      res.status(200).send(updatedMentor)
+    } catch (error) {
+      next(error)
     }
   },
 

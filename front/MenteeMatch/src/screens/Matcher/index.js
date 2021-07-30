@@ -9,6 +9,7 @@ import { Button } from '../../components';
 
 import styles from './styles';
 import useMode from '../../hooks/useMode';
+import { setMenteeToMentor } from '../../services/axiosServices';
 
 export default function Matcher() {
   const dispatch = useDispatch();
@@ -57,7 +58,8 @@ export default function Matcher() {
         return console.log(
           'Se le mandó una notificación de humo al mentee (?)',
         );
-      return dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
+      dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
+      return setMenteeToMentor(user._id, finalMatch._id, user.token);
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id);
     dispatch(
@@ -97,6 +99,15 @@ export default function Matcher() {
       dispatched => dispatch(getMatches({ roleToFind, token: user.token })),
     );
   };
+
+  if (user.actualRole === 'Mentee' && user.mentor)
+    return (
+      <View>
+        <Text>
+          Ya tienes un mentor asignado, puedes encontrarlo en la vista Home
+        </Text>
+      </View>
+    );
 
   return (
     <>
