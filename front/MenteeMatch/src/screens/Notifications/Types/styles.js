@@ -15,16 +15,17 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     borderWidth: 2,
   },
-  imgContainer: { flex: 2.5, alignItems: 'center' },
+  imgContainer: { flex: 3, alignItems: 'center' },
   message: {
     flex: 4,
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttons: {
-    flex: 3.5,
+    flex: 3,
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
 });
 

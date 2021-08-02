@@ -110,6 +110,28 @@ const setMentorToMentee = async (mentorId, menteeId, token) => {
   }
 };
 
+const markAsSeen = async (notificationId, token) => {
+  try {
+    const server = generateAxios(token);
+    const req = await server.delete(
+      `${API_URL}/api/notifications/${notificationId}`,
+    );
+    return req.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const sendNotification = async (data, token) => {
+  try {
+    const server = generateAxios(token);
+    const req = await server.post(`${API_URL}/api/notifications`, data);
+    return req.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   postUserSkillsToLearn,
   postUserSkillsToTeach,
@@ -119,4 +141,6 @@ export {
   updateObjectivesToUser,
   getObjectivesFromUser,
   setMentorToMentee,
+  markAsSeen,
+  sendNotification,
 };
