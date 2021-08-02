@@ -8,6 +8,7 @@ const {
   putObjectivesFromUser,
   deleteObjectivesFromUser,
   setMenteeToMentor,
+  setMentorToMentee,
   cancelMentee,
 } = require("../services/usersServices");
 const { Users } = require("../db/models");
@@ -15,58 +16,62 @@ const { Users } = require("../db/models");
 module.exports = {
   userUpdate: async (req, res, next) => {
     try {
-      const user = await updateById(req.user.id, req.body);
-      if(!user) return res.status(400).send("Bad request: user not found")
-      res.status(200).json({ ...user._doc, password: null });
+      const user = await updateById(req.user.id, req.body)
+      if (!user) return res.status(400).send("Bad request: user not found")
+      res.status(200).json({ ...user._doc, password: null })
     } catch (err) {
-      next(err);
+      next(err)
     }
   },
   mentorAndMenteeToggling: async (req, res, next) => {
     try {
       const type =
-        (req.path.includes("mentor") && "isMentor") ||
-        (req.path.includes("mentee") && "isMentee");
+        (req.path.includes("mentor") && "isMentor") || (req.path.includes("mentee") && "isMentee")
 
-      const user = await toggleMentorOrMentee(req.user.id, type);
-      res.status(200).json({ ...user._doc, password: null });
+      const user = await toggleMentorOrMentee(req.user.id, type)
+      res.status(200).json({ ...user._doc, password: null })
     } catch (err) {
-      next(err);
+      next(err)
     }
   },
 
-  setMentor: async(req, res, next) => {
+  setMentor: async (req, res, next) => {
     try {
       const { id } = req.user
-      const { _id } = req.body
+      const { _id } = req.body // Target id
       const updatedMentor = await setMenteeToMentor(id, _id)
-      if(!updatedMentor) return res.status(404).send("Mentor not found!")
+      if (!updatedMentor) return res.status(400).send("Something went wrong!")
       res.status(200).send(updatedMentor)
     } catch (error) {
       next(error)
     }
   },
 
+  setMentee: async (req, res, next) => {
+    const { id } = req.user
+    const { _id } = req.body // Target id
+    const [updatedMentee, updatedMentor] = await setMentorToMentee(id, _id)
+    if (!updatedMentee || !updatedMentor) return res.status(400).send("Something went wrong!")
+    res.status(200).send({ updatedMentee, updatedMentor })
+  },
+
   setSkills: async (req, res, next) => {
     try {
       const type =
         (req.path.includes("learn") && "skillsToLearn") ||
-        (req.path.includes("teach") && "skillsToTeach");
+        (req.path.includes("teach") && "skillsToTeach")
 
       if (!req.body[type])
-        return res
-          .status(400)
-          .json("The body of your request is not correct!, try again");
-      const skills = req.body[type];
-      const { maxMentees } = req.body 
+        return res.status(400).json("The body of your request is not correct!, try again")
+      const skills = req.body[type]
+      const { maxMentees } = req.body
 
-      if (!skills.length)
-        return res.status(400).json("You need to add at least one skill");
+      if (!skills.length) return res.status(400).json("You need to add at least one skill")
 
-      const user = await updateById(req.user.id, { [type]: skills, maxMentees });
-      res.status(200).json({ ...user._doc, password: null });
+      const user = await updateById(req.user.id, { [type]: skills, maxMentees })
+      res.status(200).json({ ...user._doc, password: null })
     } catch (err) {
-      next(err);
+      next(err)
     }
   },
 
@@ -74,74 +79,68 @@ module.exports = {
     try {
       const roleToFind =
         (req.path.includes("mentors") && "isMentor") ||
-        (req.path.includes("mentees") && "isMentee");
+        (req.path.includes("mentees") && "isMentee")
 
-      const skillsToFind =
-        roleToFind === "isMentor" ? "skillsToTeach" : "skillsToLearn";
+      const skillsToFind = roleToFind === "isMentor" ? "skillsToTeach" : "skillsToLearn"
 
-      const userSkills =
-        roleToFind !== "isMentor" ? "skillsToTeach" : "skillsToLearn";
+      const userSkills = roleToFind !== "isMentor" ? "skillsToTeach" : "skillsToLearn"
 
-      if(!roleToFind || !skillsToFind || !userSkills) 
-      res.status(400).send("Bad request: invalid inputs")
+      if (!roleToFind || !skillsToFind || !userSkills)
+        res.status(400).send("Bad request: invalid inputs")
 
       const matches = await getMatchesForUser(req.user.id, {
         roleToFind,
         skillsToFind,
-        userSkills,
-      });
-      res.status(200).json(matches);
+        userSkills
+      })
+      res.status(200).json(matches)
     } catch (err) {
-      next(err);
+      next(err)
     }
   },
   getUserObjectives: async (req, res, next) => {
     try {
-      const { id } = req.user;
+      const { id } = req.params
       const objectives = await getObjectivesFromUser(id)
-      res.status(200).send(objectives);
+      res.status(200).send(objectives)
     } catch (error) {
       next(error)
     }
   },
   postUserObjectives: async (req, res, next) => {
     try {
-      const { menteeId, description, state, due } = req.body;
-      if(!menteeId || !description)
-        return res.status(400).send("Invalid request body.")
+      const { menteeId, description, state, due } = req.body
+      if (!menteeId || !description) return res.status(400).send("Invalid request body.")
       const user = await findUserById(menteeId)
-      if (!user) 
-        return res.status(404).send("Mentee not found!.");
+      if (!user) return res.status(404).send("Mentee not found!.")
       const createdObjective = await postObjectivesToUser(user, description, state, due)
-      const { objectives } = user;
-      user.objectives = [...objectives, createdObjective];
+      const { objectives } = user
+      user.objectives = [...objectives, createdObjective]
       await user.save()
-      res.status(201).send(createdObjective);
+      res.status(201).send(createdObjective)
     } catch (error) {
-      next(error);
+      next(error)
     }
   },
+
   putUserObjectives: async (req, res, next) => {
     try {
-      const { objectiveId, data } = req.body;
-      if(!objectiveId || !data)
-        return res.status(400).send("Invalid request body.")
-      const updatedObjective = await putObjectivesFromUser(objectiveId, data)
-      if(!updatedObjective)
-        return res.status(404).send("Objective not found!.")
+      const { objetiveId, data } = req.body
+      if (!objetiveId || !data) return res.status(400).send("Invalid request body.")
+      const updatedObjective = await putObjectivesFromUser(objetiveId, data)
+      if (!updatedObjective) return res.status(404).send("Objective not found!.")
       res.status(200).send(updatedObjective)
     } catch (error) {
-      next(error);
+      next(error)
     }
   },
   deleteUserObjectives: async (req, res, next) => {
     try {
-      const { menteeId, objectiveId } = req.body;
-      if(!menteeId || !objectiveId)
-        return res.status(400).send("Invalid request body.")
+      const { menteeId, objectiveId } = req.params
+      if (!menteeId || !objectiveId) return res.status(400).send("Invalid request body.")
       const user = await findUserById(menteeId)
       const objectivePromises = await deleteObjectivesFromUser(objectiveId, user)
-      if(!objectivePromises) return res.status(404).send("Objective not found.")
+      if (!objectivePromises) return res.status(404).send("Objective not found.")
       else await Promise.all(objectivePromises)
       res.sendStatus(204)
     } catch (error) {
@@ -152,7 +151,6 @@ module.exports = {
     try {
       const {mentorId, menteeId} = req.body;
       const mentor = await cancelMentee(mentorId, menteeId)
-      /* console.log(mentor) */
       return res.status(200).send(mentor)
     }
     catch (error) {
@@ -160,3 +158,5 @@ module.exports = {
     }
   }
 };
+
+
