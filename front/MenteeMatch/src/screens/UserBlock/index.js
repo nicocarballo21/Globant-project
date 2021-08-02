@@ -35,7 +35,7 @@ export default function UserBlock({
   
   const getIsConfirmButtonEnabled = () => {
     if(isMentor) return !user.mentor
-    else return user.maxMentees <= user.mentees.length
+    else return user.mentees.length <= user.maxMentees
   }
 
   const isConfirmButtonEnabled = getIsConfirmButtonEnabled()
