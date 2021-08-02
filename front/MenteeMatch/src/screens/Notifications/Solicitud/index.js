@@ -7,7 +7,7 @@ import styles from './styles';
 
 const Solicitud = ({ item }) => {
   const { mode } = useMode();
-  const [data, setData] = React.useState({
+  const [data] = React.useState({
     _id: { $oid: '610328b7afb38cd4d0c8e60c' },
     isMentor: true,
     isMentee: true,
