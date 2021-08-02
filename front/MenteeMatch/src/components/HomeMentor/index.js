@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React from 'react';
 import { Text, Image, View, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -12,25 +12,38 @@ import {
 } from 'react-native-popup-menu';
 
 import { styles } from './styles';
+import useMode from '../../hooks/useMode';
 
 export default () => {
+  const { mode } = useMode();
   const user = useSelector(state => state.user);
-  const usersLikes = useSelector(state => state.user.likes);
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.block}>
+    <View style={{ ...styles.container, backgroundColor: mode.bg }}>
+      <Text style={styles.title}>
+        {user.mentees.length
+          ? 'Tus mentees son los siguientes:'
+          : 'No tienes mentees asignados todavia. Dirígete al Matcher para seleccionar mentees'}
+      </Text>
+      <View
+        style={{
+          ...styles.block,
+          backgroundColor: mode.bg,
+          borderColor: mode.inputBg,
+        }}>
         <ScrollView>
-          {user.likedMentees.map(mentee => (
-            <View style={styles.bord}>
+          {user.mentees.map(mentee => (
+            <View style={styles.bord} key={mentee._id}>
               <Image
                 onPress={() => navigation.navigate('UserViewModel')}
                 style={styles.img}
                 source={{ uri: mentee.img }}
               />
               <Text
-                onPress={() => navigation.navigate('UserViewModel')}
+                onPress={() =>
+                  navigation.navigate('UserViewModel', { name: mentee })
+                }
                 style={styles.name}>
                 {`${mentee.name} ${mentee.surname}`}
               </Text>
@@ -38,18 +51,22 @@ export default () => {
               <View>
                 <Menu>
                   <MenuTrigger
-                    text={
+                    children={
                       <Ionicons
                         style={styles.threePoints}
                         name="ellipsis-vertical"
                         size={40}
-                        color={'#BFD732'}
+                        color="#BFD732"
                       />
                     }
                   />
                   <MenuOptions>
                     <MenuOption
-                      onSelect={() => console.log('Objetivos')}
+                      onSelect={() =>
+                        navigation.navigate('Objectives', {
+                          mente: mentee,
+                        })
+                      }
                       text="Objetivos"
                     />
                     <MenuOption

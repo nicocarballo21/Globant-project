@@ -135,7 +135,7 @@ userSchema.methods.comparePassword = function (password) {
 };
 
 userSchema.virtual("disponible").get(function () {
-  return this.mentees.length <= this.maxMentees;
+  return this.mentees.length < this.maxMentees;
 });
 
 const Users = mongoose.model("Users", userSchema);

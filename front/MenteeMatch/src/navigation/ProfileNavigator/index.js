@@ -3,7 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import CustomDrawerContent from './CustomDrawerContent';
 import ProfileStack from './ProfileStack';
 import useMode from '../../hooks/useMode';
-
+import ProfileEditStack from './ProfileEditStack.js'
 const Drawer = createDrawerNavigator();
 
 export default function ProfileNavigator() {
@@ -24,7 +24,11 @@ export default function ProfileNavigator() {
         component={ProfileStack}
         options={{ title: 'Mi Perfil' }}
       />
-      {/* <Drawer.Screen name="Cancel Match" component={UserData} /> */}
+      <Drawer.Screen
+        name="ProfileEdit"
+        component={ProfileEditStack}
+        options={{ title: 'Editar perfil' }}
+      />
     </Drawer.Navigator>
   );
 }

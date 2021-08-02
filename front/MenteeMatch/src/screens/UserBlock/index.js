@@ -7,6 +7,7 @@ import user_img from '../../assets/static/user_img.png';
 import SpinnerCoincidence from '../../components/SpinnerCoincidence';
 import useMode from '../../hooks/useMode';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
+import { simpleMessage } from '../../utils';
 
 export default function UserBlock({
   user,
@@ -16,8 +17,12 @@ export default function UserBlock({
   handleDislike,
   disableButtons,
 }) {
-  const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
-  /* console.log(skills) */
+  const getIsMentor = () => {
+    if (userLogin.actualRole) return userLogin.actualRole === 'Mentor';
+    return !!userLogin.isMentor;
+  };
+  const isMentor = getIsMentor();
+  const skills = isMentor ? user.skillsToLearn : user.skillsToTeach;
   const [show, setShow] = useState(false);
   const tooltipRef = useRef(null);
 
@@ -27,12 +32,27 @@ export default function UserBlock({
       : `¿Quieres invitar a ${user.name} ${user.surname} a ser tu mentee?`;
   };
 
+  const getIsConfirmButtonEnabled = () => {
+    if (isMentor) return !user.mentor;
+    else return user.mentees.length < user.maxMentees;
+  };
+
+  const isConfirmButtonEnabled = getIsConfirmButtonEnabled();
+
   const handleOpen = () => {
     setShow(true);
   };
 
   const handleClose = () => {
     setShow(false);
+  };
+
+  const handleNotElegible = () => {
+    return simpleMessage(
+      '¡Error!',
+      `Este usuario ya no está disponible.`,
+      'danger',
+    );
   };
 
   useEffect(() => {
@@ -75,16 +95,23 @@ export default function UserBlock({
             {disableButtons && (
               <>
                 <Tooltip
-                  width={100}
+                  width={150}
                   height={60}
                   ref={tooltipRef}
                   popover={
                     <ToltipText>Presiona acá para confirmar</ToltipText>
                   }>
                   <Button
-                    buttonStyle={[styles.likeButton, styles.confirmButton]}
-                    title="✔"
-                    onPress={() => handleOpen()}
+                    buttonStyle={[
+                      styles.likeButton,
+                      isConfirmButtonEnabled
+                        ? styles.confirmButton
+                        : styles.notElegible,
+                    ]}
+                    title={isConfirmButtonEnabled ? '✔' : 'X'}
+                    onPress={
+                      isConfirmButtonEnabled ? handleOpen : handleNotElegible
+                    }
                   />
                 </Tooltip>
                 <SCLAlert
@@ -105,7 +132,12 @@ export default function UserBlock({
                     backgroundColor: mode.bg,
                   }}
                   subtitle={getPopMessage()}>
-                  <SCLAlertButton theme="info" onPress={() => handleLike(user)}>
+                  <SCLAlertButton
+                    theme="info"
+                    onPress={() => {
+                      handleLike(user);
+                      handleClose();
+                    }}>
                     Confirmar
                   </SCLAlertButton>
                   <SCLAlertButton theme="default" onPress={handleClose}>
