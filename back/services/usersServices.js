@@ -251,7 +251,7 @@ const deleteObjectivesFromUser = (objectiveId, user) => {
 const setMenteeToMentor = async (menteeId, mentorId) => {
   try {
     const mentor = await Users.findById(mentorId).exec();
-    if (!mentor || !mentor.disponible) return null;
+    if (!mentor || mentor.mentees.length >= mentor.maxMentees) return null;
     mentor.mentees.push(menteeId);
     return mentor.save();
   } catch (error) {
@@ -265,7 +265,7 @@ const setMentorToMentee = async (mentorId, menteeId) => {
     const mentor = await Users.findById(mentorId)
       .populate("likedMentees")
       .exec();
-    if(mentee.mentor || !mentor.disponible) return [null, null]
+    if(mentee.mentor || mentor.mentees.length >= mentor.maxMentees) return [null, null]
     mentee.mentor = mentorId;
     mentor.likedMentees = mentor.likedMentees.filter(
       (mentee) => mentee.id !== menteeId
