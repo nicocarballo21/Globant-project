@@ -13,14 +13,13 @@ import { createMeet } from '../../services/reduxServices'
 const CreateMeet = () => {
   const { mode } = useMode();
   const user = useSelector(state => state.user);
-  let mentorOrMentee = []
-  if(user.mentor) mentorOrMentee = [...metorOrMentee, user.mentor]
-  if(user.mentees.length) mentorOrMentee = [...metorOrMentee, user.mentees]
-  console.log('mentorOrMentee: ', mentorOrMentee)
+  // if(!user.mentees.length) throw new Error('No mentees asigned')
+  let mentorOrMentee = user.mentees
   console.log('user: ', user)
   const [open, setOpen] = useState(false)
   const [participant, setParticipant] = useState(null)
   const [items, setItems] = useState([{ label: 'Mentee 1', value: 'mentee1' }, { label: 'Mentee 2', value: 'mentee2' }]);
+  // const [items, setItems] = useState(mentorOrMentee.map(person => [{label: person.name, value: person._id}]))
   const [date, setDate] = useState(new Date())
   const { meets } = user;
   //   const navigation = useNavigation();
@@ -35,8 +34,9 @@ const CreateMeet = () => {
   const onSubmit = async (data) => {
       if(!data) throw new Error('No data passed through')
       let datas = data
-      datas.participants = ['user.id', participant]
-      await dispatch(createMeet(datas))
+      datas.participants = [user._id, participant]
+      datas.date = date
+      // await dispatch(createMeet(datas))
       console.log("Presionaste Crear reunión. Data ---> ", data)
     //   console.log("Participant ---> ", participant)
 

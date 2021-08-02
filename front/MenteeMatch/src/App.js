@@ -50,7 +50,6 @@ const App = () => {
         <NavigationContainer>
           {auth.userToken ? 
           <HomeApp /> 
-          // <CreateMeet/>
           : <LoginApp />}
           <FlashMessage position="top" />
         </NavigationContainer>
