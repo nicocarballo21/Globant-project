@@ -7,6 +7,48 @@ const createUser = body => {
   return Users.create({ name, surname, email, password })
 }
 
+const cancelMentee = (mentorId, menteeId) => {
+  return Users.findOneAndUpdate(
+    { _id: mentorId },
+    { $pull: { likedMentees: menteeId } },
+    { new: true }
+    )
+    .populate("skillsToLearn", "name")
+    .populate("skillsToTeach", "name")
+    .populate("mentor")
+    .populate({
+      path: "likedMentees",
+      populate: {
+        path: "skillsToLearn",
+        model: "Skills",
+      },
+    })
+    .populate({
+      path: "dislikedMentees",
+      populate: {
+        path: "skillsToLearn",
+        model: "Skills",
+      },
+    })
+    .populate({
+      path: "likedMentors",
+      populate: {
+        path: "skillsToTeach",
+        model: "Skills",
+      },
+    })
+    .populate({
+      path: "dislikedMentors",
+      populate: {
+        path: "skillsToTeach",
+        model: "Skills",
+      },
+    })
+    .populate("objectives")
+    .exec()
+    
+}
+
 const findUserByEmail = email => {
   if(!email) return {}
   return Users.findOne({ email }, "-__v")
@@ -228,4 +270,5 @@ module.exports = {
   putObjectivesFromUser,
   deleteObjectivesFromUser,
   setMenteeToMentor,
+  cancelMentee,
 }

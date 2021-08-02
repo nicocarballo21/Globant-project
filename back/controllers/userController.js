@@ -8,7 +8,9 @@ const {
   putObjectivesFromUser,
   deleteObjectivesFromUser,
   setMenteeToMentor,
+  cancelMentee,
 } = require("../services/usersServices");
+const { Users } = require("../db/models");
 
 module.exports = {
   userUpdate: async (req, res, next) => {
@@ -146,4 +148,15 @@ module.exports = {
       next(error)
     }
   },
+  cancelMatch: async (req, res, next) => {
+    try {
+      const {mentorId, menteeId} = req.body;
+      const mentor = await cancelMentee(mentorId, menteeId)
+      /* console.log(mentor) */
+      return res.status(200).send(mentor)
+    }
+    catch (error) {
+      next(error)
+    }
+  }
 };

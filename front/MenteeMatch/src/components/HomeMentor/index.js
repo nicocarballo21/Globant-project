@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { useState, Component, useEffect } from 'react';
 import { Text, Image, View, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -7,11 +7,21 @@ import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-m
 import user_img from '../../assets/static/user_img.png'
 import { styles } from './styles'
 import useMode from '../../hooks/useMode';
+import generateAxios from '../../utils/generateAxios'
+
 
 export default () => {
     const { mode } = useMode()
     const user = useSelector(state => state.user);
     const navigation = useNavigation();
+
+    const cancelMatch = (mentorId, menteeId) => {
+        const axios = generateAxios(user.token)
+        axios.post('http://localhost:3000/api/users/cancelMatch', {
+            mentorId,
+            menteeId,
+        })
+    }
    
     return(
         <View style={{...styles.container, backgroundColor: mode.bg}}>
@@ -33,7 +43,7 @@ export default () => {
                             <MenuOptions>
                                 <MenuOption onSelect={()=> console.log("Objetivos")} text='Objetivos'/>
                                 <MenuOption onSelect={() => console.log("Reuniones")} text='Reuniones'/>
-                                <MenuOption onSelect={() => console.log("Cacelar Match")} text='Cancelar Match'/>
+                                <MenuOption onSelect={() => cancelMatch(user._id, mentee._id)} text='Cancelar Match'/>
                             </MenuOptions>
                             </Menu>
                         </View>
