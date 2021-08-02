@@ -9,6 +9,7 @@ import RoleSelection from './RoleSelection';
 import Home from './Home';
 import RoleEdit from './RoleEdit';
 import Skills from './Skills';
+import ProfileEdit from './ProfileEdit'
 
 
 export {
@@ -23,4 +24,5 @@ export {
   Home,
   RoleEdit,
   Skills,
+  ProfileEdit
 };
