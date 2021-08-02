@@ -64,7 +64,6 @@ const Home = () => {
           izquierda para buscar un mentor que se adecue a tu perfil.
         </Text>
       </View>
-      s
     </View>
   );
 };
