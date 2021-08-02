@@ -41,6 +41,13 @@ const findUserByEmail = email => {
         model: "Skills"
       }
     })
+    .populate({
+      path: "mentees",
+      populate: {
+        path: "skillsToLearn",
+        model: "Skills"
+      }
+    })
     .populate("objectives")
     .exec()
 }
@@ -75,6 +82,13 @@ const findUserById = _id => {
       path: "dislikedMentors",
       populate: {
         path: "skillsToTeach",
+        model: "Skills"
+      }
+    })
+    .populate({
+      path: "mentees",
+      populate: {
+        path: "skillsToLearn",
         model: "Skills"
       }
     })
@@ -123,6 +137,13 @@ const updateById = (_id, body) => {
       }
     })
     .populate({
+      path: "mentees",
+      populate: {
+        path: "skillsToLearn",
+        model: "Skills"
+      }
+    })
+    .populate({
       path: "mentor",
       populate: {
         path: "skillsToTeach",
@@ -157,12 +178,28 @@ const getMatchesForUser = async (_id, { roleToFind, skillsToFind, userSkills }) 
   // Para que no se incluya a él mismo
   matches = matches.filter(match => match.id !== _id)
 
+  // Si busco mentees, que esos mentees no tengan ya un mentor asignado
+  if (roleToFind === "isMentee") matches = matches.filter(match => !match.mentor)
+
+  // Se agrega user.mentees cómo filtro también porque no tiene sentido que un mentee que busca mentor, le salgan sus propios mentees como opción a elegir. Lo mismo en el rol contrario.
   if (roleToFind === "isMentor") {
-    matches = mentorResultFilter([...user.likedMentors, ...user.dislikedMentors], matches)
+    matches = mentorResultFilter(
+      [...user.likedMentors, ...user.dislikedMentors, ...user.mentees],
+      matches
+    )
   }
 
+  // Se agrega user.mentor como filtro también porque no me tiene que salir mi propio mentor como mentee elegible (en el caso que esa persona tenga los dos roles habilitados)
   if (roleToFind === "isMentee") {
-    matches = menteeResultFilter([...user.likedMentees, ...user.dislikedMentees], matches)
+    matches = menteeResultFilter(
+      [
+        ...user.likedMentees,
+        ...user.dislikedMentees,
+        ...user.mentees,
+        user.mentor ? user.mentor : { id: null }
+      ],
+      matches
+    )
   }
 
   return orderByCoincidences(skillstTomatch, matches, skillsToFind)
@@ -202,10 +239,23 @@ const deleteObjectivesFromUser = (objectiveId, user) => {
 
 const setMenteeToMentor = async (menteeId, mentorId) => {
   try {
-    const mentor = await Users.findById(mentorId)
-    if (!mentor) return null
+    const mentor = await Users.findById(mentorId).exec()
+    if (!mentor || mentor.mentees.length >= mentor.maxMentees) return null
     mentor.mentees.push(menteeId)
     return mentor.save()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const setMentorToMentee = async (mentorId, menteeId) => {
+  try {
+    const mentee = await Users.findById(menteeId).exec()
+    const mentor = await Users.findById(mentorId).populate("likedMentees").exec()
+    if (mentee.mentor || mentor.mentees.length >= mentor.maxMentees) return [null, null]
+    mentee.mentor = mentorId
+    mentor.likedMentees = mentor.likedMentees.filter(mentee => mentee.id !== menteeId)
+    return [mentee.save(), mentor.save()]
   } catch (error) {
     console.log(error)
   }
@@ -222,5 +272,6 @@ module.exports = {
   postObjectivesToUser,
   putObjectivesFromUser,
   deleteObjectivesFromUser,
-  setMenteeToMentor
+  setMenteeToMentor,
+  setMentorToMentee
 }

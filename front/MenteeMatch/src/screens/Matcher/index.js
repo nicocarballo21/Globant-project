@@ -9,7 +9,7 @@ import { Button } from '../../components';
 
 import styles from './styles';
 import useMode from '../../hooks/useMode';
-import { setMenteeToMentor } from '../../services/axiosServices';
+import { setMenteeToMentor, setMentorToMentee } from '../../services/axiosServices';
 
 export default function Matcher() {
   const dispatch = useDispatch();
@@ -49,17 +49,46 @@ export default function Matcher() {
       userPrevLiked => userPrevLiked._id === likedUser._id,
     );
     if (finalMatch) {
-      simpleMessage(
-        'Información',
-        `${finalMatch.name} ${finalMatch.surname} es tu nuevo ${roleToFind}`,
-        'info',
-      );
-      if (roleToFind === 'mentees')
-        return console.log(
-          'Se le mandó una notificación de humo al mentee (?)',
-        );
-      dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
-      return setMenteeToMentor(user._id, finalMatch._id, user.token);
+      if (roleToFind === 'mentees') {
+        // Acá se debería enviar la notificación al mentee pero por ahora directamente se asigna directamente a ese mentee como propio del mentor
+        if(user.mentees.length >= user.maxMentees) 
+          return simpleMessage(
+            '¡Atención!',
+            `Puedes tener hasta ${user.maxMentees} mentees cómo máximo al mismo tiempo`,
+            'warning',
+            );
+        return setMentorToMentee(user._id, finalMatch._id, user.token)
+            .then(setted => {
+              if(!setted) {
+                
+                return dispatch(updateUser({ url, data: {} }))
+              }        
+              dispatch(updateUser({ url, data: { mentees: [...user.mentees, finalMatch._id] } }))
+            simpleMessage(
+              'Información',
+              `${finalMatch.name} ${finalMatch.surname} es tu nuevo ${roleToFind.replace("s", "")}`,
+              'info',
+            );
+            })
+      } else {
+        return setMenteeToMentor(user._id, finalMatch._id, user.token)
+          .then(setted => {
+            if(!setted) {
+              simpleMessage(
+                '¡Error!',
+                `El usuario ya no está disponible.`,
+                'danger',
+                );
+              return dispatch(updateUser({ url, data: {} }))
+            }
+            dispatch(updateUser({ url, data: { mentor: finalMatch._id } }))
+            simpleMessage(
+              'Información',
+              `${finalMatch.name} ${finalMatch.surname} es tu nuevo ${roleToFind.replace("s", "")}`,
+              'info',
+            );
+          })
+      }
     }
     const orderedMatches = matches.filter(match => match._id !== likedUser._id);
     dispatch(
@@ -125,6 +154,7 @@ export default function Matcher() {
                 keyExtractor={(match, index) => match._id + index}
                 renderItem={({ item }) => (
                   <UserBlock
+                    enableTooltip={user[likedRole].length === 1}
                     user={item}
                     userLogin={user}
                     handleLike={handleLike}

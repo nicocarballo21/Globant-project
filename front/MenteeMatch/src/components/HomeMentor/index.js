@@ -1,7 +1,6 @@
 import React, { useState, Component } from 'react';
 import { Text, Image, View, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
-
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Tooltip, Text as ToltipText } from 'react-native-elements';
 import { Text, View, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 import { styles } from './styles';
@@ -6,23 +7,37 @@ import user_img from '../../assets/static/user_img.png';
 import SpinnerCoincidence from '../../components/SpinnerCoincidence';
 import useMode from '../../hooks/useMode';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
+import { simpleMessage } from '../../utils';
 
 export default function UserBlock({
   user,
   userLogin,
   handleLike,
+  enableTooltip,
   handleDislike,
   disableButtons,
 }) {
-  const skills = user.isMentor ? user.skillsToTeach : user.skillsToLearn;
-  /* console.log(skills) */
+  const getIsMentor = () => {
+    if (userLogin.actualRole) return userLogin.actualRole === 'Mentor';
+    return !!userLogin.isMentor;
+  };
+  const isMentor = getIsMentor();
+  const skills = isMentor ? user.skillsToLearn : user.skillsToTeach;
   const [show, setShow] = useState(false);
+  const tooltipRef = useRef(null);
 
   const getPopMessage = () => {
     return user.isMentor
       ? `¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`
       : `¿Quieres invitar a ${user.name} ${user.surname} a ser tu mentee?`;
   };
+
+  const getIsConfirmButtonEnabled = () => {
+    if (isMentor) return !user.mentor;
+    else return user.mentees.length < user.maxMentees;
+  };
+
+  const isConfirmButtonEnabled = getIsConfirmButtonEnabled();
 
   const handleOpen = () => {
     setShow(true);
@@ -31,6 +46,22 @@ export default function UserBlock({
   const handleClose = () => {
     setShow(false);
   };
+
+  const handleNotElegible = () => {
+    return simpleMessage(
+      '¡Error!',
+      `Este usuario ya no está disponible.`,
+      'danger',
+    );
+  };
+
+  useEffect(() => {
+    if (enableTooltip) {
+      setTimeout(() => {
+        tooltipRef.current.toggleTooltip();
+      }, 1500);
+    }
+  }, [enableTooltip]);
 
   const { mode } = useMode();
   return (
@@ -63,11 +94,26 @@ export default function UserBlock({
             </View>
             {disableButtons && (
               <>
-                <Button
-                  buttonStyle={[styles.likeButton, styles.confirmButton]}
-                  title="✔"
-                  onPress={() => handleOpen()}
-                />
+                <Tooltip
+                  width={150}
+                  height={60}
+                  ref={tooltipRef}
+                  popover={
+                    <ToltipText>Presiona acá para confirmar</ToltipText>
+                  }>
+                  <Button
+                    buttonStyle={[
+                      styles.likeButton,
+                      isConfirmButtonEnabled
+                        ? styles.confirmButton
+                        : styles.notElegible,
+                    ]}
+                    title={isConfirmButtonEnabled ? '✔' : 'X'}
+                    onPress={
+                      isConfirmButtonEnabled ? handleOpen : handleNotElegible
+                    }
+                  />
+                </Tooltip>
                 <SCLAlert
                   show={show}
                   onRequestClose={handleClose}
@@ -86,7 +132,12 @@ export default function UserBlock({
                     backgroundColor: mode.bg,
                   }}
                   subtitle={getPopMessage()}>
-                  <SCLAlertButton theme="info" onPress={() => handleLike(user)}>
+                  <SCLAlertButton
+                    theme="info"
+                    onPress={() => {
+                      handleLike(user);
+                      handleClose();
+                    }}>
                     Confirmar
                   </SCLAlertButton>
                   <SCLAlertButton theme="default" onPress={handleClose}>

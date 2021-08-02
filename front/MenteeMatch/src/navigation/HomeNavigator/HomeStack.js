@@ -54,14 +54,6 @@ export default function HomeStack({ navigation }) {
         component={UserViewModel}
         options={{
           title: 'Mentee',
-          headerLeft: () => (
-            <Ionicons
-              name="menu"
-              size={40}
-              color={'#BFD732'}
-              onPress={() => navigation.openDrawer()}
-            />
-          ),
         }}
       />
       <Stack.Screen

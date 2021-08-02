@@ -7,7 +7,8 @@ const {
   postObjectivesToUser,
   putObjectivesFromUser,
   deleteObjectivesFromUser,
-  setMenteeToMentor
+  setMenteeToMentor,
+  setMentorToMentee
 } = require("../services/usersServices")
 
 module.exports = {
@@ -35,13 +36,21 @@ module.exports = {
   setMentor: async (req, res, next) => {
     try {
       const { id } = req.user
-      const { _id } = req.body
+      const { _id } = req.body // Target id
       const updatedMentor = await setMenteeToMentor(id, _id)
-      if (!updatedMentor) return res.status(404).send("Mentor not found!")
+      if (!updatedMentor) return res.status(400).send("Something went wrong!")
       res.status(200).send(updatedMentor)
     } catch (error) {
       next(error)
     }
+  },
+
+  setMentee: async (req, res, next) => {
+    const { id } = req.user
+    const { _id } = req.body // Target id
+    const [updatedMentee, updatedMentor] = await setMentorToMentee(id, _id)
+    if (!updatedMentee || !updatedMentor) return res.status(400).send("Something went wrong!")
+    res.status(200).send({ updatedMentee, updatedMentor })
   },
 
   setSkills: async (req, res, next) => {

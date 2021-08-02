@@ -18,6 +18,7 @@ export default () => {
   const date = now.toLocaleDateString();
   const nowMili = Date.now();
   const user = useSelector(state => state.user);
+  const mentor = useSelector(state => state.user.mentor);
   const getIsMentor = () => {
     if (user.actualRole) return user.actualRole === 'Mentor';
     return !!user.isMentor;
@@ -30,8 +31,8 @@ export default () => {
     <View style={styles.container}>
       <View style={styles.user_data_container}>
         <Text style={styles.text}>Mentor</Text>
-        <Image source={{ uri: user.img }} style={styles.foto} />
-        <Text style={styles.text}>{`${user.name} ${user.surname}`}</Text>
+        <Image source={{ uri: mentor.img }} style={styles.foto} />
+        <Text style={styles.text}>{`${mentor.name} ${mentor.surname}`}</Text>
       </View>
       <View style={styles.recuadro_container}>
         <View style={styles.container_interno}>
@@ -76,29 +77,37 @@ export default () => {
               </View>
             </ScrollView>
           </View>
-
-          <View style={styles.recuadro_interno2}>
-            <ScrollView style={{ margin: 9 }}>
-              <Text>Reuniones Programadas</Text>
-              <View>
-                <View style={styles.inScrollViewDate}>
-                  <Text>{date} ---- </Text>
-                  <Text>{hour}</Text>
-                </View>
-                <View style={styles.inScrollViewObjetive}>
-                  <Text style={styles.inScrollViewText}>Reunion 1</Text>
-                </View>
-                <View style={styles.inScrollViewDate}>
-                  <Text>{date} ---- </Text>
-                  <Text>{hour}</Text>
-                </View>
-                <View style={styles.inScrollViewObjetive}>
-                  <Text style={styles.inScrollViewText}>Reunion 2</Text>
-                </View>
-              </View>
-            </ScrollView>
+          <View style={{ flexDirection: 'row' }}>
+            <CheckBox
+              disabled={false}
+              value={toggleCheckBox3}
+              onValueChange={newValue => setToggleCheckBox3(newValue)}
+            />
+            <Text style={styles.inScrollViewText}>Consolidar node</Text>
           </View>
         </View>
+      </View>
+
+      <View style={styles.recuadro_interno2}>
+        <ScrollView style={{ margin: 9 }}>
+          <Text>Reuniones Programadas</Text>
+          <View>
+            <View style={styles.inScrollViewDate}>
+              <Text>{date} ---- </Text>
+              <Text>{hour}</Text>
+            </View>
+            <View style={styles.inScrollViewObjetive}>
+              <Text style={styles.inScrollViewText}>Reunion 1</Text>
+            </View>
+            <View style={styles.inScrollViewDate}>
+              <Text>{date} ---- </Text>
+              <Text>{hour}</Text>
+            </View>
+            <View style={styles.inScrollViewObjetive}>
+              <Text style={styles.inScrollViewText}>Reunion 2</Text>
+            </View>
+          </View>
+        </ScrollView>
       </View>
     </View>
   );
