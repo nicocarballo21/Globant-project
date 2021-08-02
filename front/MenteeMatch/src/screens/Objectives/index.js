@@ -4,6 +4,7 @@ import {
   getObjectivesFromUser,
   postObjectivesToUser,
   deleteObjectivesToUser,
+  updateObjectivesToUser,
 } from '../../services/axiosServices';
 import { useSelector } from 'react-redux';
 import { simpleMessage } from '../../utils';
@@ -33,9 +34,7 @@ const Objectives = ({ route }) => {
         'El objetivo fue agregado correctamente',
         'success',
       );
-      setTimeout(() => {
-        setstate(!state);
-      }, 1000);
+      setstate(!state);
     }
   };
 
@@ -44,8 +43,16 @@ const Objectives = ({ route }) => {
     if (res) setstate(!state);
   };
 
-  const handleEdit = objectiveId => {
-    console.log(objectiveId);
+  const handleEdit = async (objectiveId, data) => {
+    const res = updateObjectivesToUser(userToken, objectiveId, data);
+    if (res) {
+      simpleMessage(
+        'Objetivo editado',
+        'El objetivo fue editado correctamente',
+        'success',
+      );
+      setstate(!state);
+    }
   };
 
   return (

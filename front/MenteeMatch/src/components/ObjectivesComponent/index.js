@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, FlatList, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, FlatList, ScrollView, Switch } from 'react-native';
 import styles from './styles';
 import useMode from '../../hooks/useMode';
 import InputText from '../InputText';
 import Button from '../Button';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
+import Dialog from 'react-native-dialog';
 
 const Item = ({
   objetive,
@@ -16,7 +17,9 @@ const Item = ({
   handleEdit,
 }) => {
   const [show, setshow] = useState(false);
-
+  const [showModal, setshowmodal] = useState(false);
+  const [description, setdescription] = useState(objetive);
+  const [newState, setnewstate] = useState(false);
   const toggle = () => setshow(!show);
 
   return (
@@ -41,8 +44,35 @@ const Item = ({
               <Ionicons name="pencil-outline" size={30} color={mode.text} />
             }
             style={styles.btn}
-            pressFunction={() => handleEdit(objective_id)}
+            pressFunction={() => setshowmodal(!showModal)}
           />
+
+          {/* INPUT MODAL */}
+
+          <Dialog.Container visible={showModal}>
+            <Dialog.Title>Edita tu objetivo!</Dialog.Title>
+
+            <Dialog.Switch
+              label="Completo"
+              value={newState}
+              onValueChange={() => setnewstate(!newState)}></Dialog.Switch>
+
+            <Dialog.Input
+              label="Objetivo"
+              value={description}
+              onChangeText={setdescription}></Dialog.Input>
+
+            <Dialog.Button label="Cerrar" onPress={() => setshowmodal(false)} />
+            <Dialog.Button
+              label="Editar"
+              onPress={() =>
+                handleEdit(objective_id, { description, state: newState })
+              }
+            />
+          </Dialog.Container>
+
+          {/* INPUT MODAl */}
+
           <Button
             icon={<Ionicons name="trash-outline" size={30} color={mode.text} />}
             style={styles.btn}
@@ -81,7 +111,6 @@ const ObjectivesComponent = ({
 }) => {
   const [input, setinput] = useState('');
   const { mode } = useMode();
-
   const renderItem = ({ item }) => (
     <Item
       objetive={item.description}
@@ -89,6 +118,7 @@ const ObjectivesComponent = ({
       state={item.state}
       mode={mode}
       handleDelete={handleDelete}
+      handleEdit={handleEdit}
     />
   );
 

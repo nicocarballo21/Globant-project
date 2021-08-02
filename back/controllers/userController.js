@@ -111,12 +111,12 @@ module.exports = {
       next(error)
     }
   },
+
   putUserObjectives: async (req, res, next) => {
     try {
-      const { objectiveId, data } = req.body
-      console.log(req.body)
-      if (!objectiveId || !data) return res.status(400).send("Invalid request body.")
-      const updatedObjective = await putObjectivesFromUser(objectiveId, data)
+      const { objetiveId, data } = req.body
+      if (!objetiveId || !data) return res.status(400).send("Invalid request body.")
+      const updatedObjective = await putObjectivesFromUser(objetiveId, data)
       if (!updatedObjective) return res.status(404).send("Objective not found!.")
       res.status(200).send(updatedObjective)
     } catch (error) {
