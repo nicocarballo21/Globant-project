@@ -8,10 +8,7 @@ router.get('/', async (req, res, next) => {
         const { id } = req.user
         const user = await Users.findById(id).exec()
         if(!user) res.status(400).send('Bad request: no user found')
-
-        let meets = []
-        if(user.isMentee) meets = [...meets, await Meets.find({ mentee: user })]
-        if(user.isMentor) meets = [...meets, await Meets.find({ mentor: user })]
+        const meets = await Meets.find({ participants: user })
         if(!meets) res.status(404).status('Not Found: no meets found')
         res.status(200).json(meets)
     } catch(err) { next(err) }
@@ -19,16 +16,16 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        const { title, description, mentor, mentee, link, date } = req.body
-        if(!date || !title || (!mentor && !mentee)) res.status(400).send('Bad request: invalid inputs')
-        const meet = await Meets.create({ title, description, mentor, mentee, link, date })
+        const { title, description, participants, link, date } = req.body
+        if(!date || !title || (!participants.length)) res.status(400).send('Bad request: invalid inputs')
+        const meet = await Meets.create({ title, description, participants, link, date })
         res.status(200).send(meet)
     } catch(err) { next(err) }
 })
 
 router.put('/', async (req, res, next) => {
     try {
-        //Le paso el _id de la reunion. (hay alguna mejor forma de implementarlo?)
+        //Le paso el _id de la reunion
         const { _id } = req.body
         if(!_id) res.status(400).send('Bad request: no meet passed by')
         const meet = await Meets.findOneAndUpdate(_id, req.body, { new: true }).exec()

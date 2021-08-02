@@ -10,6 +10,7 @@ import { getData } from './utils/storage';
 import { HomeApp, LoginApp } from './navigation';
 import { setUser } from './redux/Reducers/UserReducer';
 import { setReduxTheme } from './redux/Reducers/themeReducer';
+import { CreateMeet } from './screens';
 
 const AppWrapper = () => (
   <Provider store={store}>
@@ -45,7 +46,10 @@ const App = () => {
     <Provider store={store}>
       <SafeAreaProvider>
         <NavigationContainer>
-          {auth.userToken ? <HomeApp /> : <LoginApp />}
+          {auth.userToken ? 
+          <HomeApp /> 
+          // <CreateMeet/>
+          : <LoginApp />}
           <FlashMessage position="top" />
         </NavigationContainer>
       </SafeAreaProvider>

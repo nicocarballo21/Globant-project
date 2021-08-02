@@ -8,6 +8,7 @@ import SelectSkills from './SelectSkills';
 import RoleSelection from './RoleSelection';
 import Home from './Home';
 import RoleEdit from './RoleEdit';
+import CreateMeet from './CreateMeet';
 
 export {
   Matcher,
@@ -20,4 +21,5 @@ export {
   RoleSelection,
   Home,
   RoleEdit,
+  CreateMeet
 };

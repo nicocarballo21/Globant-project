@@ -61,8 +61,7 @@ const createMeet = async (data) => {
     const res = await axios.post(`${API_URL}/api/meets`, {
       title: data.title,
       description: data.decription,
-      mentor: data.mentor,
-      mentee: data.mentee,
+      participants: data.participants,
       link: data.link,
       date: data.date
     })
