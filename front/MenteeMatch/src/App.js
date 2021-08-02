@@ -10,12 +10,14 @@ import { getData } from './utils/storage';
 import { HomeApp, LoginApp } from './navigation';
 import { setUser } from './redux/Reducers/UserReducer';
 import { setReduxTheme } from './redux/Reducers/themeReducer';
-import { CreateMeet } from './screens';
+import { MenuProvider } from 'react-native-popup-menu';
 
 const AppWrapper = () => (
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <MenuProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </MenuProvider>
 );
 
 const App = () => {

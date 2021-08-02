@@ -26,11 +26,14 @@ const initialState = {
   meets: [],
   skillsToLearn: [],
   skillsToTeach: [],
-  likes: [],
-  disLikes: [],
+  likedMentees: [],
+  dislikedMentees: [],
+  likedMentors: [],
+  dislikedMentors: [],
   maxMentees: null,
   img: null,
   token: '',
+  actualRole: '',
 };
 
 export const setUser = createAction('SET_USER');

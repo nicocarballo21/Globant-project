@@ -33,11 +33,11 @@ export default function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
-      <DrawerItem
+      {/* <DrawerItem
         label="Cerrar menú"
         labelStyle={{ color: mode.text }}
         onPress={() => props.navigation.closeDrawer()}
-      />
+      /> */}
       <DrawerItem
         label="Cerrar sesion"
         labelStyle={{ color: mode.text }}

@@ -47,7 +47,7 @@ const RoleSelection = ({ navigation }) => {
       dispatch(
         updateUser({
           url: '/api/users/profile',
-          data: { isMentor: true, isMentee: true },
+          data: { isMentor: true, isMentee: true, actualRole: 'Mentor' },
         }),
       ).then(() => navigation.navigate('SelectSkills'));
     } else {
@@ -82,7 +82,7 @@ const RoleSelection = ({ navigation }) => {
         />
         <CheckBoxText
           mode={mode}
-          text="Mentor Y Mentee"
+          text="Ambos"
           isChecked={boxTres}
           onPress={handleBoth}
         />

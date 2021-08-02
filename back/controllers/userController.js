@@ -7,13 +7,14 @@ const {
   postObjectivesToUser,
   putObjectivesFromUser,
   deleteObjectivesFromUser,
+  setMenteeToMentor,
 } = require("../services/usersServices");
 
 module.exports = {
   userUpdate: async (req, res, next) => {
     try {
       const user = await updateById(req.user.id, req.body);
-      if(!user) res.status(400).send("Bad request: user not found")
+      if(!user) return res.status(400).send("Bad request: user not found")
       res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
       next(err);
@@ -32,6 +33,18 @@ module.exports = {
     }
   },
 
+  setMentor: async(req, res, next) => {
+    try {
+      const { id } = req.user
+      const { _id } = req.body
+      const updatedMentor = await setMenteeToMentor(id, _id)
+      if(!updatedMentor) return res.status(404).send("Mentor not found!")
+      res.status(200).send(updatedMentor)
+    } catch (error) {
+      next(error)
+    }
+  },
+
   setSkills: async (req, res, next) => {
     try {
       const type =
@@ -42,14 +55,13 @@ module.exports = {
         return res
           .status(400)
           .json("The body of your request is not correct!, try again");
-
       const skills = req.body[type];
+      const { maxMentees } = req.body 
 
       if (!skills.length)
         return res.status(400).json("You need to add at least one skill");
 
-      const user = await updateById(req.user.id, { [type]: skills });
-
+      const user = await updateById(req.user.id, { [type]: skills, maxMentees });
       res.status(200).json({ ...user._doc, password: null });
     } catch (err) {
       next(err);

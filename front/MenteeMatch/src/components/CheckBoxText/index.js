@@ -1,10 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import useMode from '../../hooks/useMode';
 
 import styles from './styles';
 
-function ChecKBoxText({ text, isChecked, onPress, mode }) {
+function ChecKBoxText({ text, isChecked, onPress }) {
+  const { mode } = useMode();
+  
   return (
     <View style={styles.optionContainer}>
       <BouncyCheckbox
