@@ -8,23 +8,28 @@ import DatePicker from 'react-native-date-picker'
 import DropDownPicker from 'react-native-dropdown-picker';
 import styles from './styles';
 import useMode from '../../hooks/useMode';
+import { logout } from '../../redux/Slices/authSlice';
 import { createMeet } from '../../services/reduxServices'
  
 const CreateMeet = () => {
   const { mode } = useMode();
   const user = useSelector(state => state.user);
   // if(!user.mentees.length) throw new Error('No mentees asigned')
-  let mentorOrMentee = user.mentees
-  console.log('user: ', user)
+  let mentorOrMentee = user.mentees.length ? user.mentees.map(person => ({label: person.name, value: person._id})) 
+  : [{name: "un nombre", _id: "un id 8237"}, {name: "otro nombre", _id: "otr id 2342"}]
+  console.log('mentorOrMentee: ', mentorOrMentee)
   const [open, setOpen] = useState(false)
   const [participant, setParticipant] = useState(null)
-  const [items, setItems] = useState([{ label: 'Mentee 1', value: 'mentee1' }, { label: 'Mentee 2', value: 'mentee2' }]);
-  // const [items, setItems] = useState(mentorOrMentee.map(person => [{label: person.name, value: person._id}]))
+  // const [items, setItems] = useState([{ label: 'Mentee 1', value: 'mentee1' }, { label: 'Mentee 2', value: 'mentee2' }]);
+  const [items, setItems] = useState(mentorOrMentee)
+  console.log("Items: ", items)
   const [date, setDate] = useState(new Date())
   const { meets } = user;
   //   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  // dispatch(logout())
+  
   const {
     control,
     handleSubmit,
@@ -116,22 +121,3 @@ const CreateMeet = () => {
 };
 
 export default CreateMeet;
-
-
-// {meets.length ? (
-//     <SafeAreaView style={{...styles.container, backgroundColor: mode.bg}}>
-//         {meets.map(meet => 
-//             <View styles={style.meetContainer}>
-//                 <Text styles={style.title}>{meet.title}</Text>
-//                 <Text styles={style.description}>{meet.description}</Text>
-//                 <Text>Mentor: {meet.mentor} {'\n'} Mentee: {meet.mentee}</Text>
-//                 <Text style={{color: 'blue'}} onPress={() => Linking.openURL(`${meet.link}`)}>{meet.link}</Text>
-//             </View>
-//         )}
-//     </SafeAreaView>
-//   ) : (
-//     <View>
-//         <Text style={styles.ifNot}>No se encontraron reuniones.</Text>
-//         <Button title='Crear reunión' onPress={handleCreate}></Button>
-//     </View>
-//   )}

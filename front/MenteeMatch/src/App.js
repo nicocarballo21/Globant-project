@@ -10,6 +10,7 @@ import { getData } from './utils/storage';
 import { HomeApp, LoginApp } from './navigation';
 import { setUser } from './redux/Reducers/UserReducer';
 import { setReduxTheme } from './redux/Reducers/themeReducer';
+import { CreateMeet } from './screens';
 import { MenuProvider } from 'react-native-popup-menu';
 
 const AppWrapper = () => (
@@ -49,7 +50,8 @@ const App = () => {
       <SafeAreaProvider>
         <NavigationContainer>
           {auth.userToken ? 
-          <HomeApp /> 
+          // <HomeApp /> 
+          <CreateMeet/>
           : <LoginApp />}
           <FlashMessage position="top" />
         </NavigationContainer>
