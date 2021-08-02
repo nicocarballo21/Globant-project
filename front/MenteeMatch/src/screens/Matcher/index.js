@@ -59,6 +59,10 @@ export default function Matcher() {
             );
         return setMentorToMentee(user._id, finalMatch._id, user.token)
             .then(setted => {
+              if(!setted) {
+                
+                return dispatch(updateUser({ url, data: {} }))
+              }        
               dispatch(updateUser({ url, data: { mentees: [...user.mentees, finalMatch._id] } }))
             simpleMessage(
               'Información',
@@ -69,6 +73,14 @@ export default function Matcher() {
       } else {
         return setMenteeToMentor(user._id, finalMatch._id, user.token)
           .then(setted => {
+            if(!setted) {
+              simpleMessage(
+                '¡Error!',
+                `El usuario ya no está disponible.`,
+                'danger',
+                );
+              return dispatch(updateUser({ url, data: {} }))
+            }
             dispatch(updateUser({ url, data: { mentor: finalMatch._id } }))
             simpleMessage(
               'Información',
