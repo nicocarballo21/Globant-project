@@ -18,6 +18,7 @@ export default () => {
   const date = now.toLocaleDateString();
   const nowMili = Date.now();
   const user = useSelector(state => state.user);
+  const mentor = useSelector(state => state.user.mentor)
   const getIsMentor = () => {
     if(user.actualRole)
       return user.actualRole === 'Mentor'
@@ -32,8 +33,8 @@ export default () => {
         <View style={styles.container}>
           <View style={styles.user_data_container}>
             <Text style={styles.text}>Mentor</Text>
-            <Image source={{ uri: user.img }} style={styles.foto} />
-            <Text style={styles.text}>{`${user.name} ${user.surname}`}</Text>
+            <Image source={{ uri: mentor.img }} style={styles.foto} />
+            <Text style={styles.text}>{`${mentor.name} ${mentor.surname}`}</Text>
           </View>
           <View style={styles.recuadro_container}>
             <View style={styles.container_interno}>
