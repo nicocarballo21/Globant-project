@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { globantBright } from '../../assets/styles/colors';
 
 export const styles = StyleSheet.create({
   container: {
@@ -49,7 +50,7 @@ export const styles = StyleSheet.create({
   likeButton: {
     borderWidth: 0,
     borderRadius: 50,
-    backgroundColor: '#006606',
+    backgroundColor: globantBright.grass,
     height: 50,
     width: 90,
     marginRight: 20,
@@ -57,22 +58,21 @@ export const styles = StyleSheet.create({
   dislikeButton: {
     borderWidth: 0,
     borderRadius: 50,
-    backgroundColor: '#aa0000',
+    backgroundColor: '#f44336',
     height: 50,
     width: 90,
     marginLeft: 20,
   },
   confirmButton: {
-    /* position: "relative",
-    top: 20,
-    left: -22, */
-    /* marginRight: 0, */
     height: 45,
     width: 45,
-    // fontSize: 25,
-    // alignSelf: "flex-end",
-    marginTop: 5,
     marginLeft: 3,
+  },
+  notElegible: {
+    height: 45,
+    width: 45,
+    marginLeft: 3,
+    backgroundColor: '#666666',
   },
   cardTitleBox: {
     // position: "relative",

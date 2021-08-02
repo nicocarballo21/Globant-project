@@ -7,6 +7,7 @@ import user_img from '../../assets/static/user_img.png';
 import SpinnerCoincidence from '../../components/SpinnerCoincidence';
 import useMode from '../../hooks/useMode';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
+import { simpleMessage } from '../../utils';
 
 export default function UserBlock({
   user,
@@ -31,6 +32,13 @@ export default function UserBlock({
       ? `¿Quieres confirmar a ${user.name} ${user.surname} cómo tu mentor?`
       : `¿Quieres invitar a ${user.name} ${user.surname} a ser tu mentee?`;
   };
+  
+  const getIsConfirmButtonEnabled = () => {
+    if(isMentor) return !user.mentor
+    else return user.maxMentees <= user.mentees.length
+  }
+
+  const isConfirmButtonEnabled = getIsConfirmButtonEnabled()
 
   const handleOpen = () => {
     setShow(true);
@@ -39,6 +47,14 @@ export default function UserBlock({
   const handleClose = () => {
     setShow(false);
   };
+
+  const handleNotElegible = () => {
+    return simpleMessage(
+      '¡Error!',
+      `Este usuario ya no está disponible.`,
+      'danger',
+      );
+  }
 
   useEffect(() => {
     if (enableTooltip) {
@@ -87,9 +103,9 @@ export default function UserBlock({
                     <ToltipText>Presiona acá para confirmar</ToltipText>
                   }>
                   <Button
-                    buttonStyle={[styles.likeButton, styles.confirmButton]}
-                    title="✔"
-                    onPress={() => handleOpen()}
+                    buttonStyle={[styles.likeButton, isConfirmButtonEnabled ? styles.confirmButton : styles.notElegible]}
+                    title={isConfirmButtonEnabled ? "✔" : "X"}
+                    onPress={isConfirmButtonEnabled ? handleOpen : handleNotElegible}
                   />
                 </Tooltip>
                 <SCLAlert
@@ -110,7 +126,7 @@ export default function UserBlock({
                     backgroundColor: mode.bg,
                   }}
                   subtitle={getPopMessage()}>
-                  <SCLAlertButton theme="info" onPress={() => handleLike(user)}>
+                  <SCLAlertButton theme="info" onPress={() => {handleLike(user); handleClose()}}>
                     Confirmar
                   </SCLAlertButton>
                   <SCLAlertButton theme="default" onPress={handleClose}>

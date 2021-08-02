@@ -39,7 +39,7 @@ module.exports = {
       const { id } = req.user
       const { _id } = req.body // Target id
       const updatedMentor = await setMenteeToMentor(id, _id)
-      if(!updatedMentor) return res.status(404).send("Mentor not found!")
+      if(!updatedMentor) return res.status(400).send("Something went wrong!")
       res.status(200).send(updatedMentor)
     } catch (error) {
       next(error)
@@ -50,7 +50,7 @@ module.exports = {
     const { id } = req.user
     const { _id } = req.body // Target id
     const [updatedMentee, updatedMentor] = await setMentorToMentee(id, _id)
-    if(!updatedMentee || !updatedMentor) return res.status(404).send("Mentor not found!")
+    if(!updatedMentee || !updatedMentor) return res.status(400).send("Something went wrong!")
     res.status(200).send({updatedMentee, updatedMentor})
   },
 

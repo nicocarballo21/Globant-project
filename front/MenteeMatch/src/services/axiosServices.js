@@ -1,5 +1,6 @@
 import generateAxios from '../utils/generateAxios';
 import { API_URL } from '@env';
+import { simpleMessage } from '../utils';
 
 const postUserSkillsToLearn = async (skills, token) => {
   try {
@@ -30,7 +31,7 @@ const setMenteeToMentor = async (menteeId, mentorId, token) => {
     const server = generateAxios(token)
     await server.put(API_URL + '/api/users/mentor/set', { id: menteeId, _id: mentorId })
   } catch (error) {
-    console.log({error})
+    console.log(error)
   }
 }
 
@@ -39,7 +40,13 @@ const setMentorToMentee = async (mentorId, menteeId, token) => {
     const server = generateAxios(token)
     await server.put(API_URL + '/api/users/mentee/set', { id: mentorId, _id: menteeId })
   } catch (error) {
-    console.log({error})
+    if(error.response.status === 400)
+      return simpleMessage(
+        '¡Error!',
+        `El usuario ya no está disponible.`,
+        'danger',
+      );
+    console.log(error)
   }
 }
 
