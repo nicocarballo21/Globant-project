@@ -6,16 +6,15 @@ import { updateUser } from '../../redux/Reducers/UserReducer';
 import LinearGradient from 'react-native-linear-gradient';
 import BouncyCheckbox from "react-native-bouncy-checkbox" ;
 import { globantBright } from '../../assets/styles/colors';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import useMode from '../../hooks/useMode';
-
-
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { storeData } from '../../utils/storage';
 
 export default function RoleEdit({ navigation }) {
     const { mode } = useMode()
     const user = useSelector(state => state.user);
-    const [ menteeBox, setMenteeBox] = React.useState(user.isMentee);
-    const [ mentorBox, setMentorBox] = React.useState(user.isMentor);
+    //const [ menteeBox, setMenteeBox] = React.useState(user.isMentee);
+    //const [ mentorBox, setMentorBox] = React.useState(user.isMentor);
     const [ role, setRole ] = React.useState('');
   
     const dispatch = useDispatch();
@@ -35,17 +34,33 @@ export default function RoleEdit({ navigation }) {
     
     const handleSubmit = () => {
         if ( role === "mentee" && !user.isMentee ) {
-            return dispatch(updateUser({ url: `/api/users/${role}`, data: {} }))
-                .then(() => ToastAndroid.showWithGravityAndOffset("Ahora tambien sos Mentee!", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50))
+            return dispatch(
+                updateUser({
+                    url: '/api/users/profile',
+                    data: { isMentee: true, actualRole: 'Mentee' },
+                }))
+                .then((data) => {
+                    storeData('user', data.payload)
+                    ToastAndroid.showWithGravityAndOffset("Ahora tambien sos Mentee!", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50)
+                })
+
         }
         else if ( role === "mentor" && !user.isMentor) {
-                return dispatch(updateUser({ url: `/api/users/${role}`, data: {} }))
-                    .then(() => ToastAndroid.showWithGravityAndOffset("Ahora tambien sos Mentor!", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50))
+            return dispatch(
+                updateUser({
+                    url: '/api/users/profile',
+                    data: { isMentor: true, actualRole: 'Mentor' },
+                }))
+                .then((data) => {
+                    storeData('user', data.payload)
+                    ToastAndroid.showWithGravityAndOffset("Ahora tambien sos Mentor!", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50)
+                })
         } 
     }
 
     return (
-        <SafeAreaView style={{ flex:1, justifyContent: "space-around", alignItems: "center", backgroundColor: mode.bg}}>
+        <SafeAreaView style={{ flex:1,  alignItems: "center", backgroundColor: mode.bg}}>
+            <View style={styles.header}>
                 <BouncyCheckbox 
                     disableBuiltInState={user.isMentee}
                     isChecked={user.isMentee}
@@ -54,12 +69,17 @@ export default function RoleEdit({ navigation }) {
                     iconStyle={{ borderColor: "#BFD732" }}
                     onPress={() => user.isMentee ? ToastAndroid.showWithGravityAndOffset("No puedes desmarcar esta opcion", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50): menteeCheck()}
                 />
+            </View>
             { user.isMentee ? (
-                <>
+            <>
                 <TouchableOpacity style={styles.editButton}
-                    onPress={() => navigation.navigate("Skills", { name: "Mentee", learnOrTeach: "learn", property:"skillsToLearn"})}
+                    onPress={() => user.mentor ?
+                        ToastAndroid.showWithGravityAndOffset("No puedes cambiar tus habilidades si tienes mentor", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50)
+                        :
+                        navigation.navigate("Skills", { name: "Mentee", learnOrTeach: "learn", property:"skillsToLearn"})}
                 >
-                    <Text style={styles.editText} >Editar</Text>
+                    <FontAwesome name="edit" color={"#BFD732"} size={30} />
+                <Text style={{...styles.editText, color: mode.text}} >Habilidades que quieres aprender</Text>
                 </TouchableOpacity>
                   <View
                     style={{
@@ -80,20 +100,26 @@ export default function RoleEdit({ navigation }) {
                             data={user.skillsToLearn}
                             keyExtractor={skills => skills._id}
                             renderItem={({ item }) => (
-                                <Pressable
-                                    style={[styles.pressable]}
+                                <TouchableOpacity disabled={true} style={styles.skillButton}
                                 >
-                                <Text style={styles.pressableTxt}>{item.name}</Text>
-                                </Pressable>
+                                    <LinearGradient
+                                        colors={['#25F198', '#15C9C3']}
+                                        useAngle={true} angle={40} angleCenter={{x:0.5,y:0.5}}
+                                        style={styles.gradient}
+                                    >
+                                        <Text style={styles.text} >{item.name}</Text>
+                                    </LinearGradient>
+                                </TouchableOpacity>
                             )}
                         />
                     </View>
-                </>
-
+            </>
             ) : (
-                <Text>Todavia no sos Mentee</Text>
+                <View style={{ flex: 1 }}>
+                    <Text>Todavia no sos Mentee</Text>
+                </View>
             )}
-
+        <View style={styles.header} >
                 <BouncyCheckbox 
                     disableBuiltInState={user.isMentor}
                     isChecked={user.isMentor}
@@ -103,12 +129,17 @@ export default function RoleEdit({ navigation }) {
                     onPress={() => mentorCheck()}
                     onPress={() => user.isMentor ? ToastAndroid.showWithGravityAndOffset("No puedes desmarcar esta opcion", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50): mentorCheck()}
                 />
+        </View>
             { user.isMentor ? (
                 <>
                 <TouchableOpacity style={styles.editButton}
-                    onPress={() => navigation.navigate("Skills", { name: "Mentor", learnOrTeach: "teach", property:"skillsToTeach"})}
+                    onPress={() => user.mentees.length ?
+                        ToastAndroid.showWithGravityAndOffset("No puedes cambiar tus habilidades si tienes mentees", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50)
+                        :
+                        navigation.navigate("Skills", { name: "Mentor", learnOrTeach: "teach", property:"skillsToTeach"})}
                 >
-                    <Text style={styles.editText} >Editar</Text>
+                    <FontAwesome name="edit" color={"#BFD732"} size={30} />
+                <Text style={{...styles.editText, color: mode.text}} >Habilidades que quieres enseñar</Text>
                 </TouchableOpacity>
                   <View
                     style={{
@@ -129,20 +160,28 @@ export default function RoleEdit({ navigation }) {
                             data={user.skillsToTeach}
                             keyExtractor={skills => skills._id}
                             renderItem={({ item }) => (
-                                <Pressable
-                                    style={[styles.pressable]}
+                                <TouchableOpacity disabled={true} style={styles.skillButton}
                                 >
-                                <Text style={styles.pressableTxt}>{item.name}</Text>
-                                </Pressable>
+                                    <LinearGradient
+                                        colors={['#25F198', '#15C9C3']}
+                                        useAngle={true} angle={40} angleCenter={{x:0.5,y:0.5}}
+                                        style={styles.gradient}
+                                    >
+                                        <Text style={styles.text} >{item.name}</Text>
+                                    </LinearGradient>
+                                </TouchableOpacity>
                             )}
                         />
                     </View>
                 </>
 
             ) : (
-                <Text>Todavia no sos Mentor</Text>
+                <View style={{ flex:1 }}>
+                    <Text>Todavia no sos Mentor</Text>
+                </View>
             )}
-
+        { user.isMentor && user.isMentee ? 
+            null : (
             <TouchableOpacity style={styles.button}
                 onPress={() => handleSubmit()}
             >
@@ -154,6 +193,9 @@ export default function RoleEdit({ navigation }) {
                     <Text style={styles.text} >Confirmar</Text>
                 </LinearGradient>
             </TouchableOpacity>
+            )
+         }
+
         </SafeAreaView>
     )
 };
@@ -172,19 +214,21 @@ const styles = StyleSheet.create({
     button: {
         width: "30%",
         height: 50,
+        margin: 5 ,
     },
     text: {
         color: "white",
         fontSize: 16,
     },
     btnsContainer: {
+        flex:1,
         flexDirection: 'row',
         position: 'relative',
         borderColor: globantBright.blackPearl,
         backgroundColor: globantBright.lightgray,
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
-        elevation: 1,
+        borderTopWidth: 0,
+        borderBottomWidth: 0,
+        margin: 5,
     },
     pressable: {
         justifyContent: 'center',
@@ -194,7 +238,7 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 15,
         borderStyle: 'solid',
-        borderWidth: 1,
+        borderWidth: 0,
         borderColor: globantBright.charade,
         margin: 5,
         elevation: 5,
@@ -207,14 +251,30 @@ const styles = StyleSheet.create({
     editButton: {
         alignItems: "center",
         justifyContent: "center",
+        flexDirection: 'row',
         height: "5%",
-        width: "15%",
-        backgroundColor: "#BFD732",
-        borderRadius: 10
+        //width: "15%",
+        //backgroundColor: "#BFD732",
+        //borderRadius: 10
     },
     editText: {
         fontSize: 16,
-        color: "#FFF"
-    }
+        color: "#000000"
+    },
+    skillButton: {
+        width: 120,
+        height: 60,
+        margin: 3 ,
+        paddingHorizontal: 5,
+    },
+    header: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        padding: 32,
+        fontSize: 24,
+        position: 'relative',
+        zIndex: 10,
+    },
 })
 
