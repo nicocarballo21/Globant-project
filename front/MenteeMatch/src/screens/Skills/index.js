@@ -13,8 +13,9 @@ import Button from '../../components/Button';
 import { getSkills } from '../../redux/Reducers/Skills';
 import { simpleMessage } from '../../utils';
 import styles from './styles';
-import { updateUser } from '../../redux/Reducers/UserReducer';
+import { updateUser, setUser } from '../../redux/Reducers/UserReducer';
 import useMode from '../../hooks/useMode';
+import { storeData } from '../../utils/storage';
 
 const Skills = ({ route, navigation }) => {
   const learnOrTeach = route.params.learnOrTeach;
@@ -41,19 +42,20 @@ const Skills = ({ route, navigation }) => {
     dispatch(
       updateUser({
         url: `/api/users/skills/${learnOrTeach}`,
-        data: { [property]: selection },
+        data: { [property]: selection, maxMentees: menteesQty },
       }),
-    ).then(() => {
+    ).then((data) => {
       navigation.navigate('Role');
       setSelection([]);
       setButtonsStyle({});
-      return ToastAndroid.showWithGravityAndOffset(
+      ToastAndroid.showWithGravityAndOffset(
         'Se actualizaron tus habilidades',
         ToastAndroid.SHORT,
         ToastAndroid.BOTTOM,
         25,
         50,
       );
+      storeData('user', data.payload)
     });
     setSelection([]);
     setButtonsStyle({});
@@ -75,7 +77,6 @@ const Skills = ({ route, navigation }) => {
     const selectedSkills = Object.values(buttonsStyle);
     const finalSkillsIds = selectedSkills.map(skill => ({ _id: skill._id }));
     setSelection(finalSkillsIds);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Object.keys(buttonsStyle).length]);
 
   const handleChangeQty = number => {
