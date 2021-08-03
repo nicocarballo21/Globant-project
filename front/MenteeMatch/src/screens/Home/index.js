@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import HomeView from '../../components/HomeView';
 import useMode from '../../hooks/useMode';
 import { styles } from './styles';
+import user_img from '../../assets/static/user_img.png';
 
 const Home = () => {
   const { mode } = useMode();
@@ -18,10 +19,10 @@ const Home = () => {
     isMentor ? state.user.likedMentees : state.user.likedMentors,
   );
 
-  const usersToConfirm = usersLikes.map((userLike, indice) => (
+  const usersToConfirm = usersLikes && usersLikes.map((userLike, indice) => (
     <View key={indice}>
       <View style={styles.bord}>
-        <Image style={styles.img} source={{ uri: userLike.img }} />
+        <Image style={styles.img} source={userLike.img ? { uri: userLike.img } : user_img} />
         <Text
           style={{
             ...styles.name,

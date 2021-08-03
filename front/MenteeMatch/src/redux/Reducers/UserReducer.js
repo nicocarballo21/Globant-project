@@ -9,6 +9,8 @@ import {
   updateUserData,
 } from '../../services/reduxServices';
 
+import {deleteMatch, deleteMatchMentor} from '../../services/axiosServices'
+
 const initialState = {
   name: null,
   surname: null,
@@ -52,12 +54,42 @@ export const updateUser = createAsyncThunk(
     }
   },
 );
+export const cancelMatch = createAsyncThunk('CANCEL_MATCH', 
+async ({ data, token }, thunkAPI) => {
+  try {
+    const userUpdated = await deleteMatch(data, token);
+    console.log(userUpdated)
+    userUpdated['token'] = token;
+    return userUpdated;
+  } catch (error) {
+    console.log({ error });
+    }
+  },
+)
+
+export const cancelMatchMentor = createAsyncThunk('CANCEL_MATCH_MENTOR  ', 
+async ({ data, token }, thunkAPI) => {
+  try {
+    const userUpdatedMentee = await deleteMatchMentor(data, token);
+    console.log(userUpdatedMentee)
+    userUpdatedMentee['token'] = token;
+    return userUpdatedMentee;
+  } catch (error) {
+    console.log({ error });
+    }
+  },
+)
 
 const userReducer = createReducer(initialState, {
   [getUser.fulfilled]: (_, action) => action.payload,
   [setUser]: (_, action) => action.payload,
   [userRegister.fulfilled]: (_, action) => action.payload,
   [updateUser.fulfilled]: (_, action) => action.payload,
+  [cancelMatch.fulfilled]: (_, action) => action.payload,
+  [cancelMatchMentor.fulfilled]: (state, action) => state,
 });
+
+
+
 
 export default userReducer;

@@ -110,6 +110,26 @@ const setMentorToMentee = async (mentorId, menteeId, token) => {
   }
 };
 
+const deleteMatch = async(data, token) => {
+  try {
+    const server = generateAxios(token)
+    const updateMentor = await server.post(API_URL + '/api/users/cancelMatch', data)
+    return updateMentor.data
+  } catch(error) {
+    console.log(error)
+  } 
+}; 
+
+const deleteMatchMentor = async(data, token) => {
+  try {
+    const server = generateAxios(token)
+    const updateMentor = await server.post(API_URL + '/api/users/cancelMatchMentor', data)
+    return updateMentor.data
+  } catch(error) {
+    console.log(error)
+  } 
+}; 
+
 export {
   postUserSkillsToLearn,
   postUserSkillsToTeach,
@@ -119,4 +139,6 @@ export {
   updateObjectivesToUser,
   getObjectivesFromUser,
   setMentorToMentee,
+  deleteMatch,
+  deleteMatchMentor,
 };
