@@ -57,10 +57,12 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Users",
   },
-  notes: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Notes"
-  },
+  notes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Notes",
+    },
+  ],
   meets: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -70,8 +72,8 @@ const userSchema = new mongoose.Schema({
   objectives: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Objectives"
-    }
+      ref: "Objectives",
+    },
   ],
   likedMentees: [
     {
@@ -106,7 +108,7 @@ const userSchema = new mongoose.Schema({
   },
   actualRole: {
     type: String,
-  }
+  },
 });
 
 userSchema.pre("save", function (next) {
