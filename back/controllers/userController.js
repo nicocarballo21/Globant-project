@@ -144,5 +144,23 @@ module.exports = {
     } catch (error) {
       next(error)
     }
+  },
+  getUserNotes: async (req, res, next) => {
+    try {
+      const mentorId = req.user.id
+      const { menteeId } = req.body
+      const notes = await getNotesFromUser(mentorId, menteeId)
+      res.status(200).send(notes)
+    } catch (error) {
+      next(error)
+    }
+  },
+  postUserNotes: async (req, rex, next) => {
+    try {
+      /* const {  } */
+    } catch (error) {
+      next(error)
+    }
   }
+
 }

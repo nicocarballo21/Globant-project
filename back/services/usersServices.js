@@ -1,4 +1,5 @@
 const { Users, Objectives } = require("../db/models");
+const Notes = require("../db/models/Notes");
 const {
   orderByCoincidences,
   menteeResultFilter,
@@ -281,6 +282,11 @@ const setMentorToMentee = async (mentorId, menteeId) => {
   }
 };
 
+const getNotesFromUser = (mentorId, menteeId) => {
+  const notesPromise = Notes.find({ from: mentorId, to: menteeId }).exec()
+  return notesPromise
+}
+
 module.exports = {
   createUser,
   findUserByEmail,
@@ -294,4 +300,5 @@ module.exports = {
   deleteObjectivesFromUser,
   setMenteeToMentor,
   setMentorToMentee,
+  getNotesFromUser
 };

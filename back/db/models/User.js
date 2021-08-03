@@ -57,6 +57,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Users",
   },
+  notes: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Notes"
+  },
   meets: [
     {
       type: mongoose.Schema.Types.ObjectId,
