@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Tooltip, Text as ToltipText } from 'react-native-elements';
+import React, { useEffect, useState } from 'react';
 import { Text, View, Image } from 'react-native';
 import { Button } from 'react-native-elements';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import { styles } from './styles';
 import user_img from '../../assets/static/user_img.png';
 import SpinnerCoincidence from '../../components/SpinnerCoincidence';
 import useMode from '../../hooks/useMode';
-import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
+import useAlert from '../../hooks/useAlert';
 import { simpleMessage } from '../../utils';
+import { ToolTipModal } from '../../components';
 
 export default function UserBlock({
   user,
@@ -24,7 +25,7 @@ export default function UserBlock({
   const isMentor = getIsMentor();
   const skills = isMentor ? user.skillsToLearn : user.skillsToTeach;
   const [show, setShow] = useState(false);
-  const tooltipRef = useRef(null);
+  const [tooltipShow, tooltipClose, tooltipOpen] = useAlert();
 
   const getPopMessage = () => {
     return user.isMentor
@@ -50,22 +51,15 @@ export default function UserBlock({
   const handleNotElegible = () => {
     return simpleMessage(
       '¡Error!',
-      `Este usuario ya no está disponible.`,
+      'Este usuario ya no está disponible.',
       'danger',
     );
   };
 
-  useEffect(() => {
-    if (enableTooltip) {
-      setTimeout(() => {
-        tooltipRef.current.toggleTooltip();
-      }, 1500);
-    }
-  }, [enableTooltip]);
-
   const { mode } = useMode();
   return (
     <View style={styles.container}>
+      <ToolTipModal visible={tooltipShow} handleClose={tooltipClose} />
       {user._id ? (
         <View
           style={{
@@ -94,26 +88,19 @@ export default function UserBlock({
             </View>
             {disableButtons && (
               <>
-                <Tooltip
-                  width={150}
-                  height={60}
-                  ref={tooltipRef}
-                  popover={
-                    <ToltipText>Presiona acá para confirmar</ToltipText>
-                  }>
-                  <Button
-                    buttonStyle={[
-                      styles.likeButton,
-                      isConfirmButtonEnabled
-                        ? styles.confirmButton
-                        : styles.notElegible,
-                    ]}
-                    title={isConfirmButtonEnabled ? '✔' : 'X'}
-                    onPress={
-                      isConfirmButtonEnabled ? handleOpen : handleNotElegible
-                    }
-                  />
-                </Tooltip>
+                <Button
+                  buttonStyle={[
+                    styles.likeButton,
+                    isConfirmButtonEnabled
+                      ? styles.confirmButton
+                      : styles.notElegible,
+                  ]}
+                  title={isConfirmButtonEnabled ? '✔' : 'X'}
+                  onPress={
+                    tooltipOpen
+                    /*     isConfirmButtonEnabled ? handleOpen : handleNotElegible */
+                  }
+                />
                 <SCLAlert
                   show={show}
                   onRequestClose={handleClose}

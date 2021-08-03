@@ -7,6 +7,7 @@ import Matcher from '../screens/Matcher';
 import CheckBoxText from './CheckBoxText';
 import PersonalInformation from './Register/PersonalInformation';
 import Alert from './Alert';
+import ToolTipModal from './TootlTipModal';
 
 export {
   Button,
@@ -18,4 +19,5 @@ export {
   CheckBoxText,
   PersonalInformation,
   Alert,
+  ToolTipModal,
 };
