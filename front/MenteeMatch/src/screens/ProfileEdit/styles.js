@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: -12,
     paddingLeft: 10,
-    color: '#05375a',
+    color: '#000000',
   },
     gradient: {
         flex:1,

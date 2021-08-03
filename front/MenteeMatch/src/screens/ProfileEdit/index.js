@@ -21,6 +21,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import { updateUser } from '../../redux/Reducers/UserReducer';
 import { useForm, Controller } from 'react-hook-form';
+import { storeData } from '../../utils/storage';
 
 const ProfileEdit = ({ navigation }) => {
   const user = useSelector(state => state.user);
@@ -58,11 +59,11 @@ const ProfileEdit = ({ navigation }) => {
   };
 
     const profileSubmit = (personalData) => {
-        console.log(personalData)
         dispatch(updateUser({ url: '/api/users/profile', data: personalData }))
-            .then(() => {
+            .then((data) => {
                 ToastAndroid.showWithGravityAndOffset("Perfil actualizado!", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50)
                 navigation.navigate("Perfil")
+                storeData('user', data.payload)
             })
     }  
 
