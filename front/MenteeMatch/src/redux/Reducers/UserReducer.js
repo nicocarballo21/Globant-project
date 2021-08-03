@@ -3,6 +3,7 @@ import {
   createAction,
   createAsyncThunk,
 } from '@reduxjs/toolkit';
+import { markAsSeen } from '../../services/axiosServices';
 import {
   registerUser,
   userLogin,
@@ -52,12 +53,26 @@ export const updateUser = createAsyncThunk(
     }
   },
 );
+export const deleteNotification = createAsyncThunk(
+  'DELETE_NOTIFICATION',
+  async (notificationId, thunkAPI) => {
+    try {
+      const { user } = thunkAPI.getState();
+      const userUpdated = await markAsSeen(notificationId, user.token);
+      userUpdated['token'] = user.token;
+      return userUpdated;
+    } catch (error) {
+      console.log({ error });
+    }
+  },
+);
 
 const userReducer = createReducer(initialState, {
   [getUser.fulfilled]: (_, action) => action.payload,
   [setUser]: (_, action) => action.payload,
   [userRegister.fulfilled]: (_, action) => action.payload,
   [updateUser.fulfilled]: (_, action) => action.payload,
+  [deleteNotification.fulfilled]: (_, action) => action.payload,
 });
 
 export default userReducer;

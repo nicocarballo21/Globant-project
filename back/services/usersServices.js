@@ -46,6 +46,14 @@ const findUserByEmail = (email) => {
       },
     })
     .populate({
+      path: "notifications",
+      populate: {
+        path: "emisor",
+        model: "Users",
+              },
+    })
+    .populate({
+
       path: "mentees",
       populate: {
         path: "skillsToLearn",
@@ -103,6 +111,13 @@ const findUserById = (_id) => {
         model: "Skills",
       },
     })
+    .populate({
+      path: "notifications",
+      populate: {
+        path: "emisor",
+        model: "Users",
+      },
+    })
     .populate("objectives")
     .exec();
 };
@@ -152,6 +167,13 @@ const updateById = (_id, body) => {
       populate: {
         path: "skillsToTeach",
         model: "Skills",
+      },
+    })
+    .populate({
+      path: "notifications",
+      populate: {
+        path: "emisor",
+        model: "Users",
       },
     })
     .populate("objectives")
@@ -232,9 +254,7 @@ const putObjectivesFromUser = (objectiveId, data) => {
   const updatedObjectivePromise = Objectives.findByIdAndUpdate(
     objectiveId,
     data,
-    {
-      new: true,
-    }
+    { new: true }
   ).exec();
   return updatedObjectivePromise;
 };

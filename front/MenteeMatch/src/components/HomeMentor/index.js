@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React from 'react';
 import { Text, Image, View, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 
@@ -51,12 +51,14 @@ export default () => {
               <View>
                 <Menu>
                   <MenuTrigger
-                    children={<Ionicons
-                      style={styles.threePoints}
-                      name="ellipsis-vertical"
-                      size={40}
-                      color='#BFD732'
-                    />}
+                    children={
+                      <Ionicons
+                        style={styles.threePoints}
+                        name="ellipsis-vertical"
+                        size={40}
+                        color="#BFD732"
+                      />
+                    }
                   />
                   <MenuOptions>
                     <MenuOption

@@ -11,8 +11,8 @@ import RoleEdit from './RoleEdit';
 import CreateMeet from './CreateMeet';
 import Meets from './Meets'
 import Skills from './Skills';
-import ProfileEdit from './ProfileEdit'
-
+import Notifications from './Notifications';
+import ProfileEdit from './ProfileEdit';
 
 export {
   Matcher,
@@ -28,5 +28,6 @@ export {
   CreateMeet,
   Meets,
   Skills,
-  ProfileEdit
+  Notifications,
+  ProfileEdit,
 };

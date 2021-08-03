@@ -65,7 +65,7 @@ const deleteObjectivesToUser = async (menteeId, token, objetiveId) => {
 const updateObjectivesToUser = async (token, objetiveId, data) => {
   try {
     const server = generateAxios(token);
-    const res = await server.put(API_URL + `/api/users/objectives`, {
+    const res = await server.put(API_URL + '/api/users/objectives', {
       objetiveId,
       data,
     });
@@ -86,7 +86,7 @@ const setMenteeToMentor = async (menteeId, mentorId, token) => {
     return updated;
   } catch (error) {
     if (error.response.status === 400) {
-      simpleMessage('¡Error!', `El usuario ya no está disponible.`, 'danger');
+      simpleMessage('¡Error!', 'El usuario ya no está disponible.', 'danger');
       return null;
     }
     console.log(error);
@@ -103,9 +103,31 @@ const setMentorToMentee = async (mentorId, menteeId, token) => {
     return updated;
   } catch (error) {
     if (error.response.status === 400) {
-      simpleMessage('¡Error!', `El usuario ya no está disponible.`, 'danger');
+      simpleMessage('¡Error!', 'El usuario ya no está disponible.', 'danger');
       return null;
     }
+    console.log(error);
+  }
+};
+
+const markAsSeen = async (notificationId, token) => {
+  try {
+    const server = generateAxios(token);
+    const req = await server.delete(
+      `${API_URL}/api/notifications/${notificationId}`,
+    );
+    return req.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const sendNotification = async (data, token) => {
+  try {
+    const server = generateAxios(token);
+    const req = await server.post(`${API_URL}/api/notifications`, data);
+    return req.data;
+  } catch (error) {
     console.log(error);
   }
 };
@@ -119,4 +141,6 @@ export {
   updateObjectivesToUser,
   getObjectivesFromUser,
   setMentorToMentee,
+  markAsSeen,
+  sendNotification,
 };
