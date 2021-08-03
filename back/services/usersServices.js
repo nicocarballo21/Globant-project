@@ -267,10 +267,11 @@ const setMenteeToMentor = async (menteeId, mentorId) => {
 
 const setMentorToMentee = async (mentorId, menteeId) => {
   try {
-    const mentee = await Users.findById(menteeId).exec();
-    const mentor = await Users.findById(mentorId)
+    const menteePromise = Users.findById(menteeId).exec();
+    const mentorPromise = Users.findById(mentorId)
       .populate("likedMentees")
       .exec();
+    const [mentee, mentor] = await Promise.all([menteePromise, mentorPromise]);
     if (mentee.mentor || !mentor.disponible) return [null, null];
     mentee.mentor = mentorId;
     mentor.likedMentees = mentor.likedMentees.filter(
@@ -283,9 +284,40 @@ const setMentorToMentee = async (mentorId, menteeId) => {
 };
 
 const getNotesFromUser = (mentorId, menteeId) => {
-  const notesPromise = Notes.find({ from: mentorId, to: menteeId }).exec()
-  return notesPromise
-}
+  const notesPromise = Notes.find({ from: mentorId, to: menteeId }).exec();
+  return notesPromise;
+};
+
+const postNoteToUser = async ({ title, description, menteeId, mentorId }) => {
+  try {
+    // Primero compruebo si existe el user, sí este no existe no creo la nota.
+    const mentee = await Users.findById(menteeId);
+    if (!mentee) return null;
+    const newNote = await Notes.create({
+      title,
+      description,
+      from: mentorId,
+      to: menteeId,
+    }).exec();
+    mentee.notes = [...mentee.notes, newNote];
+    await mentee.save();
+    return newNote;
+  } catch (error) {
+    return { error };
+  }
+};
+
+const putNoteFromUser = async ({ title, description, noteId }) => {
+  try {
+    const note = await Notes.findByIdAndUpdate(
+      noteId,
+      { title, description },
+      { new: true }
+    ).exec();
+  } catch (error) {
+    return { error };
+  }
+};
 
 module.exports = {
   createUser,
@@ -300,5 +332,7 @@ module.exports = {
   deleteObjectivesFromUser,
   setMenteeToMentor,
   setMentorToMentee,
-  getNotesFromUser
+  getNotesFromUser,
+  postNoteToUser,
+  putNoteFromUser,
 };

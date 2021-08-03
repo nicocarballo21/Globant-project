@@ -155,9 +155,19 @@ module.exports = {
       next(error)
     }
   },
-  postUserNotes: async (req, rex, next) => {
+  postUserNotes: (req, res, next) => {
+    const { title, description, menteeId } = req.body
+    const mentorId = req.user.id
+    const newNote = postNoteToUser({ title, description, menteeId, mentorId })
+    if(!newNote) return res.status(404).send("Mentee not found!.")
+    if(newNote.error) next(error)
+    res.status(200).send(newNote)
+  },
+  putUserNotes: async (req, res, next) => {
     try {
-      /* const {  } */
+      const { title, description, noteId } = req.body
+      const updatedNote = await putNoteFromUser({ title, description, noteId })
+      if(!updatedNote) return res.status(404).send("Mentee not found!.")
     } catch (error) {
       next(error)
     }
