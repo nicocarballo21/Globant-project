@@ -12,6 +12,7 @@ const {
   setMentor,
   cancelMatch,
   setMentee,
+  cancelMatchMentor,
 } = require("../controllers/userController")
 
 // RUTAS /api/users
@@ -39,6 +40,8 @@ router.use("/meets", meetsRoutes)
 router.use("/objectives", objectivesRoutes)
 
 router.post("/cancelMatch", cancelMatch)
+
+router.post("/cancelMatchMentor", cancelMatchMentor)
 
 
 module.exports = router

@@ -11,11 +11,10 @@ const createUser = (body) => {
   return Users.create({ name, surname, email, password });
 };
 
-
-const cancelMentee = (mentorId, menteeId) => {
+const cancelMentor = (mentorId, menteeId) => {
   return Users.findOneAndUpdate(
-    { _id: mentorId },
-    { $pull: { likedMentees: menteeId } },
+    { _id: menteeId },
+    { mentor: null, $pull: { likedMentors : mentorId } },
     { new: true }
     )
     .populate("skillsToLearn", "name")
@@ -49,9 +48,54 @@ const cancelMentee = (mentorId, menteeId) => {
         model: "Skills",
       },
     })
-    .populate("objectives")
-    .exec()
-    
+  .populate("objectives")
+  .populate("mentees")
+  .exec() 
+};
+
+
+
+
+const cancelMentee = (mentorId, menteeId) => {
+  return Users.findOneAndUpdate(
+    { _id: mentorId },
+    { $pull: { mentees: menteeId } },
+    { new: true }
+    )
+    .populate("skillsToLearn", "name")
+    .populate("skillsToTeach", "name")
+    .populate("mentor")
+    .populate({
+      path: "likedMentees",
+      populate: {
+        path: "skillsToLearn",
+        model: "Skills",
+      },
+    })
+    .populate({
+      path: "dislikedMentees",
+      populate: {
+        path: "skillsToLearn",
+        model: "Skills",
+      },
+    })
+    .populate({
+      path: "likedMentors",
+      populate: {
+        path: "skillsToTeach",
+        model: "Skills",
+      },
+    })
+    .populate({
+      path: "dislikedMentors",
+      populate: {
+        path: "skillsToTeach",
+        model: "Skills",
+      },
+    })
+  .populate("objectives")
+  .populate("mentees")
+  .exec() 
 };
 
 const findUserByEmail = (email) => {
@@ -338,5 +382,6 @@ module.exports = {
   setMenteeToMentor,
   setMentorToMentee,
   cancelMentee,
+  cancelMentor,
 };
 

@@ -10,6 +10,7 @@ const {
   setMenteeToMentor,
   setMentorToMentee,
   cancelMentee,
+  cancelMentor,
 } = require("../services/usersServices");
 const { Users } = require("../db/models");
 
@@ -152,6 +153,16 @@ module.exports = {
       const {mentorId, menteeId} = req.body;
       const mentor = await cancelMentee(mentorId, menteeId)
       return res.status(200).send(mentor)
+    }
+    catch (error) {
+      next(error)
+    }
+  },
+  cancelMatchMentor: async (req, res, next) => {
+    try {
+      const {mentorId, menteeId} = req.body;
+      const mentee = await cancelMentor(mentorId, menteeId)
+      return res.status(200).send(mentee)
     }
     catch (error) {
       next(error)
