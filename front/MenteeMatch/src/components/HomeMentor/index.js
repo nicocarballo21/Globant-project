@@ -60,7 +60,7 @@ export default () => {
                       />
                     }
                   />
-                  <MenuOptions>
+                  <MenuOptions optionsContainerStyle={styles.menu_options}>
                     <MenuOption
                       onSelect={() =>
                         navigation.navigate('Objectives', {
@@ -68,6 +68,14 @@ export default () => {
                         })
                       }
                       text="Objetivos"
+                    />
+                    <MenuOption
+                      onSelect={() =>
+                        navigation.navigate('Notes', {
+                          mente: mentee,
+                        })
+                      }
+                      text="Notas"
                     />
                     <MenuOption
                       onSelect={() => console.log('Reuniones')}

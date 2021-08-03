@@ -19,6 +19,7 @@ export default () => {
   const nowMili = Date.now();
   const user = useSelector(state => state.user);
   const mentor = useSelector(state => state.user.mentor);
+
   const getIsMentor = () => {
     if (user.actualRole) return user.actualRole === 'Mentor';
     return !!user.isMentor;

@@ -91,4 +91,10 @@ export const styles = StyleSheet.create({
   threePoints: {
     width: 30,
   },
+  menu_options: {
+    borderRadius: 15,
+    padding: 8,
+    height: '20%',
+    width: '50%',
+  },
 });
