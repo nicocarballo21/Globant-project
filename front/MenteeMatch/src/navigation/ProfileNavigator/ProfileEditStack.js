@@ -1,15 +1,15 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { RoleEdit, Skills } from '../../screens';
+import { ProfileEdit } from '../../screens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import useMode from '../../hooks/useMode';
+import { Camera } from '../../components';
 
 const Stack = createStackNavigator();
 
-export default function RoleStack({ navigation }) {
+export default function ProfileEditStack({ navigation }) {
   return (
     <Stack.Navigator
-      initialRouteName="Role"
+      initialRouteName="Profile"
       screenOptions={{
         headerStyle: { backgroundColor: '#BFD732' },
         headerTintColor: '#F5F6F7',
@@ -19,27 +19,27 @@ export default function RoleStack({ navigation }) {
         },
       }}>
       <Stack.Screen
-        name="Role"
-        component={RoleEdit}
+        name="ProfileEdit"
+        component={ProfileEdit}
         options={{
-          title: 'Opciones de Matcher',
-          headerLeft: () => (
+          title: 'Editar perfil',
+          headerRight: () => (
             <Ionicons
-              name="menu"
-              size={40}
+              name="settings"
+              size={30}
               color={'#F5F6F7'}
+              style={{ marginRight: 15 }}
               onPress={() => navigation.openDrawer()}
             />
           ),
         }}
       />
       <Stack.Screen
-        name="Skills"
-        component={Skills}
-        options={{
-          title: 'Habilidades',
-        }}
+        name="Camera"
+        component={Camera}
+        options={{ title: 'Camara' }}
       />
     </Stack.Navigator>
   );
 }
+

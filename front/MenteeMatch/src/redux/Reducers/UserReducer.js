@@ -3,6 +3,7 @@ import {
   createAction,
   createAsyncThunk,
 } from '@reduxjs/toolkit';
+import { markAsSeen } from '../../services/axiosServices';
 import {
   registerUser,
   userLogin,
@@ -54,6 +55,7 @@ export const updateUser = createAsyncThunk(
     }
   },
 );
+
 export const cancelMatch = createAsyncThunk('CANCEL_MATCH', 
 async ({ data, token }, thunkAPI) => {
   try {
@@ -80,6 +82,20 @@ async ({ data, token }, thunkAPI) => {
   },
 )
 
+export const deleteNotification = createAsyncThunk(
+  'DELETE_NOTIFICATION',
+  async (notificationId, thunkAPI) => {
+    try {
+      const { user } = thunkAPI.getState();
+      const userUpdated = await markAsSeen(notificationId, user.token);
+      userUpdated['token'] = user.token;
+      return userUpdated;
+    } catch (error) {
+      console.log({ error });
+    }
+  },
+);
+
 const userReducer = createReducer(initialState, {
   [getUser.fulfilled]: (_, action) => action.payload,
   [setUser]: (_, action) => action.payload,
@@ -87,6 +103,7 @@ const userReducer = createReducer(initialState, {
   [updateUser.fulfilled]: (_, action) => action.payload,
   [cancelMatch.fulfilled]: (_, action) => action.payload,
   [cancelMatchMentor.fulfilled]: (state, action) => state,
+  [deleteNotification.fulfilled]: (_, action) => action.payload,
 });
 
 

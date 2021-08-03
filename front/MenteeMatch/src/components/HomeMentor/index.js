@@ -1,4 +1,4 @@
-import React, { useState, Component, useEffect } from 'react';
+import React from 'react';
 import { Text, Image, View, ScrollView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -13,8 +13,6 @@ import {
 
 import { styles } from './styles';
 import useMode from '../../hooks/useMode';
-import generateAxios from '../../utils/generateAxios'
-import axios from 'axios';
 import { cancelMatch, cancelMatchMentor } from '../../redux/Reducers/UserReducer';
 import user_img from '../../assets/static/user_img.png';
 
@@ -63,12 +61,14 @@ export default () => {
               <View>
                 <Menu>
                   <MenuTrigger
-                    children={<Ionicons
-                      style={styles.threePoints}
-                      name="ellipsis-vertical"
-                      size={40}
-                      color='#BFD732'
-                    />}
+                    children={
+                      <Ionicons
+                        style={styles.threePoints}
+                        name="ellipsis-vertical"
+                        size={40}
+                        color="#BFD732"
+                      />
+                    }
                   />
                   <MenuOptions>
                     <MenuOption

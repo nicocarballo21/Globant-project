@@ -9,7 +9,8 @@ import RoleSelection from './RoleSelection';
 import Home from './Home';
 import RoleEdit from './RoleEdit';
 import Skills from './Skills';
-
+import Notifications from './Notifications';
+import ProfileEdit from './ProfileEdit';
 
 export {
   Matcher,
@@ -23,4 +24,6 @@ export {
   Home,
   RoleEdit,
   Skills,
+  Notifications,
+  ProfileEdit,
 };

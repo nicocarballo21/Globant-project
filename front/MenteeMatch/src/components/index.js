@@ -6,6 +6,7 @@ import UserBlock from '../screens/UserBlock';
 import Matcher from '../screens/Matcher';
 import CheckBoxText from './CheckBoxText';
 import PersonalInformation from './Register/PersonalInformation';
+import Alert from './Alert';
 
 export {
   Button,
@@ -16,4 +17,5 @@ export {
   UserBlock,
   CheckBoxText,
   PersonalInformation,
+  Alert,
 };

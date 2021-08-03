@@ -11,7 +11,9 @@ const Home = () => {
   const { mode } = useMode();
   const user = useSelector(state => state.user);
   const getIsMentor = () => {
-    if (user.actualRole) return user.actualRole === 'Mentor';
+    if (user.actualRole) {
+      return user.actualRole === 'Mentor';
+    }
     return !!user.isMentor;
   };
   const isMentor = getIsMentor();
