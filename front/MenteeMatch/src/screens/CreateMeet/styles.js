@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         flex: 1,
         alignItems: 'center',
-        paddingTop: '20%',
+        paddingTop: '10%',
         // justifyContent: 'center',
         width: '80%'
     },
@@ -15,11 +15,12 @@ const styles = StyleSheet.create({
 
     },
     title: {
-        marginBottom: '20%',
+        marginBottom: '10%',
         fontSize: 25
     },
     date: {
-        margin: 20
+        margin: 20,
+        height: 140
     },
     input: {
         width: '100%',
@@ -28,13 +29,14 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 0.5,
         marginBottom: 15,
+        backgroundColor: '#efefef'
       },
     placeholder: {
         color: '#606060'
     },
     dropDown: {
         alignSelf: 'center',
-        backgroundColor: '#f7f7f7'
+        backgroundColor: '#efefef'
     },
     error: {
         color: '#ff0039',
@@ -42,6 +44,17 @@ const styles = StyleSheet.create({
         marginLeft: -190,
         padding: -2,
       },
+    notContainer:{
+        alignItems: 'center'
+    },
+    not: {
+        paddingTop: '80%',
+        alignSelf: 'center',
+        fontSize: 20,
+        width: '80%',
+        textAlign: 'center',
+        marginBottom: 30
+    }
     
 })
 

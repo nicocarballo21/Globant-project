@@ -26,41 +26,97 @@ const postUserSkillsToTeach = async (skills, token) => {
   }
 };
 
+const getObjectivesFromUser = async (id, token) => {
+  try {
+    const server = generateAxios(token);
+    const objectives = await server.get(
+      API_URL + `/api/users/objectives/${id}`,
+    );
+    return objectives;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const postObjectivesToUser = async (menteeId, token, description) => {
+  try {
+    const server = generateAxios(token);
+    const res = await server.post(API_URL + '/api/users/objectives', {
+      menteeId,
+      description,
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+const deleteObjectivesToUser = async (menteeId, token, objetiveId) => {
+  try {
+    const server = generateAxios(token);
+    const res = await server.delete(
+      API_URL + `/api/users/objectives/${menteeId}/${objetiveId}`,
+    );
+
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+const updateObjectivesToUser = async (token, objetiveId, data) => {
+  try {
+    const server = generateAxios(token);
+    const res = await server.put(API_URL + `/api/users/objectives`, {
+      objetiveId,
+      data,
+    });
+
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const setMenteeToMentor = async (menteeId, mentorId, token) => {
   try {
-    const server = generateAxios(token)
-    const updated = await server.put(API_URL + '/api/users/mentor/set', { id: menteeId, _id: mentorId })
-    return updated
+    const server = generateAxios(token);
+    const updated = await server.put(API_URL + '/api/users/mentor/set', {
+      id: menteeId,
+      _id: mentorId,
+    });
+    return updated;
   } catch (error) {
-    if(error.response.status === 400) {
-      simpleMessage(
-        '¡Error!',
-        `El usuario ya no está disponible.`,
-        'danger',
-        );
-      return null
+    if (error.response.status === 400) {
+      simpleMessage('¡Error!', `El usuario ya no está disponible.`, 'danger');
+      return null;
     }
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const setMentorToMentee = async (mentorId, menteeId, token) => {
   try {
-    const server = generateAxios(token)
-    const updated = await server.put(API_URL + '/api/users/mentee/set', { id: mentorId, _id: menteeId })
-    return updated
+    const server = generateAxios(token);
+    const updated = await server.put(API_URL + '/api/users/mentee/set', {
+      id: mentorId,
+      _id: menteeId,
+    });
+    return updated;
   } catch (error) {
-    if(error.response.status === 400) {
-      simpleMessage(
-        '¡Error!',
-        `El usuario ya no está disponible.`,
-        'danger',
-        );
-      return null
+    if (error.response.status === 400) {
+      simpleMessage('¡Error!', `El usuario ya no está disponible.`, 'danger');
+      return null;
     }
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
-
-export { postUserSkillsToLearn, postUserSkillsToTeach, setMenteeToMentor, setMentorToMentee };
+export {
+  postUserSkillsToLearn,
+  postUserSkillsToTeach,
+  setMenteeToMentor,
+  postObjectivesToUser,
+  deleteObjectivesToUser,
+  updateObjectivesToUser,
+  getObjectivesFromUser,
+  setMentorToMentee,
+};

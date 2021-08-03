@@ -9,7 +9,9 @@ import RoleSelection from './RoleSelection';
 import Home from './Home';
 import RoleEdit from './RoleEdit';
 import CreateMeet from './CreateMeet';
+import Meets from './Meets'
 import Skills from './Skills';
+import ProfileEdit from './ProfileEdit'
 
 
 export {
@@ -24,5 +26,7 @@ export {
   Home,
   RoleEdit,
   CreateMeet,
+  Meets,
   Skills,
+  ProfileEdit
 };

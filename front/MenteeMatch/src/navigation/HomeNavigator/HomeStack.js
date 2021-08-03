@@ -4,6 +4,8 @@ import { Home } from '../../screens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RoleButton from '../../components/RoleButton';
 import UserViewModel from '../../components/UserViewModel';
+import { CreateMeet, Meets } from '../../screens';
+import Objectives from '../../screens/Objectives';
 
 const Stack = createStackNavigator();
 
@@ -53,6 +55,35 @@ export default function HomeStack({ navigation }) {
         component={UserViewModel}
         options={{
           title: 'Mentee',
+        }}
+      />
+      <Stack.Screen
+        name="CreateMeet"
+        component={CreateMeet}
+        options={{
+          title: 'CreateMeet',
+        }}
+      />
+       <Stack.Screen
+        name="Meets"
+        component={Meets}
+        options={{
+          title: 'Meets',
+        }}
+      />
+      <Stack.Screen
+        name="Objectives"
+        component={Objectives}
+        options={{
+          title: 'Objectives',
+          headerLeft: () => (
+            <Ionicons
+              name="menu"
+              size={40}
+              color={'#BFD732'}
+              onPress={() => navigation.openDrawer()}
+            />
+          ),
         }}
       />
     </Stack.Navigator>

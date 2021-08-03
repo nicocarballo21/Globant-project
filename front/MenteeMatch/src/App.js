@@ -10,8 +10,8 @@ import { getData } from './utils/storage';
 import { HomeApp, LoginApp } from './navigation';
 import { setUser } from './redux/Reducers/UserReducer';
 import { setReduxTheme } from './redux/Reducers/themeReducer';
-import { CreateMeet } from './screens';
 import { MenuProvider } from 'react-native-popup-menu';
+import { LogBox } from 'react-native';
 
 const AppWrapper = () => (
   <MenuProvider>
@@ -43,15 +43,17 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth.userToken]);
 
-  console.disableYellowBox = true;
+  /* Vieja forma de deshabilitar logs amarillos -> console.disableYellowBox = true; */
+  
+  useEffect(() => LogBox.ignoreAllLogs(), []);
+
 
   return (
     <Provider store={store}>
       <SafeAreaProvider>
         <NavigationContainer>
           {auth.userToken ? 
-          // <HomeApp /> 
-          <CreateMeet/>
+          <HomeApp /> 
           : <LoginApp />}
           <FlashMessage position="top" />
         </NavigationContainer>

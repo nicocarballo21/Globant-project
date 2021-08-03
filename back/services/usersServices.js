@@ -164,8 +164,11 @@ const toggleMentorOrMentee = async (_id, type) => {
   return user.save();
 };
 
-const getMatchesForUser = async (_id, { roleToFind, skillsToFind, userSkills }) => {
-  const user = await findUserById(_id)
+const getMatchesForUser = async (
+  _id,
+  { roleToFind, skillsToFind, userSkills }
+) => {
+  const user = await findUserById(_id);
 
   if (roleToFind === "isMentor" && user.mentor?._id) return [];
 
@@ -229,7 +232,9 @@ const putObjectivesFromUser = (objectiveId, data) => {
   const updatedObjectivePromise = Objectives.findByIdAndUpdate(
     objectiveId,
     data,
-    { new: true }
+    {
+      new: true,
+    }
   ).exec();
   return updatedObjectivePromise;
 };
@@ -265,7 +270,7 @@ const setMentorToMentee = async (mentorId, menteeId) => {
     const mentor = await Users.findById(mentorId)
       .populate("likedMentees")
       .exec();
-    if(mentee.mentor || !mentor.disponible) return [null, null]
+    if (mentee.mentor || !mentor.disponible) return [null, null];
     mentee.mentor = mentorId;
     mentor.likedMentees = mentor.likedMentees.filter(
       (mentee) => mentee.id !== menteeId

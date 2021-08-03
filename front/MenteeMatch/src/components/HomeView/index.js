@@ -18,93 +18,97 @@ export default () => {
   const date = now.toLocaleDateString();
   const nowMili = Date.now();
   const user = useSelector(state => state.user);
-  const mentor = useSelector(state => state.user.mentor)
+  const mentor = useSelector(state => state.user.mentor);
   const getIsMentor = () => {
-    if(user.actualRole)
-      return user.actualRole === 'Mentor'
-    return !!user.isMentor
-  }
-  const isMentor = getIsMentor()
+    if (user.actualRole) return user.actualRole === 'Mentor';
+    return !!user.isMentor;
+  };
+  const isMentor = getIsMentor();
 
-  return (
-    isMentor ?
-      <HomeMentor/> 
-      :(
-        <View style={styles.container}>
-          <View style={styles.user_data_container}>
-            <Text style={styles.text}>Mentor</Text>
-            <Image source={{ uri: mentor.img }} style={styles.foto} />
-            <Text style={styles.text}>{`${mentor.name} ${mentor.surname}`}</Text>
+  return isMentor ? (
+    <HomeMentor />
+  ) : (
+    <View style={styles.container}>
+      <View style={styles.user_data_container}>
+        <Text style={styles.text}>Mentor</Text>
+        <Image source={{ uri: mentor.img }} style={styles.foto} />
+        <Text style={styles.text}>{`${mentor.name} ${mentor.surname}`}</Text>
+      </View>
+      <View style={styles.recuadro_container}>
+        <View style={styles.container_interno}>
+          <View style={styles.recuadro_interno}>
+            <ScrollView style={{ margin: 9 }}>
+              <Text>Objetivos</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <CheckBox
+                  disabled={false}
+                  value={toggleCheckBox}
+                  onValueChange={newValue => setToggleCheckBox(newValue)}
+                />
+                <Text style={styles.inScrollViewText}>
+                  Aprender React-Native
+                </Text>
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+                <CheckBox
+                  disabled={false}
+                  value={toggleCheckBox1}
+                  onValueChange={newValue => setToggleCheckBox1(newValue)}
+                />
+                <Text style={styles.inScrollViewText}>
+                  Consolidar React-Redux
+                </Text>
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+                <CheckBox
+                  disabled={false}
+                  value={toggleCheckBox2}
+                  onValueChange={newValue => setToggleCheckBox2(newValue)}
+                />
+                <Text style={styles.inScrollViewText}>Consolidar express</Text>
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+                <CheckBox
+                  disabled={false}
+                  value={toggleCheckBox3}
+                  onValueChange={newValue => setToggleCheckBox3(newValue)}
+                />
+                <Text style={styles.inScrollViewText}>Consolidar node</Text>
+              </View>
+            </ScrollView>
           </View>
-          <View style={styles.recuadro_container}>
-            <View style={styles.container_interno}>
-              <View style={styles.recuadro_interno}>
-                <ScrollView style={{ margin: 9 }}>
-                  <Text>Objetivos</Text>
-                  <View style={{ flexDirection: 'row' }}>
-                    <CheckBox
-                      disabled={false}
-                      value={toggleCheckBox}
-                      onValueChange={newValue => setToggleCheckBox(newValue)}
-                    />
-                    <Text style={styles.inScrollViewText}>
-                      Aprender React-Native
-                    </Text>
-                  </View>
-                  <View style={{ flexDirection: 'row' }}>
-                    <CheckBox
-                      disabled={false}
-                      value={toggleCheckBox1}
-                      onValueChange={newValue => setToggleCheckBox1(newValue)}
-                    />
-                    <Text style={styles.inScrollViewText}>
-                      Consolidar React-Redux
-                    </Text>
-                  </View>
-                  <View style={{ flexDirection: 'row' }}>
-                    <CheckBox
-                      disabled={false}
-                      value={toggleCheckBox2}
-                      onValueChange={newValue => setToggleCheckBox2(newValue)}
-                    />
-                    <Text style={styles.inScrollViewText}>Consolidar express</Text>
-                  </View>
-                  <View style={{ flexDirection: 'row' }}>
-                    <CheckBox
-                      disabled={false}
-                      value={toggleCheckBox3}
-                      onValueChange={newValue => setToggleCheckBox3(newValue)}
-                    />
-                    <Text style={styles.inScrollViewText}>Consolidar node</Text>
-                  </View>
-                </ScrollView>
-              </View>
-
-              <View style={styles.recuadro_interno2}>
-                <ScrollView style={{ margin: 9 }}>
-                  <Text>Reuniones Programadas</Text>
-                  <View>
-                    <View style={styles.inScrollViewDate}>
-                      <Text>{date} ---- </Text>
-                      <Text>{hour}</Text>
-                    </View>
-                    <View style={styles.inScrollViewObjetive}>
-                      <Text style={styles.inScrollViewText}>Reunion 1</Text>
-                    </View>
-                    <View style={styles.inScrollViewDate}>
-                      <Text>{date} ---- </Text>
-                      <Text>{hour}</Text>
-                    </View>
-                    <View style={styles.inScrollViewObjetive}>
-                      <Text style={styles.inScrollViewText}>Reunion 2</Text>
-                    </View>
-                  </View>
-                </ScrollView>
-              </View>
-            </View>
+          <View style={{ flexDirection: 'row' }}>
+            <CheckBox
+              disabled={false}
+              value={toggleCheckBox3}
+              onValueChange={newValue => setToggleCheckBox3(newValue)}
+            />
+            <Text style={styles.inScrollViewText}>Consolidar node</Text>
           </View>
         </View>
-      )
+      </View>
+
+      <View style={styles.recuadro_interno2}>
+        <ScrollView style={{ margin: 9 }}>
+          <Text>Reuniones Programadas</Text>
+          <View>
+            <View style={styles.inScrollViewDate}>
+              <Text>{date} ---- </Text>
+              <Text>{hour}</Text>
+            </View>
+            <View style={styles.inScrollViewObjetive}>
+              <Text style={styles.inScrollViewText}>Reunion 1</Text>
+            </View>
+            <View style={styles.inScrollViewDate}>
+              <Text>{date} ---- </Text>
+              <Text>{hour}</Text>
+            </View>
+            <View style={styles.inScrollViewObjetive}>
+              <Text style={styles.inScrollViewText}>Reunion 2</Text>
+            </View>
+          </View>
+        </ScrollView>
+      </View>
+    </View>
   );
 };
-

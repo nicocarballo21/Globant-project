@@ -11,21 +11,20 @@ import useMode from '../../hooks/useMode';
 import { logout } from '../../redux/Slices/authSlice';
 import { createMeet } from '../../services/reduxServices'
  
-const CreateMeet = () => {
+const CreateMeet = ({navigation}) => {
   const { mode } = useMode();
   const user = useSelector(state => state.user);
   // if(!user.mentees.length) throw new Error('No mentees asigned')
-  let mentorOrMentee = user.mentees.length ? user.mentees.map(person => ({label: person.name, value: person._id})) 
-  : [{name: "un nombre", _id: "un id 8237"}, {name: "otro nombre", _id: "otr id 2342"}]
+  let mentorOrMentee = user.mentees.length ? user.mentees.map(person => ({label: person.name + ' ' + person.surname, value: person._id})) 
+  : [{label: "un nombre", value: "un id 8237"}, {label: "otro nombre", value: "otro id 2342"}]
   console.log('mentorOrMentee: ', mentorOrMentee)
   const [open, setOpen] = useState(false)
   const [participant, setParticipant] = useState(null)
-  // const [items, setItems] = useState([{ label: 'Mentee 1', value: 'mentee1' }, { label: 'Mentee 2', value: 'mentee2' }]);
   const [items, setItems] = useState(mentorOrMentee)
   console.log("Items: ", items)
   const [date, setDate] = useState(new Date())
   const { meets } = user;
-  //   const navigation = useNavigation();
+  // const navigation = useNavigation();
   const dispatch = useDispatch();
 
   // dispatch(logout())
@@ -42,12 +41,12 @@ const CreateMeet = () => {
       datas.participants = [user._id, participant]
       datas.date = date
       // await dispatch(createMeet(datas))
-      console.log("Presionaste Crear reunión. Data ---> ", data)
-    //   console.log("Participant ---> ", participant)
-
+      console.log("Presionaste Crear reunión. Data ---> ", datas)
+      navigation.navigate('Meets')
   }
 
-  return (
+  return user.mentees.length ? (
+    <View style={{flex: 1, backgroundColor: 'white'}}>
     <View style={styles.container} onSubmit={onSubmit}>
         <Text style={styles.title}>Crear una reunión</Text>
         {/* <form onSubmit={handleSubmit(data => console.log(data))}> */}
@@ -113,11 +112,14 @@ const CreateMeet = () => {
         )}
       />
     <Button title="Crear" pressFunction={handleSubmit(onSubmit)} />
-    {/* <input type='submit'/> */}
-
-      {/* </form> */}
+    </View>
     </View>
   )
-};
+  :
+  <View style={styles.notContainer}>
+    <Text style={styles.not}>Para crear una reunión, debes tener al menos un mentee/mentor.</Text>
+    <Button title={user.isMentor ? 'Buscar Mentees' : 'Buscar Mentor'} pressFunction={() => navigation.navigate('Matcher')} />
+  </View>
+} 
 
 export default CreateMeet;
