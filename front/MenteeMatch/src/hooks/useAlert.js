@@ -11,7 +11,7 @@ const useToggleSkills = user => {
     setShow(false);
   };
 
-  return { show, handleClose, handleOpen };
+  return [show, handleClose, handleOpen];
 };
 
 export default useToggleSkills;

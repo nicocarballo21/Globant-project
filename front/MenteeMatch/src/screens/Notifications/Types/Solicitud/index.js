@@ -1,22 +1,50 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import useMode from '../../../../hooks/useMode';
 import useAlert from '../../../../hooks/useAlert';
 import { deleteNotification } from '../../../../redux/Reducers/UserReducer';
-import { ConfirmAlert } from '../../../../components';
+import { Alert } from '../../../../components';
 import styles from '../styles';
+import {
+  sendNotification,
+  setMenteeToMentor,
+  setMentorToMentee,
+} from '../../../../services/axiosServices';
 
 const Solicitud = ({ item }) => {
   const { mode } = useMode();
-  const { emisor } = item;
-  const { show, handleClose, handleOpen } = useAlert();
+  const { emisor, receptor } = item;
+  const { user } = useSelector(state => state);
+  const [showConfirm, handleCloseConfirm, handleOpenConfirm] = useAlert();
+  const [showReject, handleCloseReject, handleOpenReject] = useAlert();
+
   const dispatch = useDispatch();
 
   const handleConfirmation = () => {
-    dispatch(deleteNotification(item.id));
+    try {
+      (async function () {
+        await Promise.all([
+          setMentorToMentee(emisor._id, receptor, user.token),
+          setMenteeToMentor(receptor, emisor._id, user.token),
+          sendNotification(
+            { receptor: emisor, type: 'confirmation' },
+            user.token,
+          ),
+        ]);
+      })();
+
+      dispatch(deleteNotification(item._id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleRejection = () => {
+    sendNotification({ receptor: emisor, type: 'rechazo' }, user.token);
+    dispatch(deleteNotification(item._id));
   };
 
   return (
@@ -39,18 +67,35 @@ const Solicitud = ({ item }) => {
       </View>
       <View style={styles.buttons}>
         <Icon
-          onPress={handleOpen}
+          onPress={handleOpenConfirm}
           name="check-circle"
           size={40}
           color={'#006606'}
         />
-        <Icon name="times-circle" size={40} color={'#aa0000'} />
+        <Icon
+          onPress={handleOpenReject}
+          name="times-circle"
+          size={40}
+          color={'#aa0000'}
+        />
       </View>
-      <ConfirmAlert
-        show={show}
-        handleClose={handleClose}
+      <Alert
+        theme={'success'}
+        title={'¡Perfecto!'}
+        subtitle={`¿Quieres confirmar a ${emisor.name} ${emisor.surname} cómo tu mentor?`}
+        show={showConfirm}
+        handleClose={handleCloseConfirm}
         emisor={item.emisor}
-        handleConfirm={() => {}}
+        handleConfirm={handleConfirmation}
+      />
+      <Alert
+        theme={'danger'}
+        title={'¡Atención!'}
+        subtitle={`¿Seguro que deseas rechazar a ${emisor.name} ${emisor.surname} cómo tu mentor?`}
+        show={showReject}
+        handleClose={handleCloseReject}
+        emisor={item.emisor}
+        handleConfirm={handleRejection}
       />
     </View>
   );

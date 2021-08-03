@@ -2,14 +2,21 @@ import React from 'react';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import useMode from '../../hooks/useMode';
 
-const ConfirmAlert = ({ show, handleClose, emisor, handleConfirm }) => {
+const ConfirmAlert = ({
+  show,
+  handleClose,
+  handleConfirm,
+  theme,
+  title,
+  subtitle,
+}) => {
   const { mode } = useMode();
   return (
     <SCLAlert
       show={show}
       onRequestClose={handleClose}
-      theme="success"
-      title="¡Perfecto!"
+      theme={theme}
+      title={title}
       titleStyle={{
         color: mode.text,
       }}
@@ -22,11 +29,10 @@ const ConfirmAlert = ({ show, handleClose, emisor, handleConfirm }) => {
       headerContainerStyles={{
         backgroundColor: mode.bg,
       }}
-      subtitle={`¿Quieres confirmar a ${emisor.name} ${emisor.surname} cómo tu mentor?`}>
+      subtitle={subtitle}>
       <SCLAlertButton
         theme="info"
         onPress={() => {
-          // ACÁ HAY QUE HACER LOGICA DE SETEO DE MENTEE Y MENOTR
           handleConfirm();
           handleClose();
         }}>
