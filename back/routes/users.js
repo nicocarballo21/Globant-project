@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const objectivesRoutes = require("../routes/objectives")
 const meetsRoutes = require("../routes/meets")
+const notesRoutes = require("../routes/notes")
 
 const {
   userUpdate,
@@ -35,5 +36,7 @@ router.get("/match/mentees", getMatch)
 router.use("/meets", meetsRoutes)
 
 router.use("/objectives", objectivesRoutes)
+
+router.use("/notes", notesRoutes)
 
 module.exports = router

@@ -180,7 +180,7 @@ export default function Matcher() {
               />
             </View>
           ) : null}
-          {!user[likedRole].length && <View style={{ height: 120 }}></View>}
+          {!user[likedRole].length && <View style={{ height: 120 }} />}
           {matches.length ? (
             <View style={styles.subContainer}>
               <Text style={{ ...styles.optionsTxt, color: mode.text }}>

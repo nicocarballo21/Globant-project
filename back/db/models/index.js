@@ -3,6 +3,7 @@ const Skills = require("./Skill");
 const Meets = require("./Meet");
 const Objectives = require("./Objectives");
 const Notifications = require("./Notification");
+const Notes = require("./Notes")
 
 module.exports = {
   Users,
@@ -10,4 +11,5 @@ module.exports = {
   Meets,
   Objectives,
   Notifications,
+  Notes,
 };
