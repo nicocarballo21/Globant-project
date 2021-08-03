@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home, Notifications } from '../../screens';
+import { Home } from '../../screens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RoleButton from '../../components/RoleButton';
 import UserViewModel from '../../components/UserViewModel';
@@ -22,7 +22,7 @@ export default function HomeStack({ navigation }) {
       }}>
       <Stack.Screen
         name="Home"
-        component={Notifications}
+        component={Home}
         options={{
           title: 'Home',
           headerLeft: () => (

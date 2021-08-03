@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import useMode from '../../../../hooks/useMode';
 import useAlert from '../../../../hooks/useAlert';
-import { deleteNotification } from '../../../../redux/Reducers/UserReducer';
 import { Alert } from '../../../../components';
-import styles from '../styles';
 import {
   sendNotification,
   setMenteeToMentor,
   setMentorToMentee,
 } from '../../../../services/axiosServices';
+import { deleteNotification } from '../../../../redux/Reducers/UserReducer';
+import styles from '../styles';
 
 const Solicitud = ({ item }) => {
   const { mode } = useMode();
@@ -43,8 +43,17 @@ const Solicitud = ({ item }) => {
   };
 
   const handleRejection = () => {
-    sendNotification({ receptor: emisor, type: 'rechazo' }, user.token);
-    dispatch(deleteNotification(item._id));
+    try {
+      (async function () {
+        await sendNotification(
+          { receptor: emisor, type: 'rechazo' },
+          user.token,
+        );
+      })();
+      dispatch(deleteNotification(item._id));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
