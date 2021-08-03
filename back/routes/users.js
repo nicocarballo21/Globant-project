@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const objectivesRoutes = require("../routes/objectives")
 const meetsRoutes = require("../routes/meets")
+const notesRoutes = require("../routes/notes")
 
 
 const {
@@ -43,5 +44,6 @@ router.post("/cancelMatch", cancelMatch)
 
 router.post("/cancelMatchMentor", cancelMatchMentor)
 
+router.use("/notes", notesRoutes)
 
 module.exports = router
