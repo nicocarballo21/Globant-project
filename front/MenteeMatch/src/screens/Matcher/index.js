@@ -54,12 +54,13 @@ export default function Matcher() {
     if (finalMatch) {
       if (roleToFind === 'mentees') {
         // Acá se debería enviar la notificación al mentee pero por ahora directamente se asigna directamente a ese mentee como propio del mentor
-        if (user.mentees.length >= user.maxMentees)
+        if (user.mentees.length >= user.maxMentees) {
           return simpleMessage(
             '¡Atención!',
             `Puedes tener hasta ${user.maxMentees} mentees cómo máximo al mismo tiempo`,
             'warning',
           );
+        }
         return setMentorToMentee(user._id, finalMatch._id, user.token).then(
           setted => {
             if (!setted) {
@@ -86,7 +87,7 @@ export default function Matcher() {
             if (!setted) {
               simpleMessage(
                 '¡Error!',
-                `El usuario ya no está disponible.`,
+                'El usuario ya no está disponible.',
                 'danger',
               );
               return dispatch(updateUser({ url, data: {} }));
@@ -142,7 +143,7 @@ export default function Matcher() {
     );
   };
 
-  if (user.actualRole === 'Mentee' && user.mentor)
+  if (user.actualRole === 'Mentee' && user.mentor) {
     return (
       <View>
         <Text>
@@ -150,6 +151,7 @@ export default function Matcher() {
         </Text>
       </View>
     );
+  }
 
   return (
     <>
