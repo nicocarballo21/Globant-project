@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, SafeAreaView, FlatList, View, Pressable, ToastAndroid } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, SafeAreaView, FlatList, View, ToastAndroid } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSkills } from '../../redux/Reducers/Skills';
 import { updateUser } from '../../redux/Reducers/UserReducer';

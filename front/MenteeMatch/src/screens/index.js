@@ -10,7 +10,7 @@ import Home from './Home';
 import RoleEdit from './RoleEdit';
 import Skills from './Skills';
 import ProfileEdit from './ProfileEdit'
-
+import MenteeDetails from './MenteeDetails'
 
 export {
   Matcher,
@@ -24,5 +24,6 @@ export {
   Home,
   RoleEdit,
   Skills,
-  ProfileEdit
+  ProfileEdit,
+  MenteeDetails,
 };
