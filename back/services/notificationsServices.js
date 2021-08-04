@@ -56,6 +56,13 @@ const pullFromReceptor = (_id, notificationId) => {
       },
     })
     .populate({
+      path: "mentees",
+      populate: {
+        path: "skillsToLearn",
+        model: "Skills"
+      }
+    })
+    .populate({
       path: "notifications",
       populate: {
         path: "emisor",

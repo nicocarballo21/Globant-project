@@ -33,6 +33,14 @@ const Solicitud = ({ item }) => {
             { receptor: emisor, type: 'confirmation' },
             user.token,
           ),
+          sendNotification(
+            {
+              emisor: emisor._id,
+              receptor: receptor,
+              type: 'congratulations',
+            },
+            user.token,
+          ),
         ]);
       })();
 
