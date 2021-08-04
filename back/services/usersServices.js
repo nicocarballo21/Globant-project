@@ -298,13 +298,16 @@ const getMatchesForUser = async (
   // Si busco mentees, que esos mentees no tengan ya un mentor asignado
   if (roleToFind === "isMentee")
     matches = matches.filter((match) => !match.mentor);
-  
+
   // Me fijo sí alguno de los matches me dislikeo
-  const dislikedProperty = roleToFind === "isMentee" ? "dislikedMentors" : "dislikedMentees"
-    matches = matches.filter(match => {
-      const truthArr = match[dislikedProperty].map(dislikedUser => dislikedUser.id === user.id)
-      return !truthArr.includes(true)
-    })
+  const dislikedProperty =
+    roleToFind === "isMentee" ? "dislikedMentors" : "dislikedMentees";
+  matches = matches.filter((match) => {
+    const truthArr = match[dislikedProperty].map(
+      (dislikedUser) => dislikedUser.id === user.id
+    );
+    return !truthArr.includes(true);
+  });
 
   // Se agrega user.mentees cómo filtro también porque no tiene sentido que un mentee que busca mentor, le salgan sus propios mentees como opción a elegir. Lo mismo en el rol contrario.
   if (roleToFind === "isMentor") {
@@ -451,7 +454,7 @@ const deleteNoteFromUser = async (noteId) => {
   }
 };
 
-const checkAvailability = async ( roleToFind, menteeId, mentorId ) => {
+const checkAvailability = async (roleToFind, menteeId, mentorId) => {
   try {
     const mentorPromise = Users.findById(mentorId).exec();
     const menteePromise = Users.findById(menteeId).exec();
@@ -459,18 +462,18 @@ const checkAvailability = async ( roleToFind, menteeId, mentorId ) => {
     if (roleToFind === "mentee") {
       // Si el mentee ya tiene mentor
       if (mentee.mentor) {
-        return false
+        return false;
       }
     }
     if (roleToFind === "mentor") {
       // Si el mentor supera la cantidad máxima de mentees
       if (!mentor.disponible) {
-        return false
+        return false;
       }
     }
-    return true
+    return true;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 
@@ -480,14 +483,31 @@ const dislikeMentorAndRestoreMentee = async (mentorId, menteeId) => {
     const menteePromise = Users.findById(menteeId).exec();
     const [mentor, mentee] = await Promise.all([mentorPromise, menteePromise]);
     // Saco el mentee pusheado a los dislikedMentees del mentor
-    mentor.dislikedMentees = mentor.dislikedMentees.filter(mentee => mentee.id !== mentee.id)
+    mentor.dislikedMentees = mentor.dislikedMentees.filter(
+      (mentee) => mentee.id !== mentee.id
+    );
     // Setteo el mentor en los dislikedMentors del mentee por su rechazo a la propuesta del mentor
-    mentee.dislikedMentors = [ ...mentee.dislikedMentors, mentor ]
-    return await Promise.all([mentee.save(), mentor.save()])
+    mentee.dislikedMentors = [...mentee.dislikedMentors, mentor];
+    return await Promise.all([mentee.save(), mentor.save()]);
   } catch (error) {
-    return {error}
+    console.log(error);
   }
-}
+};
+
+const undoForcedMenteeDislike = async (mentorId, menteeId) => {
+  try {
+    const mentor = await Users.findById(mentorId)
+    .populate("dislikedMentees")
+    .exec();
+    console.log({mentor, mentorId, menteeId})
+    mentor.dislikedMentees = mentor.dislikedMentees.filter(
+      (mentee) => mentee.id !== menteeId
+    );
+    return mentor.save();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   createUser,
@@ -509,5 +529,6 @@ module.exports = {
   putNoteFromUser,
   deleteNoteFromUser,
   checkAvailability,
-  dislikeMentorAndRestoreMentee
+  dislikeMentorAndRestoreMentee,
+  undoForcedMenteeDislike,
 };

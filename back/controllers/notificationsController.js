@@ -7,6 +7,7 @@ const {
 const {
   checkAvailability,
   dislikeMentorAndRestoreMentee,
+  undoForcedMenteeDislike,
 } = require("../services/usersServices");
 
 module.exports = {
@@ -25,6 +26,10 @@ module.exports = {
       } else if (type === "rechazo") {
         // Acá se le saca el mentee pusheado forzosamente a los dislikedMentees del mentor (se hizo eso cuando el mentor envío la solicitud, para que no le aparezca más el mentee en el matcher) y se settea el mentor en los dislikedMentors del mentee
         const updated = await dislikeMentorAndRestoreMentee(receptor, emisor);
+        if (!updated) return res.status(400).send("Something went wrong!.");
+      } else if (type === "confirmation") {
+        // Acá se le saca al mentee de los dislikes de su nuevo mentor
+        const updated = await undoForcedMenteeDislike(receptor._id, emisor);
         if (!updated) return res.status(400).send("Something went wrong!.");
       }
       await buildNotification({ emisor, receptor, type });
