@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+    module: {
+        flex: 1, 
+        backgroundColor: 'white'
+    },
     container: {
         // borderWidth: 2,
         // borderColor: 'blue',

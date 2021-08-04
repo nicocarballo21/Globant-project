@@ -1,21 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
-import { getMeets } from '../../services/reduxServices'
+import { Button } from '../../components';
+import { useDispatch, useSelector } from 'react-redux';
+import { pullMeets } from '../../redux/Reducers/meetsReducer'
+import useMode from '../../hooks/useMode';
+import styles from './styles'
 
-const Meets = () => {
+const Meets = ({navigation}) => {
+  const { mode } = useMode();
   const dispatch = useDispatch();
-  const meets = dispatch(getMeets())
+  const user = useSelector(state => state.user)
+  const meets = useSelector(state => state.meets)
+
+  useEffect(() => {
+    dispatch(pullMeets())
+        .then(() =>  console.log('Meets', meets))
+  },[])
 
   return (
-    <View>
-        <Text>Reuniones:</Text>
-        {meets.length ?? meets.map(meet => 
-        <Text style={{borderWidth: 2}}>
+    <View style={{ ...styles.container, backgroundColor: mode.bg }}>
+        <Text style={{...styles.title, color: mode.text}}>Reuniones</Text>
+        {meets && meets.length ? meets.map(meet => 
+        <Text style={{...styles.module, color: mode.text}}>
             {meet.title, '\n', meet.description, '\n', meet.date}
         </Text>
-        )}
+        )
+    :
+    <Text style={{...styles.not, color: mode.text}}>No tienes reuniones agendadas.</Text>
+    }
+    <Button title='Nueva reunión' pressFunction={() => navigation.navigate('CreateMeet')} />
     </View>
   );
 };

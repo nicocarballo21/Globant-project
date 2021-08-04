@@ -9,12 +9,12 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import styles from './styles';
 import useMode from '../../hooks/useMode';
 import { logout } from '../../redux/Slices/authSlice';
-import { createMeet } from '../../services/reduxServices'
+import { pushMeet } from '../../redux/Reducers/meetsReducer'
  
 const CreateMeet = ({navigation}) => {
+  
   const { mode } = useMode();
   const user = useSelector(state => state.user);
-  // if(!user.mentees.length) throw new Error('No mentees asigned')
   let mentorOrMentee = user.mentees.length ? user.mentees.map(person => ({label: person.name + ' ' + person.surname, value: person._id})) 
   : [{label: "un nombre", value: "un id 8237"}, {label: "otro nombre", value: "otro id 2342"}]
   console.log('mentorOrMentee: ', mentorOrMentee)
@@ -24,10 +24,8 @@ const CreateMeet = ({navigation}) => {
   console.log("Items: ", items)
   const [date, setDate] = useState(new Date())
   const { meets } = user;
-  // const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  // dispatch(logout())
   
   const {
     control,
@@ -40,15 +38,15 @@ const CreateMeet = ({navigation}) => {
       let datas = data
       datas.participants = [user._id, participant]
       datas.date = date
-      // await dispatch(createMeet(datas))
+      await dispatch(pushMeet(datas))
       console.log("Presionaste Crear reunión. Data ---> ", datas)
       navigation.navigate('Meets')
   }
 
   return user.mentees.length ? (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
-    <View style={styles.container} onSubmit={onSubmit}>
-        <Text style={styles.title}>Crear una reunión</Text>
+    <View style={{...styles.module, backgroundColor: mode.bg}}>
+    <View style={{...styles.container, backgroundColor: mode.bg}} onSubmit={onSubmit}>
+        <Text style={{...styles.title, color: mode.text}}>Crear una reunión</Text>
         {/* <form onSubmit={handleSubmit(data => console.log(data))}> */}
       <Controller
       control={control}
@@ -74,7 +72,7 @@ const CreateMeet = ({navigation}) => {
       defaultValue=''
       render={({ field: { onChange, onBlur, value } }) => (
         <InputText
-          style={styles.input}
+          style={{...styles.input, backgroundColor: mode.bg}}
           errors={errors.name}
           onBlur={onBlur} 
           onChangeText={onChange}
@@ -88,7 +86,7 @@ const CreateMeet = ({navigation}) => {
       defaultValue=''
       render={() => (
         <DropDownPicker
-            style={styles.dropDown}
+            style={{...styles.dropDown, backgroundColor: mode.bg}}
             open={open}
             value={participant}
             items={items}
@@ -105,7 +103,7 @@ const CreateMeet = ({navigation}) => {
         name="date"
         render={({ field: { onChange, onBlur, value } }) => (
             <DatePicker
-            style={styles.date}
+            style={{...styles.date, backgroundColor: mode.bg}}
             date={date}
             onDateChange={setDate}
           />
@@ -116,8 +114,8 @@ const CreateMeet = ({navigation}) => {
     </View>
   )
   :
-  <View style={styles.notContainer}>
-    <Text style={styles.not}>Para crear una reunión, debes tener al menos un mentee/mentor.</Text>
+  <View style={{...styles.notContainer, backgroundColor: mode.bg}}>
+    <Text style={{...styles.not, color: mode.text}}>Para crear una reunión, debes tener al menos un mentee/mentor.</Text>
     <Button title={user.isMentor ? 'Buscar Mentees' : 'Buscar Mentor'} pressFunction={() => navigation.navigate('Matcher')} />
   </View>
 } 

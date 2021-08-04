@@ -18,6 +18,8 @@ export default function CustomDrawerContent(props) {
   const { mode } = useMode();
   const dispatch = useDispatch();
 
+  console.log("PROPS EN DRAWER: ", props)
+
   const handleLogOut = async () => {
     try {
       await removeData('user');
@@ -43,7 +45,11 @@ export default function CustomDrawerContent(props) {
         labelStyle={{ color: mode.text }}
         onPress={handleLogOut}
       />
-
+      <DrawerItem
+        label="Mis reuniones"
+        labelStyle={{ color: mode.text }}
+        onPress={() => props.navigation.navigate('Meets')}
+      />
       <Switch />
     </DrawerContentScrollView>
   );

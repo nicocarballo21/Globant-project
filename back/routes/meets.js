@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) => {
         const user = await Users.findById(id).exec()
         if(!user) res.status(400).send('Bad request: no user found')
         const meets = await Meets.find({ participants: user })
-        if(!meets) res.status(404).status('Not Found: no meets found')
+        if(!meets) res.status(404).json({})
         res.status(200).json(meets)
     } catch(err) { next(err) }
 })
