@@ -74,22 +74,6 @@ export default () => {
                       />
                     }
                   />
-{/* <<<<<<< HEAD
-                  <MenuOptions>
-                    <View style={{ backgroundColor: mode.bg}}>
-                    <MenuOption onSelect={() => navigation.navigate('Objectives', { mente: mentee,})}>
-                      <Text style={{...styles.text, color: mode.text}}>Objetivos</Text>
-                    </MenuOption>
-
-                    <MenuOption onSelect={() => console.log('Reuniones')}>
-                      <Text style={{...styles.text, color: mode.text}}>Reuniones</Text>
-                    </MenuOption>
-
-                    <MenuOption onSelect={() => handleDelete(user._id, mentee._id)}>
-                      <Text style={{...styles.text, color: mode.text}}>Calcel Match</Text>
-                    </MenuOption>
-                    </View>
-======= */}
                   <MenuOptions
                     optionsContainerStyle={{
                       ...styles.menu_options,
@@ -130,7 +114,6 @@ export default () => {
                       onSelect={() => handleDelete(user._id, mentee._id)}
                       text="Cancelar Match"
                     />
-{/* >>>>>>> e4e36a328744eec41633d046234fd859567c5607 */}
                   </MenuOptions>
                 </Menu>
               </View>
