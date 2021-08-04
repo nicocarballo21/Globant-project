@@ -55,13 +55,13 @@ export default function UserBlock({
     );
   };
 
-  useEffect(() => {
-    if (enableTooltip) {
-      setTimeout(() => {
-        tooltipRef.current.toggleTooltip();
-      }, 1500);
-    }
-  }, [enableTooltip]);
+  // useEffect(() => {
+  //   if (enableTooltip) {
+  //     setTimeout(() => {
+  //       tooltipRef.current.toggleTooltip();
+  //     }, 1500);
+  //   }
+  // }, [enableTooltip]);
 
   const { mode } = useMode();
   return (
@@ -94,26 +94,26 @@ export default function UserBlock({
             </View>
             {disableButtons && (
               <>
-                <Tooltip
+                {/* <Tooltip
                   width={150}
                   height={60}
                   ref={tooltipRef}
                   popover={
                     <ToltipText>Presiona acá para confirmar</ToltipText>
-                  }>
-                  <Button
-                    buttonStyle={[
-                      styles.likeButton,
-                      isConfirmButtonEnabled
-                        ? styles.confirmButton
-                        : styles.notElegible,
-                    ]}
-                    title={isConfirmButtonEnabled ? '✔' : 'X'}
-                    onPress={
-                      isConfirmButtonEnabled ? handleOpen : handleNotElegible
-                    }
-                  />
-                </Tooltip>
+                  }> */}
+                <Button
+                  buttonStyle={[
+                    styles.likeButton,
+                    isConfirmButtonEnabled
+                      ? styles.confirmButton
+                      : styles.notElegible,
+                  ]}
+                  title={isConfirmButtonEnabled ? '✔' : 'X'}
+                  onPress={
+                    isConfirmButtonEnabled ? handleOpen : handleNotElegible
+                  }
+                />
+                {/* </Tooltip> */}
                 <SCLAlert
                   show={show}
                   onRequestClose={handleClose}
