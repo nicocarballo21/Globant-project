@@ -66,7 +66,8 @@ const Item = ({
             <Dialog.Button
               label="Editar"
               onPress={() =>
-                handleEdit(objective_id, { description, state: newState })
+                handleEdit(objective_id, { description, state: newState }) &&
+                setshowmodal(false)
               }
             />
           </Dialog.Container>
@@ -125,10 +126,6 @@ const ObjectivesComponent = ({
   return (
     <ScrollView>
       <View style={{ ...styles.container, backgroundColor: mode.bg }}>
-        <View style={{ ...styles.header, backgroundColor: mode.green }}>
-          <Text style={{ ...styles.title }}>Objetivos de: {mentee.name}</Text>
-        </View>
-
         <View style={styles.add_objectives}>
           <InputText
             onChangeText={setinput}

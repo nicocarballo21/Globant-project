@@ -51,6 +51,7 @@ export default function HomeApp() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="notifications-circle" size={size} color={color} />
           ),
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen

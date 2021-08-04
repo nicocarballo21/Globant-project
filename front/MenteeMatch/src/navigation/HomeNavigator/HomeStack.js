@@ -1,10 +1,11 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home } from '../../screens';
+import { Home, MenteeDetails } from '../../screens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RoleButton from '../../components/RoleButton';
 import UserViewModel from '../../components/UserViewModel';
 import Objectives from '../../screens/Objectives';
+import Notes from '../../screens/Notes';
 
 const Stack = createStackNavigator();
 
@@ -61,14 +62,13 @@ export default function HomeStack({ navigation }) {
         component={Objectives}
         options={{
           title: 'Objectives',
-          headerLeft: () => (
-            <Ionicons
-              name="menu"
-              size={40}
-              color={'#BFD732'}
-              onPress={() => navigation.openDrawer()}
-            />
-          ),
+        }}
+      />
+      <Stack.Screen
+        name="Notes"
+        component={Notes}
+        options={{
+          title: 'Notes',
         }}
       />
     </Stack.Navigator>
