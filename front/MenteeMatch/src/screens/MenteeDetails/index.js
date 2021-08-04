@@ -1,54 +1,35 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
-import HomeMentor from '../HomeMentor/index';
+import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { getObjectivesFromUser } from '../../services/axiosServices';
+import BouncyCheckbox from "react-native-bouncy-checkbox" ;
 import userImage from '../../assets/static/user_img.png';
 import { useSelector } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import BouncyCheckbox from "react-native-bouncy-checkbox" ;
 import { SafeAreaView } from 'react-native-safe-area-context';
 import useMode from '../../hooks/useMode';
 import { globantBright } from '../../assets/styles/colors';
 
-export default () => {
-    const { mode } = useMode();
-    const user = useSelector(state => state.user);
-    const mentor = useSelector(state => state.user.mentor);
+export default function MenteeDetails( { route } ) {
+    const { mode } = useMode()
+    //const user = useSelector(state => state.user);
+    const [ objectives, setObjectives ] = useState([])
     const { userToken } = useSelector(state => state.auth);
-    const [ objectives, setObjectives ] = useState([]);
-
+    const mentee = route.params.mentee
+    
     React.useEffect(() => {
         const getObjectives = async () => {
-            const res = await getObjectivesFromUser(user._id, userToken);
+            const res = await getObjectivesFromUser(mentee._id, userToken);
             setObjectives(res.data);
         };
 
         getObjectives();
     }, [objectives.length])
 
-  const getIsMentor = () => {
-    if (user.actualRole) return user.actualRole === 'Mentor';
-    return !!user.isMentor;
-  };
-  const isMentor = getIsMentor();
-
-  return isMentor ? (
-    <HomeMentor />
-  ) : (
+    return (
         <SafeAreaView style={{...styles.container, backgroundColor: mode.bg}}>
             <View style={styles.user_data_container}>
-                <TouchableOpacity 
-                    disabled={true} 
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center'
-                    }}
-                >
-      <Text style={{fontSize: 20, margin:10, fontWeight: "bold", color:"#BFD732"}}>Mentor</Text>
-                </TouchableOpacity>
-
-                <Image source={{ uri: mentor.img ? mentor.img : userImage }} style={styles.foto} />
+                <Image source={{ uri: mentee.img ? mentee.img : userImage }} style={styles.foto} />
                 <TouchableOpacity 
                     disabled={true} 
                     style={{
@@ -58,17 +39,14 @@ export default () => {
                 >
                     <FontAwesome name="user" color={globantBright.violet} size={25} />
                     <Text style={styles.textName}>
-                        {`${mentor.name} ${mentor.surname}`}
+                        {`${mentee.name} ${mentee.surname}`}
                     </Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity disabled={true} style={ styles.touchButton }>
+            <TouchableOpacity  style={ styles.touchButton }>
                 <FontAwesome name="rocket" color={"#BFD732"} size={25} />
-                <Text
-                    style={{ fontSize: 20, margin:5, color: mode.text}}
-                >
-                    Mis objetivos
-                </Text>
+                <Text style={{ fontSize: 20, margin:5, color: mode.text }} >Objetivos</Text>
+                <FontAwesome name="edit" color={"#BFD732"} size={25} />
             </TouchableOpacity>
             { objectives.length ? 
                 (
@@ -107,18 +85,20 @@ export default () => {
                     </View> ) 
                 : (
                     <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{color: mode.text}}>Sin objetivos!</Text>
+                    <Text style={{color: mode.text}}>Sin objetivos!</Text>
                     </View>
                 )}
-            <TouchableOpacity disabled={true} style={ styles.touchButton }>
+            <TouchableOpacity style={ styles.touchButton }
+            >
                 <FontAwesome name="comments" color={"#BFD732"} size={25} />
-                <Text 
+                <Text
                     style={{ fontSize: 20, margin:5, color: mode.text }}
                 >
                     Reuniones programadas
                 </Text>
+                <FontAwesome name="edit" color={"#BFD732"} size={25} />
             </TouchableOpacity>
-            { false ? 
+            { !objectives.length ? 
                 (
                     <View 
                         style={{
@@ -127,7 +107,6 @@ export default () => {
                             backgroundColor: mode.bg
                         }}
                     >
-
                         <FlatList
                             scrollEnabled={true}
                             contentContainerStyle={{
@@ -148,7 +127,7 @@ export default () => {
                                         text={item.description}
                                         fillColor= "#BFD732"
                                         iconStyle={{ borderColor: "#BFD732" }}
-                                        textStyle={{ fontSize: 20, color: mode.text }}
+                                        textStyle={{ fontSize: 20 }}
                                     />
                                 </View>
                             )}
@@ -160,6 +139,6 @@ export default () => {
                     </View>
                 )}
         </SafeAreaView>
-
-  );
+    );
 };
+

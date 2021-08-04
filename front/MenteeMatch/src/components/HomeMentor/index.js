@@ -73,6 +73,13 @@ export default () => {
                   <MenuOptions>
                     <MenuOption
                       onSelect={() =>
+                          navigation.navigate('MenteeDetails', { mentee, })
+                      }
+                      text="Detalles"
+                    />
+
+                    <MenuOption
+                      onSelect={() =>
                         navigation.navigate('Objectives', {
                           mente: mentee,
                         })

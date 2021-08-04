@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home } from '../../screens';
+import { Home, MenteeDetails } from '../../screens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RoleButton from '../../components/RoleButton';
 import UserViewModel from '../../components/UserViewModel';
@@ -71,6 +71,14 @@ export default function HomeStack({ navigation }) {
           ),
         }}
       />
+      <Stack.Screen
+        name="MenteeDetails"
+        component={MenteeDetails}
+        options={{
+          title: 'Mi Mentee',
+        }}
+      />
+
     </Stack.Navigator>
   );
 }
