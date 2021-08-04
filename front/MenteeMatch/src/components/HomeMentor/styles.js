@@ -6,8 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     maxHeight: '100%',
-    marginHorizontal: 20,
-    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   block: {
@@ -77,7 +76,7 @@ export const styles = StyleSheet.create({
   text: {
     color: '#434343',
     fontSize: 15,
-    marginLeft: '9%',
+    /* marginLeft: '9%', */
   },
   img: {
     width: 90,

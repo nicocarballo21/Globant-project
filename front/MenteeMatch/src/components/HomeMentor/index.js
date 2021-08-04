@@ -31,7 +31,7 @@ export default () => {
  
   return (
     <View style={{ ...styles.container, backgroundColor: mode.bg }}>
-      <Text style={styles.title}>
+      <Text style={{...styles.title, color: mode.text}}>
         {user.mentees.length
           ? 'Tus mentees son los siguientes:'
           : 'No tienes mentees asignados todavia. Dirígete al Matcher para seleccionar mentees'}
@@ -71,22 +71,19 @@ export default () => {
                     }
                   />
                   <MenuOptions>
-                    <MenuOption
-                      onSelect={() =>
-                        navigation.navigate('Objectives', {
-                          mente: mentee,
-                        })
-                      }
-                      text="Objetivos"
-                    />
-                    <MenuOption
-                      onSelect={() => console.log('Reuniones')}
-                      text="Reuniones"
-                    />
-                    <MenuOption
-                      onSelect={() => handleDelete(user._id, mentee._id)}
-                      text="Cancelar Match"
-                    />
+                    <View style={{ backgroundColor: mode.bg}}>
+                    <MenuOption onSelect={() => navigation.navigate('Objectives', { mente: mentee,})}>
+                      <Text style={{...styles.text, color: mode.text}}>Objetivos</Text>
+                    </MenuOption>
+
+                    <MenuOption onSelect={() => console.log('Reuniones')}>
+                      <Text style={{...styles.text, color: mode.text}}>Reuniones</Text>
+                    </MenuOption>
+
+                    <MenuOption onSelect={() => handleDelete(user._id, mentee._id)}>
+                      <Text style={{...styles.text, color: mode.text}}>Calcel Match</Text>
+                    </MenuOption>
+                    </View>
                   </MenuOptions>
                 </Menu>
               </View>

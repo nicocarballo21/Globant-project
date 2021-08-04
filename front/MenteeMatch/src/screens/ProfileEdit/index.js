@@ -110,7 +110,7 @@ const ProfileEdit = ({ navigation }) => {
   const sheetRef = React.useRef(null);
 
   return (
-    <SafeAreaView style={styles.mainContainer}>
+    <SafeAreaView style={{...styles.mainContainer, backgroundColor: mode.bg}}>
       <BottomSheet
         ref={sheetRef}
         snapPoints={[300, 200, 0]}
@@ -134,7 +134,7 @@ const ProfileEdit = ({ navigation }) => {
             )}
           </TouchableOpacity>
         </View>
-        <View style={styles.action}>
+        <View style={{...styles.action, borderBottomColor: mode.green}}>
             <Ionicons
               name="person"
               size={25}
@@ -151,7 +151,7 @@ const ProfileEdit = ({ navigation }) => {
                         onChangeText={onChange}
                         value={value}
                         autoCorrect={false}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
 
                 )}
@@ -169,7 +169,7 @@ const ProfileEdit = ({ navigation }) => {
                         onChangeText={onChange}
                         value={value}
                         autoCorrect={false}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
                 )}
                 name="surname"
@@ -177,7 +177,7 @@ const ProfileEdit = ({ navigation }) => {
           />
         </View>
 
-        <View style={styles.action}>
+        <View style={{...styles.action, borderBottomColor: mode.green}}>
             <Ionicons
                 name="mail"
                 size={25}
@@ -194,14 +194,14 @@ const ProfileEdit = ({ navigation }) => {
                         onChangeText={onChange}
                         value={value}
                         autoCorrect={false}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
                 )}
                 name="email"
                 defaultValue={user.email ? user.email : ''}
             />
         </View>
-        <View style={styles.action}>
+        <View style={{...styles.action, borderBottomColor: mode.green}}>
             <Ionicons
                 name="briefcase"
                 size={25}
@@ -218,14 +218,14 @@ const ProfileEdit = ({ navigation }) => {
                         onChangeText={onChange}
                         value={value}
                         autoCorrect={false}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
                 )}
                 name="position"
                 defaultValue={user.position ? user.position : ''}
             />
         </View>
-        <View style={styles.action}>
+        <View style={{...styles.action, borderBottomColor: mode.green}}>
             <Ionicons
                 name="call"
                 size={25}
@@ -242,14 +242,14 @@ const ProfileEdit = ({ navigation }) => {
                         onChangeText={onChange}
                         value={value}
                         autoCorrect={false}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
                 )}
                 name="phone"
                 defaultValue={user.phone ? user.phone : ''}
             />
         </View>
-        <View style={styles.action}>
+        <View style={{...styles.action, borderBottomColor: mode.green}}>
             <Ionicons
                 name="location"
                 size={25}
@@ -266,14 +266,14 @@ const ProfileEdit = ({ navigation }) => {
                         onChangeText={onChange}
                         value={value}
                         autoCorrect={false}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
                 )}
                 name="country"
                 defaultValue={user.country? user.country : ''}
             />
         </View>
-        <View style={styles.action}>
+        <View style={{...styles.action, borderBottomColor: mode.green}}>
             <Ionicons
                 name="create"
                 size={25}
@@ -291,7 +291,7 @@ const ProfileEdit = ({ navigation }) => {
                         onBlur={onBlur}
                         onChangeText={onChange}
                         value={value}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
                 )}
                 name="personalDescription"
