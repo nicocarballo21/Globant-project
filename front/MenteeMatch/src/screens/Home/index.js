@@ -5,12 +5,15 @@ import { useSelector } from 'react-redux';
 import HomeView from '../../components/HomeView';
 import useMode from '../../hooks/useMode';
 import { styles } from './styles';
+import user_img from '../../assets/static/user_img.png';
 
 const Home = () => {
   const { mode } = useMode();
   const user = useSelector(state => state.user);
   const getIsMentor = () => {
-    if (user.actualRole) return user.actualRole === 'Mentor';
+    if (user.actualRole) {
+      return user.actualRole === 'Mentor';
+    }
     return !!user.isMentor;
   };
   const isMentor = getIsMentor();
@@ -18,18 +21,22 @@ const Home = () => {
     isMentor ? state.user.likedMentees : state.user.likedMentors,
   );
 
-  const usersToConfirm = usersLikes.map((userLike, indice) => (
-    <View key={indice}>
-      <View style={styles.bord}>
-        <Image style={styles.img} source={{ uri: userLike.img }} />
-        <Text
-          style={{
-            ...styles.name,
-            color: mode.violet,
-          }}>{`${userLike.name} ${userLike.surname}`}</Text>
+  usersLikes &&
+    usersLikes.map((userLike, indice) => (
+      <View key={indice}>
+        <View style={styles.bord}>
+          <Image
+            style={styles.img}
+            source={userLike.img ? { uri: userLike.img } : user_img}
+          />
+          <Text
+            style={{
+              ...styles.name,
+              color: mode.violet,
+            }}>{`${userLike.name} ${userLike.surname}`}</Text>
+        </View>
       </View>
-    </View>
-  ));
+    ));
 
   return isMentor || user.mentor ? (
     <>

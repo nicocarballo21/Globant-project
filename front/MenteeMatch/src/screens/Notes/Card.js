@@ -1,64 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
-import { Card, Button, Icon } from 'react-native-elements';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { Input, Card, Button, Icon } from 'react-native-elements';
+import AlertDelete from './AlertDelete';
 
 import useMode from '../../hooks/useMode';
 
-const data = [
-  {
-    title: 'titulo',
-    description: 'este es el cuerpo de la notas. ',
-  },
-  {
-    title: 'titulo',
-    description: 'este es el cuerpo de la notas. ',
-  },
-  {
-    title: 'titulo',
-    description: 'este es el cuerpo de la notas. ',
-  },
-  {
-    title: 'titulo',
-    description: 'este es el cuerpo de la notas. ',
-  },
-  {
-    title: 'titulo',
-    description: 'este es el cuerpo de la notas. ',
-  },
-  {
-    title: 'titulo',
-    description: 'este es el cuerpo de la notas. ',
-  },
-  {
-    title: 'titulo',
-    description: 'este es el cuerpo de la notas. ',
-  },
-  {
-    title: 'titulo',
-    description: 'este es el cuerpo de la notas. ',
-  },
-];
-export default function CardComponent({ mentee, functions }) {
+export default function CardComponent({ mentee, functions, userToken, notes }) {
   const { handleAdd, handleEdit, handleDelete } = functions;
-  const [notes, setnotes] = useState([]);
+  const menteeId = mentee._id;
+  const [note, setnote] = useState('');
+  const [title, settitle] = useState('');
   const { mode } = useMode();
 
-  //   useEffect(() => {
-  //     const get = async () => {
-  //       //hacerlo aca para subcrisbirse a los cambios que haya en el get de las notas y actualizar la screen
-  //       // hacer el get de las notas al back
-  //       // setnotes(notas);
-  //     };
-
-  //     get();
-  //   }, []);
+  // delete alert
+  const [showAlert, setshowAlert] = useState(false);
+  const toggle = () => setshowAlert(!showAlert);
 
   return (
     <ScrollView>
       <Card>
         <Card.Title>{`${mentee.name} ${mentee.surname}`}</Card.Title>
+        <Input
+          placeholder="Titulo..."
+          leftIcon={<Icon name="edit" size={20} color="black" />}
+          onChangeText={settitle}
+        />
+        <Input
+          placeholder="Nota..."
+          leftIcon={<Icon name="edit" size={20} color="black" />}
+          onChangeText={setnote}
+        />
+        <Button
+          title="Agregar notas"
+          onPress={() =>
+            handleAdd(userToken, menteeId, { description: note, title: title })
+          }
+        />
+
         <Card.Divider />
-        {data.map((u, i) => {
+        {notes.map((u, i) => {
           return (
             <View key={i} style={styles.card}>
               <Text style={styles.title}>{u.title}</Text>
@@ -77,12 +57,13 @@ export default function CardComponent({ mentee, functions }) {
                 <Button
                   icon={<Icon name="delete" color="#ffffff" />}
                   buttonStyle={{ ...styles.btns, backgroundColor: mode.green }}
-                  onPress={() => handleDelete()}
+                  onPress={() => toggle()}
                 />
-                <Button
-                  icon={<Icon name="add" color="#ffffff" />}
-                  buttonStyle={{ ...styles.btns, backgroundColor: mode.green }}
-                  onPress={() => handleAdd()}
+                <AlertDelete
+                  show={showAlert}
+                  toggle={toggle}
+                  handleDelete={handleDelete}
+                  noteId={u._id}
                 />
               </View>
             </View>

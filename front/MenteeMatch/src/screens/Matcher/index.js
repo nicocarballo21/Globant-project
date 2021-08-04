@@ -10,8 +10,8 @@ import { Button } from '../../components';
 import styles from './styles';
 import useMode from '../../hooks/useMode';
 import {
+  sendNotification,
   setMenteeToMentor,
-  setMentorToMentee,
 } from '../../services/axiosServices';
 
 export default function Matcher() {
@@ -53,45 +53,69 @@ export default function Matcher() {
     );
     if (finalMatch) {
       if (roleToFind === 'mentees') {
-        // Acá se debería enviar la notificación al mentee pero por ahora directamente se asigna directamente a ese mentee como propio del mentor
-        if (user.mentees.length >= user.maxMentees)
+        if (user.mentees.length >= user.maxMentees) {
           return simpleMessage(
             '¡Atención!',
             `Puedes tener hasta ${user.maxMentees} mentees cómo máximo al mismo tiempo`,
             'warning',
           );
-        return setMentorToMentee(user._id, finalMatch._id, user.token).then(
-          setted => {
-            if (!setted) {
-              return dispatch(updateUser({ url, data: {} }));
-            }
-            dispatch(
-              updateUser({
-                url,
-                data: { mentees: [...user.mentees, finalMatch._id] },
-              }),
-            );
-            simpleMessage(
-              'Información',
-              `${finalMatch.name} ${
-                finalMatch.surname
-              } es tu nuevo ${roleToFind.replace('s', '')}`,
-              'info',
-            );
+        }
+        sendNotification(
+          {
+            receptor: finalMatch._id,
+            type: 'solicitud',
           },
-        );
+          user.token,
+        ).then(sended => {
+          if (!sended) {
+            return dispatch(updateUser({ url, data: {} }));
+          }
+          simpleMessage(
+            'Información',
+            `Se ha enviado una invitación a ${finalMatch.name} ${finalMatch.surname}`,
+            'info',
+          );
+          // Notificación a mí mismo
+          sendNotification(
+            {
+              emisor: finalMatch._id,
+              receptor: user._id,
+              type: 'information',
+            },
+            user.token,
+          );
+          const likedMentees = user.likedMentees.filter(
+            mentee => mentee._id !== finalMatch._id,
+          );
+          dispatch(
+            updateUser({
+              url,
+              data: {
+                likedMentees,
+                dislikedMentees: [...user.dislikedMentees, finalMatch],
+              },
+            }),
+          );
+        });
       } else {
         return setMenteeToMentor(user._id, finalMatch._id, user.token).then(
           setted => {
             if (!setted) {
               simpleMessage(
                 '¡Error!',
-                `El usuario ya no está disponible.`,
+                'El usuario ya no está disponible.',
                 'danger',
               );
               return dispatch(updateUser({ url, data: {} }));
             }
             dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
+            sendNotification(
+              {
+                receptor: finalMatch._id,
+                type: 'asignacion',
+              },
+              user.token,
+            );
             simpleMessage(
               'Información',
               `${finalMatch.name} ${
@@ -142,7 +166,7 @@ export default function Matcher() {
     );
   };
 
-  if (user.actualRole === 'Mentee' && user.mentor)
+  if (user.actualRole === 'Mentee' && user.mentor) {
     return (
       <View>
         <Text>
@@ -150,6 +174,7 @@ export default function Matcher() {
         </Text>
       </View>
     );
+  }
 
   return (
     <>
@@ -178,7 +203,7 @@ export default function Matcher() {
               />
             </View>
           ) : null}
-          {!user[likedRole].length && <View style={{ height: 120 }}></View>}
+          {!user[likedRole].length && <View style={{ height: 120 }} />}
           {matches.length ? (
             <View style={styles.subContainer}>
               <Text style={{ ...styles.optionsTxt, color: mode.text }}>

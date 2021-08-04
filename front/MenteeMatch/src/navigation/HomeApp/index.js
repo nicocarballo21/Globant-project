@@ -7,6 +7,7 @@ import HomeNavigator from '../HomeNavigator';
 import MatcherNavigator from '../HomeNavigator/MatchNav';
 
 import useMode from '../../hooks/useMode';
+import NotificationsStack from '../NotificationsNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,6 +40,16 @@ export default function HomeApp() {
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Notifications"
+        component={NotificationsStack}
+        options={{
+          tabBarLabel: 'Notificaciones',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="notifications-circle" size={size} color={color} />
           ),
         }}
       />

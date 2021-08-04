@@ -6,6 +6,17 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 4,
   },
+  button: {
+    width: 125,
+    alignSelf: 'center',
+  },
+  flatListContainer: {
+    flex: 8,
+  },
+  buttonContainer: {
+    flex: 2,
+    justifyContent: 'center',
+  },
 });
 
 export default styles;

@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { globantBright } from '../../assets/styles/colors';
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -50,13 +49,14 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     margin:5,
   },
-    
+  
   textName: {
     fontSize: 20,
     margin:5,
     color: globantBright.violet,
     fontWeight: 'bold'
   }
+
 
 });
 

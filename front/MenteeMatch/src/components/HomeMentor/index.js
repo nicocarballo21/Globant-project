@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, Image, View, ScrollView } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -13,11 +13,24 @@ import {
 
 import { styles } from './styles';
 import useMode from '../../hooks/useMode';
+import {
+  cancelMatch,
+  cancelMatchMentor,
+} from '../../redux/Reducers/UserReducer';
+import user_img from '../../assets/static/user_img.png';
 
 export default () => {
   const { mode } = useMode();
-  const user = useSelector(state => state.user);
+  let user = useSelector(state => state.user);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const handleDelete = (mentorId, menteeId) => {
+    dispatch(cancelMatch({ data: { mentorId, menteeId }, token: user.token })); //saca el mentee del mentor
+    dispatch(
+      cancelMatchMentor({ data: { mentorId, menteeId }, token: user.token }),
+    ); //saca el mentor del mentee
+  };
 
   return (
     <View style={{ ...styles.container, backgroundColor: mode.bg }}>
@@ -38,7 +51,7 @@ export default () => {
               <Image
                 onPress={() => navigation.navigate('UserViewModel')}
                 style={styles.img}
-                source={{ uri: mentee.img }}
+                source={mentee.img ? { uri: mentee.img } : user_img}
               />
               <Text
                 onPress={() =>
@@ -63,6 +76,13 @@ export default () => {
                   <MenuOptions optionsContainerStyle={styles.menu_options}>
                     <MenuOption
                       onSelect={() =>
+                        navigation.navigate('MenteeDetails', { mentee })
+                      }
+                      text="Detalles"
+                    />
+
+                    <MenuOption
+                      onSelect={() =>
                         navigation.navigate('Objectives', {
                           mente: mentee,
                         })
@@ -82,7 +102,7 @@ export default () => {
                       text="Reuniones"
                     />
                     <MenuOption
-                      onSelect={() => console.log('Cacelar Match')}
+                      onSelect={() => handleDelete(user._id, mentee._id)}
                       text="Cancelar Match"
                     />
                   </MenuOptions>

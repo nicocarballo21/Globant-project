@@ -1,30 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import Card from './Card';
+import { useSelector } from 'react-redux';
 
-// import { simpleMessage } from '../../utils/index';
+import {
+  postNote,
+  getNotes,
+  deleteNote,
+} from '../../services/notesAxiosServices';
+
+import { simpleMessage } from '../../utils/index';
 
 const Notes = ({ route }) => {
+  const [newData, setNewData] = useState(false);
+  const [notes, setnotes] = useState([]);
+  const { userToken } = useSelector(state => state.auth);
   const mentee = route.params.mente;
 
-  const handleAdd = () => {
-    // const res = await postObjectivesToUser(mentee._id, userToken, objective);
+  useEffect(() => {
+    const get = async () => {
+      const res = await getNotes(userToken, mentee._id);
+      setnotes(res.data);
+    };
+    get();
+  }, [newData]);
 
-    // if (res) {
-    //   simpleMessage(
-    //     'Objetivo agregado',
-    //     'El objetivo fue agregado correctamente',
-    //     'success',
-    //   );
-    //   setstate(!state);
-    // }
-    console.log('add');
+  const handleAdd = async (userToken, menteeId, data) => {
+    const res = await postNote(userToken, menteeId, data);
+    console.log(res);
+    if (res) {
+      simpleMessage(
+        'Nota agregado',
+        'La nota fue agregada correctamente',
+        'success',
+      );
+      setNewData(!newData);
+    }
   };
 
-  const handleDelete = () => {
-    // const res = await deleteObjectivesToUser(mentee._id, userToken, objetiveId);
-    // if (res) setstate(!state);
-    console.log('delete');
+  const handleDelete = async noteId => {
+    const res = await deleteNote(userToken, noteId);
+    if (res) setNewData(!newData);
   };
 
   const handleEdit = () => {
@@ -43,6 +59,8 @@ const Notes = ({ route }) => {
     <View>
       <Card
         mentee={mentee}
+        notes={notes}
+        userToken={userToken}
         functions={{ handleAdd, handleDelete, handleEdit }}
       />
     </View>

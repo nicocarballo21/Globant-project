@@ -11,8 +11,8 @@ import { simpleMessage } from '../../utils';
 
 const Objectives = ({ route }) => {
   const mentee = route.params.mente;
-
   const { userToken } = useSelector(state => state.auth);
+
   const [data, setdata] = useState([]);
   const [state, setstate] = useState(false); // ver como hacer el re render de una forma no tan hardcodeada
 
