@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Input, Card, Button, Icon } from 'react-native-elements';
 import AlertDelete from './AlertDelete';
+import ModalEdit from './ModalEdit';
 
 import useMode from '../../hooks/useMode';
 
@@ -15,6 +16,10 @@ export default function CardComponent({ mentee, functions, userToken, notes }) {
   // delete alert
   const [showAlert, setshowAlert] = useState(false);
   const toggle = () => setshowAlert(!showAlert);
+
+  //editModal
+  const [showModal, setshowModal] = useState(false);
+  const toggleModal = () => setshowModal(!showModal);
 
   return (
     <ScrollView>
@@ -52,8 +57,17 @@ export default function CardComponent({ mentee, functions, userToken, notes }) {
                 <Button
                   icon={<Icon name="edit" color="#ffffff" />}
                   buttonStyle={{ ...styles.btns, backgroundColor: mode.green }}
-                  onPress={() => handleEdit()}
+                  onPress={() => toggleModal()}
                 />
+
+                <ModalEdit
+                  handleEdit={handleEdit}
+                  show={showModal}
+                  inputs={{ title: u.title, note: u.description }}
+                  toggle={toggleModal}
+                  noteId={u._id}
+                />
+
                 <Button
                   icon={<Icon name="delete" color="#ffffff" />}
                   buttonStyle={{ ...styles.btns, backgroundColor: mode.green }}

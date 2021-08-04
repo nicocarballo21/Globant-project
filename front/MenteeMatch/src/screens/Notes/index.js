@@ -7,6 +7,7 @@ import {
   postNote,
   getNotes,
   deleteNote,
+  editNote,
 } from '../../services/notesAxiosServices';
 
 import { simpleMessage } from '../../utils/index';
@@ -27,7 +28,6 @@ const Notes = ({ route }) => {
 
   const handleAdd = async (userToken, menteeId, data) => {
     const res = await postNote(userToken, menteeId, data);
-    console.log(res);
     if (res) {
       simpleMessage(
         'Nota agregado',
@@ -43,17 +43,16 @@ const Notes = ({ route }) => {
     if (res) setNewData(!newData);
   };
 
-  const handleEdit = () => {
-    // const res = updateObjectivesToUser(userToken, objectiveId, data);
-    // if (res) {
-    //   simpleMessage(
-    //     'Objetivo editado',
-    //     'El objetivo fue editado correctamente',
-    //     'success',
-    //   );
-    //   setstate(!state);
-    // }
-    console.log('edit1');
+  const handleEdit = async (noteId, title, description) => {
+    const res = await editNote(userToken, noteId, title, description);
+    if (res) {
+      simpleMessage(
+        'La nota editado',
+        'La nota fue editado correctamente',
+        'success',
+      );
+      setNewData(!newData);
+    }
   };
   return (
     <View>

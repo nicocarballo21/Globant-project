@@ -13,10 +13,12 @@ const AlertDelete = ({ show, toggle, handleDelete, noteId }) => {
       headerIconComponent={
         <Ionicons name="alert-outline" size={32} color="white" />
       }>
-      <SCLAlertButton theme="info" onPress={() => handleDelete(noteId)}>
+      <SCLAlertButton
+        theme="info"
+        onPress={() => handleDelete(noteId) && toggle()}>
         Eliminar
       </SCLAlertButton>
-      <SCLAlertButton theme="default" onPress={toggle}>
+      <SCLAlertButton theme="default" onPress={() => toggle()}>
         Cancelar
       </SCLAlertButton>
     </SCLAlert>

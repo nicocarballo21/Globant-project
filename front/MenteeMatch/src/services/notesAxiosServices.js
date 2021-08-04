@@ -35,8 +35,19 @@ const deleteNote = async (token, noteId) => {
   } catch (error) {}
 };
 
+const editNote = async (token, noteId, title, description) => {
+  const server = generateAxios(token);
+  const res = await server.put(API_URL + `/api/users/notes`, {
+    noteId,
+    title,
+    description,
+  });
+  return res;
+};
+
 module.exports = {
   getNotes,
   postNote,
   deleteNote,
+  editNote,
 };
