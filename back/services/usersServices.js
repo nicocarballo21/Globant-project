@@ -48,6 +48,13 @@ const cancelMentor = (mentorId, menteeId) => {
         model: "Skills",
       },
     })
+    .populate({
+      path: "notifications",
+      populate: {
+        path: "emisor",
+        model: "Users",
+      },
+    })
     .populate("objectives")
     .populate("mentees")
     .exec();
@@ -88,6 +95,13 @@ const cancelMentee = (mentorId, menteeId) => {
       populate: {
         path: "skillsToTeach",
         model: "Skills",
+      },
+    })
+    .populate({
+      path: "notifications",
+      populate: {
+        path: "emisor",
+        model: "Users",
       },
     })
     .populate("objectives")
@@ -496,14 +510,16 @@ const dislikeMentorAndRestoreMentee = async (mentorId, menteeId) => {
 
 const undoForcedMenteeDislike = async (mentorId, menteeId) => {
   try {
-    const mentor = await Users.findById(mentorId)
-    .populate("dislikedMentees")
-    .exec();
-    console.log({mentor, mentorId, menteeId})
-    mentor.dislikedMentees = mentor.dislikedMentees.filter(
-      (mentee) => mentee.id !== menteeId
-    );
-    return mentor.save();
+    const mentor = await Users.findOneAndUpdate(
+      { _id: mentorId },
+      {
+        $pull: { dislikedMentees: menteeId },
+      },
+      { new: true }
+    )
+      .populate("dislikedMentees")
+      .exec();
+    return mentor;
   } catch (error) {
     console.log(error);
   }
