@@ -19,7 +19,9 @@ export default function UserBlock({
   disableButtons,
 }) {
   const getIsMentor = () => {
-    if (userLogin.actualRole) return userLogin.actualRole === 'Mentor';
+    if (userLogin.actualRole) {
+      return userLogin.actualRole === 'Mentor';
+    }
     return !!userLogin.isMentor;
   };
   const isMentor = getIsMentor();
@@ -34,8 +36,11 @@ export default function UserBlock({
   };
 
   const getIsConfirmButtonEnabled = () => {
-    if (isMentor) return !user.mentor;
-    else return user.mentees.length < user.maxMentees;
+    if (isMentor) {
+      return !user.mentor;
+    } else {
+      return user.mentees.length < user.maxMentees;
+    }
   };
 
   const isConfirmButtonEnabled = getIsConfirmButtonEnabled();
@@ -55,6 +60,13 @@ export default function UserBlock({
       'danger',
     );
   };
+
+  useEffect(() => {
+    if (enableTooltip) {
+      tooltipOpen();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enableTooltip]);
 
   const { mode } = useMode();
   return (
@@ -97,8 +109,7 @@ export default function UserBlock({
                   ]}
                   title={isConfirmButtonEnabled ? '✔' : 'X'}
                   onPress={
-                    tooltipOpen
-                    /*     isConfirmButtonEnabled ? handleOpen : handleNotElegible */
+                    isConfirmButtonEnabled ? handleOpen : handleNotElegible
                   }
                 />
                 <SCLAlert
