@@ -10,8 +10,8 @@ import { Button } from '../../components';
 import styles from './styles';
 import useMode from '../../hooks/useMode';
 import {
+  sendNotification,
   setMenteeToMentor,
-  setMentorToMentee,
 } from '../../services/axiosServices';
 
 export default function Matcher() {
@@ -53,7 +53,6 @@ export default function Matcher() {
     );
     if (finalMatch) {
       if (roleToFind === 'mentees') {
-        // Acá se debería enviar la notificación al mentee pero por ahora directamente se asigna directamente a ese mentee como propio del mentor
         if (user.mentees.length >= user.maxMentees) {
           return simpleMessage(
             '¡Atención!',
@@ -61,27 +60,44 @@ export default function Matcher() {
             'warning',
           );
         }
-        return setMentorToMentee(user._id, finalMatch._id, user.token).then(
-          setted => {
-            if (!setted) {
-              return dispatch(updateUser({ url, data: {} }));
-            }
-            dispatch(
-              updateUser({
-                url,
-                data: { mentees: [...user.mentees, finalMatch._id] },
-              }),
-            );
-            simpleMessage(
-              'Información',
-              `${finalMatch.name} ${
-                finalMatch.surname
-              } es tu nuevo ${roleToFind.replace('s', '')}`,
-              'info',
-            );
+        sendNotification(
+          {
+            receptor: finalMatch._id,
+            type: 'solicitud',
           },
-        );
-      } else {
+          user.token,
+        ).then(sended => {
+          if (!sended) {
+            return dispatch(updateUser({ url, data: {} }));
+          }
+          simpleMessage(
+            'Información',
+            `Se ha enviado una invitación a ${finalMatch.name} ${finalMatch.surname}`,
+            'info',
+          );
+          // Notificación a mí mismo
+          sendNotification(
+            {
+              emisor: finalMatch._id,
+              receptor: user._id,
+              type: 'information',
+            },
+            user.token,
+          );
+          const likedMentees = user.likedMentees.filter(
+            mentee => mentee._id !== finalMatch._id,
+          );
+          dispatch(
+            updateUser({
+              url,
+              data: {
+                likedMentees,
+                dislikedMentees: [...user.dislikedMentees, finalMatch],
+              },
+            }),
+          );
+        });
+      } else if(roleToFind === 'mentors') {
         return setMenteeToMentor(user._id, finalMatch._id, user.token).then(
           setted => {
             if (!setted) {
@@ -92,6 +108,22 @@ export default function Matcher() {
               );
               return dispatch(updateUser({ url, data: {} }));
             }
+            sendNotification(
+              {
+                receptor: finalMatch._id,
+                type: 'asignacion',
+              },
+              user.token,
+            );
+            // Notificación a mí mismo
+            sendNotification(
+              {
+                emisor: finalMatch._id,
+                receptor: user._id,
+                type: 'congratulations',
+              },
+              user.token,
+            );
             dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
             simpleMessage(
               'Información',
@@ -103,15 +135,16 @@ export default function Matcher() {
           },
         );
       }
+    } else if(!finalMatch) {
+      const orderedMatches = matches.filter(match => match._id !== likedUser._id);
+      dispatch(
+        updateUser({
+          url,
+          data: { [likedRole]: [likedUser, ...user[likedRole]] },
+        }),
+      );
+      dispatch(setMatches(orderedMatches));
     }
-    const orderedMatches = matches.filter(match => match._id !== likedUser._id);
-    dispatch(
-      updateUser({
-        url,
-        data: { [likedRole]: [likedUser, ...user[likedRole]] },
-      }),
-    );
-    dispatch(setMatches(orderedMatches));
   };
 
   const handleDislike = dislikedUser => {

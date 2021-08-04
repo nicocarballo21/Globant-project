@@ -21,18 +21,23 @@ const Home = () => {
     isMentor ? state.user.likedMentees : state.user.likedMentors,
   );
 
-  const usersToConfirm = usersLikes && usersLikes.map((userLike, indice) => (
-    <View key={indice}>
-      <View style={styles.bord}>
-        <Image style={styles.img} source={userLike.img ? { uri: userLike.img } : user_img} />
-        <Text
-          style={{
-            ...styles.name,
-            color: mode.violet,
-          }}>{`${userLike.name} ${userLike.surname}`}</Text>
+  const usersToConfirm =
+    usersLikes &&
+    usersLikes.map((userLike, indice) => (
+      <View key={indice}>
+        <View style={styles.bord}>
+          <Image
+            style={styles.img}
+            source={userLike.img ? { uri: userLike.img } : user_img}
+          />
+          <Text
+            style={{
+              ...styles.name,
+              color: mode.violet,
+            }}>{`${userLike.name} ${userLike.surname}`}</Text>
+        </View>
       </View>
-    </View>
-  ));
+    ));
 
   return isMentor || user.mentor ? (
     <>

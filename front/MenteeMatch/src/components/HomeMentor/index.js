@@ -11,27 +11,31 @@ import {
   MenuTrigger,
 } from 'react-native-popup-menu';
 
-import { styles } from './styles';
 import useMode from '../../hooks/useMode';
-import { cancelMatch, cancelMatchMentor } from '../../redux/Reducers/UserReducer';
+import {
+  cancelMatch,
+  cancelMatchMentor,
+} from '../../redux/Reducers/UserReducer';
 import user_img from '../../assets/static/user_img.png';
 
+import { styles } from './styles';
 
 export default () => {
-
   const { mode } = useMode();
   let user = useSelector(state => state.user);
   const navigation = useNavigation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleDelete = (mentorId, menteeId) => {
-      dispatch(cancelMatch({data: {mentorId, menteeId}, token: user.token}))//saca el mentee del mentor
-      dispatch(cancelMatchMentor({data: {mentorId, menteeId}, token: user.token}))//saca el mentor del mentee
-  } 
- 
+    dispatch(cancelMatch({ data: { mentorId, menteeId }, token: user.token })); //saca el mentee del mentor
+    dispatch(
+      cancelMatchMentor({ data: { mentorId, menteeId }, token: user.token }),
+    ); //saca el mentor del mentee
+  };
+
   return (
     <View style={{ ...styles.container, backgroundColor: mode.bg }}>
-      <Text style={{...styles.title, color: mode.text}}>
+      <Text style={{ ...styles.title, color: mode.text }}>
         {user.mentees.length
           ? 'Tus mentees son los siguientes:'
           : 'No tienes mentees asignados todavia. Dirígete al Matcher para seleccionar mentees'}
@@ -39,7 +43,7 @@ export default () => {
       <View
         style={{
           ...styles.block,
-          backgroundColor: mode.bg,
+          backgroundColor: mode.inputBg,
           borderColor: mode.inputBg,
         }}>
         <ScrollView>
@@ -70,6 +74,7 @@ export default () => {
                       />
                     }
                   />
+{/* <<<<<<< HEAD
                   <MenuOptions>
                     <View style={{ backgroundColor: mode.bg}}>
                     <MenuOption onSelect={() => navigation.navigate('Objectives', { mente: mentee,})}>
@@ -84,6 +89,48 @@ export default () => {
                       <Text style={{...styles.text, color: mode.text}}>Calcel Match</Text>
                     </MenuOption>
                     </View>
+======= */}
+                  <MenuOptions
+                    optionsContainerStyle={{
+                      ...styles.menu_options,
+                      backgroundColor: mode.bg,
+                    }}
+                    customStyles={{
+                      optionText: { color: mode.text, fontSize: 18 },
+                    }}>
+                    <MenuOption
+                      onSelect={() =>
+                        navigation.navigate('MenteeDetails', { mentee })
+                      }
+                      text="Detalles"
+                      style={{ color: 'red' }}
+                    />
+
+                    <MenuOption
+                      onSelect={() =>
+                        navigation.navigate('Objectives', {
+                          mente: mentee,
+                        })
+                      }
+                      text="Objetivos"
+                    />
+                    <MenuOption
+                      onSelect={() =>
+                        navigation.navigate('Notes', {
+                          mente: mentee,
+                        })
+                      }
+                      text="Notas"
+                    />
+                    <MenuOption
+                      onSelect={() => console.log('Reuniones')}
+                      text="Reuniones"
+                    />
+                    <MenuOption
+                      onSelect={() => handleDelete(user._id, mentee._id)}
+                      text="Cancelar Match"
+                    />
+{/* >>>>>>> e4e36a328744eec41633d046234fd859567c5607 */}
                   </MenuOptions>
                 </Menu>
               </View>

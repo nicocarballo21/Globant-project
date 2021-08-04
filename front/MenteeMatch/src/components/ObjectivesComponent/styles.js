@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 6.5,
+    height: 392,
     padding: 10,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 15,
     marginVertical: 5,
+
     marginHorizontal: 5,
   },
 

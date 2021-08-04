@@ -91,10 +91,6 @@ const Login = ({ navigation }) => {
           onPress={() => navigation.navigate('Register')}>
           Crear una cuenta
         </Text>
-        {/* <Button
-          title={'Registrarme'}
-          pressFunction={() => navigation.navigate('Register')}
-        /> */}
       </View>
     </KeyboardAvoidingView>
   );
