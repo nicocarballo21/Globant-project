@@ -26,10 +26,10 @@ const Home = () => {
     usersLikes.map((userLike, indice) => (
       <View key={indice}>
         <View style={styles.bord}>
-          {/* <Image
+          <Image
             style={styles.img}
             source={userLike.img ? { uri: userLike.img } : user_img}
-          /> */}
+          />
           <Text
             style={{
               ...styles.name,
