@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import HomeMentor from '../HomeMentor/index';
-import styles from './styles';
 import { getObjectivesFromUser } from '../../services/axiosServices';
 import userImage from '../../assets/static/user_img.png';
 import { useSelector } from 'react-redux';
@@ -10,6 +9,8 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import useMode from '../../hooks/useMode';
 import { globantBright } from '../../assets/styles/colors';
+
+import styles from './styles';
 
 export default () => {
   const { mode } = useMode();
