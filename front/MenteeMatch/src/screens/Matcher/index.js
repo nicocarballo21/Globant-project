@@ -92,7 +92,7 @@ export default function Matcher() {
             }),
           );
         });
-      } else {
+      } else if(roleToFind === 'mentors') {
         return setMenteeToMentor(user._id, finalMatch._id, user.token).then(
           setted => {
             if (!setted) {
@@ -130,15 +130,16 @@ export default function Matcher() {
           },
         );
       }
+    } else if(!finalMatch) {
+      const orderedMatches = matches.filter(match => match._id !== likedUser._id);
+      dispatch(
+        updateUser({
+          url,
+          data: { [likedRole]: [likedUser, ...user[likedRole]] },
+        }),
+      );
+      dispatch(setMatches(orderedMatches));
     }
-    const orderedMatches = matches.filter(match => match._id !== likedUser._id);
-    dispatch(
-      updateUser({
-        url,
-        data: { [likedRole]: [likedUser, ...user[likedRole]] },
-      }),
-    );
-    dispatch(setMatches(orderedMatches));
   };
 
   const handleDislike = dislikedUser => {
