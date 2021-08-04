@@ -288,6 +288,8 @@ const getMatchesForUser = async (
       [skillsToFind]: { $in: skillstTomatch },
     })
       .populate(skillsToFind, "name")
+      .populate("dislikedMentees")
+      .populate("dislikedMentors")
       .exec()) || [];
 
   // Para que no se incluya a él mismo
@@ -296,6 +298,13 @@ const getMatchesForUser = async (
   // Si busco mentees, que esos mentees no tengan ya un mentor asignado
   if (roleToFind === "isMentee")
     matches = matches.filter((match) => !match.mentor);
+  
+  // Me fijo sí alguno de los matches me dislikeo
+  const dislikedProperty = roleToFind === "isMentee" ? "dislikedMentors" : "dislikedMentees"
+    matches = matches.filter(match => {
+      const truthArr = match[dislikedProperty].map(dislikedUser => dislikedUser.id === user.id)
+      return !truthArr.includes(true)
+    })
 
   // Se agrega user.mentees cómo filtro también porque no tiene sentido que un mentee que busca mentor, le salgan sus propios mentees como opción a elegir. Lo mismo en el rol contrario.
   if (roleToFind === "isMentor") {
