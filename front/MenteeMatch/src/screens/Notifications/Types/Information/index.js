@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import useMode from '../../../../hooks/useMode';
 import { deleteNotification } from '../../../../redux/Reducers/UserReducer';
+import userImg from '../../../../assets/static/user_img.png'
 import styles from '../styles';
 
 const Information = ({ item }) => {
@@ -38,7 +39,7 @@ const Information = ({ item }) => {
       <View style={styles.imgContainer}>
         <Image
           style={{ ...styles.img, borderColor: mode.violet }}
-          source={{ uri: emisor.img }}
+          source={emisor.img ? { uri: emisor.img } : userImg}
         />
       </View>
       <View style={styles.message}>
