@@ -77,14 +77,6 @@ export default function HomeStack({ navigation }) {
         component={Notes}
         options={{
           title: 'Notes',
-          headerLeft: () => (
-            <Ionicons
-              name="menu"
-              size={40}
-              color={'#BFD732'}
-              onPress={() => navigation.openDrawer()}
-            />
-          ),
         }}
       />
     </Stack.Navigator>
