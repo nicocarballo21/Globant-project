@@ -23,6 +23,8 @@ const Information = ({ item }) => {
       return `${emisor.name} ${emisor.surname} ha rechazado tu solicitud.`;
     } else if (item.type === 'asignacion') {
       return `${emisor.name} ${emisor.surname} te ha sido asignado como mentee.`;
+    } else if (item.type === 'information') {
+      return `Has invitado a ${emisor.name} ${emisor.surname} a ser tu mentee`;
     }
   };
   return (
