@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import useMode from '../../../../hooks/useMode';
 import useAlert from '../../../../hooks/useAlert';
+import userImg from '../../../../assets/static/user_img.png'
 import { Alert } from '../../../../components';
 import {
   sendNotification,
@@ -73,7 +74,7 @@ const Solicitud = ({ item }) => {
       <View style={styles.imgContainer}>
         <Image
           style={{ ...styles.img, borderColor: mode.violet }}
-          source={{ uri: emisor.img }}
+          source={emisor.img ? { uri: emisor.img } : userImg}
         />
       </View>
       <View style={styles.message}>

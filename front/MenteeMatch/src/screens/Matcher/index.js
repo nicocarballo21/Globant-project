@@ -36,15 +36,10 @@ export default function Matcher() {
     if (!matches.length) {
       dispatch(getMatches({ roleToFind, token: user.token }));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  //-------------------------------------------------------------//
-  // Sí el usuario cambia de mentor role a mentee role o visceversa
 
   useEffect(() => {
     dispatch(getMatches({ roleToFind, token: user.token }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.actualRole]);
 
   const handleLike = likedUser => {

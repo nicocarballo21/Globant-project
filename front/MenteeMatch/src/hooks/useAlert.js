@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useToggleSkills = user => {
+const useToggleSkills = () => {
   const [show, setShow] = useState(false);
 
   const handleOpen = () => {

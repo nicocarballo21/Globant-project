@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   mainContainer: {
-      flex:1,
+    flex: 1,
   },
 
   container: {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'bold',
   },
- action: {
+  action: {
     flexDirection: 'row',
     marginTop: 10,
     marginBottom: 10,
@@ -67,22 +67,20 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: '#000000',
   },
-    gradient: {
-        flex:1,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 10,
-    },
-    button: {
-        width: "30%",
-        height: 50,
-    },
-    text: {
-        color: "white",
-        fontSize: 16,
-    },
-
+  gradient: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  button: {
+    width: '30%',
+    height: 50,
+  },
+  text: {
+    color: 'white',
+    fontSize: 16,
+  },
 });
 
 export default styles;
-
