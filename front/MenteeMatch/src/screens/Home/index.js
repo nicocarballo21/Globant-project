@@ -21,7 +21,8 @@ const Home = () => {
     isMentor ? state.user.likedMentees : state.user.likedMentors,
   );
 
-  usersLikes &&
+  const usersToConfirm =
+    usersLikes &&
     usersLikes.map((userLike, indice) => (
       <View key={indice}>
         <View style={styles.bord}>

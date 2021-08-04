@@ -108,7 +108,6 @@ export default function Matcher() {
               );
               return dispatch(updateUser({ url, data: {} }));
             }
-            dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
             sendNotification(
               {
                 receptor: finalMatch._id,
@@ -116,6 +115,16 @@ export default function Matcher() {
               },
               user.token,
             );
+            // Notificación a mí mismo
+            sendNotification(
+              {
+                emisor: finalMatch._id,
+                receptor: user._id,
+                type: 'congratulations',
+              },
+              user.token,
+            );
+            dispatch(updateUser({ url, data: { mentor: finalMatch._id } }));
             simpleMessage(
               'Información',
               `${finalMatch.name} ${
