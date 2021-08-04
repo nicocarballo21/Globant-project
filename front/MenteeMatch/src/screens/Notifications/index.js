@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,6 +15,10 @@ const Notifications = () => {
   const { user } = useSelector(state => state);
   const dispatch = useDispatch();
   const url = '/api/users/profile';
+
+  useEffect(() => {
+    dispatch(updateUser({ url, data: {} }));
+  }, []);
 
   const handleRenderItem = ({ item }) => {
     if (item.type === 'solicitud') {

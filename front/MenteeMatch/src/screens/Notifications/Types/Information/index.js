@@ -18,13 +18,15 @@ const Information = ({ item }) => {
 
   const message = () => {
     if (item.type === 'confirmation') {
-      return `${emisor.name} ${emisor.surname} ha aceptado tu solicitud como mentor, felicidades!!`;
+      return `${emisor.name} ${emisor.surname} ha aceptado tu solicitud como mentor. ¡¡Felicidades!!`;
     } else if (item.type === 'rechazo') {
       return `${emisor.name} ${emisor.surname} ha rechazado tu solicitud.`;
     } else if (item.type === 'asignacion') {
-      return `${emisor.name} ${emisor.surname} te ha sido asignado como mentee.`;
+      return `¡Felicitaciones!. ${emisor.name} ${emisor.surname} te ha elegido como mentor.`;
     } else if (item.type === 'information') {
       return `Has invitado a ${emisor.name} ${emisor.surname} a ser tu mentee`;
+    } else if (item.type === 'congratulations') {
+      return `¡Felicitaciones!. Has seleccionado a ${emisor.name} ${emisor.surname} cómo tu mentor`;
     }
   };
   return (

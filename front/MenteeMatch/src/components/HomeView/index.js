@@ -36,131 +36,129 @@ export default () => {
   return isMentor ? (
     <HomeMentor />
   ) : (
-    <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
-      <View style={styles.user_data_container}>
-        <TouchableOpacity
-          disabled={true}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: 20,
-              margin: 10,
-              fontWeight: 'bold',
-              color: '#BFD732',
-            }}>
-            Mentor
-          </Text>
-        </TouchableOpacity>
+        <SafeAreaView style={{...styles.container, backgroundColor: mode.bg}}>
+            <View style={styles.user_data_container}>
+                <TouchableOpacity 
+                    disabled={true} 
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center'
+                    }}
+                >
+      <Text style={{fontSize: 20, margin:10, fontWeight: "bold", color:"#BFD732"}}>Mentor</Text>
+                </TouchableOpacity>
 
-        <Image
-          source={{ uri: mentor.img ? mentor.img : userImage }}
-          style={styles.foto}
-        />
-        <TouchableOpacity
-          disabled={true}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <FontAwesome name="user" color={globantBright.violet} size={25} />
-          <Text style={styles.textName}>
-            {`${mentor.name} ${mentor.surname}`}
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity disabled={true} style={styles.touchButton}>
-        <FontAwesome name="rocket" color={'#BFD732'} size={25} />
-        <Text style={{ fontSize: 20, margin: 5, color: mode.text }}>
-          Mis objetivos
-        </Text>
-      </TouchableOpacity>
-      {objectives.length ? (
-        <View
-          style={{
-            ...styles.flatContainer,
-            borderColor: mode.text,
-            backgroundColor: mode.bg,
-          }}>
-          <FlatList
-            scrollEnabled={true}
-            contentContainerStyle={{
-              alignSelf: 'auto',
-              alignItems: 'flex-start',
-            }}
-            numColumns={1}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={objectives}
-            keyExtractor={objectives => objectives._id}
-            renderItem={({ item }) => (
-              <View style={styles.flatContent}>
-                <BouncyCheckbox
-                  size={25}
-                  disableBuiltInState={true}
-                  isChecked={item.state === 'En progreso' ? false : true}
-                  text={item.description}
-                  fillColor="#BFD732"
-                  iconStyle={{ borderColor: '#BFD732' }}
-                  textStyle={{ fontSize: 20, color: mode.text }}
-                />
-              </View>
-            )}
-          />
-        </View>
-      ) : (
-        <View
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ color: mode.text }}>Sin objetivos!</Text>
-        </View>
-      )}
-      <TouchableOpacity disabled={true} style={styles.touchButton}>
-        <FontAwesome name="comments" color={'#BFD732'} size={25} />
-        <Text style={{ fontSize: 20, margin: 5, color: mode.text }}>
-          Reuniones programadas
-        </Text>
-      </TouchableOpacity>
-      {false ? (
-        <View
-          style={{
-            ...styles.flatContainer,
-            borderColor: mode.text,
-            backgroundColor: mode.bg,
-          }}>
-          <FlatList
-            scrollEnabled={true}
-            contentContainerStyle={{
-              alignSelf: 'auto',
-              alignItems: 'flex-start',
-            }}
-            numColumns={1}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={objectives}
-            keyExtractor={objectives => objectives._id}
-            renderItem={({ item }) => (
-              <View style={styles.flatContent}>
-                <BouncyCheckbox
-                  size={25}
-                  disableBuiltInState={true}
-                  isChecked={item.state === 'En progreso' ? false : true}
-                  text={item.description}
-                  fillColor="#BFD732"
-                  iconStyle={{ borderColor: '#BFD732' }}
-                  textStyle={{ fontSize: 20, color: mode.text }}
-                />
-              </View>
-            )}
-          />
-        </View>
-      ) : (
-        <View
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ color: mode.text }}>Sin reuniones programadas!</Text>
-        </View>
-      )}
-    </SafeAreaView>
+                <Image source={mentor ? (mentor.img ? { uri: mentor.img } : userImage) : userImage} style={styles.foto} />
+                <TouchableOpacity 
+                    disabled={true} 
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center'
+                    }}
+                >
+                    <FontAwesome name="user" color={globantBright.violet} size={25} />
+                    <Text style={styles.textName}>
+                        {`${mentor.name} ${mentor.surname}`}
+                    </Text>
+                </TouchableOpacity>
+            </View>
+            <TouchableOpacity disabled={true} style={ styles.touchButton }>
+                <FontAwesome name="rocket" color={"#BFD732"} size={25} />
+                <Text
+                    style={{ fontSize: 20, margin:5, color: mode.text}}
+                >
+                    Mis objetivos
+                </Text>
+            </TouchableOpacity>
+            { objectives.length ? 
+                (
+                    <View 
+                        style={{
+                            ...styles.flatContainer,
+                            borderColor: mode.text,
+                            backgroundColor: mode.bg
+                        }}
+                    >
+                        <FlatList
+                            scrollEnabled={true}
+                            contentContainerStyle={{
+                                alignSelf: 'auto',
+                                alignItems: 'flex-start',
+                            }}
+                            numColumns={1}
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            data={objectives}
+                            keyExtractor={objectives => objectives._id}
+                            renderItem={({ item }) => (
+                                <View style={styles.flatContent}>
+                                    <BouncyCheckbox 
+                                    size={25}
+                                    disableBuiltInState={true}
+                                    isChecked={item.state === "En progreso" ? false : true}
+                                    text={item.description}
+                                    fillColor= "#BFD732"
+                                    iconStyle={{ borderColor: "#BFD732" }}
+                                    textStyle={{ fontSize: 20, color: mode.text }}
+                                    />
+                                </View>
+                            )}
+                        />
+                    </View> ) 
+                : (
+                    <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{color: mode.text}}>Sin objetivos!</Text>
+                    </View>
+                )}
+            <TouchableOpacity disabled={true} style={ styles.touchButton }>
+                <FontAwesome name="comments" color={"#BFD732"} size={25} />
+                <Text 
+                    style={{ fontSize: 20, margin:5, color: mode.text }}
+                >
+                    Reuniones programadas
+                </Text>
+            </TouchableOpacity>
+            { false ? 
+                (
+                    <View 
+                        style={{
+                            ...styles.flatContainer,
+                            borderColor: mode.text,
+                            backgroundColor: mode.bg
+                        }}
+                    >
+
+                        <FlatList
+                            scrollEnabled={true}
+                            contentContainerStyle={{
+                                alignSelf: 'auto',
+                                alignItems: 'flex-start',
+                            }}
+                            numColumns={1}
+                            showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}
+                            data={objectives}
+                            keyExtractor={objectives => objectives._id}
+                            renderItem={({ item }) => (
+                                <View style={styles.flatContent}>
+                                    <BouncyCheckbox 
+                                        size={25}
+                                        disableBuiltInState={true}
+                                        isChecked={item.state === "En progreso" ? false : true}
+                                        text={item.description}
+                                        fillColor= "#BFD732"
+                                        iconStyle={{ borderColor: "#BFD732" }}
+                                        textStyle={{ fontSize: 20, color: mode.text }}
+                                    />
+                                </View>
+                            )}
+                        />
+                    </View> ) 
+                : (
+                    <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{color: mode.text}}>Sin reuniones programadas!</Text>
+                    </View>
+                )}
+        </SafeAreaView>
   );
 };
