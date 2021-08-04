@@ -10,7 +10,7 @@ import {
   updateUserData,
 } from '../../services/reduxServices';
 
-import {deleteMatch, deleteMatchMentor} from '../../services/axiosServices'
+import { deleteMatch, deleteMatchMentor } from '../../services/axiosServices';
 
 const initialState = {
   name: null,
@@ -48,7 +48,7 @@ export const updateUser = createAsyncThunk(
     try {
       const { user } = thunkAPI.getState();
       const userUpdated = await updateUserData(data, user.token, url);
-      userUpdated['token'] = user.token;
+      userUpdated.token = user.token;
       return userUpdated;
     } catch (error) {
       console.log({ error });
@@ -56,31 +56,33 @@ export const updateUser = createAsyncThunk(
   },
 );
 
-export const cancelMatch = createAsyncThunk('CANCEL_MATCH', 
-async ({ data, token }, thunkAPI) => {
-  try {
-    const userUpdated = await deleteMatch(data, token);
-    console.log(userUpdated)
-    userUpdated['token'] = token;
-    return userUpdated;
-  } catch (error) {
-    console.log({ error });
+export const cancelMatch = createAsyncThunk(
+  'CANCEL_MATCH',
+  async ({ data, token }, thunkAPI) => {
+    try {
+      const userUpdated = await deleteMatch(data, token);
+      console.log(userUpdated);
+      userUpdated.token = token;
+      return userUpdated;
+    } catch (error) {
+      console.log({ error });
     }
   },
-)
+);
 
-export const cancelMatchMentor = createAsyncThunk('CANCEL_MATCH_MENTOR  ', 
-async ({ data, token }, thunkAPI) => {
-  try {
-    const userUpdatedMentee = await deleteMatchMentor(data, token);
-    console.log(userUpdatedMentee)
-    userUpdatedMentee['token'] = token;
-    return userUpdatedMentee;
-  } catch (error) {
-    console.log({ error });
+export const cancelMatchMentor = createAsyncThunk(
+  'CANCEL_MATCH_MENTOR',
+  async ({ data, token }, thunkAPI) => {
+    try {
+      const userUpdatedMentee = await deleteMatchMentor(data, token);
+      console.log(userUpdatedMentee);
+      userUpdatedMentee.token = token;
+      return userUpdatedMentee;
+    } catch (error) {
+      console.log({ error });
     }
   },
-)
+);
 
 export const deleteNotification = createAsyncThunk(
   'DELETE_NOTIFICATION',
@@ -88,7 +90,7 @@ export const deleteNotification = createAsyncThunk(
     try {
       const { user } = thunkAPI.getState();
       const userUpdated = await markAsSeen(notificationId, user.token);
-      userUpdated['token'] = user.token;
+      userUpdated.token = user.token;
       return userUpdated;
     } catch (error) {
       console.log({ error });
@@ -105,8 +107,5 @@ const userReducer = createReducer(initialState, {
   [cancelMatchMentor.fulfilled]: (state, action) => state,
   [deleteNotification.fulfilled]: (_, action) => action.payload,
 });
-
-
-
 
 export default userReducer;

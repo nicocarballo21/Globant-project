@@ -110,25 +110,31 @@ const setMentorToMentee = async (mentorId, menteeId, token) => {
   }
 };
 
-const deleteMatch = async(data, token) => {
+const deleteMatch = async (data, token) => {
   try {
-    const server = generateAxios(token)
-    const updateMentor = await server.post(API_URL + '/api/users/cancelMatch', data)
-    return updateMentor.data
-  } catch(error) {
-    console.log(error)
-  } 
-}; 
+    const server = generateAxios(token);
+    const updateMentor = await server.post(
+      API_URL + '/api/users/cancelMatch',
+      data,
+    );
+    return updateMentor.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-const deleteMatchMentor = async(data, token) => {
+const deleteMatchMentor = async (data, token) => {
   try {
-    const server = generateAxios(token)
-    const updateMentor = await server.post(API_URL + '/api/users/cancelMatchMentor', data)
-    return updateMentor.data
-  } catch(error) {
-    console.log(error)
-  } 
-}; 
+    const server = generateAxios(token);
+    const updateMentor = await server.post(
+      API_URL + '/api/users/cancelMatchMentor',
+      data,
+    );
+    return updateMentor.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const markAsSeen = async (notificationId, token) => {
   try {
@@ -148,10 +154,13 @@ const sendNotification = async (data, token) => {
     const req = await server.post(`${API_URL}/api/notifications`, data);
     return req.data;
   } catch (error) {
+    if (error.response.status === 400) {
+      simpleMessage('¡Error!', 'El usuario ya no está disponible.', 'danger');
+      return null;
+    }
     console.log(error);
   }
 };
-
 
 export {
   postUserSkillsToLearn,

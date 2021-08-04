@@ -14,9 +14,9 @@ const createUser = (body) => {
 const cancelMentor = (mentorId, menteeId) => {
   return Users.findOneAndUpdate(
     { _id: menteeId },
-    { mentor: null, $pull: { likedMentors : mentorId } },
+    { mentor: null, $pull: { likedMentors: mentorId } },
     { new: true }
-    )
+  )
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
     .populate("mentor")
@@ -48,20 +48,17 @@ const cancelMentor = (mentorId, menteeId) => {
         model: "Skills",
       },
     })
-  .populate("objectives")
-  .populate("mentees")
-  .exec() 
+    .populate("objectives")
+    .populate("mentees")
+    .exec();
 };
-
-
-
 
 const cancelMentee = (mentorId, menteeId) => {
   return Users.findOneAndUpdate(
     { _id: mentorId },
     { $pull: { mentees: menteeId } },
     { new: true }
-    )
+  )
     .populate("skillsToLearn", "name")
     .populate("skillsToTeach", "name")
     .populate("mentor")
@@ -93,9 +90,9 @@ const cancelMentee = (mentorId, menteeId) => {
         model: "Skills",
       },
     })
-  .populate("objectives")
-  .populate("mentees")
-  .exec() 
+    .populate("objectives")
+    .populate("mentees")
+    .exec();
 };
 
 const findUserByEmail = (email) => {
@@ -445,6 +442,44 @@ const deleteNoteFromUser = async (noteId) => {
   }
 };
 
+const checkAvailability = async ( roleToFind, menteeId, mentorId ) => {
+  try {
+    const mentorPromise = Users.findById(mentorId).exec();
+    const menteePromise = Users.findById(menteeId).exec();
+    const [mentor, mentee] = await Promise.all([mentorPromise, menteePromise]);
+    if (roleToFind === "mentee") {
+      // Si el mentee ya tiene mentor
+      if (mentee.mentor) {
+        return false
+      }
+    }
+    if (roleToFind === "mentor") {
+      // Si el mentor supera la cantidad máxima de mentees
+      if (!mentor.disponible) {
+        return false
+      }
+    }
+    return true
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+const dislikeMentorAndRestoreMentee = async (mentorId, menteeId) => {
+  try {
+    const mentorPromise = Users.findById(mentorId).exec();
+    const menteePromise = Users.findById(menteeId).exec();
+    const [mentor, mentee] = await Promise.all([mentorPromise, menteePromise]);
+    // Saco el mentee pusheado a los dislikedMentees del mentor
+    mentor.dislikedMentees = mentor.dislikedMentees.filter(mentee => mentee.id !== mentee.id)
+    // Setteo el mentor en los dislikedMentors del mentee por su rechazo a la propuesta del mentor
+    mentee.dislikedMentors = [ ...mentee.dislikedMentors, mentor ]
+    return await Promise.all([mentee.save(), mentor.save()])
+  } catch (error) {
+    return {error}
+  }
+}
+
 module.exports = {
   createUser,
   findUserByEmail,
@@ -464,5 +499,6 @@ module.exports = {
   postNoteToUser,
   putNoteFromUser,
   deleteNoteFromUser,
+  checkAvailability,
+  dislikeMentorAndRestoreMentee
 };
-
