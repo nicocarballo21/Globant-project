@@ -8,7 +8,13 @@ const {
   putObjectivesFromUser,
   deleteObjectivesFromUser,
   setMenteeToMentor,
-  setMentorToMentee
+  setMentorToMentee,
+  cancelMentee,
+  cancelMentor,
+  getNotesFromUser,
+  postNoteToUser,
+  putNoteFromUser,
+  deleteNoteFromUser
 } = require("../services/usersServices")
 
 module.exports = {
@@ -35,8 +41,7 @@ module.exports = {
 
   setMentor: async (req, res, next) => {
     try {
-      const { id } = req.user
-      const { _id } = req.body // Target id
+      const { id, _id } = req.body // _id -> Target id
       const updatedMentor = await setMenteeToMentor(id, _id)
       if (!updatedMentor) return res.status(400).send("Something went wrong!")
       res.status(200).send(updatedMentor)
@@ -46,8 +51,7 @@ module.exports = {
   },
 
   setMentee: async (req, res, next) => {
-    const { id } = req.user
-    const { _id } = req.body // Target id
+    const { id, _id } = req.body // _id -> Target id
     const [updatedMentee, updatedMentor] = await setMentorToMentee(id, _id)
     if (!updatedMentee || !updatedMentor) return res.status(400).send("Something went wrong!")
     res.status(200).send({ updatedMentee, updatedMentor })
@@ -66,7 +70,10 @@ module.exports = {
 
       if (!skills.length) return res.status(400).json("You need to add at least one skill")
 
-      const user = await updateById(req.user.id, { [type]: skills, maxMentees })
+      const user = await updateById(req.user.id, {
+        [type]: skills,
+        maxMentees
+      })
       res.status(200).json({ ...user._doc, password: null })
     } catch (err) {
       next(err)
@@ -140,6 +147,69 @@ module.exports = {
       const objectivePromises = await deleteObjectivesFromUser(objectiveId, user)
       if (!objectivePromises) return res.status(404).send("Objective not found.")
       else await Promise.all(objectivePromises)
+      res.sendStatus(204)
+    } catch (error) {
+      next(error)
+    }
+  },
+  cancelMatch: async (req, res, next) => {
+    try {
+      const { mentorId, menteeId } = req.body
+      const mentor = await cancelMentee(mentorId, menteeId)
+      return res.status(200).send(mentor)
+    } catch (error) {
+      next(error)
+    }
+  },
+  cancelMatchMentor: async (req, res, next) => {
+    try {
+      const { mentorId, menteeId } = req.body
+      const mentee = await cancelMentor(mentorId, menteeId)
+      return res.status(200).send(mentee)
+    } catch (error) {
+      next(error)
+    }
+  },
+
+  getUserNotes: async (req, res, next) => {
+    try {
+      const mentorId = req.user.id
+      const { menteeId } = req.params
+      const notes = await getNotesFromUser(mentorId, menteeId)
+      res.status(200).send(notes)
+    } catch (error) {
+      next(error)
+    }
+  },
+  postUserNotes: async (req, res, next) => {
+    const { title, description, menteeId } = req.body
+    const mentorId = req.user.id
+    const newNote = await postNoteToUser({
+      title,
+      description,
+      menteeId,
+      mentorId
+    })
+    if (!newNote) return res.status(404).send("Mentee not found!.")
+    if (newNote.error) return next(newNote.error)
+    res.status(200).send(newNote)
+  },
+  putUserNotes: async (req, res, next) => {
+    try {
+      const { title, description, noteId } = req.body
+      const updatedNote = await putNoteFromUser({ title, description, noteId })
+      if (!updatedNote) return res.status(404).send("Mentee not found!.")
+      if (updatedNote.error) return next(updatedNote.error)
+      res.status(200).send(updatedNote)
+    } catch (error) {
+      next(error)
+    }
+  },
+  deleteUserNotes: async (req, res, next) => {
+    try {
+      const { noteId } = req.params
+      const savedMenteeAndDeletedNote = await deleteNoteFromUser(noteId)
+      if (!savedMenteeAndDeletedNote) return res.status(404).send("The note was not found!.")
       res.sendStatus(204)
     } catch (error) {
       next(error)

@@ -11,8 +11,8 @@ import { simpleMessage } from '../../utils';
 
 const Objectives = ({ route }) => {
   const mentee = route.params.mente;
-
   const { userToken } = useSelector(state => state.auth);
+
   const [data, setdata] = useState([]);
   const [state, setstate] = useState(false); // ver como hacer el re render de una forma no tan hardcodeada
 
@@ -44,7 +44,7 @@ const Objectives = ({ route }) => {
   };
 
   const handleEdit = async (objectiveId, data) => {
-    const res = updateObjectivesToUser(userToken, objectiveId, data);
+    const res = await updateObjectivesToUser(userToken, objectiveId, data);
     if (res) {
       simpleMessage(
         'Objetivo editado',

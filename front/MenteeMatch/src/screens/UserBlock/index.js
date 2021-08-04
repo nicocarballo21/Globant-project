@@ -117,6 +117,7 @@ export default function UserBlock({
                 <SCLAlert
                   show={show}
                   onRequestClose={handleClose}
+                  useNativeDriver={true}
                   theme="success"
                   title="¡Perfecto!"
                   titleStyle={{

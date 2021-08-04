@@ -2,6 +2,8 @@ const express = require("express")
 const router = express.Router()
 const objectivesRoutes = require("../routes/objectives")
 const meetsRoutes = require("../routes/meets")
+const notesRoutes = require("../routes/notes")
+
 
 const {
   userUpdate,
@@ -9,7 +11,9 @@ const {
   setSkills,
   getMatch,
   setMentor,
-  setMentee
+  cancelMatch,
+  setMentee,
+  cancelMatchMentor,
 } = require("../controllers/userController")
 
 // RUTAS /api/users
@@ -35,5 +39,11 @@ router.get("/match/mentees", getMatch)
 router.use("/meets", meetsRoutes)
 
 router.use("/objectives", objectivesRoutes)
+
+router.post("/cancelMatch", cancelMatch)
+
+router.post("/cancelMatchMentor", cancelMatchMentor)
+
+router.use("/notes", notesRoutes)
 
 module.exports = router
