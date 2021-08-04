@@ -11,13 +11,14 @@ import {
   MenuTrigger,
 } from 'react-native-popup-menu';
 
-import { styles } from './styles';
 import useMode from '../../hooks/useMode';
 import {
   cancelMatch,
   cancelMatchMentor,
 } from '../../redux/Reducers/UserReducer';
 import user_img from '../../assets/static/user_img.png';
+
+import { styles } from './styles';
 
 export default () => {
   const { mode } = useMode();
@@ -34,7 +35,7 @@ export default () => {
 
   return (
     <View style={{ ...styles.container, backgroundColor: mode.bg }}>
-      <Text style={styles.title}>
+      <Text style={{ ...styles.title, color: mode.text }}>
         {user.mentees.length
           ? 'Tus mentees son los siguientes:'
           : 'No tienes mentees asignados todavia. Dirígete al Matcher para seleccionar mentees'}
@@ -42,7 +43,7 @@ export default () => {
       <View
         style={{
           ...styles.block,
-          backgroundColor: mode.bg,
+          backgroundColor: mode.inputBg,
           borderColor: mode.inputBg,
         }}>
         <ScrollView>
@@ -73,12 +74,20 @@ export default () => {
                       />
                     }
                   />
-                  <MenuOptions optionsContainerStyle={styles.menu_options}>
+                  <MenuOptions
+                    optionsContainerStyle={{
+                      ...styles.menu_options,
+                      backgroundColor: mode.bg,
+                    }}
+                    customStyles={{
+                      optionText: { color: mode.text, fontSize: 18 },
+                    }}>
                     <MenuOption
                       onSelect={() =>
                         navigation.navigate('MenteeDetails', { mentee })
                       }
                       text="Detalles"
+                      style={{ color: 'red' }}
                     />
 
                     <MenuOption

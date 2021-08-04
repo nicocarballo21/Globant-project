@@ -44,7 +44,7 @@ const Objectives = ({ route }) => {
   };
 
   const handleEdit = async (objectiveId, data) => {
-    const res = updateObjectivesToUser(userToken, objectiveId, data);
+    const res = await updateObjectivesToUser(userToken, objectiveId, data);
     if (res) {
       simpleMessage(
         'Objetivo editado',

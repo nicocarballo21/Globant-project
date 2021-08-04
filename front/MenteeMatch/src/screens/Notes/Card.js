@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Input, Card, Button, Icon } from 'react-native-elements';
 import AlertDelete from './AlertDelete';
 import ModalEdit from './ModalEdit';
-
 import useMode from '../../hooks/useMode';
 
 export default function CardComponent({ mentee, functions, userToken, notes }) {
@@ -22,9 +21,13 @@ export default function CardComponent({ mentee, functions, userToken, notes }) {
   const toggleModal = () => setshowModal(!showModal);
 
   return (
-    <ScrollView>
-      <Card>
-        <Card.Title>{`${mentee.name} ${mentee.surname}`}</Card.Title>
+    <ScrollView style={{ backgroundColor: mode.bg }}>
+      <Card containerStyle={{ backgroundColor: mode.bg, borderColor: mode.bg }}>
+        <Card.Title
+          style={{
+            color: mode.text,
+          }}>{`${mentee.name} ${mentee.surname}`}</Card.Title>
+
         <Input
           placeholder="Titulo..."
           leftIcon={<Icon name="edit" size={20} color="black" />}
@@ -35,10 +38,15 @@ export default function CardComponent({ mentee, functions, userToken, notes }) {
           leftIcon={<Icon name="edit" size={20} color="black" />}
           onChangeText={setnote}
         />
+
         <Button
           title="Agregar notas"
+          buttonStyle={{ backgroundColor: mode.green }}
           onPress={() =>
-            handleAdd(userToken, menteeId, { description: note, title: title })
+            handleAdd(userToken, menteeId, {
+              description: note,
+              title: title,
+            })
           }
         />
 
@@ -46,8 +54,12 @@ export default function CardComponent({ mentee, functions, userToken, notes }) {
         {notes.map((u, i) => {
           return (
             <View key={i} style={styles.card}>
-              <Text style={styles.title}>{u.title}</Text>
-              <Text style={styles.note}>- {u.description}</Text>
+              <Text style={{ ...styles.title, color: mode.text }}>
+                {u.title}
+              </Text>
+              <Text style={{ ...styles.note, color: mode.text }}>
+                - {u.description}
+              </Text>
               <Card.Divider />
               <View
                 style={{

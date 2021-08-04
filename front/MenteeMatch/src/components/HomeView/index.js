@@ -55,10 +55,10 @@ export default () => {
           </Text>
         </TouchableOpacity>
 
-        <Image
+        {/* <Image
           source={{ uri: mentor.img ? mentor.img : userImage }}
           style={styles.foto}
-        />
+        /> */}
         <TouchableOpacity
           disabled={true}
           style={{

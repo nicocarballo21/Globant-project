@@ -62,14 +62,6 @@ export default function HomeStack({ navigation }) {
         component={Objectives}
         options={{
           title: 'Objectives',
-          headerLeft: () => (
-            <Ionicons
-              name="menu"
-              size={40}
-              color={'#BFD732'}
-              onPress={() => navigation.openDrawer()}
-            />
-          ),
         }}
       />
       <Stack.Screen

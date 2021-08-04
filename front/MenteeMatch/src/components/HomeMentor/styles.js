@@ -5,9 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    maxHeight: '100%',
-    marginHorizontal: 20,
-    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   block: {
@@ -24,11 +22,10 @@ export const styles = StyleSheet.create({
   title: {
     color: 'black',
     fontSize: 20,
-    paddingTop: 4,
-    marginLeft: '0%',
+
     paddingLeft: 5,
     width: '90%',
-    paddingBottom: 5,
+    paddingVertical: 10,
     textAlign: 'center',
   },
 
@@ -52,8 +49,8 @@ export const styles = StyleSheet.create({
 
   name: {
     color: globantBright.violet,
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 20,
+    // fontWeight: 'bold',
     paddingTop: 4,
     marginLeft: '0%',
     paddingLeft: 5,
@@ -67,11 +64,10 @@ export const styles = StyleSheet.create({
   bord: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 6,
     alignSelf: 'center',
+    padding: 10,
     marginHorizontal: 40,
-    paddingRight: 5,
-    paddingLeft: 0,
+    paddingRight: 20,
   },
 
   text: {
@@ -94,7 +90,6 @@ export const styles = StyleSheet.create({
   menu_options: {
     borderRadius: 15,
     padding: 8,
-    height: '20%',
     width: '50%',
   },
 });
