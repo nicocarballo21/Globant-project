@@ -9,7 +9,7 @@ const AlertDelete = ({ show, toggle, handleDelete, noteId }) => {
       onRequestClose={toggle}
       theme="danger"
       title="Atencion!"
-      subtitle="Estas por eliminar un objetivo"
+      subtitle="Estas por eliminar una nota"
       headerIconComponent={
         <Ionicons name="alert-outline" size={32} color="white" />
       }>

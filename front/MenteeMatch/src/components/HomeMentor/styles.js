@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
+    maxHeight: '100%',
     alignItems: 'center',
   },
 
@@ -73,7 +74,7 @@ export const styles = StyleSheet.create({
   text: {
     color: '#434343',
     fontSize: 15,
-    marginLeft: '9%',
+    /* marginLeft: '9%', */
   },
   img: {
     width: 90,

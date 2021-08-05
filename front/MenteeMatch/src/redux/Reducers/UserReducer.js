@@ -61,7 +61,6 @@ export const cancelMatch = createAsyncThunk(
   async ({ data, token }, thunkAPI) => {
     try {
       const userUpdated = await deleteMatch(data, token);
-      console.log(userUpdated);
       userUpdated.token = token;
       return userUpdated;
     } catch (error) {
@@ -75,7 +74,6 @@ export const cancelMatchMentor = createAsyncThunk(
   async ({ data, token }, thunkAPI) => {
     try {
       const userUpdatedMentee = await deleteMatchMentor(data, token);
-      console.log(userUpdatedMentee);
       userUpdatedMentee.token = token;
       return userUpdatedMentee;
     } catch (error) {

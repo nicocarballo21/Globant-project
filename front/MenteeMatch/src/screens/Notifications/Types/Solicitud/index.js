@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import useMode from '../../../../hooks/useMode';
 import useAlert from '../../../../hooks/useAlert';
+import userImg from '../../../../assets/static/user_img.png'
 import { Alert } from '../../../../components';
 import {
   sendNotification,
@@ -31,6 +32,14 @@ const Solicitud = ({ item }) => {
           setMenteeToMentor(receptor, emisor._id, user.token),
           sendNotification(
             { receptor: emisor, type: 'confirmation' },
+            user.token,
+          ),
+          sendNotification(
+            {
+              emisor: emisor._id,
+              receptor: receptor,
+              type: 'congratulations',
+            },
             user.token,
           ),
         ]);
@@ -65,7 +74,7 @@ const Solicitud = ({ item }) => {
       <View style={styles.imgContainer}>
         <Image
           style={{ ...styles.img, borderColor: mode.violet }}
-          source={{ uri: emisor.img }}
+          source={emisor.img ? { uri: emisor.img } : userImg}
         />
       </View>
       <View style={styles.message}>

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   ToastAndroid,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import BottomSheet from 'reanimated-bottom-sheet';
@@ -16,12 +16,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { setUserImg, getData } from '../../utils/storage';
 import userImg from '../../assets/static/user_img.png';
 import useMode from '../../hooks/useMode';
-import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import { updateUser } from '../../redux/Reducers/UserReducer';
 import { useForm, Controller } from 'react-hook-form';
 import { storeData } from '../../utils/storage';
+
+import styles from './styles';
 
 const ProfileEdit = ({ navigation }) => {
   const user = useSelector(state => state.user);
@@ -33,7 +34,7 @@ const ProfileEdit = ({ navigation }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-    
+
   useEffect(() => {
     getData('userImg').then(data => {
       data && setImg(data);
@@ -58,14 +59,21 @@ const ProfileEdit = ({ navigation }) => {
     });
   };
 
-    const profileSubmit = (personalData) => {
-        dispatch(updateUser({ url: '/api/users/profile', data: personalData }))
-            .then((data) => {
-                ToastAndroid.showWithGravityAndOffset("Perfil actualizado!", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 25, 50)
-                navigation.navigate("Perfil")
-                storeData('user', data.payload)
-            })
-    }  
+  const profileSubmit = personalData => {
+    dispatch(
+      updateUser({ url: '/api/users/profile', data: personalData }),
+    ).then(data => {
+      ToastAndroid.showWithGravityAndOffset(
+        'Perfil actualizado!',
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+        25,
+        50,
+      );
+      navigation.navigate('Perfil');
+      storeData('user', data.payload);
+    });
+  };
 
   const renderContent = () => (
     <View
@@ -106,11 +114,10 @@ const ProfileEdit = ({ navigation }) => {
     </View>
   );
 
-
   const sheetRef = React.useRef(null);
 
   return (
-    <SafeAreaView style={styles.mainContainer}>
+    <SafeAreaView style={{...styles.mainContainer, backgroundColor: mode.bg}}>
       <BottomSheet
         ref={sheetRef}
         snapPoints={[300, 200, 0]}
@@ -119,7 +126,12 @@ const ProfileEdit = ({ navigation }) => {
         initialSnap={2}
       />
 
-      <ScrollView contentContainerStyle={{ ...styles.container}}>
+      <ScrollView
+        contentContainerStyle={{
+          ...styles.container,
+          backgroundColor: mode.bg,
+          height: '100%',
+        }}>
         <View style={styles.pressableFoto}>
           <TouchableOpacity
             style={styles.container}
@@ -134,7 +146,7 @@ const ProfileEdit = ({ navigation }) => {
             )}
           </TouchableOpacity>
         </View>
-        <View style={styles.action}>
+        <View style={{...styles.action, borderBottomColor: mode.green}}>
             <Ionicons
               name="person"
               size={25}
@@ -151,7 +163,7 @@ const ProfileEdit = ({ navigation }) => {
                         onChangeText={onChange}
                         value={value}
                         autoCorrect={false}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
 
                 )}
@@ -169,7 +181,7 @@ const ProfileEdit = ({ navigation }) => {
                         onChangeText={onChange}
                         value={value}
                         autoCorrect={false}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
                 )}
                 name="surname"
@@ -177,7 +189,7 @@ const ProfileEdit = ({ navigation }) => {
           />
         </View>
 
-        <View style={styles.action}>
+        <View style={{...styles.action, borderBottomColor: mode.green}}>
             <Ionicons
                 name="mail"
                 size={25}
@@ -194,14 +206,14 @@ const ProfileEdit = ({ navigation }) => {
                         onChangeText={onChange}
                         value={value}
                         autoCorrect={false}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
                 )}
                 name="email"
                 defaultValue={user.email ? user.email : ''}
             />
         </View>
-        <View style={styles.action}>
+        <View style={{...styles.action, borderBottomColor: mode.green}}>
             <Ionicons
                 name="briefcase"
                 size={25}
@@ -218,14 +230,14 @@ const ProfileEdit = ({ navigation }) => {
                         onChangeText={onChange}
                         value={value}
                         autoCorrect={false}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
                 )}
                 name="position"
                 defaultValue={user.position ? user.position : ''}
             />
         </View>
-        <View style={styles.action}>
+        <View style={{...styles.action, borderBottomColor: mode.green}}>
             <Ionicons
                 name="call"
                 size={25}
@@ -242,14 +254,14 @@ const ProfileEdit = ({ navigation }) => {
                         onChangeText={onChange}
                         value={value}
                         autoCorrect={false}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
                 )}
                 name="phone"
                 defaultValue={user.phone ? user.phone : ''}
             />
         </View>
-        <View style={styles.action}>
+        <View style={{...styles.action, borderBottomColor: mode.green}}>
             <Ionicons
                 name="location"
                 size={25}
@@ -266,14 +278,14 @@ const ProfileEdit = ({ navigation }) => {
                         onChangeText={onChange}
                         value={value}
                         autoCorrect={false}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
                 )}
                 name="country"
                 defaultValue={user.country? user.country : ''}
             />
         </View>
-        <View style={styles.action}>
+        <View style={{...styles.action, borderBottomColor: mode.green}}>
             <Ionicons
                 name="create"
                 size={25}
@@ -291,28 +303,28 @@ const ProfileEdit = ({ navigation }) => {
                         onBlur={onBlur}
                         onChangeText={onChange}
                         value={value}
-                        style={ styles.textInput }
+                        style={{ ...styles.textInput, color: mode.text  }}
                     />
                 )}
                 name="personalDescription"
                 defaultValue={user.personalDescription ? user.personalDescription : ''}
             />
         </View>
-            <TouchableOpacity style={styles.button}
-                onPress={handleSubmit(profileSubmit)}
-            >
-                <LinearGradient
-                    colors={['#D9E021', '#8CC63f']}
-                    useAngle={true} angle={40} angleCenter={{x:0.5,y:0.5}}
-                    style={styles.gradient}
-                >
-                    <Text style={styles.text} >Confirmar</Text>
-                </LinearGradient>
-            </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSubmit(profileSubmit)}>
+          <LinearGradient
+            colors={['#D9E021', '#8CC63f']}
+            useAngle={true}
+            angle={40}
+            angleCenter={{ x: 0.5, y: 0.5 }}
+            style={styles.gradient}>
+            <Text style={styles.text}>Confirmar</Text>
+          </LinearGradient>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 export default ProfileEdit;
-

@@ -36,15 +36,10 @@ export default function Matcher() {
     if (!matches.length) {
       dispatch(getMatches({ roleToFind, token: user.token }));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  //-------------------------------------------------------------//
-  // Sí el usuario cambia de mentor role a mentee role o visceversa
 
   useEffect(() => {
     dispatch(getMatches({ roleToFind, token: user.token }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.actualRole]);
 
   const handleLike = likedUser => {
@@ -97,7 +92,7 @@ export default function Matcher() {
             }),
           );
         });
-      } else {
+      } else if(roleToFind === 'mentors') {
         return setMenteeToMentor(user._id, finalMatch._id, user.token).then(
           setted => {
             if (!setted) {
@@ -135,15 +130,16 @@ export default function Matcher() {
           },
         );
       }
+    } else if(!finalMatch) {
+      const orderedMatches = matches.filter(match => match._id !== likedUser._id);
+      dispatch(
+        updateUser({
+          url,
+          data: { [likedRole]: [likedUser, ...user[likedRole]] },
+        }),
+      );
+      dispatch(setMatches(orderedMatches));
     }
-    const orderedMatches = matches.filter(match => match._id !== likedUser._id);
-    dispatch(
-      updateUser({
-        url,
-        data: { [likedRole]: [likedUser, ...user[likedRole]] },
-      }),
-    );
-    dispatch(setMatches(orderedMatches));
   };
 
   const handleDislike = dislikedUser => {

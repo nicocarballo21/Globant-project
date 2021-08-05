@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Pressable, Image, FlatList } from 'react-native';
+import { View, Text, Pressable, Image, FlatList, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import useMode from '../../hooks/useMode';
 import styles from './styles';
@@ -40,24 +40,24 @@ export default ({ navigation, route }) => {
             Habilidades a aprender
           </Text>
           <View style={styles.flatlist}>
-            <FlatList
-              scrollEnabled={true}
-              numColumns={3}
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              data={skillsToLearn}
-              keyExtractor={skillsToLearn => skillsToLearn._id}
-              renderItem={({ item }) => (
-                <Pressable
-                  style={{
-                    ...styles.pressable,
-                    backgroundColor: mode.inputBg,
-                    borderColor: mode.green,
-                  }}>
-                  <Text style={{ color: mode.text }}>{item.name}</Text>
-                </Pressable>
-              )}
-            />
+              <FlatList
+                scrollEnabled={true}
+                numColumns={3}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                data={skillsToLearn}
+                keyExtractor={skillsToLearn => skillsToLearn._id}
+                renderItem={({ item }) => (
+                  <Pressable
+                    style={{
+                      ...styles.pressable,
+                      backgroundColor: mode.inputBg,
+                      borderColor: mode.green,
+                    }}>
+                    <Text style={{ color: mode.text }}>{item.name}</Text>
+                  </Pressable>
+                )}
+              />
           </View>
         </View>
       </SafeAreaView>
