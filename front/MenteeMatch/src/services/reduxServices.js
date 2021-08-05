@@ -49,6 +49,4 @@ const obtainSkills = async () => {
   }
 };
 
-
-
 export { userLogin, registerUser, obtainSkills, updateUserData };

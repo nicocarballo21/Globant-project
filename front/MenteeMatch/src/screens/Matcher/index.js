@@ -36,11 +36,13 @@ export default function Matcher() {
     if (!matches.length) {
       dispatch(getMatches({ roleToFind, token: user.token }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     dispatch(getMatches({ roleToFind, token: user.token }));
-  }, [user.actualRole, user.skillsToLearn, user.skillsToTeach]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.actualRole]);
 
   const handleLike = likedUser => {
     const finalMatch = user[likedRole].find(
@@ -92,7 +94,7 @@ export default function Matcher() {
             }),
           );
         });
-      } else if(roleToFind === 'mentors') {
+      } else if (roleToFind === 'mentors') {
         return setMenteeToMentor(user._id, finalMatch._id, user.token).then(
           setted => {
             if (!setted) {
@@ -130,8 +132,10 @@ export default function Matcher() {
           },
         );
       }
-    } else if(!finalMatch) {
-      const orderedMatches = matches.filter(match => match._id !== likedUser._id);
+    } else if (!finalMatch) {
+      const orderedMatches = matches.filter(
+        match => match._id !== likedUser._id,
+      );
       dispatch(
         updateUser({
           url,
@@ -208,7 +212,7 @@ export default function Matcher() {
               />
             </View>
           ) : null}
-          {!user[likedRole].length && <View style={{ height: 120 }} />}
+          {!user[likedRole].length && <View style={styles.fakeHeight} />}
           {matches.length ? (
             <View style={styles.subContainer}>
               <Text style={{ ...styles.optionsTxt, color: mode.text }}>
