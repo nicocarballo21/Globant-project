@@ -10,9 +10,9 @@ import styles from './styles';
 import useMode from '../../hooks/useMode';
 import { logout } from '../../redux/Slices/authSlice';
 import { pushMeet } from '../../redux/Reducers/meetsReducer'
- 
+
 const CreateMeet = ({navigation}) => {
-  
+
   const { mode } = useMode();
   const user = useSelector(state => state.user);
   let mentorOrMentee = user.mentees.length ? user.mentees.map(person => ({label: person.name + ' ' + person.surname, value: person._id})) 
@@ -23,7 +23,6 @@ const CreateMeet = ({navigation}) => {
   const [items, setItems] = useState(mentorOrMentee)
   console.log("Items: ", items)
   const [date, setDate] = useState(new Date())
-  const { meets } = user;
   const dispatch = useDispatch();
 
   
@@ -34,13 +33,15 @@ const CreateMeet = ({navigation}) => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    try {
       if(!data) throw new Error('No data passed through')
       let datas = data
       datas.participants = [user._id, participant]
       datas.date = date
       await dispatch(pushMeet(datas))
-      console.log("Presionaste Crear reunión. Data ---> ", datas)
+      // console.log("Presionaste Crear reunión. Data ---> ", datas)
       navigation.navigate('Meets')
+    } catch(err) { console.log(err) }
   }
 
   return user.mentees.length ? (
@@ -115,7 +116,7 @@ const CreateMeet = ({navigation}) => {
   )
   :
   <View style={{...styles.notContainer, backgroundColor: mode.bg}}>
-    <Text style={{...styles.not, color: mode.text}}>Para crear una reunión, debes tener al menos un mentee/mentor.</Text>
+    <Text style={{...styles.not, color: mode.text}}>Para crear una reunión, debes tener al menos un mentee/mentor asignado.</Text>
     <Button title={user.isMentor ? 'Buscar Mentees' : 'Buscar Mentor'} pressFunction={() => navigation.navigate('Matcher')} />
   </View>
 } 

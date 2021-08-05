@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     not: {
-        paddingTop: '80%',
+        paddingTop: '20%',
         alignSelf: 'center',
         fontSize: 20,
         width: '80%',

@@ -11,7 +11,7 @@ const Meets = ({navigation}) => {
   const { mode } = useMode();
   const dispatch = useDispatch();
   const user = useSelector(state => state.user)
-  const meets = useSelector(state => state.meets)
+  const {meets} = useSelector(state => state.user)
 
   useEffect(() => {
     dispatch(pullMeets())
