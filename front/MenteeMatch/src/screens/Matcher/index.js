@@ -40,7 +40,7 @@ export default function Matcher() {
 
   useEffect(() => {
     dispatch(getMatches({ roleToFind, token: user.token }));
-  }, [user.actualRole]);
+  }, [user.actualRole, user.skillsToLearn, user.skillsToTeach]);
 
   const handleLike = likedUser => {
     const finalMatch = user[likedRole].find(
