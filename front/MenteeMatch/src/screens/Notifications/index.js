@@ -18,6 +18,7 @@ const Notifications = () => {
 
   useEffect(() => {
     dispatch(updateUser({ url, data: {} }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleRenderItem = ({ item }) => {

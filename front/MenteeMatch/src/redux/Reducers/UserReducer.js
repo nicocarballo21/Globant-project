@@ -58,7 +58,7 @@ export const updateUser = createAsyncThunk(
 
 export const cancelMatch = createAsyncThunk(
   'CANCEL_MATCH',
-  async ({ data, token }, thunkAPI) => {
+  async ({ data, token }) => {
     try {
       const userUpdated = await deleteMatch(data, token);
       userUpdated.token = token;
@@ -71,7 +71,7 @@ export const cancelMatch = createAsyncThunk(
 
 export const cancelMatchMentor = createAsyncThunk(
   'CANCEL_MATCH_MENTOR',
-  async ({ data, token }, thunkAPI) => {
+  async ({ data, token }) => {
     try {
       const userUpdatedMentee = await deleteMatchMentor(data, token);
       userUpdatedMentee.token = token;
@@ -102,7 +102,7 @@ const userReducer = createReducer(initialState, {
   [userRegister.fulfilled]: (_, action) => action.payload,
   [updateUser.fulfilled]: (_, action) => action.payload,
   [cancelMatch.fulfilled]: (_, action) => action.payload,
-  [cancelMatchMentor.fulfilled]: (state, action) => state,
+  [cancelMatchMentor.fulfilled]: (state, _) => state,
   [deleteNotification.fulfilled]: (_, action) => action.payload,
 });
 

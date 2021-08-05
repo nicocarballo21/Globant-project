@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import useMode from '../../../../hooks/useMode';
 import { deleteNotification } from '../../../../redux/Reducers/UserReducer';
-import userImg from '../../../../assets/static/user_img.png'
+import userImg from '../../../../assets/static/user_img.png';
 import styles from '../styles';
 
 const Information = ({ item }) => {
