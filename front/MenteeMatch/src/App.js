@@ -44,9 +44,8 @@ const App = () => {
   }, [auth.userToken]);
 
   /* Vieja forma de deshabilitar logs amarillos -> console.disableYellowBox = true; */
-  
-  useEffect(() => LogBox.ignoreAllLogs(), []);
 
+  useEffect(() => LogBox.ignoreAllLogs(), []);
 
   return (
     <Provider store={store}>
