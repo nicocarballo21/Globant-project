@@ -6,6 +6,7 @@ import { getMatches, setMatches } from '../../redux/Reducers/matchesReducer';
 import { updateUser } from '../../redux/Reducers/UserReducer';
 import { simpleMessage } from '../../utils';
 import { Button } from '../../components';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import styles from './styles';
 import useMode from '../../hooks/useMode';
@@ -18,6 +19,7 @@ export default function Matcher() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const matches = useSelector(state => state.matches);
+  const theme = useSelector(state => state.theme)
   const getRoleToFind = () => {
     if (!user.actualRole) {
       return user.isMentor ? 'mentees' : 'mentors';
@@ -187,6 +189,50 @@ export default function Matcher() {
 
   return (
     <>
+      <Ionicons
+        name="chevron-back"
+        color={theme !== 'dark' ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.25)"}
+        size={48}
+        style={{
+          position: 'absolute',
+          zIndex: 1,
+          top: '12%',
+          left: '-0.5%' /* backgroundColor: "red" */,
+        }}
+      />
+      <Ionicons
+        name="chevron-forward"
+        color={theme !== 'dark' ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.25)"}
+        size={48}
+        style={{
+          position: 'absolute',
+          zIndex: 1,
+          top: '12.5%',
+          right: '-0.5%' /* backgroundColor: "red" */,
+        }}
+      />
+      <Ionicons
+        name="chevron-back"
+        color={theme !== 'dark' ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.25)"}
+        size={48}
+        style={{
+          position: 'absolute',
+          zIndex: 1,
+          bottom: '30%',
+          left: '-0.5%' /* backgroundColor: "red" */,
+        }}
+      />
+      <Ionicons
+        name="chevron-forward"
+        color={theme !== 'dark' ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.25)"}
+        size={48}
+        style={{
+          position: 'absolute',
+          zIndex: 1,
+          bottom: '30%',
+          right: '-0.5%' /* backgroundColor: "red" */,
+        }}
+      />
       {matches.length || user[likedRole].length ? (
         <SafeAreaView style={{ ...styles.container, backgroundColor: mode.bg }}>
           {user[likedRole].length ? (
@@ -216,7 +262,9 @@ export default function Matcher() {
           {matches.length ? (
             <View style={styles.subContainer}>
               <Text style={{ ...styles.optionsTxt, color: mode.text }}>
-                Estas son tus opciones
+                <Ionicons name="chevron-back" color="#000000" size={16} />
+                Estas son tus opciones, deslizá a los costados
+                <Ionicons name="chevron-forward" color="#000000" size={16} />
               </Text>
               <FlatList
                 horizontal

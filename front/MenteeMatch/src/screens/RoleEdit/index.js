@@ -81,6 +81,7 @@ export default function RoleEdit({ navigation }) {
     <SafeAreaView style={{ ...styles.mainContainer, backgroundColor: mode.bg }}>
       <View style={styles.header}>
         <BouncyCheckbox
+          textStyle={{textDecorationLine: 'none'}}
           disableBuiltInState={user.isMentee}
           isChecked={user.isMentee}
           text="Mentee"
@@ -170,6 +171,7 @@ export default function RoleEdit({ navigation }) {
           text="Mentor"
           fillColor={mode.green}
           iconStyle={{ borderColor: mode.green }}
+          textStyle={{textDecorationLine: 'none'}}
           onPress={() =>
             user.isMentor
               ? ToastAndroid.showWithGravityAndOffset(

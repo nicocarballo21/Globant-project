@@ -25,7 +25,7 @@ export default function HomeNavigator() {
       <Drawer.Screen
         name="RoleEdit"
         component={RoleStack}
-        options={{ title: 'Opciones matcher' }}
+        options={{ title: 'Cambio de rol' }}
       />
     </Drawer.Navigator>
   );

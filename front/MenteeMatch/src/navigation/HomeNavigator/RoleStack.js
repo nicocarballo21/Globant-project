@@ -21,7 +21,7 @@ export default function RoleStack({ navigation }) {
         name="Role"
         component={RoleEdit}
         options={{
-          title: 'Opciones de Matcher',
+          title: 'Cambio de rol',
           headerLeft: () => (
             <Ionicons
               name="menu"
@@ -36,7 +36,7 @@ export default function RoleStack({ navigation }) {
         name="Skills"
         component={Skills}
         options={{
-          title: 'Habilidades',
+          title: 'Cambio de skills',
         }}
       />
     </Stack.Navigator>

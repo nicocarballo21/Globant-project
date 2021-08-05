@@ -4,6 +4,7 @@ import { globantBright } from '../../assets/styles/colors';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#333333"
   },
 
   user_data_container: {
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 62.5,
     borderWidth: 3,
-    borderColor: globantBright.violet,
+    borderColor: '#00A99D',
   },
 
   text: {
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   textName: {
     fontSize: 20,
     margin: 5,
-    color: globantBright.violet,
+    color: '#00A99D',
     fontWeight: 'bold',
   },
 });
