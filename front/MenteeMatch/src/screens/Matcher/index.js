@@ -19,7 +19,7 @@ export default function Matcher() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const matches = useSelector(state => state.matches);
-  const theme = useSelector(state => state.theme)
+  const theme = useSelector(state => state.theme);
   const getRoleToFind = () => {
     if (!user.actualRole) {
       return user.isMentor ? 'mentees' : 'mentors';
@@ -189,48 +189,56 @@ export default function Matcher() {
 
   return (
     <>
+      {user[likedRole].length > 1 && (
+        <>
+          <Ionicons
+            name="chevron-back"
+            color={
+              theme !== 'dark' ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.25)'
+            }
+            size={48}
+            style={{
+              position: 'absolute',
+              zIndex: 1,
+              top: '12%',
+              left: '-0.5%',
+            }}
+          />
+          <Ionicons
+            name="chevron-forward"
+            color={
+              theme !== 'dark' ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.25)'
+            }
+            size={48}
+            style={{
+              position: 'absolute',
+              zIndex: 1,
+              top: '12.5%',
+              right: '-0.5%',
+            }}
+          />
+        </>
+      )}
       <Ionicons
         name="chevron-back"
-        color={theme !== 'dark' ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.25)"}
+        color={theme !== 'dark' ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.25)'}
         size={48}
         style={{
           position: 'absolute',
           zIndex: 1,
-          top: '12%',
-          left: '-0.5%' /* backgroundColor: "red" */,
+          bottom: user[likedRole].length ? '30%' : '54%',
+          left: '-0.5%',
         }}
       />
       <Ionicons
         name="chevron-forward"
-        color={theme !== 'dark' ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.25)"}
+        color={theme !== 'dark' ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.25)'}
         size={48}
         style={{
           position: 'absolute',
           zIndex: 1,
-          top: '12.5%',
-          right: '-0.5%' /* backgroundColor: "red" */,
-        }}
-      />
-      <Ionicons
-        name="chevron-back"
-        color={theme !== 'dark' ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.25)"}
-        size={48}
-        style={{
-          position: 'absolute',
-          zIndex: 1,
-          bottom: '30%',
-          left: '-0.5%' /* backgroundColor: "red" */,
-        }}
-      />
-      <Ionicons
-        name="chevron-forward"
-        color={theme !== 'dark' ? "rgba(0,0,0,0.15)" : "rgba(255,255,255,0.25)"}
-        size={48}
-        style={{
-          position: 'absolute',
-          zIndex: 1,
-          bottom: '30%',
-          right: '-0.5%' /* backgroundColor: "red" */,
+          bottom: user[likedRole].length ? '30%' : '54%',
+          right: '-0.5%',
         }}
       />
       {matches.length || user[likedRole].length ? (
@@ -262,9 +270,7 @@ export default function Matcher() {
           {matches.length ? (
             <View style={styles.subContainer}>
               <Text style={{ ...styles.optionsTxt, color: mode.text }}>
-                <Ionicons name="chevron-back" color="#000000" size={16} />
                 Estas son tus opciones, deslizá a los costados
-                <Ionicons name="chevron-forward" color="#000000" size={16} />
               </Text>
               <FlatList
                 horizontal
