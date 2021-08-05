@@ -23,8 +23,8 @@ const ToolTipModal = ({ visible, handleClose }) => {
         <View style={styles.msgContainer}>
           <View style={styles.textContainer}>
             <Text style={styles.text}>
-              Para confirmar tu elección podés hacer click en el boton de la
-              esquina superior derecha
+              Para confirmar tu elección podés hacer click en el botón de la
+              esquina superior derecha.
             </Text>
             <View style={styles.flecha} />
           </View>
