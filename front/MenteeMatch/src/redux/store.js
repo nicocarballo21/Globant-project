@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { skillsReducer } from './Reducers/Skills';
 import userReducer from './Reducers/UserReducer';
 import { matchesReducer } from './Reducers/matchesReducer';
-import { meetsReducer } from './Reducers/meetsReducer';
 import authReducer from './Slices/authSlice';
 import { themeReducer } from './Reducers/themeReducer';
 import logger from 'redux-logger'
@@ -15,7 +14,6 @@ const store = configureStore({
     skills: skillsReducer,
     auth: authReducer,
     theme: themeReducer,
-    meets: meetsReducer,
     middleware: [thunk, logger]
   },
 });

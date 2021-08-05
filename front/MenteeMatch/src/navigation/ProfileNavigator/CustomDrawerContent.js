@@ -18,8 +18,6 @@ export default function CustomDrawerContent(props) {
   const { mode } = useMode();
   const dispatch = useDispatch();
 
-  console.log("PROPS EN DRAWER: ", props)
-
   const handleLogOut = async () => {
     try {
       await removeData('user');

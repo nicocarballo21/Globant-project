@@ -1,3 +1,4 @@
+import { globantBright } from '../../assets/styles/colors';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -19,14 +20,46 @@ const styles = StyleSheet.create({
         fontSize: 26
     },
     not: {
-        marginTop: '50%',
+        marginTop: '60%',
         marginBottom: '25%',
-        fontSize: 18
+        fontSize: 20
     },
     module: {
-        borderWidth: 2,
-        borderColor: 'grey'
+        borderWidth: 3,
+        borderColor: globantBright.violet,
+        borderRadius: 10,
+        padding: 10,
+        elevation: 12,
+        backgroundColor: globantBright.bg
     },
+    meetTitle: {
+        fontSize: 19,
+        color: 'black'
+    },
+    description: {
+        marginTop: 5,
+        fontSize: 15,
+        color: 'black'
+    },
+    date: {
+        marginTop: 5,
+        fontSize: 13,
+        color: 'gray'
+    },
+    new: {
+        marginTop: 60,
+        width: '70%'
+    },
+    deleteBtn: {
+        borderWidth: 0,
+        borderRadius: 10,
+        backgroundColor: '#ffc1c1',
+        height: 45,
+        width: 110,
+    },
+    scroll: {
+        alignItems: 'center',
+      },
 })
 
 export default styles;

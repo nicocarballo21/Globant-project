@@ -174,7 +174,7 @@ export default function Matcher() {
   if (user.actualRole === 'Mentee' && user.mentor) {
     return (
       <View>
-        <Text>
+        <Text style={{...styles.already, color: mode.text}}>
           Ya tienes un mentor asignado, puedes encontrarlo en la vista Home
         </Text>
       </View>

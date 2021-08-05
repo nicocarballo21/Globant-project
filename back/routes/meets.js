@@ -17,8 +17,11 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         const { title, description, participants, link, date } = req.body
+        console.log("REQ BODY =====>>>>>", req.body)
         if(!date || !title || (!participants.length)) res.status(400).send('Bad request: invalid inputs')
         const meet = await Meets.create({ title, description, participants, link, date })
+        await Promise.all(participants.map(p => 
+            Users.findOneAndUpdate( { _id: p } , { $push: { meets: meet._id } }, { new: true })))
         res.status(200).send(meet)
     } catch(err) { next(err) }
 })
@@ -34,11 +37,15 @@ router.put('/', async (req, res, next) => {
     } catch(err) { next(err) }
 })
 
-router.delete('/', async (req, res, next) => {
+router.delete('/:_id', async (req, res, next) => {
     try {
-        const { _id } = req.body
+        const { _id } = req.params
         if(!_id) res.status(400).send('Bad request: no meet passed by')
-        await Meets.findOneAndDelete(_id).exec()
+        const meet = await Meets.findOne({_id}).exec()
+        const participants = meet.participants
+        await Promise.all(participants.map(p => 
+            Users.findOneAndUpdate( { _id: p } , { $pull: { meets: _id } }, { new: true })))
+        await meet.delete()
         res.status(201).send('Meet deleted')
     } catch(err) { next(err) }
 })

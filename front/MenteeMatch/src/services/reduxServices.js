@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '@env';
+import generateAxios from '../utils/generateAxios'
 
 const userLogin = async user => {
   try {
@@ -49,36 +50,34 @@ const obtainSkills = async () => {
   }
 };
 
-const getMeets = async () => {
+const getMeets = async (token) => {
   try {
-    const res = await axios.get(`${API_URL}/api/meets`)
+    const axiosAuthorized = generateAxios(token)
+    const res = await axiosAuthorized.get(`${API_URL}/api/users/meets`)
     return res.data
   } catch(err) { console.log(err) } 
 }
 
-const createMeet = async (data) => {
+const createMeet = async ({data, token}) => {
   try {
-    const res = await axios.post(`${API_URL}/api/meets`, {
-      title: data.title,
-      description: data.decription,
-      participants: data.participants,
-      link: data.link,
-      date: data.date
-    })
+    const axiosAuthorized = generateAxios(token)
+    const res = await axiosAuthorized.post(`${API_URL}/api/users/meets`, data)
     return res.data
   } catch(err) { console.log(err) } 
 }
 
-const updateMeet = async (data) => {
+const updateMeet = async ({data, token}) => {
   try {
-    const res = await axios.put(`${API_URL}/api/meets`, data)
+    const axiosAuthorized = generateAxios(token)
+    const res = await axiosAuthorized.put(`${API_URL}/api/users/meets`, data)
     return res.data
   } catch(err) { console.log(err) }
 }
 
-const deleteMeet = async (_id) => {
+const deleteMeet = async ({_id, token}) => {
   try {
-    const res = axios.delete(`${API_URL}/api/meets`, _id)
+    const axiosAuthorized = generateAxios(token)
+    const res = axiosAuthorized.delete(`${API_URL}/api/users/meets/${_id}`)
     return res.data
   } catch(err) { console.log(err) }
 }

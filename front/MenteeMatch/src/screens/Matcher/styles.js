@@ -76,6 +76,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  already: {
+    fontSize: 20,
+    alignSelf: 'center',
+    textAlign: 'center',
+    marginTop: '70%'
+  }
 });
 
 export default styles;

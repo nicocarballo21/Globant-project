@@ -58,8 +58,11 @@ const styles = StyleSheet.create({
         width: '80%',
         textAlign: 'center',
         marginBottom: 30
-    }
-    
+    },
+    scroll: {
+        alignItems: 'center',
+    },
+
 })
 
 export default styles;

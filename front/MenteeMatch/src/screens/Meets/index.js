@@ -1,35 +1,60 @@
 import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, ScrollView } from 'react-native';
 import { Button } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { pullMeets } from '../../redux/Reducers/meetsReducer'
+import { pullMeets, removeMeet } from '../../redux/Reducers/UserReducer';
 import useMode from '../../hooks/useMode';
-import styles from './styles'
+import styles from './styles';
 
-const Meets = ({navigation}) => {
+const Meets = ({ navigation, route }) => {
   const { mode } = useMode();
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user)
-  const {meets} = useSelector(state => state.user)
+  console.log("ROUTE: ", route)
+  const mentee = route.params && route.params.mentee;
+  const token = useSelector(state => state.user.token);
+  const { meets } = mentee && mentee.meets.length ? mentee : useSelector(state => state.user);
+
+  const handleDelete = async meet => {
+    const data = { _id: meet._id, token: token };
+     dispatch(removeMeet(data)).then((deleted) => {
+       console.log(deleted)
+       dispatch(pullMeets(token))
+     })
+  };
 
   useEffect(() => {
-    dispatch(pullMeets())
-        .then(() =>  console.log('Meets', meets))
-  },[])
+    dispatch(pullMeets(token));
+  }, []);
 
   return (
     <View style={{ ...styles.container, backgroundColor: mode.bg }}>
-        <Text style={{...styles.title, color: mode.text}}>Reuniones</Text>
-        {meets && meets.length ? meets.map(meet => 
-        <Text style={{...styles.module, color: mode.text}}>
-            {meet.title, '\n', meet.description, '\n', meet.date}
-        </Text>
-        )
-    :
-    <Text style={{...styles.not, color: mode.text}}>No tienes reuniones agendadas.</Text>
-    }
-    <Button title='Nueva reunión' pressFunction={() => navigation.navigate('CreateMeet')} />
+      <ScrollView
+        contentContainerStyle={{ ...styles.scroll, backgroundColor: mode.bg }}>
+        <Text style={{ ...styles.title, color: mode.text }}>Reuniones</Text>
+        {meets && meets.length ? (
+          meets.map((meet, i) => (
+            <View key={i} style={{ ...styles.module, color: mode.text }}>
+              <Text style={styles.meetTitle}>{meet.title}</Text>
+              <Text style={styles.description}>{meet.description}</Text>
+              <Text style={styles.date}>{meet.date}</Text>
+              <Button
+                style={styles.deleteBtn}
+                title="Eliminar"
+                pressFunction={() => handleDelete(meet)}
+              />
+            </View>
+          ))
+        ) : (
+          <Text style={{ ...styles.not, color: mode.text }}>
+            No tienes reuniones agendadas.
+          </Text>
+        )}
+        <Button
+          style={styles.new}
+          title="Nueva reunión"
+          pressFunction={() => navigation.navigate('CreateMeet')}
+        />
+      </ScrollView>
     </View>
   );
 };

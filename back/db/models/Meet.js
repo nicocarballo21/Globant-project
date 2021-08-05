@@ -16,14 +16,14 @@ const meetSchema = new mongoose.Schema({
     type: String,
   },
   date: {
-    type: Number,
+    type: String,
     required: true,
   },
 });
 
-meetSchema.virtual('isActive').get(() => {
-  return (this.date - Date.now() > 0)
-})
+// meetSchema.virtual('isActive').get(() => {
+//   return (this.date - Date.now() > 0)
+// })
 
 const Meets = mongoose.model("Meets", meetSchema);
 
