@@ -13,6 +13,8 @@ import { logout } from '../../redux/Slices/authSlice';
 import { setSkills } from '../../redux/Reducers/Skills';
 import { setMatches } from '../../redux/Reducers/matchesReducer';
 import useMode from '../../hooks/useMode';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 export default function CustomDrawerContent(props) {
   const { mode } = useMode();
@@ -37,6 +39,7 @@ export default function CustomDrawerContent(props) {
         label="Cerrar sesion"
         labelStyle={{ color: mode.text }}
         onPress={handleLogOut}
+        icon={() => <Ionicons name="log-out" size={24} /> }
       />
 
       <Switch />
