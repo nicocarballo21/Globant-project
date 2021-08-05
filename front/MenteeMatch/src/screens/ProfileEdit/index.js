@@ -149,7 +149,7 @@ const ProfileEdit = ({ navigation }) => {
           <Ionicons name="person" size={25} color={'#BFD732'} />
           <Controller
             control={control}
-            rules={{ required: false }}
+            rules={{ required: true }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 placeholder="Nombre..."
@@ -164,9 +164,18 @@ const ProfileEdit = ({ navigation }) => {
             name="name"
             defaultValue={user.name ? user.name : ''}
           />
+            {errors.name && (
+                ToastAndroid.showWithGravityAndOffset(
+                  'el nombre no puede ser vacio',
+                  ToastAndroid.SHORT,
+                  ToastAndroid.BOTTOM,
+                  25,
+                  50,
+                ) 
+            )}
           <Controller
             control={control}
-            rules={{ required: false }}
+            rules={{ required: true }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 placeholder="Apellido..."
@@ -181,13 +190,23 @@ const ProfileEdit = ({ navigation }) => {
             name="surname"
             defaultValue={user.surname ? user.surname : ''}
           />
+            {errors.surname&& (
+                ToastAndroid.showWithGravityAndOffset(
+                  'el apellido no puede ser vacio',
+                  ToastAndroid.SHORT,
+                  ToastAndroid.BOTTOM,
+                  25,
+                  50,
+                ) 
+            )}
+
         </View>
 
         <View style={{ ...styles.action, borderBottomColor: mode.green }}>
           <Ionicons name="mail" size={25} color={'#BFD732'} />
           <Controller
             control={control}
-            rules={{ required: false }}
+            rules={{ required: true }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 placeholder="Email..."
@@ -202,6 +221,16 @@ const ProfileEdit = ({ navigation }) => {
             name="email"
             defaultValue={user.email ? user.email : ''}
           />
+            {errors.email && (
+                ToastAndroid.showWithGravityAndOffset(
+                  'el email no puede ser vacio',
+                  ToastAndroid.SHORT,
+                  ToastAndroid.BOTTOM,
+                  25,
+                  50,
+                ) 
+            )}
+
         </View>
         <View style={{ ...styles.action, borderBottomColor: mode.green }}>
           <Ionicons name="briefcase" size={25} color={'#BFD732'} />
