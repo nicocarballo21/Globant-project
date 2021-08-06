@@ -16,7 +16,6 @@ const setupSeed = async () => {
       isMentee: true,
       isAdmin: true,
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
     },
 
     {
@@ -27,7 +26,6 @@ const setupSeed = async () => {
       isAdmin: true,
       isMentor: true,
       position: "UI/UX Lead Designer",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
     },
 
@@ -44,7 +42,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/39.jpg",
     },
 
@@ -60,7 +57,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Uruguay",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/75.jpg",
     },
@@ -77,7 +73,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/70.jpg",
     },
@@ -94,7 +89,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/11.jpg",
     },
@@ -111,7 +105,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/12.jpg",
     },
@@ -128,7 +121,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Puerto Rico",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/13.jpg",
     },
@@ -145,7 +137,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "USA",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/14.jpg",
     },
@@ -162,7 +153,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/15.jpg",
     },
@@ -179,7 +169,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/16.jpg",
     },
@@ -196,7 +185,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/17.jpg",
     },
@@ -213,7 +201,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "USA",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/18.jpg",
     },
@@ -231,7 +218,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Mexico",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/19.jpg",
     },
 
@@ -248,7 +234,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Perú",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/20.jpg",
     },
 
@@ -265,7 +250,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Ecuador",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/21.jpg",
     },
 
@@ -282,7 +266,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Uruguay",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/men/22.jpg",
     },
 
@@ -298,7 +281,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/11.jpg",
     },
@@ -316,7 +298,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Chile",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/12.jpg",
     },
 
@@ -333,7 +314,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "USA",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/13.jpg",
     },
 
@@ -349,7 +329,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "USA",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/14.jpg",
     },
@@ -367,7 +346,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/15.jpg",
     },
 
@@ -384,7 +362,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/16.jpg",
     },
     {
@@ -400,7 +377,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Brasil",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/17.jpg",
     },
 
@@ -416,7 +392,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Uruguay",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/18.jpg",
     },
@@ -434,7 +409,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/19.jpg",
     },
 
@@ -451,7 +425,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/20.jpg",
     },
 
@@ -468,7 +441,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/21.jpg",
     },
 
@@ -485,7 +457,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Argentina",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/22.jpg",
     },
 
@@ -501,7 +472,6 @@ const setupSeed = async () => {
       personalDescription:
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Chile",
-      skillsToLearn: shuffleSkill(skillsPromise),
       skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/23.jpg",
     },
@@ -518,7 +488,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Italia",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/24.jpg",
     },
 
@@ -535,7 +504,6 @@ const setupSeed = async () => {
         "Researching, designing, implementing, and managing software programs. Testing and evaluating new programs.",
       country: "Mexico",
       skillsToLearn: shuffleSkill(skillsPromise),
-      skillsToTeach: shuffleSkill(skillsPromise),
       img: "https://randomuser.me/api/portraits/women/25.jpg",
     },
   ];
