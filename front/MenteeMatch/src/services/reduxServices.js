@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { API_URL } from '@env';
-import generateAxios from '../utils/generateAxios'
+import { API_URL } from '@env'
+import generateAxios from '../utils/generateAxios';
 
 const userLogin = async user => {
   try {
+    /* console.log(API_URL) */
     const res = await axios.post(`${API_URL}/api/auth/login`, user);
     const { token } = res.data;
     const finalUser = { ...res.data.user, token };

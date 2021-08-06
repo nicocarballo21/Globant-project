@@ -45,6 +45,7 @@ export default function CustomDrawerContent(props) {
         label="Mis reuniones"
         labelStyle={{ color: mode.text }}
         onPress={() => props.navigation.navigate('Meets')}
+        icon={() => <Ionicons name="calendar" size={24} /> }
       />
       <Switch />
     </DrawerContentScrollView>

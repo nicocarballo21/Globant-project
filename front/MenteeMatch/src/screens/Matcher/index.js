@@ -44,7 +44,7 @@ export default function Matcher() {
   useEffect(() => {
     dispatch(getMatches({ roleToFind, token: user.token }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.actualRole]);
+  }, [user.actualRole, user.skillsToLearn, user.skillsToTeach]);
 
   const handleLike = likedUser => {
     const finalMatch = user[likedRole].find(
@@ -255,7 +255,11 @@ export default function Matcher() {
                 keyExtractor={(match, index) => match._id + index}
                 renderItem={({ item }) => (
                   <UserBlock
-                    enableTooltip={user[likedRole].length === 1}
+                    enableTooltip={
+                      user[likedRole].length === 1 &&
+                      !user.mentor?._id &&
+                      !user.mentees.length
+                    }
                     user={item}
                     userLogin={user}
                     handleLike={handleLike}

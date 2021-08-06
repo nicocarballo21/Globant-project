@@ -57,6 +57,11 @@ export default function RoleEdit({ navigation }) {
           25,
           50,
         );
+        navigation.navigate('Skills', {
+          name: 'Mentee',
+          learnOrTeach: 'learn',
+          property: 'skillsToLearn',
+        });
       });
     } else if (role === 'mentor' && !user.isMentor) {
       return dispatch(
@@ -73,6 +78,11 @@ export default function RoleEdit({ navigation }) {
           25,
           50,
         );
+        navigation.navigate('Skills', {
+          name: 'Mentor',
+          learnOrTeach: 'teach',
+          property: 'skillsToTeach',
+      })
       });
     }
   };
@@ -81,7 +91,7 @@ export default function RoleEdit({ navigation }) {
     <SafeAreaView style={{ ...styles.mainContainer, backgroundColor: mode.bg }}>
       <View style={styles.header}>
         <BouncyCheckbox
-          textStyle={{textDecorationLine: 'none'}}
+          textStyle={{ textDecorationLine: 'none' }}
           disableBuiltInState={user.isMentee}
           isChecked={user.isMentee}
           text="Mentee"
@@ -171,7 +181,7 @@ export default function RoleEdit({ navigation }) {
           text="Mentor"
           fillColor={mode.green}
           iconStyle={{ borderColor: mode.green }}
-          textStyle={{textDecorationLine: 'none'}}
+          textStyle={{ textDecorationLine: 'none' }}
           onPress={() =>
             user.isMentor
               ? ToastAndroid.showWithGravityAndOffset(

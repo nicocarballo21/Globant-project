@@ -8,12 +8,12 @@ import SelectSkills from './SelectSkills';
 import RoleSelection from './RoleSelection';
 import Home from './Home';
 import RoleEdit from './RoleEdit';
-import CreateMeet from './CreateMeet';
 import Meets from './Meets'
 import Skills from './Skills';
 import Notifications from './Notifications';
 import ProfileEdit from './ProfileEdit';
 import MenteeDetails from './MenteeDetails';
+import CreateMeet from './CreateMeet'
 
 export {
   Matcher,
@@ -26,10 +26,10 @@ export {
   RoleSelection,
   Home,
   RoleEdit,
-  CreateMeet,
-  Meets,
   Skills,
   Notifications,
   ProfileEdit,
   MenteeDetails,
+  Meets,
+  CreateMeet,
 };

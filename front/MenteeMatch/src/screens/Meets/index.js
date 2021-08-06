@@ -7,18 +7,16 @@ import useMode from '../../hooks/useMode';
 import styles from './styles';
 
 const Meets = ({ navigation, route }) => {
-  console.log("route: ", route)
   const { mode } = useMode();
   const dispatch = useDispatch();
+  console.log("ROUTE: ", route)
   const mentee = route.params && route.params.mentee;
   const token = useSelector(state => state.user.token);
   const { meets } = mentee && mentee.meets.length ? mentee : useSelector(state => state.user);
 
   const handleDelete = async meet => {
     const data = { _id: meet._id, token: token };
-     dispatch(removeMeet(data)).then(() => {
-       dispatch(pullMeets(token))
-     })
+     dispatch(removeMeet(data))
   };
 
   useEffect(() => {
