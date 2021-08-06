@@ -1,26 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Button } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { pullMeets, removeMeet } from '../../redux/Reducers/UserReducer';
+import { pullMeets, removeMeet, updateUser } from '../../redux/Reducers/UserReducer';
 import useMode from '../../hooks/useMode';
 import styles from './styles';
 
-const Meets = ({ navigation, route }) => {
+// La idea a probar sería que en vez de recibir el objeto por route, que reciba el _id solamente y que filtre los meets en base a ese id con el estado del user de redux...
+const Meets = ({ navigation, route, id }) => {
   const { mode } = useMode();
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user)
+
   const mentee = route.params && route.params.mentee;
   const token = useSelector(state => state.user.token);
-  const { meets } = mentee && mentee.meets.length ? mentee : useSelector(state => state.user);
+  let { meets } = mentee && mentee.meets.length ? mentee : useSelector(state => state.user);
 
   const handleDelete = async meet => {
     const data = { _id: meet._id, token: token };
-     dispatch(removeMeet(data))
+    await dispatch(removeMeet(data))
+    if(route.params.mentee) {
+      meets = meets.filter(x => x._id !== meet._id)
+    }
   };
 
   useEffect(() => {
     dispatch(pullMeets(token));
-  }, []);
+  }, [meets.length]);
 
   return (
     <View style={{ ...styles.container, backgroundColor: mode.bg }}>

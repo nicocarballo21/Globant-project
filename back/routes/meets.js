@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { Meets, Users } = require('../db/models')
-const { checkIfMentor } = require("../middlewares/checkIfMentor")
+const { checkIfMentor } = require("../middlewares/checkIfMentor");
+const { findUserById } = require("../services/usersServices");
 
 router.get('/', async (req, res, next) => {
     try {
@@ -46,7 +47,8 @@ router.delete('/:_id', async (req, res, next) => {
         await Promise.all(participants.map(p => 
             Users.findOneAndUpdate( { _id: p } , { $pull: { meets: _id } }, { new: true })))
         await meet.delete()
-        res.status(201).send('Meet deleted')
+        const user = await findUserById(req.user.id)
+        res.status(200).send(user)
     } catch(err) { next(err) }
 })
 

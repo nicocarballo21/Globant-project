@@ -11,7 +11,7 @@ import {
   getMeets,
   createMeet,
   updateMeet,
-  deleteMeet
+  deleteMeet,
 } from '../../services/reduxServices';
 
 import { deleteMatch, deleteMatchMentor } from '../../services/axiosServices';
@@ -113,11 +113,14 @@ const userReducer = createReducer(initialState, {
   [cancelMatch.fulfilled]: (_, action) => action.payload,
   [cancelMatchMentor.fulfilled]: (state, _) => state,
   [deleteNotification.fulfilled]: (_, action) => action.payload,
-  [pullMeets.fulfilled]: (state, action) => {state.meets = action.payload},
-  [pushMeet.fulfilled]: (state, action) => {state.meets = [...state.meets, action.payload]},
+  [pullMeets.fulfilled]: (state, action) => {
+    state.meets = action.payload;
+  },
+  [pushMeet.fulfilled]: (state, action) => {
+    state.meets = [...state.meets, action.payload];
+  },
   [reloadMeet.fulfilled]: (state, action) => state,
-  [removeMeet.fulfilled]: (state, action) => 
-    {state.meets = state.meets.filter(meet => meet._id !== action.meta.arg._id)}
+  [removeMeet.fulfilled]: (state, action) => action.payload
 });
 
 export default userReducer;
