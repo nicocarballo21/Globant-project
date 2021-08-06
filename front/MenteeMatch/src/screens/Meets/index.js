@@ -7,6 +7,7 @@ import useMode from '../../hooks/useMode';
 import styles from './styles';
 
 const Meets = ({ navigation, route }) => {
+  console.log("route: ", route)
   const { mode } = useMode();
   const dispatch = useDispatch();
   const mentee = route.params && route.params.mentee;
@@ -15,8 +16,7 @@ const Meets = ({ navigation, route }) => {
 
   const handleDelete = async meet => {
     const data = { _id: meet._id, token: token };
-     dispatch(removeMeet(data)).then((deleted) => {
-       console.log(deleted)
+     dispatch(removeMeet(data)).then(() => {
        dispatch(pullMeets(token))
      })
   };
