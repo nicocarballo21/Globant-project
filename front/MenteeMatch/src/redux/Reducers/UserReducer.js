@@ -113,14 +113,14 @@ const userReducer = createReducer(initialState, {
   [cancelMatch.fulfilled]: (_, action) => action.payload,
   [cancelMatchMentor.fulfilled]: (state, _) => state,
   [deleteNotification.fulfilled]: (_, action) => action.payload,
-  [pullMeets.fulfilled]: (state, action) => {
-    state.meets = action.payload;
-  },
-  [pushMeet.fulfilled]: (state, action) => {
-    state.meets = [...state.meets, action.payload];
-  },
+  [pullMeets.fulfilled]: (state, action) => {state.meets = action.payload},
+  [pushMeet.fulfilled]: (state, action) => 
+  {state.meets = [...state.meets, action.payload]},
   [reloadMeet.fulfilled]: (state, action) => state,
-  [removeMeet.fulfilled]: (state, action) => action.payload
+  [removeMeet.fulfilled]: (state, action) => 
+    {state.meets = state.meets.filter(meet => meet._id !== action.meta.arg._id)
+    state.mentees.forEach(mentee => mentee.meets = mentee.meets.filter(meet => meet._id !== action.meta.arg._id))
+    }
 });
 
 export default userReducer;

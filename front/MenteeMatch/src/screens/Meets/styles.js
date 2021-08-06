@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
         padding: 10,
         elevation: 12,
         backgroundColor: globantBright.bg,
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        width: 330
     },
     meetTitle: {
         fontSize: 19,

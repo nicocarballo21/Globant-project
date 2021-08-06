@@ -85,7 +85,7 @@ export default function HomeStack({ navigation }) {
         name="Meets"
         component={Meets}
         options={{
-          title: 'Meets',
+          title: 'Reuniones',
         }}
       />
     </Stack.Navigator>

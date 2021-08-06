@@ -1,32 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Button } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { pullMeets, removeMeet, updateUser } from '../../redux/Reducers/UserReducer';
+import { pullMeets, removeMeet } from '../../redux/Reducers/UserReducer';
 import useMode from '../../hooks/useMode';
 import styles from './styles';
 
-// La idea a probar sería que en vez de recibir el objeto por route, que reciba el _id solamente y que filtre los meets en base a ese id con el estado del user de redux...
-const Meets = ({ navigation, route, id }) => {
+const Meets = ({ navigation, route }) => {
+
+  const arrCompare = (arr1, arr2) => {
+    let j=0
+    for(let i=j; i<arr1.length ; i++){
+      if(arr1[i]._id === arr2[j]._id) j++
+    }
+    if(j>0) return true
+  }
+
   const { mode } = useMode();
   const dispatch = useDispatch();
+  console.log("route", route)
   const user = useSelector(state => state.user)
-
-  const mentee = route.params && route.params.mentee;
+  const userMeets = user.meets
+  let mentee = route.params && route.params.mentee
+  let { meets } = mentee && mentee.meets.length ? mentee : user
+  if(!user.meets.length || (route.params.mentee && arrCompare(route.params.mentee.meets, userMeets))){
+    meets = user.meets
+  }
   const token = useSelector(state => state.user.token);
-  let { meets } = mentee && mentee.meets.length ? mentee : useSelector(state => state.user);
 
   const handleDelete = async meet => {
-    const data = { _id: meet._id, token: token };
-    await dispatch(removeMeet(data))
-    if(route.params.mentee) {
-      meets = meets.filter(x => x._id !== meet._id)
-    }
+      const data = { _id: meet._id, token: token };
+     await dispatch(removeMeet(data)).then(()=> dispatch(pullMeets(token)))
   };
 
   useEffect(() => {
     dispatch(pullMeets(token));
-  }, [meets.length]);
+  }, [dispatch, meets.length]);
 
   return (
     <View style={{ ...styles.container, backgroundColor: mode.bg }}>
@@ -40,7 +49,7 @@ const Meets = ({ navigation, route, id }) => {
               <Text style={{...styles.description, color: mode.text}}>{meet.description}</Text>
               <Text style={{...styles.date, color: mode.text}}>{meet.date}</Text>
               <Button
-                style={{...styles.deleteBtn, backgroundColor: mode.btn}}
+                style={{...styles.deleteBtn, backgroundColor: '#f44336'}}
                 title="Eliminar"
                 pressFunction={() => handleDelete(meet)}
               />
