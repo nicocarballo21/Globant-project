@@ -8,7 +8,7 @@ router.get('/', async (req, res, next) => {
         const { id } = req.user
         const user = await Users.findById(id).exec()
         if(!user) res.status(400).send('Bad request: no user found')
-        const meets = await Meets.find({ participants: user })
+        const meets = await Meets.find({ participants: user }).populate("meets")
         if(!meets) res.status(404).json({})
         res.status(200).json(meets)
     } catch(err) { next(err) }
