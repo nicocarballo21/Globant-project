@@ -105,7 +105,6 @@ export const pushMeet = createAsyncThunk('PUSH_MEET', createMeet);
 export const reloadMeet = createAsyncThunk('RELOAD_MEET', updateMeet);
 export const removeMeet = createAsyncThunk('REMOVE_MEET', deleteMeet);
 
-
 const userReducer = createReducer(initialState, {
   [getUser.fulfilled]: (_, action) => action.payload,
   [setUser]: (_, action) => action.payload,

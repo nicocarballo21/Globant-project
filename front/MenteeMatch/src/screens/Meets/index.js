@@ -9,16 +9,14 @@ import styles from './styles';
 const Meets = ({ navigation, route }) => {
   const { mode } = useMode();
   const dispatch = useDispatch();
+  console.log("ROUTE: ", route)
   const mentee = route.params && route.params.mentee;
   const token = useSelector(state => state.user.token);
   const { meets } = mentee && mentee.meets.length ? mentee : useSelector(state => state.user);
 
   const handleDelete = async meet => {
     const data = { _id: meet._id, token: token };
-     dispatch(removeMeet(data)).then((deleted) => {
-       console.log(deleted)
-       dispatch(pullMeets(token))
-     })
+     dispatch(removeMeet(data))
   };
 
   useEffect(() => {

@@ -97,13 +97,9 @@ const CreateMeet = ({ navigation }) => {
             />
           )}
         />
-        {errors.participant && <Text style={{...styles.error, paddingLeft: 30, paddingBottom: 5}}>Elige un participante</Text>}
         <Controller
           control={control}
-          name="participant"
           defaultValue=""
-          rules={{ required: 'Campo requerido' }}
-          name="participant"
           render={() => (
             <DropDownPicker
               style={{ ...styles.dropDown, backgroundColor: mode.bg, color: mode.text }}
@@ -147,3 +143,4 @@ const CreateMeet = ({ navigation }) => {
 };
 
 export default CreateMeet;
+
