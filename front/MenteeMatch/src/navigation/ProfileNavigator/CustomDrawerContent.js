@@ -41,7 +41,12 @@ export default function CustomDrawerContent(props) {
         onPress={handleLogOut}
         icon={() => <Ionicons name="log-out" size={24} /> }
       />
-
+      <DrawerItem
+        label="Mis reuniones"
+        labelStyle={{ color: mode.text }}
+        onPress={() => props.navigation.navigate('Meets')}
+        icon={() => <Ionicons name="calendar" size={24} /> }
+      />
       <Switch />
     </DrawerContentScrollView>
   );

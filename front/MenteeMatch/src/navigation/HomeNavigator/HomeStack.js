@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home, MenteeDetails } from '../../screens';
+import { Home, MenteeDetails, Matcher, Meets, CreateMeet } from '../../screens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RoleButton from '../../components/RoleButton';
 import UserViewModel from '../../components/UserViewModel';
@@ -47,10 +47,24 @@ export default function HomeStack({ navigation }) {
         }}
       />
       <Stack.Screen
+        name="CreateMeet"
+        component={CreateMeet}
+        options={{
+          title: 'CreateMeet',
+        }}
+      />
+      <Stack.Screen
         name="MenteeDetails"
         component={MenteeDetails}
         options={{
           title: 'Mentee',
+        }}
+      />
+      <Stack.Screen
+        name="Matcher"
+        component={Matcher}
+        options={{
+          title: 'Matcher',
         }}
       />
       <Stack.Screen
@@ -65,6 +79,13 @@ export default function HomeStack({ navigation }) {
         component={Notes}
         options={{
           title: 'Notes',
+        }}
+      />
+      <Stack.Screen
+        name="Meets"
+        component={Meets}
+        options={{
+          title: 'Meets',
         }}
       />
     </Stack.Navigator>
