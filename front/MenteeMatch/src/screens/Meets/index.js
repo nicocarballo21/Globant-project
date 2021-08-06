@@ -9,7 +9,6 @@ import styles from './styles';
 const Meets = ({ navigation, route }) => {
   const { mode } = useMode();
   const dispatch = useDispatch();
-  console.log("ROUTE: ", route)
   const mentee = route.params && route.params.mentee;
   const token = useSelector(state => state.user.token);
   const { meets } = mentee && mentee.meets.length ? mentee : useSelector(state => state.user);
@@ -33,12 +32,12 @@ const Meets = ({ navigation, route }) => {
         <Text style={{ ...styles.title, color: mode.text }}>Reuniones</Text>
         {meets && meets.length ? (
           meets.map((meet, i) => (
-            <View key={i} style={{ ...styles.module, color: mode.text }}>
-              <Text style={styles.meetTitle}>{meet.title}</Text>
-              <Text style={styles.description}>{meet.description}</Text>
-              <Text style={styles.date}>{meet.date}</Text>
+            <View key={i} style={{ ...styles.module, backgroundColor: mode.bg, color: mode.text, borderColor: mode.text }}>
+              <Text style={{...styles.meetTitle, color: mode.text}}>{meet.title}</Text>
+              <Text style={{...styles.description, color: mode.text}}>{meet.description}</Text>
+              <Text style={{...styles.date, color: mode.text}}>{meet.date}</Text>
               <Button
-                style={styles.deleteBtn}
+                style={{...styles.deleteBtn, backgroundColor: mode.btn}}
                 title="Eliminar"
                 pressFunction={() => handleDelete(meet)}
               />

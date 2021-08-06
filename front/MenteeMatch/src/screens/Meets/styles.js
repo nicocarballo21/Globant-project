@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderColor: globantBright.violet,
         borderRadius: 10,
+        marginBottom: 15,
         padding: 10,
         elevation: 12,
         backgroundColor: globantBright.bg
@@ -51,9 +52,9 @@ const styles = StyleSheet.create({
         width: '70%'
     },
     deleteBtn: {
-        borderWidth: 0,
+        borderWidth: 1,
         borderRadius: 10,
-        backgroundColor: '#ffc1c1',
+        backgroundColor: '#f2dede',
         height: 45,
         width: 110,
     },

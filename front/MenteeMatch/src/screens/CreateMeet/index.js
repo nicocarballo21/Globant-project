@@ -65,6 +65,7 @@ const CreateMeet = ({ navigation }) => {
           Crear una reunión
         </Text>
         {/* <form onSubmit={handleSubmit(data => console.log(data))}> */}
+        {errors.title && <Text style={{...styles.error, paddingBottom: 5}}>Ingrese un título</Text>}
         <Controller
           control={control}
           rules={{ required: 'Campo requerido' }}
@@ -72,7 +73,7 @@ const CreateMeet = ({ navigation }) => {
           defaultValue=""
           render={({ field: { onChange, onBlur, value } }) => (
             <InputText
-              style={styles.input}
+              style={{ ...styles.input, backgroundColor: mode.bg, color: mode.text }}
               errors={errors.name}
               onBlur={onBlur}
               onChangeText={onChange}
@@ -81,14 +82,13 @@ const CreateMeet = ({ navigation }) => {
             />
           )}
         />
-        {errors.title && <Text style={styles.error}>Ingrese un título</Text>}
         <Controller
           control={control}
           name="description"
           defaultValue=""
           render={({ field: { onChange, onBlur, value } }) => (
             <InputText
-              style={{ ...styles.input, backgroundColor: mode.bg }}
+              style={{ ...styles.input, backgroundColor: mode.bg, color: mode.text }}
               errors={errors.name}
               onBlur={onBlur}
               onChangeText={onChange}
@@ -97,13 +97,16 @@ const CreateMeet = ({ navigation }) => {
             />
           )}
         />
+        {errors.participant && <Text style={{...styles.error, paddingLeft: 30, paddingBottom: 5}}>Elige un participante</Text>}
         <Controller
           control={control}
           name="participant"
           defaultValue=""
+          rules={{ required: 'Campo requerido' }}
+          name="participant"
           render={() => (
             <DropDownPicker
-              style={{ ...styles.dropDown, backgroundColor: mode.bg }}
+              style={{ ...styles.dropDown, backgroundColor: mode.bg, color: mode.text }}
               open={open}
               value={participant}
               items={items}
@@ -111,7 +114,7 @@ const CreateMeet = ({ navigation }) => {
               setValue={setParticipant}
               setItems={setItems}
               placeholder="Elige con quién"
-              placeholderStyle={styles.placeholder}
+              placeholderStyle={{...styles.placeholder, backgroundColor: mode.bg, color: mode.text}}
             />
           )}
         />
